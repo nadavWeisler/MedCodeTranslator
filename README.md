@@ -1,0 +1,100 @@
+# Med Code Translator
+
+Expo / React Native app for quickly looking up medical codes by **code** or **name** (with autocomplete and “did you mean” suggestions). Works on iOS, Android, and Web.
+
+## Screenshots
+
+**Mobile · Empty state**
+
+![Mobile empty state](docs/screenshots/mobile-empty.png)
+
+**Mobile · ATC5 search (“aspirin”)**
+
+![ATC5 search](docs/screenshots/mobile-atc5-aspirin.png)
+
+**Mobile · ICD-10 search (“diabetes”)**
+
+![ICD-10 search](docs/screenshots/mobile-icd10-diabetes.png)
+
+**Mobile · Hebrew UI**
+
+![Hebrew UI](docs/screenshots/mobile-atc5-aspirin-he.png)
+
+**Web · Wide layout (LOINC “glucose”)**
+
+![Web wide](docs/screenshots/web-wide-loinc-glucose.png)
+
+## Features
+
+- Search across multiple coding schemes (tabs)
+- Instant autocomplete suggestions + inline completion (“ghost text”)
+- “Did you mean…” fallback when there are no direct matches
+- English + Hebrew UI/content (toggle in the header)
+- Offline-friendly: seeds an on-device SQLite DB from bundled JSON datasets
+
+## Supported Schemes
+
+- ATC5 (Medications)
+- ICD-10
+- ICD-9-CM
+- ICD-11
+- LOINC (Labs)
+- CPT-4 (Procedures)
+
+## Quick Start
+
+### Prerequisites
+
+- Node.js (18+ recommended)
+- npm
+
+### Install
+
+```bash
+npm ci
+```
+
+### Run (Web)
+
+```bash
+npm run web
+```
+
+Expo prints the dev-server URL (default: `http://localhost:19006`).
+
+### Run (iOS / Android)
+
+```bash
+npm run ios
+npm run android
+```
+
+## Deep Links (Web)
+
+On web, you can initialize the app state from query params:
+
+- `scheme`: `atc5 | icd10 | icd9 | icd11 | loinc | cpt`
+- `q`: initial search query
+- `lang`: `en | he`
+
+Examples:
+
+- `http://localhost:19006/?scheme=atc5&q=aspirin&lang=en`
+- `http://localhost:19006/?scheme=icd10&q=diabetes&lang=en`
+
+## How It Works (High-Level)
+
+- On startup, `db/database.ts` seeds `expo-sqlite` tables from `assets/data/*.json` (and keeps a `schema_version` in the `meta` table).
+- Searches are an exact-ish SQLite `LIKE` query (limited to 100 results) via `db/queries.ts`.
+- Autocomplete + “did you mean” suggestions are powered by `fuse.js` over an in-memory index per scheme (`app/services/fuzzySearch.ts`).
+
+## Project Structure
+
+- `app/` — screens and UI components (Expo Router)
+- `db/` — SQLite schema, seed logic, queries
+- `assets/data/` — bundled datasets (JSON)
+- `i18n/` — translations and i18next setup
+
+## Notes / Disclaimer
+
+This project is for lookup convenience and experimentation. Always validate codes and clinical decisions against authoritative sources.

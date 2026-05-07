@@ -1,0 +1,12 @@
+{
+  "app_title": "מתרגם קודים רפואיים",
+  "tab_medications": "תרופות (ATC5)",
+  "tab_diagnoses": "אבחנות (ICD-10)",
+  "search_placeholder_atc": "חפש קוד ATC5 או שם תרופה…",
+  "search_placeholder_icd": "חפש קוד ICD-10 או אבחנה…",
+  "no_results": "לא נמצאו תוצאות",
+  "loading": "טוען…",
+  "code": "קוד",
+  "name": "שם",
+  "language": "שפה"
+}

@@ -1,0 +1,12 @@
+{
+  "app_title": "Med Code Translator",
+  "tab_medications": "Medications (ATC5)",
+  "tab_diagnoses": "Diagnoses (ICD-10)",
+  "search_placeholder_atc": "Search ATC5 code or medication name…",
+  "search_placeholder_icd": "Search ICD-10 code or diagnosis…",
+  "no_results": "No results found",
+  "loading": "Loading…",
+  "code": "Code",
+  "name": "Name",
+  "language": "Language"
+}

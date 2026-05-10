@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
+import { useLocalSearchParams } from 'expo-router';
 
 import SearchBar from './components/SearchBar';
 import CodeList from './components/CodeList';
@@ -24,20 +25,40 @@ const LANGUAGES: { code: Language; label: string }[] = [
   { code: 'he', label: 'עב' },
 ];
 
+function firstParam(v: string | string[] | undefined): string | undefined {
+  if (v === undefined) return undefined;
+  return Array.isArray(v) ? v[0] : v;
+}
+
 export default function HomeScreen() {
   const { t } = useTranslation();
-  const [scheme, setScheme] = useState<SchemeKey>('atc5');
-  const [query, setQuery] = useState('');
+  const params = useLocalSearchParams<{ q?: string | string[]; scheme?: string | string[]; lang?: string | string[] }>();
+
+  const initialSchemeParam = firstParam(params.scheme);
+  const initialScheme: SchemeKey =
+    initialSchemeParam && SCHEMES.some(s => s.key === initialSchemeParam)
+      ? (initialSchemeParam as SchemeKey)
+      : 'atc5';
+
+  const initialLangParam = firstParam(params.lang);
+  const initialLang: Language = initialLangParam === 'he' ? 'he' : 'en';
+
+  const [scheme, setScheme] = useState<SchemeKey>(initialScheme);
+  const [query, setQuery] = useState(firstParam(params.q) ?? '');
   const [results, setResults] = useState<CodeEntry[]>([]);
   const [suggestions, setSuggestions] = useState<CodeEntry[]>([]);
   const [didYouMean, setDidYouMean] = useState<CodeEntry[]>([]);
   const [ghostText, setGhostText] = useState<string | undefined>();
-  const [lang, setLang] = useState<Language>('en');
+  const [lang, setLang] = useState<Language>(initialLang);
   const { width } = useWindowDimensions();
   const isWide = width >= 768;
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeScheme = SCHEMES.find(s => s.key === scheme)!;
+
+  useEffect(() => {
+    i18n.changeLanguage(lang);
+  }, [lang]);
 
   // Build fuse index when scheme changes
   useEffect(() => {
@@ -109,7 +130,6 @@ export default function HomeScreen() {
 
   const handleLanguageChange = (l: Language) => {
     setLang(l);
-    i18n.changeLanguage(l);
   };
 
   const schemeColor = activeScheme.color;

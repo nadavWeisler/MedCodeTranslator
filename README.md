@@ -62,6 +62,14 @@ npm run web
 
 Expo prints the dev-server URL (default: `http://localhost:19006`).
 
+### Build (Static Web)
+
+```bash
+npm run build:web
+```
+
+The static export is generated in `dist/`.
+
 ### Run (iOS / Android)
 
 ```bash
@@ -98,3 +106,9 @@ Examples:
 ## Notes / Disclaimer
 
 This project is for lookup convenience and experimentation. Always validate codes and clinical decisions against authoritative sources.
+
+## GitHub Pages Deployment
+
+- A GitHub Actions workflow (`.github/workflows/deploy-pages.yml`) deploys the web build on every push to `main`.
+- The app is configured for project Pages path hosting (`/MedCodeTranslator`).
+- Expected site URL: `https://nadavweisler.github.io/MedCodeTranslator/`

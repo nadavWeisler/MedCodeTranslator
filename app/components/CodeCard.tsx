@@ -19,12 +19,10 @@ function normalizeList(values?: string[] | null): string[] {
 export default function CodeCard({ entry, lang, schemeColor, summaryMode = false }: Props) {
   const primaryName = lang === 'he' && entry.name_he ? entry.name_he : entry.name_en;
   const secondaryName = lang === 'he' && entry.name_he ? entry.name_en : null;
-  const description = entry.metadata?.description ?? entry.description ?? null;
-  const sourceType = entry.metadata?.sourceType ?? entry.sourceType ?? entry.source_type ?? null;
-  const synonyms = normalizeList(entry.metadata?.synonyms ?? entry.synonyms);
-  const applicableConditions = normalizeList(
-    entry.metadata?.applicableConditions ?? entry.applicableConditions ?? entry.applicable_conditions
-  );
+  const description = entry.metadata?.description ?? null;
+  const sourceType = entry.metadata?.sourceType ?? null;
+  const synonyms = normalizeList(entry.metadata?.synonyms);
+  const applicableConditions = normalizeList(entry.metadata?.applicableConditions);
 
   const visibleConditions = summaryMode ? applicableConditions.slice(0, 3) : applicableConditions;
   const hiddenConditionCount = applicableConditions.length - visibleConditions.length;

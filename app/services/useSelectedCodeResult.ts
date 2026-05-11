@@ -29,39 +29,54 @@ function stringifyValue(value: CodeMetadataValue): string {
   return String(value);
 }
 
-function flattenMetadata(value: CodeMetadataValue, path = '', rows: MetadataRow[] = []): MetadataRow[] {
-  if (value === null) return rows;
+function flattenMetadata(value: CodeMetadataValue, path = ''): MetadataRow[] {
+  if (value === null) return [];
 
   if (Array.isArray(value)) {
     const primitiveParts: string[] = [];
+    const nestedRows: MetadataRow[] = [];
     for (const item of value) {
       if (item !== null && typeof item === 'object') {
-        flattenMetadata(item, path, rows);
+        nestedRows.push(...flattenMetadata(item, path));
         continue;
       }
       const str = stringifyValue(item).trim();
       if (str) primitiveParts.push(str);
     }
 
-    if (primitiveParts.length > 0 && path) {
-      rows.push({ label: humanizeLabel(path), value: primitiveParts.join(', ') });
-    }
-    return rows;
+    const ownRows =
+      primitiveParts.length > 0 && path
+        ? [{ label: humanizeLabel(path), value: primitiveParts.join(', ') }]
+        : [];
+    return [...nestedRows, ...ownRows];
   }
 
   if (typeof value === 'object') {
+    const rows: MetadataRow[] = [];
     for (const [key, nested] of Object.entries(value)) {
       const nextPath = path ? `${path}.${key}` : key;
-      flattenMetadata(nested, nextPath, rows);
+      rows.push(...flattenMetadata(nested, nextPath));
     }
     return rows;
   }
 
   const stringValue = stringifyValue(value);
   if (stringValue && path) {
-    rows.push({ label: humanizeLabel(path), value: stringValue });
+    return [{ label: humanizeLabel(path), value: stringValue }];
   }
-  return rows;
+  return [];
+}
+
+function dedupeRows(rows: MetadataRow[]): MetadataRow[] {
+  const seen = new Set<string>();
+  const unique: MetadataRow[] = [];
+  for (const row of rows) {
+    const key = `${row.label}\u0000${row.value}`;
+    if (seen.has(key)) continue;
+    seen.add(key);
+    unique.push(row);
+  }
+  return unique;
 }
 
 export function useSelectedCodeResult(results: CodeEntry[]) {
@@ -84,7 +99,7 @@ export function useSelectedCodeResult(results: CodeEntry[]) {
   );
 
   const metadataRows = useMemo(
-    () => (selectedEntry?.metadata ? flattenMetadata(selectedEntry.metadata) : []),
+    () => (selectedEntry?.metadata ? dedupeRows(flattenMetadata(selectedEntry.metadata)) : []),
     [selectedEntry]
   );
 

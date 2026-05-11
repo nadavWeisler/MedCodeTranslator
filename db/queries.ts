@@ -1,4 +1,4 @@
-import { getDB, MetadataFetchError } from './database';
+import { getDB, MetadataFetchError, validateMetadataPayload } from './database';
 import type { DetailedCodeMetadata, SchemeKey } from './database';
 
 export type CodeEntry = {
@@ -31,8 +31,7 @@ export async function searchByScheme(
 
 export async function searchBySchemeWithMetadata(
   scheme: SchemeKey,
-  query: string,
-  _lang = 'en'
+  query: string
 ): Promise<CodeEntryWithMetadata[]> {
   const db = getDB();
   const q = `%${query.trim()}%`;
@@ -55,13 +54,12 @@ export async function searchBySchemeWithMetadata(
 
     try {
       const parsed = JSON.parse(row.metadata_json) as DetailedCodeMetadata;
-      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
-        throw new MetadataFetchError(
-          'INVALID_METADATA_PAYLOAD',
-          `Stored detailed metadata is invalid for ${scheme}:${row.code}.`
-        );
-      }
-      return { code: row.code, name_en: row.name_en, name_he: row.name_he, metadata: parsed };
+      return {
+        code: row.code,
+        name_en: row.name_en,
+        name_he: row.name_he,
+        metadata: validateMetadataPayload(parsed),
+      };
     } catch (error) {
       if (error instanceof MetadataFetchError) throw error;
       throw new MetadataFetchError(

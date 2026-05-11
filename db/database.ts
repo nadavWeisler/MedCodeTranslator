@@ -153,7 +153,7 @@ export async function getAllEntries(scheme: SchemeKey): Promise<RawEntry[]> {
   return d.getAllAsync<RawEntry>(`SELECT code, name_en, name_he FROM ${scheme}`);
 }
 
-function validateMetadataPayload(metadata: DetailedCodeMetadata): DetailedCodeMetadata {
+export function validateMetadataPayload(metadata: DetailedCodeMetadata): DetailedCodeMetadata {
   if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) {
     throw new MetadataFetchError(
       'INVALID_METADATA_PAYLOAD',
@@ -194,10 +194,11 @@ export async function fetchDetailedMetadata(
       ...identifier,
       metadata: validateMetadataPayload(parsed),
     };
-  } catch {
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
     throw new MetadataFetchError(
       'INVALID_METADATA_PAYLOAD',
-      `Stored detailed metadata is invalid for ${identifier.scheme}:${identifier.code}.`
+      `Stored detailed metadata is invalid for ${identifier.scheme}:${identifier.code}. ${reason}`
     );
   }
 }

@@ -25,7 +25,7 @@ type Props = {
   hintLabel?: string;
 };
 
-export default function SchemeTabs({ active, onChange, hintLabel = 'Search by code or name' }: Props) {
+export default function SchemeTabs({ active, onChange, hintLabel }: Props) {
   const activeScheme = SCHEMES.find(s => s.key === active)!;
 
   return (
@@ -63,7 +63,7 @@ export default function SchemeTabs({ active, onChange, hintLabel = 'Search by co
         <Text style={[styles.schemeTitle, { color: activeScheme.color }]}>
           {activeScheme.icon} {activeScheme.label}
         </Text>
-        <Text style={styles.searchHint}>{hintLabel}</Text>
+        {!!hintLabel && <Text style={styles.searchHint}>{hintLabel}</Text>}
       </View>
     </View>
   );

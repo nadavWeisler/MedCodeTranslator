@@ -11,7 +11,9 @@ const SCHEMA_VERSION = 3;
 
 let db: SQLite.SQLiteDatabase | null = null;
 
-export type SchemeKey = 'atc5' | 'icd10' | 'icd9' | 'icd11' | 'loinc' | 'cpt';
+export const SCHEME_KEYS = ['atc5', 'icd10', 'icd9', 'icd11', 'loinc', 'cpt'] as const;
+export type SchemeKey = (typeof SCHEME_KEYS)[number];
+const SCHEME_CHECK_SQL = SCHEME_KEYS.map((scheme) => `'${scheme}'`).join(', ');
 
 export type DetailedCodeMetadata = {
   ncci_procedure_notes?: string[];
@@ -95,7 +97,7 @@ export async function initDB(): Promise<void> {
       code TEXT NOT NULL,
       metadata_json TEXT NOT NULL,
       PRIMARY KEY (scheme, code),
-      CHECK (scheme IN ('atc5', 'icd10', 'icd9', 'icd11', 'loinc', 'cpt'))
+      CHECK (scheme IN (${SCHEME_CHECK_SQL}))
     );
   `);
 
@@ -188,8 +190,18 @@ export async function fetchDetailedMetadata(
     );
   }
 
+  let parsed: DetailedCodeMetadata;
   try {
-    const parsed = JSON.parse(row.metadata_json) as DetailedCodeMetadata;
+    parsed = JSON.parse(row.metadata_json) as DetailedCodeMetadata;
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    throw new MetadataFetchError(
+      'INVALID_METADATA_PAYLOAD',
+      `Stored detailed metadata JSON is invalid for ${identifier.scheme}:${identifier.code}. ${reason}`
+    );
+  }
+
+  try {
     return {
       ...identifier,
       metadata: validateMetadataPayload(parsed),
@@ -198,7 +210,7 @@ export async function fetchDetailedMetadata(
     const reason = error instanceof Error ? error.message : String(error);
     throw new MetadataFetchError(
       'INVALID_METADATA_PAYLOAD',
-      `Stored detailed metadata is invalid for ${identifier.scheme}:${identifier.code}. ${reason}`
+      `Stored detailed metadata structure is invalid for ${identifier.scheme}:${identifier.code}. ${reason}`
     );
   }
 }

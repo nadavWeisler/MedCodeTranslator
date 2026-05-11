@@ -1,4 +1,4 @@
-import { getDB, MetadataFetchError, validateMetadataPayload } from './database';
+import { getDB, MetadataFetchError, SCHEME_KEYS, validateMetadataPayload } from './database';
 import type { DetailedCodeMetadata, SchemeKey } from './database';
 
 export type CodeEntry = {
@@ -11,10 +11,8 @@ export type CodeEntryWithMetadata = CodeEntry & {
   metadata: DetailedCodeMetadata | null;
 };
 
-const ALLOWED_SCHEMES: readonly SchemeKey[] = ['atc5', 'icd10', 'icd9', 'icd11', 'loinc', 'cpt'];
-
 function getSafeSchemeTable(scheme: SchemeKey): SchemeKey {
-  if (!ALLOWED_SCHEMES.includes(scheme)) {
+  if (!SCHEME_KEYS.includes(scheme)) {
     throw new Error(`Unsupported coding scheme: ${scheme}`);
   }
   return scheme;
@@ -63,8 +61,19 @@ export async function searchBySchemeWithMetadata(
       return { code: row.code, name_en: row.name_en, name_he: row.name_he, metadata: null };
     }
 
+    let parsed: DetailedCodeMetadata;
     try {
-      const parsed = JSON.parse(row.metadata_json) as DetailedCodeMetadata;
+      parsed = JSON.parse(row.metadata_json) as DetailedCodeMetadata;
+    } catch (error) {
+      throw new MetadataFetchError(
+        'INVALID_METADATA_PAYLOAD',
+        `Stored detailed metadata JSON is invalid for ${scheme}:${row.code}. ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      );
+    }
+
+    try {
       return {
         code: row.code,
         name_en: row.name_en,
@@ -72,10 +81,9 @@ export async function searchBySchemeWithMetadata(
         metadata: validateMetadataPayload(parsed),
       };
     } catch (error) {
-      if (error instanceof MetadataFetchError) throw error;
       throw new MetadataFetchError(
         'INVALID_METADATA_PAYLOAD',
-        `Stored detailed metadata is invalid for ${scheme}:${row.code}. ${
+        `Stored detailed metadata structure is invalid for ${scheme}:${row.code}. ${
           error instanceof Error ? error.message : String(error)
         }`
       );

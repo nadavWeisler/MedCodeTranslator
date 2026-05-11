@@ -10,7 +10,7 @@
   "search_workspace_label": "Search workspace",
   "search_workspace_title": "Choose a coding system and start searching",
   "search_workspace_body": "Use the tabs below to move between medical datasets, then search by code or by clinical term with guided suggestions.",
-  "search_placeholder_generic": "Search {{scheme}} code or name…",
+  "search_placeholder_generic": "Search {{schemeLabel}} code or name…",
   "search_by_code_or_name": "Search by code or name",
   "results_label": "Results",
   "results_title_idle": "Results will appear here",

@@ -22,7 +22,7 @@ import i18n from '../i18n';
 type Language = 'en' | 'he';
 const LANGUAGES: { code: Language; label: string }[] = [
   { code: 'en', label: 'EN' },
-  { code: 'he', label: 'עב' },
+  { code: 'he', label: 'עברית' },
 ];
 
 function firstParam(v: string | string[] | undefined): string | undefined {
@@ -192,7 +192,7 @@ export default function HomeScreen() {
                 <Text style={styles.heroStatLabel}>{t('hero_stat_systems')}</Text>
               </View>
               <View style={styles.heroStat}>
-                <Text style={styles.heroStatValue}>EN + עב</Text>
+                <Text style={styles.heroStatValue}>EN + עברית</Text>
                 <Text style={styles.heroStatLabel}>{t('hero_stat_bilingual')}</Text>
               </View>
               <View style={styles.heroStat}>
@@ -239,7 +239,7 @@ export default function HomeScreen() {
             <SearchBar
               value={query}
               onChangeText={setQuery}
-              placeholder={t('search_placeholder_generic', { scheme: activeScheme.shortLabel })}
+              placeholder={t('search_placeholder_generic', { schemeLabel: activeScheme.shortLabel })}
               suggestions={suggestions}
               ghostText={ghostText}
               onSuggestionSelect={handleSuggestionSelect}

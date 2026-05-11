@@ -7,11 +7,46 @@ import loincData from '../assets/data/loinc.json';
 import cptData from '../assets/data/cpt.json';
 
 const DB_NAME = 'medcodes.db';
-const SCHEMA_VERSION = 2;
+const SCHEMA_VERSION = 3;
 
 let db: SQLite.SQLiteDatabase | null = null;
 
 export type SchemeKey = 'atc5' | 'icd10' | 'icd9' | 'icd11' | 'loinc' | 'cpt';
+
+export type DetailedCodeMetadata = {
+  ncci_procedure_notes?: string[];
+  anatomical_parts?: string[];
+  coding_guidelines?: string[];
+  [key: string]: unknown;
+};
+
+export type CodeMetadataIdentifier = {
+  scheme: SchemeKey;
+  code: string;
+};
+
+export type CodeMetadataRecord = CodeMetadataIdentifier & {
+  metadata: DetailedCodeMetadata;
+};
+
+export type MetadataFetchErrorCode =
+  | 'METADATA_ENDPOINT_NOT_INITIALIZED'
+  | 'METADATA_NOT_FOUND'
+  | 'INVALID_METADATA_PAYLOAD';
+
+export class MetadataFetchError extends Error {
+  constructor(
+    public readonly code: MetadataFetchErrorCode,
+    message: string
+  ) {
+    super(message);
+    this.name = 'MetadataFetchError';
+  }
+}
+
+export interface CodeMetadataFetcher {
+  fetchDetailedMetadata(identifier: CodeMetadataIdentifier): Promise<CodeMetadataRecord>;
+}
 
 export async function initDB(): Promise<void> {
   db = await SQLite.openDatabaseAsync(DB_NAME);
@@ -53,6 +88,14 @@ export async function initDB(): Promise<void> {
       code TEXT PRIMARY KEY,
       name_en TEXT NOT NULL,
       name_he TEXT
+    );
+
+    CREATE TABLE IF NOT EXISTS code_metadata (
+      scheme TEXT NOT NULL,
+      code TEXT NOT NULL,
+      metadata_json TEXT NOT NULL,
+      PRIMARY KEY (scheme, code),
+      CHECK (scheme IN ('atc5', 'icd10', 'icd9', 'icd11', 'loinc', 'cpt'))
     );
   `);
 
@@ -109,3 +152,64 @@ export async function getAllEntries(scheme: SchemeKey): Promise<RawEntry[]> {
   const d = getDB();
   return d.getAllAsync<RawEntry>(`SELECT code, name_en, name_he FROM ${scheme}`);
 }
+
+function ensureMetadataPayload(metadata: DetailedCodeMetadata): DetailedCodeMetadata {
+  if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) {
+    throw new MetadataFetchError(
+      'INVALID_METADATA_PAYLOAD',
+      'Detailed metadata must be a plain object.'
+    );
+  }
+  return metadata;
+}
+
+export async function upsertDetailedMetadata(record: CodeMetadataRecord): Promise<void> {
+  const d = getDB();
+  const metadata = ensureMetadataPayload(record.metadata);
+  await d.runAsync(
+    `INSERT OR REPLACE INTO code_metadata (scheme, code, metadata_json) VALUES (?, ?, ?)`,
+    [record.scheme, record.code, JSON.stringify(metadata)]
+  );
+}
+
+export async function fetchDetailedMetadata(
+  identifier: CodeMetadataIdentifier
+): Promise<CodeMetadataRecord> {
+  const d = getDB();
+  const row = await d.getFirstAsync<{ metadata_json: string }>(
+    `SELECT metadata_json FROM code_metadata WHERE scheme = ? AND code = ?`,
+    [identifier.scheme, identifier.code]
+  );
+
+  if (!row) {
+    throw new MetadataFetchError(
+      'METADATA_NOT_FOUND',
+      `No detailed metadata found for ${identifier.scheme}:${identifier.code}.`
+    );
+  }
+
+  try {
+    const parsed = JSON.parse(row.metadata_json) as DetailedCodeMetadata;
+    return {
+      ...identifier,
+      metadata: ensureMetadataPayload(parsed),
+    };
+  } catch {
+    throw new MetadataFetchError(
+      'INVALID_METADATA_PAYLOAD',
+      `Stored detailed metadata is invalid for ${identifier.scheme}:${identifier.code}.`
+    );
+  }
+}
+
+export const sqliteCodeMetadataFetcher: CodeMetadataFetcher = {
+  async fetchDetailedMetadata(identifier: CodeMetadataIdentifier): Promise<CodeMetadataRecord> {
+    if (!db) {
+      throw new MetadataFetchError(
+        'METADATA_ENDPOINT_NOT_INITIALIZED',
+        'Metadata store not initialized — call initDB() first.'
+      );
+    }
+    return fetchDetailedMetadata(identifier);
+  },
+};

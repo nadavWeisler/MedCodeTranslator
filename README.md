@@ -95,6 +95,7 @@ Examples:
 - On startup, `db/database.ts` seeds `expo-sqlite` tables from `assets/data/*.json` (and keeps a `schema_version` in the `meta` table).
 - Searches are an exact-ish SQLite `LIKE` query (limited to 100 results) via `db/queries.ts`.
 - Autocomplete + “did you mean” suggestions are powered by `fuse.js` over an in-memory index per scheme (`app/services/fuzzySearch.ts`).
+- Detailed per-code metadata (for example notes/guidelines) is stored in `code_metadata` and can be fetched via `fetchDetailedMetadata`.
 
 ## Project Structure
 

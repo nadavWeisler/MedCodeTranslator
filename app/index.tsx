@@ -17,6 +17,7 @@ import SchemeTabs, { SCHEMES } from './components/SchemeTabs';
 import { searchByScheme, type CodeEntry } from '../db/queries';
 import type { SchemeKey } from '../db/database';
 import { buildIndex, getSuggestions, getDidYouMean } from './services/fuzzySearch';
+import { useSelectedCodeResult } from './services/useSelectedCodeResult';
 import i18n from '../i18n';
 
 type Language = 'en' | 'he';
@@ -55,6 +56,7 @@ export default function HomeScreen() {
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeScheme = SCHEMES.find(s => s.key === scheme)!;
+  const { selectedCode, metadataRows, selectEntry } = useSelectedCodeResult(results);
 
   useEffect(() => {
     i18n.changeLanguage(lang);
@@ -126,6 +128,7 @@ export default function HomeScreen() {
     const name = lang === 'he' && item.name_he ? item.name_he : item.name_en;
     setQuery(name);
     setSuggestions([]);
+    selectEntry(item);
   };
 
   const handleLanguageChange = (l: Language) => {
@@ -180,6 +183,9 @@ export default function HomeScreen() {
           onFuzzySelect={handleSuggestionSelect}
           schemeColor={schemeColor}
           resultCount={results.length}
+          onEntrySelect={selectEntry}
+          selectedCode={selectedCode}
+          selectedMetadataRows={metadataRows}
         />
       </View>
     </SafeAreaView>

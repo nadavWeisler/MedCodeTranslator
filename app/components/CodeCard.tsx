@@ -1,19 +1,36 @@
 import React from 'react';
-import { View, Text, StyleSheet, Platform } from 'react-native';
+import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import type { CodeEntry } from '../../db/queries';
+import type { MetadataRow } from '../services/useSelectedCodeResult';
 
 type Props = {
   entry: CodeEntry;
   lang: string;
   schemeColor: string;
+  isSelected?: boolean;
+  onPress?: (entry: CodeEntry) => void;
+  metadataRows?: MetadataRow[];
 };
 
-export default function CodeCard({ entry, lang, schemeColor }: Props) {
+export default function CodeCard({
+  entry,
+  lang,
+  schemeColor,
+  isSelected = false,
+  onPress,
+  metadataRows = [],
+}: Props) {
   const primaryName = lang === 'he' && entry.name_he ? entry.name_he : entry.name_en;
   const secondaryName = lang === 'he' && entry.name_he ? entry.name_en : null;
+  const showMetadata = isSelected && metadataRows.length > 0;
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity
+      style={[styles.card, isSelected && styles.cardSelected]}
+      onPress={onPress ? () => onPress(entry) : undefined}
+      activeOpacity={0.85}
+      disabled={!onPress}
+    >
       <View style={styles.row}>
         <View style={[styles.codeBadge, { backgroundColor: schemeColor + '18' }]}>
           <Text style={[styles.codeText, { color: schemeColor, fontFamily: Platform.OS === 'web' ? 'monospace' : undefined }]}>
@@ -25,7 +42,17 @@ export default function CodeCard({ entry, lang, schemeColor }: Props) {
       {secondaryName && (
         <Text style={styles.altName} numberOfLines={1}>{secondaryName}</Text>
       )}
-    </View>
+      {showMetadata && (
+        <View style={styles.metadata}>
+          {metadataRows.map((item, idx) => (
+            <View key={`${entry.code}-${item.label}-${idx}`} style={styles.metadataRow}>
+              <Text style={[styles.metadataLabel, { color: schemeColor }]}>{item.label}</Text>
+              <Text style={styles.metadataValue}>{item.value}</Text>
+            </View>
+          ))}
+        </View>
+      )}
+    </TouchableOpacity>
   );
 }
 
@@ -42,6 +69,9 @@ const styles = StyleSheet.create({
     elevation: 1,
     borderWidth: 1,
     borderColor: '#f1f5f9',
+  },
+  cardSelected: {
+    borderColor: '#cbd5e1',
   },
   row: {
     flexDirection: 'row',
@@ -72,5 +102,24 @@ const styles = StyleSheet.create({
     marginTop: 4,
     marginLeft: 4,
     fontStyle: 'italic',
+  },
+  metadata: {
+    marginTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#e2e8f0',
+    paddingTop: 10,
+    gap: 8,
+  },
+  metadataRow: {
+    gap: 2,
+  },
+  metadataLabel: {
+    fontSize: 12,
+    fontWeight: '700',
+  },
+  metadataValue: {
+    fontSize: 13,
+    color: '#334155',
+    lineHeight: 18,
   },
 });

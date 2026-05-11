@@ -13,7 +13,7 @@ function humanizeLabel(keyPath: string): string {
     .replace(/([a-z])([A-Z])/g, '$1 $2')
     .replace(/\s+/g, ' ')
     .trim()
-    .replace(/^./, c => c.toUpperCase());
+    .replace(/^./, c => c?.toUpperCase() ?? '');
 }
 
 function stringifyValue(value: CodeMetadataValue): string {
@@ -71,6 +71,7 @@ function dedupeRows(rows: MetadataRow[]): MetadataRow[] {
   const seen = new Set<string>();
   const unique: MetadataRow[] = [];
   for (const row of rows) {
+    // Null delimiter minimizes accidental key collisions from regular punctuation in labels/values.
     const key = `${row.label}\u0000${row.value}`;
     if (seen.has(key)) continue;
     seen.add(key);

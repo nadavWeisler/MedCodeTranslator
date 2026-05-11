@@ -57,8 +57,8 @@ export default function CodeCard({ entry, lang, schemeColor, summaryMode = false
               <Text style={styles.chipValue} numberOfLines={1}>{sourceType}</Text>
             </View>
           )}
-          {visibleConditions.map(condition => (
-            <View key={condition} style={[styles.chip, styles.conditionChip]}>
+          {visibleConditions.map((condition, index) => (
+            <View key={`${condition}-${index}`} style={[styles.chip, styles.conditionChip]}>
               <Text style={styles.chipLabel}>Condition</Text>
               <Text style={styles.chipValue} numberOfLines={1}>{condition}</Text>
             </View>
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   chip: {
-    borderRadius: 999,
+    borderRadius: 20,
     borderWidth: 1,
     paddingHorizontal: 10,
     paddingVertical: 5,

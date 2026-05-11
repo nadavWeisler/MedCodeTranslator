@@ -2,18 +2,20 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { CodeEntry, CodeMetadataValue } from '../../db/queries';
 
 export type MetadataRow = {
+  key: string;
   label: string;
   value: string;
 };
 
 function humanizeLabel(keyPath: string): string {
   const raw = keyPath.split('.').pop() ?? keyPath;
-  return raw
+  const normalized = raw
     .replace(/[_-]+/g, ' ')
     .replace(/([a-z])([A-Z])/g, '$1 $2')
     .replace(/\s+/g, ' ')
-    .trim()
-    .replace(/^./, c => c?.toUpperCase() ?? '');
+    .trim();
+  if (!normalized) return '';
+  return normalized.charAt(0).toUpperCase() + normalized.slice(1);
 }
 
 function stringifyValue(value: CodeMetadataValue): string {
@@ -46,7 +48,7 @@ function flattenMetadata(value: CodeMetadataValue, path = ''): MetadataRow[] {
 
     const ownRows =
       primitiveParts.length > 0 && path
-        ? [{ label: humanizeLabel(path), value: primitiveParts.join(', ') }]
+        ? [{ key: `${path}:${primitiveParts.join(', ')}`, label: humanizeLabel(path), value: primitiveParts.join(', ') }]
         : [];
     return [...nestedRows, ...ownRows];
   }
@@ -62,7 +64,7 @@ function flattenMetadata(value: CodeMetadataValue, path = ''): MetadataRow[] {
 
   const stringValue = stringifyValue(value);
   if (stringValue && path) {
-    return [{ label: humanizeLabel(path), value: stringValue }];
+    return [{ key: `${path}:${stringValue}`, label: humanizeLabel(path), value: stringValue }];
   }
   return [];
 }
@@ -71,10 +73,8 @@ function dedupeRows(rows: MetadataRow[]): MetadataRow[] {
   const seen = new Set<string>();
   const unique: MetadataRow[] = [];
   for (const row of rows) {
-    // Null delimiter minimizes accidental key collisions from regular punctuation in labels/values.
-    const key = `${row.label}\u0000${row.value}`;
-    if (seen.has(key)) continue;
-    seen.add(key);
+    if (seen.has(row.key)) continue;
+    seen.add(row.key);
     unique.push(row);
   }
   return unique;

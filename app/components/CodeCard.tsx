@@ -45,7 +45,7 @@ export default function CodeCard({
       {showMetadata && (
         <View style={styles.metadata}>
           {metadataRows.map(item => (
-            <View key={`${entry.code}-${item.label}-${item.value}`} style={styles.metadataRow}>
+            <View key={item.key} style={styles.metadataRow}>
               <Text style={[styles.metadataLabel, { color: schemeColor }]}>{item.label}</Text>
               <Text style={styles.metadataValue}>{item.value}</Text>
             </View>

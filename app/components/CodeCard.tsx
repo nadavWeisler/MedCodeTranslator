@@ -20,6 +20,14 @@ function normalizeList(values?: string[] | null): string[] {
     .filter(Boolean);
 }
 
+function stableHash(value: string): string {
+  let hash = 0;
+  for (let i = 0; i < value.length; i += 1) {
+    hash = (hash * 31 + value.charCodeAt(i)) | 0;
+  }
+  return Math.abs(hash).toString(36);
+}
+
 export default function CodeCard({ entry, lang, schemeColor, summaryMode = false }: Props) {
   const primaryName = lang === 'he' && entry.name_he ? entry.name_he : entry.name_en;
   const secondaryName = lang === 'he' && entry.name_he ? entry.name_en : null;
@@ -30,7 +38,17 @@ export default function CodeCard({ entry, lang, schemeColor, summaryMode = false
 
   const visibleConditions = summaryMode ? applicableConditions.slice(0, SUMMARY_MAX_CONDITIONS) : applicableConditions;
   const hiddenConditionCount = applicableConditions.length - visibleConditions.length;
-  const conditionCounts = new Map<string, number>();
+  const keyedConditions = (() => {
+    const conditionCounts = new Map<string, number>();
+    return visibleConditions.map(condition => {
+      const seen = conditionCounts.get(condition) ?? 0;
+      conditionCounts.set(condition, seen + 1);
+      return {
+        key: `${entry.code}-condition-${stableHash(condition)}-${seen}`,
+        value: condition,
+      };
+    });
+  })();
 
   return (
     <View style={styles.card}>
@@ -62,16 +80,12 @@ export default function CodeCard({ entry, lang, schemeColor, summaryMode = false
               <Text style={styles.chipValue} numberOfLines={1}>{sourceType}</Text>
             </View>
           )}
-          {visibleConditions.map(condition => {
-            const seen = conditionCounts.get(condition) ?? 0;
-            conditionCounts.set(condition, seen + 1);
-            return (
-              <View key={`${entry.code}-condition-${condition}-${seen}`} style={[styles.chip, styles.conditionChip]}>
-                <Text style={styles.chipLabel}>Condition</Text>
-                <Text style={styles.chipValue} numberOfLines={1}>{condition}</Text>
-              </View>
-            );
-          })}
+          {keyedConditions.map(condition => (
+            <View key={condition.key} style={[styles.chip, styles.conditionChip]}>
+              <Text style={styles.chipLabel}>Condition</Text>
+              <Text style={styles.chipValue} numberOfLines={1}>{condition.value}</Text>
+            </View>
+          ))}
           {hiddenConditionCount > 0 && (
             <View style={[styles.chip, styles.moreChip]}>
               <Text style={styles.moreText}>+{hiddenConditionCount} more</Text>

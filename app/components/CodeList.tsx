@@ -65,7 +65,7 @@ export default function CodeList({
         data={entries}
         keyExtractor={item => item.code}
         renderItem={({ item }) => (
-          <CodeCard entry={item} lang={lang} schemeColor={schemeColor} />
+          <CodeCard entry={item} lang={lang} schemeColor={schemeColor} summaryMode />
         )}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"

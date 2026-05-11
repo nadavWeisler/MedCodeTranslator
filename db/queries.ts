@@ -5,6 +5,18 @@ export type CodeEntry = {
   code: string;
   name_en: string;
   name_he: string | null;
+  description?: string | null;
+  synonyms?: string[] | null;
+  source_type?: string | null;
+  sourceType?: string | null;
+  applicable_conditions?: string[] | null;
+  applicableConditions?: string[] | null;
+  metadata?: {
+    description?: string | null;
+    synonyms?: string[] | null;
+    sourceType?: string | null;
+    applicableConditions?: string[] | null;
+  } | null;
 };
 
 export async function searchByScheme(

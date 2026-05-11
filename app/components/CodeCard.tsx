@@ -30,6 +30,9 @@ export default function CodeCard({
       onPress={onPress ? () => onPress(entry) : undefined}
       activeOpacity={0.85}
       disabled={!onPress}
+      accessibilityRole={onPress ? 'button' : undefined}
+      accessibilityLabel={onPress ? `Select code ${entry.code}` : undefined}
+      accessibilityState={onPress ? { selected: isSelected } : undefined}
     >
       <View style={styles.row}>
         <View style={[styles.codeBadge, { backgroundColor: schemeColor + '18' }]}>

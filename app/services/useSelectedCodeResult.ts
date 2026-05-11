@@ -46,9 +46,10 @@ function flattenMetadata(value: CodeMetadataValue, path = ''): MetadataRow[] {
       if (str) primitiveParts.push(str);
     }
 
+    const joinedValue = primitiveParts.join(', ');
     const ownRows =
       primitiveParts.length > 0 && path
-        ? [{ key: `${path}:${primitiveParts.join(', ')}`, label: humanizeLabel(path), value: primitiveParts.join(', ') }]
+        ? [{ key: `${path}:${joinedValue}`, label: humanizeLabel(path), value: joinedValue }]
         : [];
     return [...nestedRows, ...ownRows];
   }

@@ -11,6 +11,7 @@ type Props = {
 
 const SUMMARY_MAX_LINES = 2;
 const DETAIL_MAX_LINES = 4;
+const SUMMARY_MAX_CONDITIONS = 3;
 
 function normalizeList(values?: string[] | null): string[] {
   if (!values) return [];
@@ -27,8 +28,9 @@ export default function CodeCard({ entry, lang, schemeColor, summaryMode = false
   const synonyms = normalizeList(entry.metadata?.synonyms);
   const applicableConditions = normalizeList(entry.metadata?.applicableConditions);
 
-  const visibleConditions = summaryMode ? applicableConditions.slice(0, 3) : applicableConditions;
+  const visibleConditions = summaryMode ? applicableConditions.slice(0, SUMMARY_MAX_CONDITIONS) : applicableConditions;
   const hiddenConditionCount = applicableConditions.length - visibleConditions.length;
+  const conditionCounts = new Map<string, number>();
 
   return (
     <View style={styles.card}>
@@ -60,12 +62,16 @@ export default function CodeCard({ entry, lang, schemeColor, summaryMode = false
               <Text style={styles.chipValue} numberOfLines={1}>{sourceType}</Text>
             </View>
           )}
-          {visibleConditions.map((condition, index) => (
-            <View key={`${entry.code}-condition-${index}`} style={[styles.chip, styles.conditionChip]}>
-              <Text style={styles.chipLabel}>Condition</Text>
-              <Text style={styles.chipValue} numberOfLines={1}>{condition}</Text>
-            </View>
-          ))}
+          {visibleConditions.map(condition => {
+            const seen = conditionCounts.get(condition) ?? 0;
+            conditionCounts.set(condition, seen + 1);
+            return (
+              <View key={`${entry.code}-condition-${condition}-${seen}`} style={[styles.chip, styles.conditionChip]}>
+                <Text style={styles.chipLabel}>Condition</Text>
+                <Text style={styles.chipValue} numberOfLines={1}>{condition}</Text>
+              </View>
+            );
+          })}
           {hiddenConditionCount > 0 && (
             <View style={[styles.chip, styles.moreChip]}>
               <Text style={styles.moreText}>+{hiddenConditionCount} more</Text>

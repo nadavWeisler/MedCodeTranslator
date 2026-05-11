@@ -9,6 +9,9 @@ type Props = {
   summaryMode?: boolean;
 };
 
+const SUMMARY_MAX_LINES = 2;
+const DETAIL_MAX_LINES = 4;
+
 function normalizeList(values?: string[] | null): string[] {
   if (!values) return [];
   return values
@@ -36,7 +39,7 @@ export default function CodeCard({ entry, lang, schemeColor, summaryMode = false
           </Text>
         </View>
         <View style={styles.titleBlock}>
-          <Text style={styles.name} numberOfLines={2}>{primaryName}</Text>
+          <Text style={styles.name} numberOfLines={SUMMARY_MAX_LINES}>{primaryName}</Text>
           {secondaryName && (
             <Text style={styles.altName} numberOfLines={1}>{secondaryName}</Text>
           )}
@@ -44,7 +47,7 @@ export default function CodeCard({ entry, lang, schemeColor, summaryMode = false
       </View>
 
       {description && (
-        <Text style={styles.description} numberOfLines={summaryMode ? 2 : 4}>
+        <Text style={styles.description} numberOfLines={summaryMode ? SUMMARY_MAX_LINES : DETAIL_MAX_LINES}>
           {description}
         </Text>
       )}
@@ -58,7 +61,7 @@ export default function CodeCard({ entry, lang, schemeColor, summaryMode = false
             </View>
           )}
           {visibleConditions.map((condition, index) => (
-            <View key={`${condition}-${index}`} style={[styles.chip, styles.conditionChip]}>
+            <View key={`${entry.code}-condition-${index}`} style={[styles.chip, styles.conditionChip]}>
               <Text style={styles.chipLabel}>Condition</Text>
               <Text style={styles.chipValue} numberOfLines={1}>{condition}</Text>
             </View>
@@ -74,7 +77,7 @@ export default function CodeCard({ entry, lang, schemeColor, summaryMode = false
       {synonyms.length > 0 && (
         <View style={styles.synonymsWrap}>
           <Text style={styles.synonymsLabel}>Synonyms</Text>
-          <Text style={styles.synonymsText} numberOfLines={summaryMode ? 2 : 4}>
+          <Text style={styles.synonymsText} numberOfLines={summaryMode ? SUMMARY_MAX_LINES : DETAIL_MAX_LINES}>
             {synonyms.join(', ')}
           </Text>
         </View>

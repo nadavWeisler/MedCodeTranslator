@@ -11,15 +11,25 @@ export type CodeEntryWithMetadata = CodeEntry & {
   metadata: DetailedCodeMetadata | null;
 };
 
+const ALLOWED_SCHEMES: readonly SchemeKey[] = ['atc5', 'icd10', 'icd9', 'icd11', 'loinc', 'cpt'];
+
+function getSafeSchemeTable(scheme: SchemeKey): SchemeKey {
+  if (!ALLOWED_SCHEMES.includes(scheme)) {
+    throw new Error(`Unsupported coding scheme: ${scheme}`);
+  }
+  return scheme;
+}
+
 export async function searchByScheme(
   scheme: SchemeKey,
   query: string,
   _lang = 'en'
 ): Promise<CodeEntry[]> {
   const db = getDB();
+  const table = getSafeSchemeTable(scheme);
   const q = `%${query.trim()}%`;
   return db.getAllAsync<CodeEntry>(
-    `SELECT code, name_en, name_he FROM ${scheme}
+    `SELECT code, name_en, name_he FROM ${table}
      WHERE code LIKE ? OR name_en LIKE ? OR (name_he IS NOT NULL AND name_he LIKE ?)
      ORDER BY
        CASE WHEN code LIKE ? THEN 0 ELSE 1 END,
@@ -34,10 +44,11 @@ export async function searchBySchemeWithMetadata(
   query: string
 ): Promise<CodeEntryWithMetadata[]> {
   const db = getDB();
+  const table = getSafeSchemeTable(scheme);
   const q = `%${query.trim()}%`;
   const rows = await db.getAllAsync<CodeEntry & { metadata_json: string | null }>(
     `SELECT s.code, s.name_en, s.name_he, m.metadata_json
-     FROM ${scheme} s
+     FROM ${table} s
      LEFT JOIN code_metadata m ON m.scheme = ? AND m.code = s.code
      WHERE s.code LIKE ? OR s.name_en LIKE ? OR (s.name_he IS NOT NULL AND s.name_he LIKE ?)
      ORDER BY
@@ -64,7 +75,9 @@ export async function searchBySchemeWithMetadata(
       if (error instanceof MetadataFetchError) throw error;
       throw new MetadataFetchError(
         'INVALID_METADATA_PAYLOAD',
-        `Stored detailed metadata is invalid for ${scheme}:${row.code}.`
+        `Stored detailed metadata is invalid for ${scheme}:${row.code}. ${
+          error instanceof Error ? error.message : String(error)
+        }`
       );
     }
   });

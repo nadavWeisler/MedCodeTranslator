@@ -154,7 +154,7 @@ export async function getAllEntries(scheme: SchemeKey): Promise<RawEntry[]> {
 }
 
 export function validateMetadataPayload(metadata: DetailedCodeMetadata): DetailedCodeMetadata {
-  if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) {
+  if (metadata == null || typeof metadata !== 'object' || Array.isArray(metadata)) {
     throw new MetadataFetchError(
       'INVALID_METADATA_PAYLOAD',
       'Detailed metadata must be a plain object.'

@@ -16,7 +16,9 @@ export default function SuggestionItem({ item, lang, onPress, schemeColor }: Pro
       <View style={[styles.codePill, { backgroundColor: schemeColor + '22' }]}>
         <Text style={[styles.code, { color: schemeColor }]}>{item.code}</Text>
       </View>
-      <Text style={styles.name} numberOfLines={1}>{name}</Text>
+      <Text style={[styles.name, { textAlign: lang === 'he' ? 'right' : 'left' }]} numberOfLines={1}>
+        {name}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -25,27 +27,28 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 10,
-    paddingHorizontal: 14,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
     gap: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#f1f5f9',
+    borderBottomColor: '#eef4f8',
   },
   codePill: {
-    borderRadius: 6,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
     minWidth: 72,
     alignItems: 'center',
   },
   code: {
     fontSize: 12,
-    fontWeight: '700',
-    letterSpacing: 0.3,
+    fontWeight: '800',
+    letterSpacing: 0.4,
   },
   name: {
     flex: 1,
     fontSize: 14,
-    color: '#334155',
+    color: '#183247',
+    fontWeight: '600',
   },
 });

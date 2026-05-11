@@ -153,7 +153,7 @@ export async function getAllEntries(scheme: SchemeKey): Promise<RawEntry[]> {
   return d.getAllAsync<RawEntry>(`SELECT code, name_en, name_he FROM ${scheme}`);
 }
 
-function ensureMetadataPayload(metadata: DetailedCodeMetadata): DetailedCodeMetadata {
+function validateMetadataPayload(metadata: DetailedCodeMetadata): DetailedCodeMetadata {
   if (!metadata || typeof metadata !== 'object' || Array.isArray(metadata)) {
     throw new MetadataFetchError(
       'INVALID_METADATA_PAYLOAD',
@@ -165,7 +165,7 @@ function ensureMetadataPayload(metadata: DetailedCodeMetadata): DetailedCodeMeta
 
 export async function upsertDetailedMetadata(record: CodeMetadataRecord): Promise<void> {
   const d = getDB();
-  const metadata = ensureMetadataPayload(record.metadata);
+  const metadata = validateMetadataPayload(record.metadata);
   await d.runAsync(
     `INSERT OR REPLACE INTO code_metadata (scheme, code, metadata_json) VALUES (?, ?, ?)`,
     [record.scheme, record.code, JSON.stringify(metadata)]
@@ -192,7 +192,7 @@ export async function fetchDetailedMetadata(
     const parsed = JSON.parse(row.metadata_json) as DetailedCodeMetadata;
     return {
       ...identifier,
-      metadata: ensureMetadataPayload(parsed),
+      metadata: validateMetadataPayload(parsed),
     };
   } catch {
     throw new MetadataFetchError(

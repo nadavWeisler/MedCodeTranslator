@@ -1,4 +1,4 @@
-import { fetchDetailedMetadata, getDB, MetadataFetchError } from './database';
+import { getDB, MetadataFetchError } from './database';
 import type { DetailedCodeMetadata, SchemeKey } from './database';
 
 export type CodeEntry = {
@@ -32,22 +32,44 @@ export async function searchByScheme(
 export async function searchBySchemeWithMetadata(
   scheme: SchemeKey,
   query: string,
-  lang = 'en'
+  _lang = 'en'
 ): Promise<CodeEntryWithMetadata[]> {
-  const base = await searchByScheme(scheme, query, lang);
-  return Promise.all(
-    base.map(async (entry) => {
-      try {
-        const { metadata } = await fetchDetailedMetadata({ scheme, code: entry.code });
-        return { ...entry, metadata };
-      } catch (error) {
-        if (error instanceof MetadataFetchError && error.code === 'METADATA_NOT_FOUND') {
-          return { ...entry, metadata: null };
-        }
-        throw error;
-      }
-    })
+  const db = getDB();
+  const q = `%${query.trim()}%`;
+  const rows = await db.getAllAsync<CodeEntry & { metadata_json: string | null }>(
+    `SELECT s.code, s.name_en, s.name_he, m.metadata_json
+     FROM ${scheme} s
+     LEFT JOIN code_metadata m ON m.scheme = ? AND m.code = s.code
+     WHERE s.code LIKE ? OR s.name_en LIKE ? OR (s.name_he IS NOT NULL AND s.name_he LIKE ?)
+     ORDER BY
+       CASE WHEN s.code LIKE ? THEN 0 ELSE 1 END,
+       s.code
+     LIMIT 100`,
+    [scheme, q, q, q, q]
   );
+
+  return rows.map((row) => {
+    if (!row.metadata_json) {
+      return { code: row.code, name_en: row.name_en, name_he: row.name_he, metadata: null };
+    }
+
+    try {
+      const parsed = JSON.parse(row.metadata_json) as DetailedCodeMetadata;
+      if (!parsed || typeof parsed !== 'object' || Array.isArray(parsed)) {
+        throw new MetadataFetchError(
+          'INVALID_METADATA_PAYLOAD',
+          `Stored detailed metadata is invalid for ${scheme}:${row.code}.`
+        );
+      }
+      return { code: row.code, name_en: row.name_en, name_he: row.name_he, metadata: parsed };
+    } catch (error) {
+      if (error instanceof MetadataFetchError) throw error;
+      throw new MetadataFetchError(
+        'INVALID_METADATA_PAYLOAD',
+        `Stored detailed metadata is invalid for ${scheme}:${row.code}.`
+      );
+    }
+  });
 }
 
 // Keep old helpers for backward compatibility

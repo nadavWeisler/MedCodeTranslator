@@ -1,4 +1,4 @@
-import { getDB, MetadataFetchError, SCHEME_KEYS, validateMetadataPayload } from './database';
+import { getDB, parseDetailedMetadataPayload, SCHEME_KEYS } from './database';
 import type { DetailedCodeMetadata, SchemeKey } from './database';
 
 export type CodeEntry = {
@@ -61,33 +61,12 @@ export async function searchBySchemeWithMetadata(
       return { code: row.code, name_en: row.name_en, name_he: row.name_he, metadata: null };
     }
 
-    let parsed: DetailedCodeMetadata;
-    try {
-      parsed = JSON.parse(row.metadata_json) as DetailedCodeMetadata;
-    } catch (error) {
-      throw new MetadataFetchError(
-        'INVALID_METADATA_PAYLOAD',
-        `Stored detailed metadata JSON is invalid for ${scheme}:${row.code}. ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-    }
-
-    try {
-      return {
-        code: row.code,
-        name_en: row.name_en,
-        name_he: row.name_he,
-        metadata: validateMetadataPayload(parsed),
-      };
-    } catch (error) {
-      throw new MetadataFetchError(
-        'INVALID_METADATA_PAYLOAD',
-        `Stored detailed metadata structure is invalid for ${scheme}:${row.code}. ${
-          error instanceof Error ? error.message : String(error)
-        }`
-      );
-    }
+    return {
+      code: row.code,
+      name_en: row.name_en,
+      name_he: row.name_he,
+      metadata: parseDetailedMetadataPayload(row.metadata_json, { scheme, code: row.code }),
+    };
   });
 }
 

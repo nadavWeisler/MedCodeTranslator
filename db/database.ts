@@ -190,29 +190,10 @@ export async function fetchDetailedMetadata(
     );
   }
 
-  let parsed: DetailedCodeMetadata;
-  try {
-    parsed = JSON.parse(row.metadata_json) as DetailedCodeMetadata;
-  } catch (error) {
-    const reason = error instanceof Error ? error.message : String(error);
-    throw new MetadataFetchError(
-      'INVALID_METADATA_PAYLOAD',
-      `Stored detailed metadata JSON is invalid for ${identifier.scheme}:${identifier.code}. ${reason}`
-    );
-  }
-
-  try {
-    return {
-      ...identifier,
-      metadata: validateMetadataPayload(parsed),
-    };
-  } catch (error) {
-    const reason = error instanceof Error ? error.message : String(error);
-    throw new MetadataFetchError(
-      'INVALID_METADATA_PAYLOAD',
-      `Stored detailed metadata structure is invalid for ${identifier.scheme}:${identifier.code}. ${reason}`
-    );
-  }
+  return {
+    ...identifier,
+    metadata: parseDetailedMetadataPayload(row.metadata_json, identifier),
+  };
 }
 
 export const sqliteCodeMetadataFetcher: CodeMetadataFetcher = {
@@ -226,3 +207,29 @@ export const sqliteCodeMetadataFetcher: CodeMetadataFetcher = {
     return fetchDetailedMetadata(identifier);
   },
 };
+
+export function parseDetailedMetadataPayload(
+  metadataJson: string,
+  identifier: CodeMetadataIdentifier
+): DetailedCodeMetadata {
+  let parsed: DetailedCodeMetadata;
+  try {
+    parsed = JSON.parse(metadataJson) as DetailedCodeMetadata;
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    throw new MetadataFetchError(
+      'INVALID_METADATA_PAYLOAD',
+      `Stored detailed metadata JSON is invalid for ${identifier.scheme}:${identifier.code}. ${reason}`
+    );
+  }
+
+  try {
+    return validateMetadataPayload(parsed);
+  } catch (error) {
+    const reason = error instanceof Error ? error.message : String(error);
+    throw new MetadataFetchError(
+      'INVALID_METADATA_PAYLOAD',
+      `Stored detailed metadata structure is invalid for ${identifier.scheme}:${identifier.code}. ${reason}`
+    );
+  }
+}

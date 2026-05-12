@@ -1,6 +1,7 @@
 # Med Code Translator
 
-Expo / React Native app for quickly looking up medication and medical terminology codes by **code** or **name** (with autocomplete and “did you mean” suggestions). Works on iOS, Android, and Web.
+Med Code Translator is an Expo app for fast medication and medical terminology code lookup across major coding systems, with bilingual English/Hebrew support, autocomplete, and suggestion-based search. Works on iOS, Android, and Web.
+
 Positioning: medication terminology and code lookup utility for research and administrative workflows.
 
 > **Medical disclaimer:** MedCodeTranslator is an informational reference tool only and is not intended for diagnosis, treatment decisions, prescribing, or medical advice.
@@ -8,6 +9,19 @@ Positioning: medication terminology and code lookup utility for research and adm
 > Always verify medication information using official clinical systems, licensed medical databases, and institutional procedures.
 >
 > Do **not** enter patient-identifiable or protected health information (PHI) into this application.
+
+## Deployment Status
+
+- **Web (live):** https://nadavweisler.github.io/MedCodeTranslator/
+- **iOS:** EAS build workflow is configured; public deployment is planned
+- **Android:** EAS build workflow is configured; public deployment is planned
+
+## What the Product Does
+
+- Search ATC5, ICD-10, ICD-9-CM, ICD-11, LOINC, and CPT-4
+- Match by code or medical term
+- Offer autocomplete and fallback suggestions for near matches
+- Run from bundled local data for offline-friendly use
 
 ## Screenshots
 
@@ -30,23 +44,6 @@ Positioning: medication terminology and code lookup utility for research and adm
 **Web · Wide layout (LOINC “glucose”)**
 
 ![Web wide](docs/screenshots/web-wide-loinc-glucose.png)
-
-## Features
-
-- Search across multiple coding schemes (tabs)
-- Instant autocomplete suggestions + inline completion (“ghost text”)
-- “Did you mean…” fallback when there are no direct matches
-- English + Hebrew UI/content (toggle in the header)
-- Offline-friendly: seeds an on-device SQLite DB from bundled JSON datasets
-
-## Supported Schemes
-
-- ATC5 (Medications)
-- ICD-10
-- ICD-9-CM
-- ICD-11
-- LOINC (Labs)
-- CPT-4 (Procedures)
 
 ## Quick Start
 
@@ -110,12 +107,6 @@ Examples:
 - `assets/data/` — bundled datasets (JSON)
 - `i18n/` — translations and i18next setup
 
-## Notes / Disclaimer
-
-- See `DISCLAIMER.md` for full disclaimer language.
-- See `TERMS_OF_SERVICE.md` and `PRIVACY_POLICY.md` for legal text.
-- Web routes are available at `/legal/terms`, `/legal/privacy`, and `/about` (data source attribution + freshness metadata).
-
 ## Legal / Compliance Docs
 
 - `DISCLAIMER.md`
@@ -127,48 +118,39 @@ Examples:
 - `docs/API.md`
 - `docs/APP_STORE_DESCRIPTION.md`
 
-## GitHub Pages Deployment
+Web routes are available at `/legal/terms`, `/legal/privacy`, and `/about` (data source attribution + freshness metadata).
 
-- A GitHub Actions workflow (`.github/workflows/deploy-pages.yml`) deploys the web build on every push to the default branch (`master` or `main`).
-- The app is configured for project Pages path hosting (`/MedCodeTranslator`).
-- Expected site URL: `https://nadavweisler.github.io/MedCodeTranslator/`
+## Deployments
 
-## Automated Medical DB Refresh Pipeline
+### Web
 
-- Workflow: `.github/workflows/refresh-medical-db.yml`
-- Triggers:
-  - Scheduled weekly refresh (`cron: 0 4 * * 1`)
-  - Manual `workflow_dispatch` trigger
-- Data refresh job:
-  - Downloads upstream ICD-9/ICD-10/crosswalk datasets from CMS/NBER endpoints and ATC data from WHOCC endpoint.
-  - Normalizes deterministic JSON outputs for app assets (`assets/data/*.json`).
-  - Rebuilds a SQLite artifact at `build/medical-db/medical-codes.sqlite`.
-  - Validates schema, uniqueness, hierarchy checks, crosswalk cardinality flags, and source metadata.
-  - Generates a diff/update report (`build/medical-db/update-report.md`) with added/removed/changed counts.
-  - Uploads `build/medical-db` as a workflow artifact.
-  - Optionally opens/updates an automated PR with refreshed app JSON assets.
+- Deployed automatically to GitHub Pages from `master` via `.github/workflows/deploy-pages.yml`
+- Hosted under the project Pages path `/MedCodeTranslator`
 
-### Local commands
+### Mobile
+
+- `.github/workflows/deploy-mobile.yml` builds iOS and Android apps through Expo Application Services (EAS)
+- Supports `development`, `preview`, and `production` build profiles from `eas.json`
+- Requires an `EXPO_TOKEN` GitHub Actions secret for authenticated builds
+
+## Data Operations
+
+Medical datasets are refreshed through `.github/workflows/refresh-medical-db.yml` or with:
 
 ```bash
-npm run refresh:data   # refresh from upstream URLs + validate + build artifacts
-npm run validate:data  # offline validation/build from currently checked-in assets
+npm run refresh:data
+npm run validate:data
 ```
 
-## Mobile Deployment (iOS & Android)
+## Development
 
-- A GitHub Actions workflow (`.github/workflows/deploy-mobile.yml`) builds the iOS and Android apps via [Expo Application Services (EAS) Build](https://docs.expo.dev/build/introduction/).
-- **Triggers**:
-  - Automatic `preview` build on every push to `master` (for both platforms).
-  - Manual `workflow_dispatch` trigger — lets you choose the **platform** (`all`, `ios`, `android`) and the **profile** (`development`, `preview`, `production`).
-- **Build profiles** (defined in `eas.json`):
-  - `development` — development client build; iOS runs in Simulator.
-  - `preview` — internal-distribution build; Android produces an APK for side-loading.
-  - `production` — store-ready build; auto-increments the build number; Android produces an AAB.
-- **Required secret**: add `EXPO_TOKEN` to the repository's GitHub Actions secrets. Generate a token at [expo.dev → Settings → Access Tokens](https://expo.dev/) (navigate to your account settings).
-- **Store submission** (manual): after a successful `production` build, fill in the `submit.production` block in `eas.json` with your Apple / Google credentials and run `eas submit` locally or extend the workflow to call `eas submit --non-interactive`.
-  - **iOS**: set `appleId`, `ascAppId`, and `appleTeamId` — never commit real credentials; use environment variables or EAS secrets instead.
-  - **Android**: set `serviceAccountKeyPath` to the path of your Google service account JSON key — store this file outside the repository and reference it via a GitHub Actions secret or environment variable.
+For local validation:
+
+```bash
+npm ci
+npx tsc --noEmit
+npm run build:web
+```
 
 ## Branch Protection
 

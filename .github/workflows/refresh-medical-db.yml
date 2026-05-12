@@ -9,6 +9,7 @@ on:
         default: true
         type: boolean
   schedule:
+    # Runs weekly on Mondays at 04:00 UTC
     - cron: '0 4 * * 1'
 
 permissions:

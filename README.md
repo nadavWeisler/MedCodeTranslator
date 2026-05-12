@@ -135,6 +135,21 @@ npm run refresh:data   # refresh from upstream URLs + validate + build artifacts
 npm run validate:data  # offline validation/build from currently checked-in assets
 ```
 
+## Mobile Deployment (iOS & Android)
+
+- A GitHub Actions workflow (`.github/workflows/deploy-mobile.yml`) builds the iOS and Android apps via [Expo Application Services (EAS) Build](https://docs.expo.dev/build/introduction/).
+- **Triggers**:
+  - Automatic `preview` build on every push to `master` (for both platforms).
+  - Manual `workflow_dispatch` trigger — lets you choose the **platform** (`all`, `ios`, `android`) and the **profile** (`development`, `preview`, `production`).
+- **Build profiles** (defined in `eas.json`):
+  - `development` — development client build; iOS runs in Simulator.
+  - `preview` — internal-distribution build; Android produces an APK for side-loading.
+  - `production` — store-ready build; auto-increments the build number; Android produces an AAB.
+- **Required secret**: add `EXPO_TOKEN` to the repository's GitHub Actions secrets. Generate a token at [expo.dev → Settings → Access Tokens](https://expo.dev/) (navigate to your account settings).
+- **Store submission** (manual): after a successful `production` build, fill in the `submit.production` block in `eas.json` with your Apple / Google credentials and run `eas submit` locally or extend the workflow to call `eas submit --non-interactive`.
+  - **iOS**: set `appleId`, `ascAppId`, and `appleTeamId` — never commit real credentials; use environment variables or EAS secrets instead.
+  - **Android**: set `serviceAccountKeyPath` to the path of your Google service account JSON key — store this file outside the repository and reference it via a GitHub Actions secret or environment variable.
+
 ## Branch Protection
 
 - A CI workflow (`.github/workflows/ci.yml`) runs type checking and web build validation on pull requests and pushes.

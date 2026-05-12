@@ -109,7 +109,7 @@ This project is for lookup convenience and experimentation. Always validate code
 
 ## GitHub Pages Deployment
 
-- A GitHub Actions workflow (`.github/workflows/deploy-pages.yml`) deploys the web build on every push to the default branch (`master`, and also `main` if the repository is renamed).
+- A GitHub Actions workflow (`.github/workflows/deploy-pages.yml`) deploys the web build on every push to the default branch (`master` or `main`).
 - The app is configured for project Pages path hosting (`/MedCodeTranslator`).
 - Expected site URL: `https://nadavweisler.github.io/MedCodeTranslator/`
 

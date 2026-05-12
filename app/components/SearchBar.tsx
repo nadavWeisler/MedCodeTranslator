@@ -43,7 +43,7 @@ export default function SearchBar({
   return (
     <View style={styles.wrapper}>
       {/* Input row */}
-      <View style={[styles.container, focused && [styles.containerFocused, { borderColor: schemeColor, shadowColor: schemeColor }]]}>
+      <View style={[styles.container, focused && [styles.containerFocused, { borderColor: schemeColor }]]}>
         <Text style={styles.icon}>🔍</Text>
 
         {/* Ghost text sits behind the real input */}
@@ -110,30 +110,21 @@ const styles = StyleSheet.create({
   wrapper: {
     position: 'relative',
     zIndex: 10,
-    marginBottom: 4,
+    marginBottom: 2,
   },
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f8fbfd',
-    borderRadius: 20,
+    backgroundColor: '#ffffff',
+    borderRadius: 12,
     paddingHorizontal: 16,
     paddingVertical: Platform.OS === 'ios' ? 14 : 12,
-    minHeight: 58,
-    shadowColor: '#12344d',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    elevation: 2,
+    minHeight: 52,
     borderWidth: 1,
-    borderColor: '#d9e5ec',
+    borderColor: '#e5e7eb',
   },
   containerFocused: {
-    backgroundColor: '#ffffff',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.14,
-    shadowRadius: 20,
-    elevation: 6,
+    borderWidth: 1.5,
   },
   icon: {
     fontSize: 17,
@@ -165,7 +156,7 @@ const styles = StyleSheet.create({
     padding: 6,
     marginLeft: 6,
     borderRadius: 999,
-    backgroundColor: '#edf4f8',
+    backgroundColor: '#f1f5f9',
   },
   clearIcon: {
     fontSize: 13,
@@ -177,14 +168,9 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     backgroundColor: '#fff',
-    borderRadius: 20,
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#d8e4eb',
-    shadowColor: '#12344d',
-    shadowOffset: { width: 0, height: 12 },
-    shadowOpacity: 0.16,
-    shadowRadius: 24,
-    elevation: 8,
+    borderColor: '#e5e7eb',
     overflow: 'hidden',
     marginTop: 10,
   },

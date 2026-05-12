@@ -23,9 +23,10 @@ type Props = {
   active: SchemeKey;
   onChange: (scheme: SchemeKey) => void;
   hintLabel?: string;
+  compact?: boolean;
 };
 
-export default function SchemeTabs({ active, onChange, hintLabel }: Props) {
+export default function SchemeTabs({ active, onChange, hintLabel, compact = false }: Props) {
   const activeScheme = SCHEMES.find(s => s.key === active)!;
 
   return (
@@ -43,14 +44,16 @@ export default function SchemeTabs({ active, onChange, hintLabel }: Props) {
               key={scheme.key}
               style={[
                 styles.pill,
-                isActive && { backgroundColor: scheme.color, borderColor: scheme.color },
+                isActive && (compact
+                  ? { backgroundColor: `${scheme.color}14`, borderColor: `${scheme.color}50` }
+                  : { backgroundColor: scheme.color, borderColor: scheme.color }),
               ]}
               onPress={() => onChange(scheme.key)}
               accessibilityRole="tab"
               accessibilityState={{ selected: isActive }}
             >
-              <Text style={styles.icon}>{scheme.icon}</Text>
-              <Text style={[styles.label, isActive && styles.labelActive]}>
+              {!compact && <Text style={styles.icon}>{scheme.icon}</Text>}
+              <Text style={[styles.label, isActive && (compact ? { color: scheme.color } : styles.labelActive)]}>
                 {scheme.shortLabel}
               </Text>
             </TouchableOpacity>
@@ -59,12 +62,14 @@ export default function SchemeTabs({ active, onChange, hintLabel }: Props) {
       </ScrollView>
 
       {/* Active scheme full label */}
-      <View style={styles.schemeSummary}>
-        <Text style={[styles.schemeTitle, { color: activeScheme.color }]}>
-          {activeScheme.icon} {activeScheme.label}
-        </Text>
-        {!!hintLabel && <Text style={styles.searchHint}>{hintLabel}</Text>}
-      </View>
+      {!compact && (
+        <View style={styles.schemeSummary}>
+          <Text style={[styles.schemeTitle, { color: activeScheme.color }]}>
+            {activeScheme.icon} {activeScheme.label}
+          </Text>
+          {!!hintLabel && <Text style={styles.searchHint}>{hintLabel}</Text>}
+        </View>
+      )}
     </View>
   );
 }
@@ -81,12 +86,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    borderRadius: 999,
+    paddingHorizontal: 12,
+    paddingVertical: 9,
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#dce7ee',
-    backgroundColor: '#f7fbfd',
+    borderColor: '#e5e7eb',
+    backgroundColor: '#ffffff',
   },
   icon: {
     fontSize: 14,
@@ -94,7 +99,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 13,
     fontWeight: '700',
-    color: '#5f7488',
+    color: '#334155',
   },
   labelActive: {
     color: '#fff',

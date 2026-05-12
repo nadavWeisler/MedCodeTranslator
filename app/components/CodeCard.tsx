@@ -27,7 +27,11 @@ export default function CodeCard({
 
   return (
     <TouchableOpacity
-      style={[styles.card, { borderLeftColor: schemeColor }, isSelected && styles.cardSelected]}
+      style={[
+        styles.card,
+        { borderLeftColor: schemeColor },
+        isSelected && { borderColor: schemeColor + '55', backgroundColor: schemeColor + '05' },
+      ]}
       onPress={onPress ? () => onPress(entry) : undefined}
       activeOpacity={0.85}
       disabled={!onPress}
@@ -63,20 +67,12 @@ export default function CodeCard({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
-    borderRadius: 22,
-    padding: 18,
-    marginBottom: 10,
-    shadowColor: '#12344d',
-    shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.08,
-    shadowRadius: 18,
-    elevation: 3,
+    borderRadius: 14,
+    padding: 14,
+    marginBottom: 8,
     borderWidth: 1,
-    borderColor: '#e2ebf1',
-    borderLeftWidth: 4,
-  },
-  cardSelected: {
-    borderColor: '#cbd5e1',
+    borderColor: '#e5e7eb',
+    borderLeftWidth: 3,
   },
   row: {
     flexDirection: 'row',

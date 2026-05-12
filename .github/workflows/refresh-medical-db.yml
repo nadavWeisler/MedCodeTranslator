@@ -1,0 +1,69 @@
+name: Refresh medical code database
+
+on:
+  workflow_dispatch:
+    inputs:
+      create_pull_request:
+        description: Create or update an automated PR with regenerated assets
+        required: false
+        default: true
+        type: boolean
+  schedule:
+    - cron: '0 4 * * 1'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Refresh data and rebuild database assets
+        run: |
+          python scripts/refresh_medical_db.py \
+            --assets-dir assets/data \
+            --artifact-dir build/medical-db \
+            --report-file build/medical-db/update-report.md
+
+      - name: Publish refresh report to job summary
+        if: always()
+        run: |
+          if [ -f build/medical-db/update-report.md ]; then
+            cat build/medical-db/update-report.md >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Upload refreshed DB artifact
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: medical-code-db
+          path: build/medical-db
+
+      - name: Create refresh PR
+        if: success() && (github.event_name == 'schedule' || inputs.create_pull_request)
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/refresh-medical-db
+          commit-message: 'chore(data): refresh medical code datasets'
+          title: 'chore(data): refresh medical code datasets'
+          body: |
+            Automated refresh of ICD-9, ICD-10, ATC5 and ICD-9↔ICD-10 crosswalk datasets.
+
+            - Updated source metadata and deterministic JSON outputs
+            - Rebuilt SQLite artifact for app consumption
+            - Included refresh report with added/removed/changed counts
+          add-paths: |
+            assets/data/atc5.json
+            assets/data/icd9.json
+            assets/data/icd10.json
+            assets/data/source-metadata.json
+          delete-branch: true

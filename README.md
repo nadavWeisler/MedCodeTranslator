@@ -112,3 +112,25 @@ This project is for lookup convenience and experimentation. Always validate code
 - A GitHub Actions workflow (`.github/workflows/deploy-pages.yml`) deploys the web build on every push to `main`.
 - The app is configured for project Pages path hosting (`/MedCodeTranslator`).
 - Expected site URL: `https://nadavweisler.github.io/MedCodeTranslator/`
+
+## Automated Medical DB Refresh Pipeline
+
+- Workflow: `.github/workflows/refresh-medical-db.yml`
+- Triggers:
+  - Scheduled weekly refresh (`cron: 0 4 * * 1`)
+  - Manual `workflow_dispatch` trigger
+- Data refresh job:
+  - Downloads upstream ICD-9/ICD-10/crosswalk datasets from CMS/NBER endpoints and ATC data from WHOCC endpoint.
+  - Normalizes deterministic JSON outputs for app assets (`assets/data/*.json`).
+  - Rebuilds a SQLite artifact at `build/medical-db/medical-codes.sqlite`.
+  - Validates schema, uniqueness, hierarchy checks, crosswalk cardinality flags, and source metadata.
+  - Generates a diff/update report (`build/medical-db/update-report.md`) with added/removed/changed counts.
+  - Uploads `build/medical-db` as a workflow artifact.
+  - Optionally opens/updates an automated PR with refreshed app JSON assets.
+
+### Local commands
+
+```bash
+npm run refresh:data   # refresh from upstream URLs + validate + build artifacts
+npm run validate:data  # offline validation/build from currently checked-in assets
+```

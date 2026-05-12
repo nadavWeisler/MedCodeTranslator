@@ -53,7 +53,6 @@ export default function HomeScreen() {
   const [lang, setLang] = useState<Language>(initialLang);
   const { width } = useWindowDimensions();
   const isTablet = width >= 768;
-  const isDesktop = width >= 1120;
   const isMobile = !isTablet;
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -74,8 +73,19 @@ export default function HomeScreen() {
 
     document.documentElement.style.backgroundColor = '#f6f7f9';
     document.body.style.backgroundColor = '#f6f7f9';
+
+    // Load DM Sans from Google Fonts for a professional look
+    const linkId = 'dm-sans-font';
+    if (!document.getElementById(linkId)) {
+      const link = document.createElement('link');
+      link.id = linkId;
+      link.rel = 'stylesheet';
+      link.href = 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap';
+      document.head.appendChild(link);
+    }
+
     document.body.style.fontFamily =
-      'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+      '"DM Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
 
     return () => {
       document.documentElement.style.backgroundColor = previousHtmlBackground;
@@ -205,8 +215,8 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.shell}>
-          <View style={[styles.shellInner, isDesktop && styles.shellInnerDesktop]}>
-            <View style={[styles.controlsCol, isDesktop && styles.controlsColDesktop]}>
+          <View style={styles.shellInner}>
+            <View style={styles.controlsCol}>
               <SchemeTabs
                 active={scheme}
                 onChange={switchScheme}
@@ -231,8 +241,6 @@ export default function HomeScreen() {
                 </View>
               </View>
             </View>
-
-            {isDesktop && <View style={styles.divider} />}
 
             <View style={styles.resultsCol}>
               <Text style={styles.resultsTitleMinimal}>
@@ -339,17 +347,8 @@ const styles = StyleSheet.create({
     padding: 12,
     gap: 12,
   },
-  shellInnerDesktop: {
-    flexDirection: 'row',
-    gap: 16,
-    padding: 16,
-  },
   controlsCol: {
     gap: 12,
-  },
-  controlsColDesktop: {
-    width: 360,
-    flexShrink: 0,
   },
   contextRow: {
     flexDirection: 'row',
@@ -366,11 +365,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '800',
     letterSpacing: 0.4,
-  },
-  divider: {
-    width: 1,
-    backgroundColor: '#e5e7eb',
-    alignSelf: 'stretch',
   },
   resultsCol: {
     flex: 1,

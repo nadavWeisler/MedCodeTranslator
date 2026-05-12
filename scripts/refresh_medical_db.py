@@ -32,6 +32,36 @@ def fetch_bytes(url: str) -> bytes:
         return response.read()
 
 
+def url_exists(url: str) -> bool:
+    headers = {"User-Agent": "MedCodeTranslator refresh bot"}
+    try:
+        req = urllib.request.Request(url, method="HEAD", headers=headers)
+        with urllib.request.urlopen(req, timeout=20) as response:
+            return 200 <= getattr(response, "status", 200) < 400
+    except Exception:
+        try:
+            req = urllib.request.Request(url, method="GET", headers={**headers, "Range": "bytes=0-0"})
+            with urllib.request.urlopen(req, timeout=20) as response:
+                return 200 <= getattr(response, "status", 200) < 400
+        except Exception:
+            return False
+
+
+def cms_icd10_url(year: int) -> str:
+    return f"https://www.cms.gov/files/zip/{year}-code-descriptions-tabular-order.zip"
+
+
+def resolve_cms_icd10_url(year: int | None) -> str:
+    if year is not None:
+        return cms_icd10_url(year)
+    now_year = dt.datetime.now(dt.timezone.utc).year
+    for candidate in (now_year + 1, now_year, now_year - 1, now_year - 2):
+        url = cms_icd10_url(candidate)
+        if url_exists(url):
+            return url
+    return cms_icd10_url(now_year)
+
+
 def detect_csv_delimiter(sample: str) -> str:
     try:
         dialect = csv.Sniffer().sniff(sample, delimiters=",\t;")
@@ -70,33 +100,37 @@ def pick_key(row: dict[str, str], *candidates: str) -> str | None:
 
 
 def unique_sorted(entries: list[dict[str, str]]) -> list[dict[str, str]]:
-    by_code: dict[str, dict[str, str]] = {}
+    out: list[dict[str, str]] = []
     for entry in entries:
         code = normalize_label(entry.get("code", "")).upper()
         name = normalize_label(entry.get("name_en", ""))
         if not code or not name:
             continue
+        normalized: dict[str, str] = {"code": code, "name_en": name}
+        for key, value in entry.items():
+            if key in ("code", "name_en"):
+                continue
+            if isinstance(value, str):
+                clean = normalize_label(value)
+                if clean:
+                    normalized[key] = clean
+        out.append(normalized)
+    return sorted(out, key=lambda item: item["code"])
 
-        normalized_entry = dict(entry)
-        normalized_entry["code"] = code
-        normalized_entry["name_en"] = name
 
-        existing = by_code.get(code)
-        if existing is None:
-            by_code[code] = normalized_entry
+def merge_name_he(current: list[dict[str, str]], previous: list[dict[str, str]]) -> None:
+    prev_map: dict[str, str] = {}
+    for row in previous:
+        code = normalize_label(row.get("code", "")).upper()
+        name_he = row.get("name_he")
+        if code and isinstance(name_he, str) and normalize_label(name_he):
+            prev_map[code] = normalize_label(name_he)
+    for row in current:
+        if row.get("name_he"):
             continue
-
-        merged = dict(existing)
-        for key, value in normalized_entry.items():
-            if key in {"code", "name_en"}:
-                merged[key] = value
-            elif value and not merged.get(key):
-                merged[key] = value
-            elif key not in merged:
-                merged[key] = value
-        by_code[code] = merged
-
-    return sorted(by_code.values(), key=lambda item: item["code"])
+        code = row.get("code")
+        if isinstance(code, str) and code in prev_map:
+            row["name_he"] = prev_map[code]
 
 
 def parse_icd10_codes_zip(raw: bytes) -> list[dict[str, str]]:
@@ -277,9 +311,9 @@ def build_sqlite(path: pathlib.Path, atc5: list[dict[str, str]], icd10: list[dic
         conn.executescript(
             """
             PRAGMA journal_mode=DELETE;
-            CREATE TABLE atc5 (code TEXT PRIMARY KEY, name_en TEXT NOT NULL);
-            CREATE TABLE icd10 (code TEXT PRIMARY KEY, name_en TEXT NOT NULL);
-            CREATE TABLE icd9 (code TEXT PRIMARY KEY, name_en TEXT NOT NULL);
+            CREATE TABLE atc5 (code TEXT PRIMARY KEY, name_en TEXT NOT NULL, name_he TEXT);
+            CREATE TABLE icd10 (code TEXT PRIMARY KEY, name_en TEXT NOT NULL, name_he TEXT);
+            CREATE TABLE icd9 (code TEXT PRIMARY KEY, name_en TEXT NOT NULL, name_he TEXT);
             CREATE TABLE icd9_to_icd10_gem (
               icd9_code TEXT NOT NULL,
               icd10_code TEXT NOT NULL,
@@ -292,9 +326,18 @@ def build_sqlite(path: pathlib.Path, atc5: list[dict[str, str]], icd10: list[dic
             CREATE TABLE source_metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL);
             """
         )
-        conn.executemany("INSERT INTO atc5(code,name_en) VALUES(?,?)", [(x["code"], x["name_en"]) for x in atc5])
-        conn.executemany("INSERT INTO icd10(code,name_en) VALUES(?,?)", [(x["code"], x["name_en"]) for x in icd10])
-        conn.executemany("INSERT INTO icd9(code,name_en) VALUES(?,?)", [(x["code"], x["name_en"]) for x in icd9])
+        conn.executemany(
+            "INSERT INTO atc5(code,name_en,name_he) VALUES(?,?,?)",
+            [(x["code"], x["name_en"], x.get("name_he")) for x in atc5],
+        )
+        conn.executemany(
+            "INSERT INTO icd10(code,name_en,name_he) VALUES(?,?,?)",
+            [(x["code"], x["name_en"], x.get("name_he")) for x in icd10],
+        )
+        conn.executemany(
+            "INSERT INTO icd9(code,name_en,name_he) VALUES(?,?,?)",
+            [(x["code"], x["name_en"], x.get("name_he")) for x in icd9],
+        )
         conn.executemany(
             "INSERT INTO icd9_to_icd10_gem(icd9_code,icd10_code,cardinality,is_one_to_one,is_one_to_many,is_many_to_one) VALUES(?,?,?,?,?,?)",
             [
@@ -340,6 +383,12 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--report-file", type=pathlib.Path, default=DEFAULT_ARTIFACT_DIR / "update-report.md")
     parser.add_argument("--validate-only", action="store_true", help="Skip network fetch and only validate/build from current assets")
     parser.add_argument(
+        "--icd10-year",
+        type=int,
+        default=None,
+        help="CMS ICD-10-CM release year (defaults to auto-detect latest available)",
+    )
+    parser.add_argument(
         "--allow-missing-crosswalk",
         action="store_true",
         help="Allow validation to pass without crosswalk mappings (useful for local/offline checks)",
@@ -361,6 +410,7 @@ def main() -> int:
     icd9_prev = load_json(assets_dir / "icd9.json")
     atc5_prev = load_json(assets_dir / "atc5.json")
 
+    fetched_meta: list[dict[str, str | int]] = []
     if args.validate_only:
         icd10 = unique_sorted(icd10_prev)
         icd9 = unique_sorted(icd9_prev)
@@ -370,10 +420,11 @@ def main() -> int:
         if local_crosswalk_path.exists():
             crosswalk = json.loads(local_crosswalk_path.read_text(encoding="utf-8"))
     else:
+        icd10_url = resolve_cms_icd10_url(args.icd10_year)
         sources = {
             "icd10": {
                 "provider": "CMS",
-                "url": "https://www.cms.gov/files/zip/2026-code-descriptions-tabular-order.zip",
+                "url": icd10_url,
                 "parser": parse_icd10_codes_zip,
             },
             "icd9": {
@@ -393,7 +444,6 @@ def main() -> int:
             },
         }
 
-        fetched_meta: list[dict[str, str | int]] = []
         parsed: dict[str, object] = {}
         for name, src in sources.items():
             raw = fetch_bytes(src["url"])
@@ -416,27 +466,35 @@ def main() -> int:
         atc5 = parsed["atc5"]
         crosswalk = parsed["crosswalk"]
 
-        write_json(assets_dir / "icd10.json", icd10)
-        write_json(assets_dir / "icd9.json", icd9)
-        write_json(assets_dir / "atc5.json", atc5)
+        merge_name_he(icd10, icd10_prev)
+        merge_name_he(icd9, icd9_prev)
+        merge_name_he(atc5, atc5_prev)
 
+    metadata_path = assets_dir / "source-metadata.json"
+    if args.validate_only:
+        metadata = (
+            json.loads(metadata_path.read_text(encoding="utf-8"))
+            if metadata_path.exists()
+            else {
+                "generated_at_utc": utc_now(),
+                "imported_by": "local-validation",
+                "sources": [
+                    {
+                        "dataset": "local-assets",
+                        "provider": "local",
+                        "url": "n/a",
+                        "retrieved_at_utc": utc_now(),
+                        "record_count": 0,
+                    }
+                ],
+            }
+        )
+    else:
         metadata = {
             "generated_at_utc": utc_now(),
             "imported_by": "github-actions",
             "sources": fetched_meta,
         }
-        write_json(assets_dir / "source-metadata.json", metadata)
-
-    metadata_path = assets_dir / "source-metadata.json"
-    metadata = (
-        json.loads(metadata_path.read_text(encoding="utf-8"))
-        if metadata_path.exists()
-        else {
-            "generated_at_utc": utc_now(),
-            "imported_by": "local-validation",
-            "sources": [{"dataset": "local-assets", "provider": "local", "url": "n/a", "retrieved_at_utc": utc_now(), "record_count": 0}],
-        }
-    )
 
     validation_errors: list[str] = []
     validation_errors.extend(validate_dataset("ATC5", atc5, min_size=50))
@@ -460,15 +518,9 @@ def main() -> int:
     }
 
     artifact_dir.mkdir(parents=True, exist_ok=True)
-    write_json(artifact_dir / "atc5.json", atc5)
-    write_json(artifact_dir / "icd10.json", icd10)
-    write_json(artifact_dir / "icd9.json", icd9)
-    write_json(artifact_dir / "icd9_to_icd10_gem.json", crosswalk)
     metadata_artifact_path = artifact_dir / "source-metadata.json"
     write_json(metadata_artifact_path, metadata)
     write_json(artifact_dir / "validation-errors.json", validation_errors)
-
-    build_sqlite(artifact_dir / "medical-codes.sqlite", atc5, icd10, icd9, crosswalk, metadata)
     build_report(args.report_file, diffs, {"atc5": len(atc5), "icd10": len(icd10), "icd9": len(icd9)}, metadata_artifact_path)
 
     if validation_errors:
@@ -476,6 +528,19 @@ def main() -> int:
         for err in validation_errors:
             print(f"- {err}")
         return 1
+
+    if not args.validate_only:
+        write_json(assets_dir / "icd10.json", icd10)
+        write_json(assets_dir / "icd9.json", icd9)
+        write_json(assets_dir / "atc5.json", atc5)
+        write_json(assets_dir / "source-metadata.json", metadata)
+
+    write_json(artifact_dir / "atc5.json", atc5)
+    write_json(artifact_dir / "icd10.json", icd10)
+    write_json(artifact_dir / "icd9.json", icd9)
+    write_json(artifact_dir / "icd9_to_icd10_gem.json", crosswalk)
+
+    build_sqlite(artifact_dir / "medical-codes.sqlite", atc5, icd10, icd9, crosswalk, metadata)
 
     print("Refresh and validation completed successfully.")
     print(f"ATC5={len(atc5)} ICD10={len(icd10)} ICD9={len(icd9)} CROSSWALK={len(crosswalk)}")

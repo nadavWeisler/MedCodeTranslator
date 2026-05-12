@@ -132,7 +132,7 @@ This project is for lookup convenience and experimentation. Always validate code
 
 ```bash
 npm run refresh:data   # refresh from upstream URLs + validate + build artifacts
-npm run validate:data  # offline validation/build from currently checked-in assets
+npm run validate:data  # offline validation/build using checked-in assets; may reuse local build/medical-db/icd9_to_icd10_gem.json if present
 ```
 
 ## Branch Protection

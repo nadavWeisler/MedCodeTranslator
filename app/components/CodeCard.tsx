@@ -23,10 +23,11 @@ export default function CodeCard({
   const primaryName = lang === 'he' && entry.name_he ? entry.name_he : entry.name_en;
   const secondaryName = lang === 'he' && entry.name_he ? entry.name_en : null;
   const showMetadata = isSelected && metadataRows.length > 0;
+  const textAlign = lang === 'he' ? 'right' : 'left';
 
   return (
     <TouchableOpacity
-      style={[styles.card, isSelected && styles.cardSelected]}
+      style={[styles.card, { borderLeftColor: schemeColor }, isSelected && styles.cardSelected]}
       onPress={onPress ? () => onPress(entry) : undefined}
       activeOpacity={0.85}
       disabled={!onPress}
@@ -40,10 +41,10 @@ export default function CodeCard({
             {entry.code}
           </Text>
         </View>
-        <Text style={styles.name} numberOfLines={2}>{primaryName}</Text>
+        <Text style={[styles.name, { textAlign }]} numberOfLines={2}>{primaryName}</Text>
       </View>
       {secondaryName && (
-        <Text style={styles.altName} numberOfLines={1}>{secondaryName}</Text>
+        <Text style={[styles.altName, { textAlign }]} numberOfLines={1}>{secondaryName}</Text>
       )}
       {showMetadata && (
         <View style={styles.metadata}>
@@ -62,49 +63,50 @@ export default function CodeCard({
 const styles = StyleSheet.create({
   card: {
     backgroundColor: '#fff',
-    borderRadius: 12,
-    padding: 14,
-    marginBottom: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.06,
-    shadowRadius: 3,
-    elevation: 1,
+    borderRadius: 22,
+    padding: 18,
+    marginBottom: 10,
+    shadowColor: '#12344d',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.08,
+    shadowRadius: 18,
+    elevation: 3,
     borderWidth: 1,
-    borderColor: '#f1f5f9',
+    borderColor: '#e2ebf1',
+    borderLeftWidth: 4,
   },
   cardSelected: {
     borderColor: '#cbd5e1',
   },
   row: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: 12,
   },
   codeBadge: {
-    borderRadius: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
+    borderRadius: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     minWidth: 80,
     alignItems: 'center',
   },
   codeText: {
-    fontSize: 13,
-    fontWeight: '700',
-    letterSpacing: 0.5,
+    fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: 0.6,
   },
   name: {
     flex: 1,
-    fontSize: 15,
-    color: '#1e293b',
-    fontWeight: '500',
+    fontSize: 16,
+    lineHeight: 23,
+    color: '#102a3f',
+    fontWeight: '700',
   },
   altName: {
-    fontSize: 12,
-    color: '#94a3b8',
-    marginTop: 4,
+    fontSize: 13,
+    color: '#708495',
+    marginTop: 10,
     marginLeft: 4,
-    fontStyle: 'italic',
   },
   metadata: {
     marginTop: 10,

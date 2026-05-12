@@ -135,7 +135,7 @@ def parse_atc_csv(raw: bytes) -> list[dict[str, str]]:
 
 def parse_crosswalk_csv(raw: bytes) -> list[dict[str, str | bool]]:
     rows = load_csv_records(raw)
-    parsed: list[dict[str, str]] = []
+    parsed: list[dict[str, str | bool]] = []
     for row in rows:
         icd9_key = pick_key(row, "icd9", "source", "from", "old")
         icd10_key = pick_key(row, "icd10", "target", "to", "new")

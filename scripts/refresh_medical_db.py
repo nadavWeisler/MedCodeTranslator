@@ -214,14 +214,15 @@ def validate_dataset(name: str, entries: list[dict[str, str]], min_size: int) ->
     return errors
 
 
-def validate_hierarchy(icd10: list[dict[str, str]], atc5: list[dict[str, str]]) -> list[str]:
+def validate_hierarchy(icd10: list[dict[str, str]], atc5: list[dict[str, str]], enforce_icd10_parents: bool = True) -> list[str]:
     errors: list[str] = []
-    roots = {item["code"].replace(".", "")[:3] for item in icd10}
-    for item in icd10:
-        code_plain = item["code"].replace(".", "")
-        if len(code_plain) > 3 and code_plain[:3] not in roots:
-            errors.append(f"ICD-10 hierarchy missing parent for {item['code']}")
-            break
+    if enforce_icd10_parents:
+        roots = {item["code"].replace(".", "") for item in icd10 if len(item["code"].replace(".", "")) == 3}
+        for item in icd10:
+            code_plain = item["code"].replace(".", "")
+            if len(code_plain) > 3 and code_plain[:3] not in roots:
+                errors.append(f"ICD-10 hierarchy missing parent for {item['code']}")
+                break
     for item in atc5:
         if not re.fullmatch(r"[A-Z][0-9]{2}[A-Z]{2}[0-9]{2}", item["code"]):
             errors.append(f"ATC5 invalid format: {item['code']}")
@@ -324,6 +325,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Allow validation to pass without crosswalk mappings (useful for local/offline checks)",
     )
+    parser.add_argument(
+        "--allow-missing-icd10-parents",
+        action="store_true",
+        help="Allow ICD-10 child codes without explicit 3-character parent rows (useful for partial/local datasets)",
+    )
     return parser.parse_args()
 
 
@@ -420,7 +426,9 @@ def main() -> int:
     validation_errors.extend(validate_dataset("ATC5", atc5, min_size=50))
     validation_errors.extend(validate_dataset("ICD10", icd10, min_size=50))
     validation_errors.extend(validate_dataset("ICD9", icd9, min_size=50))
-    validation_errors.extend(validate_hierarchy(icd10, atc5))
+    validation_errors.extend(
+        validate_hierarchy(icd10, atc5, enforce_icd10_parents=not args.allow_missing_icd10_parents)
+    )
     if args.allow_missing_crosswalk and not crosswalk:
         pass
     else:

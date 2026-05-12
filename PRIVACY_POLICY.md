@@ -29,4 +29,5 @@ This project is designed as a terminology/code lookup utility. It is not intende
 - No backend PHI integration is included.
 
 ## 7) Contact
-For privacy questions or deletion requests regarding deployment-specific telemetry, contact: **privacy@medcodetranslator.example**
+For privacy questions or deletion requests regarding deployment-specific telemetry, contact your deployment operator's monitored privacy mailbox.  
+Repository placeholder: **privacy@medcodetranslator.example** (must be replaced with a real monitored address before production release).

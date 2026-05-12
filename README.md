@@ -1,6 +1,7 @@
 # Med Code Translator
 
-Med Code Translator is an Expo app for fast medication and medical terminology code lookup across major coding systems, with bilingual English/Hebrew support, autocomplete, and suggestion-based search. Works on iOS, Android, and Web.
+Med Code Translator is an Expo app for fast medication and medical terminology code lookup across major coding systems.
+It provides bilingual English/Hebrew support, autocomplete, and suggestion-based search across iOS, Android, and Web.
 
 Positioning: medication terminology and code lookup utility for research and administrative workflows.
 
@@ -18,7 +19,7 @@ Positioning: medication terminology and code lookup utility for research and adm
 
 ## What the Product Does
 
-- Search ATC5, ICD-10, ICD-9-CM, ICD-11, LOINC, and CPT-4
+- Search ATC-5, ICD-10, ICD-9-CM, ICD-11, LOINC, and CPT-4
 - Match by code or medical term
 - Offer autocomplete and fallback suggestions for near matches
 - Run from bundled local data for offline-friendly use

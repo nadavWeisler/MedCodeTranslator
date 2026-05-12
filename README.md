@@ -1,6 +1,13 @@
 # Med Code Translator
 
-Expo / React Native app for quickly looking up medical codes by **code** or **name** (with autocomplete and “did you mean” suggestions). Works on iOS, Android, and Web.
+Expo / React Native app for quickly looking up medication and medical terminology codes by **code** or **name** (with autocomplete and “did you mean” suggestions). Works on iOS, Android, and Web.
+Positioning: medication terminology and code lookup utility for research and administrative workflows.
+
+> **Medical disclaimer:** MedCodeTranslator is an informational reference tool only and is not intended for diagnosis, treatment decisions, prescribing, or medical advice.
+>
+> Always verify medication information using official clinical systems, licensed medical databases, and institutional procedures.
+>
+> Do **not** enter patient-identifiable or protected health information (PHI) into this application.
 
 ## Screenshots
 
@@ -105,7 +112,20 @@ Examples:
 
 ## Notes / Disclaimer
 
-This project is for lookup convenience and experimentation. Always validate codes and clinical decisions against authoritative sources.
+- See `DISCLAIMER.md` for full disclaimer language.
+- See `TERMS_OF_SERVICE.md` and `PRIVACY_POLICY.md` for legal text.
+- Web routes are available at `/legal/terms`, `/legal/privacy`, and `/about` (data source attribution + freshness metadata).
+
+## Legal / Compliance Docs
+
+- `DISCLAIMER.md`
+- `TERMS_OF_SERVICE.md`
+- `PRIVACY_POLICY.md`
+- `DATA_SOURCES.md`
+- `DEPENDENCY_LICENSE_AUDIT.md`
+- `docs/SAFE_SCOPE.md`
+- `docs/API.md`
+- `docs/APP_STORE_DESCRIPTION.md`
 
 ## GitHub Pages Deployment
 

@@ -426,24 +426,33 @@ def main() -> int:
                 "provider": "CMS",
                 "url": icd10_url,
                 "parser": parse_icd10_codes_zip,
+                "dataset_version": f"icd10-{args.icd10_year or dt.datetime.now(dt.timezone.utc).year}",
+                "source_revision": "CMS ICD-10-CM order/code files",
             },
             "icd9": {
                 "provider": "NBER",
                 "url": "https://data.nber.org/data/icd9cm-2022.csv",
                 "parser": parse_icd9_csv,
+                "dataset_version": "icd9cm-2022",
+                "source_revision": "NBER public CSV",
             },
             "atc5": {
                 "provider": "WHOCC",
                 "url": "https://www.whocc.no/atc_ddd_index_and_guidelines/atc_ddd_alterations__cumulative/atc_alterations__cumulative.csv",
                 "parser": parse_atc_csv,
+                "dataset_version": "whocc-cumulative-alterations",
+                "source_revision": "ATC cumulative alterations CSV",
             },
             "crosswalk": {
                 "provider": "CMS/NBER",
                 "url": "https://data.nber.org/data/icd9cm-to-icd10cm.csv",
                 "parser": parse_crosswalk_csv,
+                "dataset_version": "icd9-to-icd10cm-gem",
+                "source_revision": "CMS/NBER public CSV",
             },
         }
 
+        refresh_timestamp = utc_now()
         parsed: dict[str, object] = {}
         for name, src in sources.items():
             raw = fetch_bytes(src["url"])
@@ -455,7 +464,10 @@ def main() -> int:
                     "dataset": name,
                     "provider": src["provider"],
                     "url": src["url"],
-                    "retrieved_at_utc": utc_now(),
+                    "dataset_version": src["dataset_version"],
+                    "source_revision": src["source_revision"],
+                    "last_updated_utc": refresh_timestamp,
+                    "retrieved_at_utc": refresh_timestamp,
                     "sha256": sha,
                     "record_count": len(data),
                 }
@@ -472,18 +484,22 @@ def main() -> int:
 
     metadata_path = assets_dir / "source-metadata.json"
     if args.validate_only:
+        local_validation_timestamp = utc_now()
         metadata = (
             json.loads(metadata_path.read_text(encoding="utf-8"))
             if metadata_path.exists()
             else {
-                "generated_at_utc": utc_now(),
+                "generated_at_utc": local_validation_timestamp,
                 "imported_by": "local-validation",
                 "sources": [
                     {
                         "dataset": "local-assets",
                         "provider": "local",
                         "url": "n/a",
-                        "retrieved_at_utc": utc_now(),
+                        "dataset_version": "local-assets",
+                        "source_revision": "local-validation",
+                        "last_updated_utc": local_validation_timestamp,
+                        "retrieved_at_utc": local_validation_timestamp,
                         "record_count": 0,
                     }
                 ],
@@ -491,7 +507,7 @@ def main() -> int:
         )
     else:
         metadata = {
-            "generated_at_utc": utc_now(),
+            "generated_at_utc": refresh_timestamp,
             "imported_by": "github-actions",
             "sources": fetched_meta,
         }

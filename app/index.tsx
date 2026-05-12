@@ -6,10 +6,12 @@ import {
   Text,
   Platform,
   useWindowDimensions,
+  Modal,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useTranslation } from 'react-i18next';
-import { useLocalSearchParams } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import SearchBar from './components/SearchBar';
 import CodeList from './components/CodeList';
@@ -19,12 +21,14 @@ import type { SchemeKey } from '../db/database';
 import { buildIndex, getSuggestions, getDidYouMean } from './services/fuzzySearch';
 import { useSelectedCodeResult } from './services/useSelectedCodeResult';
 import i18n from '../i18n';
+import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel } from './services/sourceMetadata';
 
 type Language = 'en' | 'he';
 const LANGUAGES: { code: Language; label: string }[] = [
   { code: 'en', label: 'EN' },
   { code: 'he', label: 'עברית' },
 ];
+const DISCLAIMER_ACK_KEY = 'medcodetranslator:disclaimer-ack:v1';
 
 function firstParam(v: string | string[] | undefined): string | undefined {
   if (v === undefined) return undefined;
@@ -33,6 +37,7 @@ function firstParam(v: string | string[] | undefined): string | undefined {
 
 export default function HomeScreen() {
   const { t } = useTranslation();
+  const router = useRouter();
   const params = useLocalSearchParams<{ q?: string | string[]; scheme?: string | string[]; lang?: string | string[] }>();
 
   const initialSchemeParam = firstParam(params.scheme);
@@ -51,6 +56,7 @@ export default function HomeScreen() {
   const [didYouMean, setDidYouMean] = useState<CodeEntry[]>([]);
   const [ghostText, setGhostText] = useState<string | undefined>();
   const [lang, setLang] = useState<Language>(initialLang);
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
   const { width } = useWindowDimensions();
   const isTablet = width >= 768;
   const isMobile = !isTablet;
@@ -63,6 +69,14 @@ export default function HomeScreen() {
   useEffect(() => {
     i18n.changeLanguage(lang);
   }, [lang]);
+
+  useEffect(() => {
+    AsyncStorage.getItem(DISCLAIMER_ACK_KEY)
+      .then(value => {
+        if (!value) setShowDisclaimer(true);
+      })
+      .catch(() => setShowDisclaimer(true));
+  }, []);
 
   useEffect(() => {
     if (Platform.OS !== 'web' || typeof document === 'undefined') return;
@@ -167,6 +181,16 @@ export default function HomeScreen() {
     setLang(l);
   };
 
+  const acknowledgeDisclaimer = async () => {
+    try {
+      await AsyncStorage.setItem(DISCLAIMER_ACK_KEY, 'accepted');
+    } catch (error) {
+      console.warn('Failed to persist disclaimer acknowledgement', error);
+    } finally {
+      setShowDisclaimer(false);
+    }
+  };
+
   const schemeColor = activeScheme.color;
   const directionalText = isHebrew ? styles.textRight : styles.textLeft;
 
@@ -262,7 +286,58 @@ export default function HomeScreen() {
             </View>
           </View>
         </View>
+
+        <View style={styles.complianceFooter}>
+          <Text style={[styles.complianceTitle, directionalText]}>Informational use only</Text>
+          <Text style={[styles.complianceBody, directionalText]}>
+            MedCodeTranslator is an informational reference tool only and is not intended for diagnosis, treatment decisions, prescribing, or medical advice.
+          </Text>
+          <Text style={[styles.noPhiBody, directionalText]}>
+            Do not enter patient-identifiable or protected health information (PHI) into this application.
+          </Text>
+          <Text style={[styles.complianceBody, directionalText]}>
+            Last updated: {formatDateLabel(DATASET_METADATA_GENERATED_AT)}
+          </Text>
+          <View style={styles.complianceActions}>
+            <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/about')}>
+              <Text style={styles.linkBtnText}>About & Data Sources</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/legal/terms')}>
+              <Text style={styles.linkBtnText}>Terms</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/legal/privacy')}>
+              <Text style={styles.linkBtnText}>Privacy</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </View>
+
+      <Modal
+        visible={showDisclaimer}
+        transparent
+        animationType="fade"
+        onRequestClose={acknowledgeDisclaimer}
+      >
+        <View style={styles.modalBackdrop}>
+          <View style={styles.modalCard}>
+            <Text style={styles.modalTitle}>Important safety notice</Text>
+            <Text style={styles.modalBody}>
+              MedCodeTranslator is an informational reference tool only and is not intended for diagnosis, treatment decisions, prescribing, or medical advice.
+            </Text>
+            <Text style={styles.modalBody}>
+              Always verify medication information using official clinical systems, licensed medical databases, and institutional procedures.
+            </Text>
+            <Text style={styles.modalBody}>
+              No warranty is provided regarding the accuracy, completeness, or timeliness of the information presented.
+            </Text>
+            <Text style={styles.modalWarn}>Do not enter patient-identifiable or protected health information (PHI).</Text>
+            <Text style={styles.modalBody}>Current source entries: {DATASET_SOURCES.length}</Text>
+            <TouchableOpacity style={styles.modalButton} onPress={acknowledgeDisclaimer}>
+              <Text style={styles.modalButtonText}>I understand</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
     </SafeAreaView>
   );
 }
@@ -382,5 +457,93 @@ const styles = StyleSheet.create({
   },
   textRight: {
     textAlign: 'right',
+  },
+  complianceFooter: {
+    backgroundColor: '#ffffff',
+    borderColor: '#e5e7eb',
+    borderWidth: 1,
+    borderRadius: 12,
+    padding: 12,
+    gap: 8,
+  },
+  complianceTitle: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: '#0f172a',
+  },
+  complianceBody: {
+    fontSize: 12,
+    lineHeight: 17,
+    color: '#334155',
+  },
+  noPhiBody: {
+    fontSize: 12,
+    lineHeight: 17,
+    color: '#b91c1c',
+    fontWeight: '700',
+  },
+  complianceActions: {
+    flexDirection: 'row',
+    gap: 8,
+    flexWrap: 'wrap',
+  },
+  linkBtn: {
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#bfdbfe',
+    backgroundColor: '#eff6ff',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+  linkBtnText: {
+    fontSize: 12,
+    color: '#1d4ed8',
+    fontWeight: '700',
+  },
+  modalBackdrop: {
+    flex: 1,
+    backgroundColor: 'rgba(15, 23, 42, 0.52)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  modalCard: {
+    width: '100%',
+    maxWidth: 560,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#e2e8f0',
+    backgroundColor: '#ffffff',
+    padding: 16,
+    gap: 10,
+  },
+  modalTitle: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#0f172a',
+  },
+  modalBody: {
+    fontSize: 13,
+    lineHeight: 19,
+    color: '#334155',
+  },
+  modalWarn: {
+    fontSize: 13,
+    lineHeight: 19,
+    color: '#b91c1c',
+    fontWeight: '700',
+  },
+  modalButton: {
+    marginTop: 4,
+    borderRadius: 10,
+    backgroundColor: '#1d4ed8',
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    alignSelf: 'flex-start',
+  },
+  modalButtonText: {
+    color: '#ffffff',
+    fontSize: 13,
+    fontWeight: '700',
   },
 });

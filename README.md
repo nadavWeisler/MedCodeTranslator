@@ -1,6 +1,15 @@
 # Med Code Translator
 
-Med Code Translator is an Expo app for fast medical code lookup across major coding systems, with bilingual English/Hebrew support, autocomplete, and suggestion-based search.
+Med Code Translator is an Expo app for fast medication and medical terminology code lookup across major coding systems.
+It provides bilingual English/Hebrew support, autocomplete, and suggestion-based search across iOS, Android, and Web.
+
+Positioning: medication terminology and code lookup utility for research and administrative workflows.
+
+> **Medical disclaimer:** MedCodeTranslator is an informational reference tool only and is not intended for diagnosis, treatment decisions, prescribing, or medical advice.
+>
+> Always verify medication information using official clinical systems, licensed medical databases, and institutional procedures.
+>
+> Do **not** enter patient-identifiable or protected health information (PHI) into this application.
 
 ## Deployment Status
 
@@ -10,7 +19,7 @@ Med Code Translator is an Expo app for fast medical code lookup across major cod
 
 ## What the Product Does
 
-- Search ATC5, ICD-10, ICD-9-CM, ICD-11, LOINC, and CPT-4
+- Search ATC-5, ICD-10, ICD-9-CM, ICD-11, LOINC, and CPT-4
 - Match by code or medical term
 - Offer autocomplete and fallback suggestions for near matches
 - Run from bundled local data for offline-friendly use
@@ -36,6 +45,81 @@ Med Code Translator is an Expo app for fast medical code lookup across major cod
 **Web · Wide layout (LOINC “glucose”)**
 
 ![Web wide](docs/screenshots/web-wide-loinc-glucose.png)
+
+## Quick Start
+
+### Prerequisites
+
+- Node.js (18+ recommended)
+- npm
+
+### Install
+
+```bash
+npm ci
+```
+
+### Run (Web)
+
+```bash
+npm run web
+```
+
+Expo prints the dev-server URL (default: `http://localhost:19006`).
+
+### Build (Static Web)
+
+```bash
+npm run build:web
+```
+
+The static export is generated in `dist/`.
+
+### Run (iOS / Android)
+
+```bash
+npm run ios
+npm run android
+```
+
+## Deep Links (Web)
+
+On web, you can initialize the app state from query params:
+
+- `scheme`: `atc5 | icd10 | icd9 | icd11 | loinc | cpt`
+- `q`: initial search query
+- `lang`: `en | he`
+
+Examples:
+
+- `http://localhost:19006/?scheme=atc5&q=aspirin&lang=en`
+- `http://localhost:19006/?scheme=icd10&q=diabetes&lang=en`
+
+## How It Works (High-Level)
+
+- On startup, `db/database.ts` seeds `expo-sqlite` tables from `assets/data/*.json` (and keeps a `schema_version` in the `meta` table).
+- Searches are an exact-ish SQLite `LIKE` query (limited to 100 results) via `db/queries.ts`.
+- Autocomplete + “did you mean” suggestions are powered by `fuse.js` over an in-memory index per scheme (`app/services/fuzzySearch.ts`).
+
+## Project Structure
+
+- `app/` — screens and UI components (Expo Router)
+- `db/` — SQLite schema, seed logic, queries
+- `assets/data/` — bundled datasets (JSON)
+- `i18n/` — translations and i18next setup
+
+## Legal / Compliance Docs
+
+- `DISCLAIMER.md`
+- `TERMS_OF_SERVICE.md`
+- `PRIVACY_POLICY.md`
+- `DATA_SOURCES.md`
+- `DEPENDENCY_LICENSE_AUDIT.md`
+- `docs/SAFE_SCOPE.md`
+- `docs/API.md`
+- `docs/APP_STORE_DESCRIPTION.md`
+
+Web routes are available at `/legal/terms`, `/legal/privacy`, and `/about` (data source attribution + freshness metadata).
 
 ## Deployments
 
@@ -69,6 +153,12 @@ npx tsc --noEmit
 npm run build:web
 ```
 
-## Disclaimer
+## Branch Protection
 
-This project is intended for lookup convenience and experimentation. Always verify codes and clinical decisions against authoritative medical sources.
+- A CI workflow (`.github/workflows/ci.yml`) runs type checking and web build validation on pull requests and pushes.
+- Standard default-branch protection is defined in `.github/settings.yml`:
+  - Require pull requests with at least 1 approval
+  - Dismiss stale approvals on new commits
+  - Require passing `CI / validate` status checks
+  - Require conversation resolution and linear history
+  - Disallow force pushes and branch deletion

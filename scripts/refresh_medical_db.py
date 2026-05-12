@@ -152,9 +152,8 @@ def parse_crosswalk_csv(raw: bytes) -> list[dict[str, str]]:
             continue
         parsed.append({"icd9_code": icd9_code, "icd10_code": icd10_code})
 
-    parsed.sort(key=lambda item: (item["icd9_code"], item["icd10_code"]))
-    unique = [dict(t) for t in {tuple(d.items()) for d in parsed}]
-    unique.sort(key=lambda item: (item["icd9_code"], item["icd10_code"]))
+    unique_pairs = sorted({(item["icd9_code"], item["icd10_code"]) for item in parsed})
+    unique = [{"icd9_code": icd9_code, "icd10_code": icd10_code} for icd9_code, icd10_code in unique_pairs]
 
     from_counts = Counter(item["icd9_code"] for item in unique)
     to_counts = Counter(item["icd10_code"] for item in unique)

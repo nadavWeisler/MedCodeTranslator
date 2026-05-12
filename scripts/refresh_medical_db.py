@@ -452,6 +452,7 @@ def main() -> int:
             },
         }
 
+        refresh_timestamp = utc_now()
         parsed: dict[str, object] = {}
         for name, src in sources.items():
             raw = fetch_bytes(src["url"])
@@ -465,8 +466,8 @@ def main() -> int:
                     "url": src["url"],
                     "dataset_version": src["dataset_version"],
                     "source_revision": src["source_revision"],
-                    "last_updated_utc": utc_now(),
-                    "retrieved_at_utc": utc_now(),
+                    "last_updated_utc": refresh_timestamp,
+                    "retrieved_at_utc": refresh_timestamp,
                     "sha256": sha,
                     "record_count": len(data),
                 }
@@ -483,11 +484,12 @@ def main() -> int:
 
     metadata_path = assets_dir / "source-metadata.json"
     if args.validate_only:
+        local_validation_timestamp = utc_now()
         metadata = (
             json.loads(metadata_path.read_text(encoding="utf-8"))
             if metadata_path.exists()
             else {
-                "generated_at_utc": utc_now(),
+                "generated_at_utc": local_validation_timestamp,
                 "imported_by": "local-validation",
                 "sources": [
                     {
@@ -496,8 +498,8 @@ def main() -> int:
                         "url": "n/a",
                         "dataset_version": "local-assets",
                         "source_revision": "local-validation",
-                        "last_updated_utc": utc_now(),
-                        "retrieved_at_utc": utc_now(),
+                        "last_updated_utc": local_validation_timestamp,
+                        "retrieved_at_utc": local_validation_timestamp,
                         "record_count": 0,
                     }
                 ],
@@ -505,7 +507,7 @@ def main() -> int:
         )
     else:
         metadata = {
-            "generated_at_utc": utc_now(),
+            "generated_at_utc": refresh_timestamp,
             "imported_by": "github-actions",
             "sources": fetched_meta,
         }

@@ -182,8 +182,13 @@ export default function HomeScreen() {
   };
 
   const acknowledgeDisclaimer = async () => {
-    await AsyncStorage.setItem(DISCLAIMER_ACK_KEY, 'accepted');
-    setShowDisclaimer(false);
+    try {
+      await AsyncStorage.setItem(DISCLAIMER_ACK_KEY, 'accepted');
+    } catch (error) {
+      console.warn('Failed to persist disclaimer acknowledgement', error);
+    } finally {
+      setShowDisclaimer(false);
+    }
   };
 
   const schemeColor = activeScheme.color;

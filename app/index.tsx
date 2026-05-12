@@ -312,7 +312,12 @@ export default function HomeScreen() {
         </View>
       </View>
 
-      <Modal visible={showDisclaimer} transparent animationType="fade">
+      <Modal
+        visible={showDisclaimer}
+        transparent
+        animationType="fade"
+        onRequestClose={acknowledgeDisclaimer}
+      >
         <View style={styles.modalBackdrop}>
           <View style={styles.modalCard}>
             <Text style={styles.modalTitle}>Important safety notice</Text>

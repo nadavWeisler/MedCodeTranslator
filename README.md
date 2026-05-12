@@ -1,19 +1,19 @@
 # Med Code Translator
 
-Med Code Translator is an Expo application for fast medical code lookup across multiple coding systems, with support for search by code or term, autocomplete, and bilingual English/Hebrew UX.
+Med Code Translator is an Expo app for fast medical code lookup across major coding systems, with bilingual English/Hebrew support, autocomplete, and suggestion-based search.
 
 ## Deployment Status
 
 - **Web (live):** https://nadavweisler.github.io/MedCodeTranslator/
-- **iOS:** planned future deployment
-- **Android:** planned future deployment
+- **iOS:** EAS build workflow is configured; public deployment is planned
+- **Android:** EAS build workflow is configured; public deployment is planned
 
 ## What the Product Does
 
-- Search across ATC5, ICD-10, ICD-9-CM, ICD-11, LOINC, and CPT-4
-- Provide autocomplete and fallback suggestions for near matches
-- Support English and Hebrew interfaces
-- Run from bundled local data for offline-friendly usage
+- Search ATC5, ICD-10, ICD-9-CM, ICD-11, LOINC, and CPT-4
+- Match by code or medical term
+- Offer autocomplete and fallback suggestions for near matches
+- Run from bundled local data for offline-friendly use
 
 ## Screenshots
 
@@ -37,26 +37,36 @@ Med Code Translator is an Expo application for fast medical code lookup across m
 
 ![Web wide](docs/screenshots/web-wide-loinc-glucose.png)
 
-## Web Deployment
+## Deployments
 
-The web application is deployed automatically to GitHub Pages from the `master` branch through `.github/workflows/deploy-pages.yml`.
+### Web
 
-## Development
+- Deployed automatically to GitHub Pages from `master` via `.github/workflows/deploy-pages.yml`
+- Hosted under the project Pages path `/MedCodeTranslator`
 
-For local work:
+### Mobile
 
-```bash
-npm ci
-npm run build:web
-```
+- `.github/workflows/deploy-mobile.yml` builds iOS and Android apps through Expo Application Services (EAS)
+- Supports `development`, `preview`, and `production` build profiles from `eas.json`
+- Requires an `EXPO_TOKEN` GitHub Actions secret for authenticated builds
 
 ## Data Operations
 
-Medical datasets can be refreshed and validated through `.github/workflows/refresh-medical-db.yml` or with:
+Medical datasets are refreshed through `.github/workflows/refresh-medical-db.yml` or with:
 
 ```bash
 npm run refresh:data
 npm run validate:data
+```
+
+## Development
+
+For local validation:
+
+```bash
+npm ci
+npx tsc --noEmit
+npm run build:web
 ```
 
 ## Disclaimer

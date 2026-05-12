@@ -38,8 +38,11 @@ concurrency:
 
 jobs:
   build:
-    name: EAS Build (${{ inputs.platform || 'all' }} / ${{ inputs.profile || 'preview' }})
+    name: EAS Build
     runs-on: ubuntu-latest
+    env:
+      EAS_PLATFORM: ${{ inputs.platform }}
+      EAS_PROFILE: ${{ inputs.profile }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -61,7 +64,9 @@ jobs:
 
       - name: Build on EAS
         run: |
+          PLATFORM="${EAS_PLATFORM:-all}"
+          PROFILE="${EAS_PROFILE:-preview}"
           eas build \
-            --platform ${{ inputs.platform || 'all' }} \
-            --profile ${{ inputs.profile || 'preview' }} \
+            --platform "$PLATFORM" \
+            --profile "$PROFILE" \
             --non-interactive

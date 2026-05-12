@@ -54,11 +54,11 @@ export default function HomeScreen() {
   const { width } = useWindowDimensions();
   const isTablet = width >= 768;
   const isDesktop = width >= 1120;
+  const isMobile = !isTablet;
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeScheme = SCHEMES.find(s => s.key === scheme)!;
   const { selectedCode, metadataRows, selectEntry } = useSelectedCodeResult(results);
-  const activeLanguage = LANGUAGES.find(l => l.code === lang)!;
   const isHebrew = lang === 'he';
 
   useEffect(() => {
@@ -171,17 +171,17 @@ export default function HomeScreen() {
           },
         ]}
       >
-        <View style={styles.header}>
+        <View style={[styles.header, isMobile && styles.headerMobile]}>
           <View style={styles.headerCopy}>
             <Text style={[styles.appTitle, isTablet && styles.appTitleTablet, directionalText]}>
               {t('app_title')}
             </Text>
-            <Text style={[styles.appSubtitle, directionalText]} numberOfLines={2}>
+            <Text style={[styles.appSubtitle, directionalText]} numberOfLines={1}>
               {t('hero_subtitle')}
             </Text>
           </View>
 
-          <View style={styles.langPicker}>
+          <View style={[styles.langPicker, isMobile && styles.langPickerMobile]}>
             {LANGUAGES.map(l => (
               <TouchableOpacity
                 key={l.code}
@@ -229,7 +229,6 @@ export default function HomeScreen() {
                 <View style={[styles.contextPill, { backgroundColor: `${schemeColor}10`, borderColor: `${schemeColor}30` }]}>
                   <Text style={[styles.contextPillText, { color: schemeColor }]}>{activeScheme.shortLabel}</Text>
                 </View>
-                <Text style={styles.contextText}>{activeLanguage.label}</Text>
               </View>
             </View>
 
@@ -268,10 +267,10 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     width: '100%',
-    maxWidth: 1100,
+    maxWidth: 960,
     alignSelf: 'center',
     paddingBottom: 18,
-    gap: 14,
+    gap: 12,
   },
   header: {
     flexDirection: 'row',
@@ -279,13 +278,17 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: 12,
   },
+  headerMobile: {
+    flexDirection: 'column',
+    gap: 10,
+  },
   headerCopy: {
     flex: 1,
     gap: 6,
   },
   appTitle: {
-    fontSize: 22,
-    lineHeight: 26,
+    fontSize: 20,
+    lineHeight: 24,
     fontWeight: '800',
     color: '#0f172a',
     letterSpacing: -0.3,
@@ -295,9 +298,9 @@ const styles = StyleSheet.create({
     lineHeight: 30,
   },
   appSubtitle: {
-    fontSize: 13,
-    lineHeight: 18,
-    color: '#475569',
+    fontSize: 12,
+    lineHeight: 16,
+    color: '#64748b',
     maxWidth: 720,
   },
   langPicker: {
@@ -308,6 +311,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     padding: 3,
     gap: 6,
+  },
+  langPickerMobile: {
+    alignSelf: 'flex-start',
   },
   langBtn: {
     paddingHorizontal: 12,
@@ -324,14 +330,14 @@ const styles = StyleSheet.create({
   shell: {
     flex: 1,
     backgroundColor: '#ffffff',
-    borderRadius: 16,
+    borderRadius: 14,
     borderWidth: 1,
     borderColor: '#e5e7eb',
   },
   shellInner: {
     flex: 1,
-    padding: 14,
-    gap: 14,
+    padding: 12,
+    gap: 12,
   },
   shellInnerDesktop: {
     flexDirection: 'row',
@@ -348,7 +354,7 @@ const styles = StyleSheet.create({
   contextRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-start',
   },
   contextPill: {
     borderRadius: 10,
@@ -360,11 +366,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '800',
     letterSpacing: 0.4,
-  },
-  contextText: {
-    fontSize: 12,
-    fontWeight: '700',
-    color: '#475569',
   },
   divider: {
     width: 1,

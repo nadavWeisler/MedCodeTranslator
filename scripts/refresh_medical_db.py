@@ -350,9 +350,6 @@ def main() -> int:
         local_crosswalk_path = assets_dir / "icd9_to_icd10_gem.json"
         if local_crosswalk_path.exists():
             crosswalk = json.loads(local_crosswalk_path.read_text(encoding="utf-8"))
-        crosswalk_path = artifact_dir / "icd9_to_icd10_gem.json"
-        if crosswalk_path.exists():
-            crosswalk = json.loads(crosswalk_path.read_text(encoding="utf-8"))
     else:
         sources = {
             "icd10": {

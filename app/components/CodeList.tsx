@@ -8,7 +8,7 @@ type Props = {
   entries: CodeEntry[];
   query: string;
   lang: string;
-  t: (key: string) => string;
+  t: (key: string, options?: Record<string, unknown>) => string;
   fuzzyMatches?: CodeEntry[];   // "did you mean" suggestions
   onFuzzySelect?: (item: CodeEntry) => void;
   schemeColor: string;
@@ -25,22 +25,32 @@ export default function CodeList({
   schemeColor,
   resultCount,
 }: Props) {
+  const isHebrew = lang === 'he';
+
   if (!query.trim()) {
     return (
-      <View style={styles.empty}>
-        <Text style={styles.emptyIcon}>💊🩺🧪</Text>
-        <Text style={styles.emptyHint}>Type a code or a name to search</Text>
+      <View style={styles.stateCard}>
+        <Text style={styles.stateIcon}>🩺</Text>
+        <Text style={[styles.stateTitle, isHebrew ? styles.textRight : styles.textLeft]}>
+          {t('empty_state_title')}
+        </Text>
+        <Text style={[styles.stateBody, isHebrew ? styles.textRight : styles.textLeft]}>
+          {t('empty_state_body')}
+        </Text>
       </View>
     );
   }
 
   if (entries.length === 0) {
     return (
-      <View style={styles.noResults}>
-        <Text style={styles.noResultsText}>{t('no_results')}</Text>
+      <View style={styles.stateCard}>
+        <Text style={styles.stateIcon}>🔎</Text>
+        <Text style={[styles.stateTitle, isHebrew ? styles.textRight : styles.textLeft]}>{t('no_results')}</Text>
         {fuzzyMatches.length > 0 && (
           <View style={styles.didYouMean}>
-            <Text style={styles.didYouMeanTitle}>Did you mean…</Text>
+            <Text style={[styles.didYouMeanTitle, isHebrew ? styles.textRight : styles.textLeft]}>
+              {t('did_you_mean')}
+            </Text>
             {fuzzyMatches.map(item => (
               <SuggestionItem
                 key={item.code}
@@ -57,10 +67,12 @@ export default function CodeList({
   }
 
   return (
-    <>
-      <Text style={[styles.countBadge, { color: schemeColor }]}>
-        {resultCount}{resultCount === 100 ? '+' : ''} result{resultCount !== 1 ? 's' : ''}
-      </Text>
+    <View style={styles.resultsContainer}>
+      <View style={[styles.countBadge, { backgroundColor: `${schemeColor}14`, borderColor: `${schemeColor}24` }]}>
+        <Text style={[styles.countBadgeText, { color: schemeColor }]}>
+          {t('results_count', { count: resultCount === 100 ? '100+' : resultCount })}
+        </Text>
+      </View>
       <FlatList
         data={entries}
         keyExtractor={item => item.code}
@@ -70,61 +82,84 @@ export default function CodeList({
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
         contentContainerStyle={styles.list}
+        style={styles.listView}
       />
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  resultsContainer: {
+    flex: 1,
+    gap: 12,
+  },
+  listView: {
+    flex: 1,
+  },
   list: {
-    paddingBottom: 24,
+    paddingBottom: 10,
   },
   countBadge: {
-    fontSize: 12,
-    fontWeight: '600',
-    marginBottom: 8,
+    alignSelf: 'flex-start',
+    borderRadius: 999,
+    borderWidth: 1,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
   },
-  empty: {
+  countBadgeText: {
+    fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: 0.4,
+  },
+  stateCard: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 60,
+    paddingHorizontal: 24,
     gap: 12,
+    borderRadius: 24,
+    borderWidth: 1,
+    borderColor: '#dce7ee',
+    backgroundColor: '#f7fbfd',
   },
-  emptyIcon: {
-    fontSize: 44,
+  stateIcon: {
+    fontSize: 34,
   },
-  emptyHint: {
+  stateTitle: {
+    fontSize: 20,
+    fontWeight: '800',
+    color: '#113349',
+  },
+  stateBody: {
     fontSize: 14,
-    color: '#94a3b8',
+    lineHeight: 21,
+    color: '#66788a',
     textAlign: 'center',
-    maxWidth: 260,
-  },
-  noResults: {
-    paddingTop: 32,
-    alignItems: 'center',
-  },
-  noResultsText: {
-    fontSize: 16,
-    color: '#64748b',
-    marginBottom: 20,
+    maxWidth: 320,
   },
   didYouMean: {
     width: '100%',
+    maxWidth: 460,
     backgroundColor: '#fff',
-    borderRadius: 12,
+    borderRadius: 18,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: '#dce7ee',
     overflow: 'hidden',
   },
   didYouMeanTitle: {
     fontSize: 13,
-    fontWeight: '600',
-    color: '#64748b',
+    fontWeight: '700',
+    color: '#5f7488',
     paddingHorizontal: 14,
-    paddingVertical: 10,
-    backgroundColor: '#f8fafc',
+    paddingVertical: 12,
+    backgroundColor: '#f7fbfd',
     borderBottomWidth: 1,
-    borderBottomColor: '#e2e8f0',
+    borderBottomColor: '#dce7ee',
+  },
+  textLeft: {
+    textAlign: 'left',
+  },
+  textRight: {
+    textAlign: 'right',
   },
 });

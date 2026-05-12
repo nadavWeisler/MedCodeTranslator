@@ -72,8 +72,8 @@ export default function HomeScreen() {
     const previousBodyFontFamily = document.body.style.fontFamily;
     const previousHtmlBackground = document.documentElement.style.backgroundColor;
 
-    document.documentElement.style.backgroundColor = '#edf4f8';
-    document.body.style.backgroundColor = '#edf4f8';
+    document.documentElement.style.backgroundColor = '#f6f7f9';
+    document.body.style.backgroundColor = '#f6f7f9';
     document.body.style.fontFamily =
       'Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
 
@@ -171,124 +171,88 @@ export default function HomeScreen() {
           },
         ]}
       >
-        <View style={[styles.heroCard, isDesktop && styles.heroCardDesktop]}>
-          <View style={styles.heroCopy}>
-            <View style={styles.heroBadge}>
-              <Text style={styles.heroBadgeText}>{t('hero_badge')}</Text>
-            </View>
-
-            <Text
-              style={[
-                styles.heroTitle,
-                isTablet && styles.heroTitleTablet,
-                isDesktop && styles.heroTitleDesktop,
-                directionalText,
-              ]}
-            >
+        <View style={styles.header}>
+          <View style={styles.headerCopy}>
+            <Text style={[styles.appTitle, isTablet && styles.appTitleTablet, directionalText]}>
               {t('app_title')}
             </Text>
-            <Text style={[styles.heroSubtitle, directionalText]}>{t('hero_subtitle')}</Text>
-
-            <View style={styles.heroStats}>
-              <View style={styles.heroStat}>
-                <Text style={styles.heroStatValue}>{SCHEMES.length}</Text>
-                <Text style={styles.heroStatLabel}>{t('hero_stat_systems')}</Text>
-              </View>
-              <View style={styles.heroStat}>
-                <Text style={styles.heroStatValue}>EN + עברית</Text>
-                <Text style={styles.heroStatLabel}>{t('hero_stat_bilingual')}</Text>
-              </View>
-              <View style={styles.heroStat}>
-                <Text style={styles.heroStatValue}>SQLite</Text>
-                <Text style={styles.heroStatLabel}>{t('hero_stat_offline')}</Text>
-              </View>
-            </View>
+            <Text style={[styles.appSubtitle, directionalText]} numberOfLines={2}>
+              {t('hero_subtitle')}
+            </Text>
           </View>
 
-          <View style={[styles.heroSide, isDesktop && styles.heroSideDesktop]}>
-            <View style={styles.heroControlCard}>
-              <Text style={styles.heroControlLabel}>{t('language')}</Text>
-              <View style={styles.langPicker}>
-                {LANGUAGES.map(l => (
-                  <TouchableOpacity
-                    key={l.code}
-                    style={[styles.langBtn, lang === l.code && { backgroundColor: schemeColor }]}
-                    onPress={() => handleLanguageChange(l.code)}
-                  >
-                    <Text style={[styles.langBtnText, lang === l.code && styles.langBtnTextActive]}>
-                      {l.label}
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            </View>
-
-            <View style={styles.heroHighlightCard}>
-              <Text style={styles.heroHighlightLabel}>{t('hero_highlight_label')}</Text>
-              <Text style={styles.heroHighlightValue}>{activeScheme.label}</Text>
-              <Text style={styles.heroHighlightHint}>{t('hero_highlight_body')}</Text>
-            </View>
+          <View style={styles.langPicker}>
+            {LANGUAGES.map(l => (
+              <TouchableOpacity
+                key={l.code}
+                style={[
+                  styles.langBtn,
+                  lang === l.code && { backgroundColor: `${schemeColor}14`, borderColor: `${schemeColor}50` },
+                ]}
+                onPress={() => handleLanguageChange(l.code)}
+              >
+                <Text
+                  style={[
+                    styles.langBtnText,
+                    lang === l.code && { color: schemeColor },
+                  ]}
+                >
+                  {l.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
           </View>
         </View>
 
-        <View style={[styles.workspace, isDesktop && styles.workspaceDesktop]}>
-          <View style={[styles.searchPanel, isDesktop && styles.searchPanelDesktop]}>
-            <Text style={styles.sectionLabel}>{t('search_workspace_label')}</Text>
-            <Text style={[styles.sectionTitle, directionalText]}>{t('search_workspace_title')}</Text>
-            <Text style={[styles.sectionDescription, directionalText]}>{t('search_workspace_body')}</Text>
+        <View style={styles.shell}>
+          <View style={[styles.shellInner, isDesktop && styles.shellInnerDesktop]}>
+            <View style={[styles.controlsCol, isDesktop && styles.controlsColDesktop]}>
+              <SchemeTabs
+                active={scheme}
+                onChange={switchScheme}
+                hintLabel={t('search_by_code_or_name')}
+                compact
+              />
 
-            <SchemeTabs active={scheme} onChange={switchScheme} hintLabel={t('search_by_code_or_name')} />
+              <SearchBar
+                value={query}
+                onChangeText={setQuery}
+                placeholder={t('search_placeholder_generic', { schemeLabel: activeScheme.shortLabel })}
+                suggestions={suggestions}
+                ghostText={ghostText}
+                onSuggestionSelect={handleSuggestionSelect}
+                schemeColor={schemeColor}
+                lang={lang}
+              />
 
-            <SearchBar
-              value={query}
-              onChangeText={setQuery}
-              placeholder={t('search_placeholder_generic', { schemeLabel: activeScheme.shortLabel })}
-              suggestions={suggestions}
-              ghostText={ghostText}
-              onSuggestionSelect={handleSuggestionSelect}
-              schemeColor={schemeColor}
-              lang={lang}
-            />
-
-            <View style={styles.helperRow}>
-              <View style={styles.helperChip}>
-                <Text style={styles.helperChipLabel}>{t('scheme')}</Text>
-                <Text style={styles.helperChipValue}>{activeScheme.shortLabel}</Text>
-              </View>
-              <View style={styles.helperChip}>
-                <Text style={styles.helperChipLabel}>{t('language')}</Text>
-                <Text style={styles.helperChipValue}>{activeLanguage.label}</Text>
-              </View>
-            </View>
-          </View>
-
-          <View style={styles.resultsPanel}>
-            <View style={[styles.resultsHeader, !isDesktop && styles.resultsHeaderStacked]}>
-              <View style={styles.resultsHeaderCopy}>
-                <Text style={styles.sectionLabel}>{t('results_label')}</Text>
-                <Text style={[styles.resultsTitle, directionalText]}>
-                  {t(query.trim() ? 'results_title_active' : 'results_title_idle')}
-                </Text>
-              </View>
-
-              <View style={[styles.resultsBadge, { backgroundColor: `${schemeColor}14`, borderColor: `${schemeColor}30` }]}>
-                <Text style={[styles.resultsBadgeText, { color: schemeColor }]}>{activeScheme.shortLabel}</Text>
+              <View style={styles.contextRow}>
+                <View style={[styles.contextPill, { backgroundColor: `${schemeColor}10`, borderColor: `${schemeColor}30` }]}>
+                  <Text style={[styles.contextPillText, { color: schemeColor }]}>{activeScheme.shortLabel}</Text>
+                </View>
+                <Text style={styles.contextText}>{activeLanguage.label}</Text>
               </View>
             </View>
 
-            <CodeList
-              entries={results}
-              query={query}
-              lang={lang}
-              t={t}
-              fuzzyMatches={didYouMean}
-              onFuzzySelect={handleSuggestionSelect}
-              schemeColor={schemeColor}
-              resultCount={results.length}
-              onEntrySelect={selectEntry}
-              selectedCode={selectedCode}
-              selectedMetadataRows={metadataRows}
-            />
+            {isDesktop && <View style={styles.divider} />}
+
+            <View style={styles.resultsCol}>
+              <Text style={styles.resultsTitleMinimal}>
+                {t(query.trim() ? 'results_title_active' : 'results_title_idle')}
+              </Text>
+              <CodeList
+                entries={results}
+                query={query}
+                lang={lang}
+                t={t}
+                fuzzyMatches={didYouMean}
+                onFuzzySelect={handleSuggestionSelect}
+                schemeColor={schemeColor}
+                resultCount={results.length}
+                onEntrySelect={selectEntry}
+                selectedCode={selectedCode}
+                selectedMetadataRows={metadataRows}
+              />
+            </View>
           </View>
         </View>
       </View>
@@ -299,281 +263,124 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#edf4f8',
+    backgroundColor: '#f6f7f9',
   },
   page: {
     flex: 1,
     width: '100%',
-    maxWidth: 1240,
+    maxWidth: 1100,
     alignSelf: 'center',
     paddingBottom: 18,
-    gap: 18,
+    gap: 14,
   },
-  heroCard: {
-    backgroundColor: '#113349',
-    borderRadius: 28,
-    padding: 24,
-    borderWidth: 1,
-    borderColor: '#2e556c',
-    shadowColor: '#0f172a',
-    shadowOffset: { width: 0, height: 18 },
-    shadowOpacity: 0.18,
-    shadowRadius: 32,
-    elevation: 8,
-    gap: 20,
-  },
-  heroCardDesktop: {
+  header: {
     flexDirection: 'row',
-    alignItems: 'stretch',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: 12,
   },
-  heroCopy: {
+  headerCopy: {
     flex: 1,
-    gap: 14,
-  },
-  heroBadge: {
-    alignSelf: 'flex-start',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 999,
-    backgroundColor: 'rgba(255,255,255,0.12)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.14)',
-  },
-  heroBadgeText: {
-    color: '#dcecf5',
-    fontSize: 12,
-    fontWeight: '700',
-    letterSpacing: 0.4,
-  },
-  heroTitle: {
-    fontSize: 28,
-    lineHeight: 34,
-    fontWeight: '800',
-    color: '#f8fbfd',
-    letterSpacing: -0.6,
-  },
-  heroTitleTablet: {
-    fontSize: 34,
-    lineHeight: 40,
-  },
-  heroTitleDesktop: {
-    fontSize: 40,
-    lineHeight: 46,
-  },
-  heroSubtitle: {
-    fontSize: 16,
-    lineHeight: 24,
-    color: '#d2e2ec',
-    maxWidth: 720,
-  },
-  heroStats: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 12,
-    marginTop: 6,
-  },
-  heroStat: {
-    minWidth: 120,
-    paddingHorizontal: 14,
-    paddingVertical: 14,
-    borderRadius: 18,
-    backgroundColor: 'rgba(255,255,255,0.09)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.12)',
-    gap: 4,
-  },
-  heroStatValue: {
-    color: '#ffffff',
-    fontSize: 18,
-    fontWeight: '800',
-  },
-  heroStatLabel: {
-    color: '#c4d7e3',
-    fontSize: 12,
-    fontWeight: '600',
-  },
-  heroSide: {
-    width: '100%',
-    gap: 14,
-  },
-  heroSideDesktop: {
-    maxWidth: 288,
-  },
-  heroControlCard: {
-    backgroundColor: 'rgba(255,255,255,0.08)',
-    borderRadius: 22,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.12)',
-    gap: 12,
-  },
-  heroControlLabel: {
-    fontSize: 12,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
-    color: '#dcecf5',
-  },
-  heroHighlightCard: {
-    backgroundColor: '#f8fbfd',
-    borderRadius: 22,
-    padding: 18,
-    borderWidth: 1,
-    borderColor: '#d7e4eb',
     gap: 6,
   },
-  heroHighlightLabel: {
-    fontSize: 12,
-    fontWeight: '700',
-    textTransform: 'uppercase',
-    letterSpacing: 0.8,
-    color: '#5c7286',
-  },
-  heroHighlightValue: {
-    fontSize: 20,
+  appTitle: {
+    fontSize: 22,
+    lineHeight: 26,
     fontWeight: '800',
-    color: '#113349',
+    color: '#0f172a',
+    letterSpacing: -0.3,
   },
-  heroHighlightHint: {
-    fontSize: 14,
-    lineHeight: 20,
-    color: '#64748b',
-  },
-  workspace: {
-    flex: 1,
-    gap: 18,
-  },
-  workspaceDesktop: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-  },
-  searchPanel: {
-    backgroundColor: '#ffffff',
-    borderRadius: 28,
-    padding: 22,
-    borderWidth: 1,
-    borderColor: '#d8e4eb',
-    shadowColor: '#12344d',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.08,
-    shadowRadius: 24,
-    elevation: 4,
-    gap: 16,
-  },
-  searchPanelDesktop: {
-    width: 380,
-    flexShrink: 0,
-  },
-  resultsPanel: {
-    flex: 1,
-    minHeight: 360,
-    backgroundColor: '#ffffff',
-    borderRadius: 28,
-    padding: 22,
-    borderWidth: 1,
-    borderColor: '#d8e4eb',
-    shadowColor: '#12344d',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.08,
-    shadowRadius: 24,
-    elevation: 4,
-    gap: 14,
-  },
-  sectionLabel: {
-    fontSize: 12,
-    fontWeight: '700',
-    letterSpacing: 0.9,
-    textTransform: 'uppercase',
-    color: '#5d7588',
-  },
-  sectionTitle: {
-    fontSize: 24,
+  appTitleTablet: {
+    fontSize: 26,
     lineHeight: 30,
-    fontWeight: '800',
-    color: '#113349',
-    letterSpacing: -0.4,
   },
-  sectionDescription: {
-    fontSize: 14,
-    lineHeight: 21,
-    color: '#66788a',
+  appSubtitle: {
+    fontSize: 13,
+    lineHeight: 18,
+    color: '#475569',
+    maxWidth: 720,
   },
   langPicker: {
     flexDirection: 'row',
-    backgroundColor: 'rgba(235,245,251,0.16)',
-    borderRadius: 999,
-    padding: 4,
-    gap: 4,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    backgroundColor: '#ffffff',
+    padding: 3,
+    gap: 6,
   },
   langBtn: {
-    paddingHorizontal: 14,
+    paddingHorizontal: 12,
     paddingVertical: 8,
-    borderRadius: 999,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'transparent',
   },
   langBtnText: {
     fontSize: 13,
-    color: '#dcecf5',
+    color: '#334155',
     fontWeight: '700',
   },
-  langBtnTextActive: {
-    color: '#fff',
-  },
-  helperRow: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 10,
-  },
-  helperChip: {
-    paddingHorizontal: 12,
-    paddingVertical: 10,
+  shell: {
+    flex: 1,
+    backgroundColor: '#ffffff',
     borderRadius: 16,
-    backgroundColor: '#f3f8fb',
     borderWidth: 1,
-    borderColor: '#dce6ed',
-    gap: 2,
+    borderColor: '#e5e7eb',
   },
-  helperChipLabel: {
-    fontSize: 11,
-    fontWeight: '700',
-    letterSpacing: 0.4,
-    color: '#6a7d8f',
-    textTransform: 'uppercase',
+  shellInner: {
+    flex: 1,
+    padding: 14,
+    gap: 14,
   },
-  helperChipValue: {
-    fontSize: 14,
-    fontWeight: '700',
-    color: '#113349',
-  },
-  resultsHeader: {
+  shellInnerDesktop: {
     flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    gap: 16,
+    padding: 16,
+  },
+  controlsCol: {
     gap: 12,
   },
-  resultsHeaderStacked: {
-    flexDirection: 'column',
+  controlsColDesktop: {
+    width: 360,
+    flexShrink: 0,
   },
-  resultsHeaderCopy: {
-    flex: 1,
-    gap: 6,
+  contextRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
-  resultsTitle: {
-    fontSize: 24,
-    lineHeight: 30,
-    fontWeight: '800',
-    color: '#113349',
-    letterSpacing: -0.4,
-  },
-  resultsBadge: {
-    borderRadius: 999,
+  contextPill: {
+    borderRadius: 10,
     borderWidth: 1,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
   },
-  resultsBadgeText: {
+  contextPillText: {
     fontSize: 12,
     fontWeight: '800',
-    letterSpacing: 0.6,
+    letterSpacing: 0.4,
+  },
+  contextText: {
+    fontSize: 12,
+    fontWeight: '700',
+    color: '#475569',
+  },
+  divider: {
+    width: 1,
+    backgroundColor: '#e5e7eb',
+    alignSelf: 'stretch',
+  },
+  resultsCol: {
+    flex: 1,
+    minHeight: 0,
+    gap: 10,
+  },
+  resultsTitleMinimal: {
+    fontSize: 14,
+    fontWeight: '800',
+    letterSpacing: -0.2,
+    color: '#0f172a',
   },
   textLeft: {
     textAlign: 'left',

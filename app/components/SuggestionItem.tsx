@@ -27,14 +27,14 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
     gap: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#eef4f8',
+    borderBottomColor: '#e5e7eb',
   },
   codePill: {
-    borderRadius: 999,
+    borderRadius: 10,
     paddingHorizontal: 10,
     paddingVertical: 5,
     minWidth: 72,

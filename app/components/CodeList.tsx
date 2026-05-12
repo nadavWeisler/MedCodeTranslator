@@ -3,6 +3,7 @@ import { FlatList, Text, StyleSheet, View } from 'react-native';
 import CodeCard from './CodeCard';
 import SuggestionItem from './SuggestionItem';
 import type { CodeEntry } from '../../db/queries';
+import type { MetadataRow } from '../services/useSelectedCodeResult';
 
 type Props = {
   entries: CodeEntry[];
@@ -13,6 +14,9 @@ type Props = {
   onFuzzySelect?: (item: CodeEntry) => void;
   schemeColor: string;
   resultCount: number;
+  onEntrySelect?: (entry: CodeEntry) => void;
+  selectedCode?: string | null;
+  selectedMetadataRows?: MetadataRow[];
 };
 
 export default function CodeList({
@@ -24,6 +28,9 @@ export default function CodeList({
   onFuzzySelect,
   schemeColor,
   resultCount,
+  onEntrySelect,
+  selectedCode,
+  selectedMetadataRows = [],
 }: Props) {
   const isHebrew = lang === 'he';
 
@@ -77,7 +84,14 @@ export default function CodeList({
         data={entries}
         keyExtractor={item => item.code}
         renderItem={({ item }) => (
-          <CodeCard entry={item} lang={lang} schemeColor={schemeColor} />
+          <CodeCard
+            entry={item}
+            lang={lang}
+            schemeColor={schemeColor}
+            onPress={onEntrySelect}
+            isSelected={item.code === selectedCode}
+            metadataRows={item.code === selectedCode ? selectedMetadataRows : []}
+          />
         )}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"

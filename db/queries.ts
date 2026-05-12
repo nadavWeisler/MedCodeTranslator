@@ -5,7 +5,18 @@ export type CodeEntry = {
   code: string;
   name_en: string;
   name_he: string | null;
+  metadata?: CodeMetadata | null;
 };
+
+export type CodeMetadataValue =
+  | string
+  | number
+  | boolean
+  | null
+  | CodeMetadataValue[]
+  | { [key: string]: CodeMetadataValue };
+
+export type CodeMetadata = Record<string, CodeMetadataValue>;
 
 export async function searchByScheme(
   scheme: SchemeKey,

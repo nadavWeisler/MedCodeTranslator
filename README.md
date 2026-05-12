@@ -109,7 +109,7 @@ This project is for lookup convenience and experimentation. Always validate code
 
 ## GitHub Pages Deployment
 
-- A GitHub Actions workflow (`.github/workflows/deploy-pages.yml`) deploys the web build on every push to `main`.
+- A GitHub Actions workflow (`.github/workflows/deploy-pages.yml`) deploys the web build on every push to the default branch (`master` or `main`).
 - The app is configured for project Pages path hosting (`/MedCodeTranslator`).
 - Expected site URL: `https://nadavweisler.github.io/MedCodeTranslator/`
 
@@ -134,3 +134,13 @@ This project is for lookup convenience and experimentation. Always validate code
 npm run refresh:data   # refresh from upstream URLs + validate + build artifacts
 npm run validate:data  # offline validation/build from currently checked-in assets
 ```
+
+## Branch Protection
+
+- A CI workflow (`.github/workflows/ci.yml`) runs type checking and web build validation on pull requests and pushes.
+- Standard default-branch protection is defined in `.github/settings.yml`:
+  - Require pull requests with at least 1 approval
+  - Dismiss stale approvals on new commits
+  - Require passing `CI / validate` status checks
+  - Require conversation resolution and linear history
+  - Disallow force pushes and branch deletion

@@ -133,7 +133,7 @@ def parse_atc_csv(raw: bytes) -> list[dict[str, str]]:
     return unique_sorted(entries)
 
 
-def parse_crosswalk_csv(raw: bytes) -> list[dict[str, str]]:
+def parse_crosswalk_csv(raw: bytes) -> list[dict[str, str | bool]]:
     rows = load_csv_records(raw)
     parsed: list[dict[str, str]] = []
     for row in rows:
@@ -257,7 +257,7 @@ def build_sqlite(path: pathlib.Path, atc5: list[dict[str, str]], icd10: list[dic
     try:
         conn.executescript(
             """
-            PRAGMA journal_mode=WAL;
+            PRAGMA journal_mode=DELETE;
             CREATE TABLE atc5 (code TEXT PRIMARY KEY, name_en TEXT NOT NULL);
             CREATE TABLE icd10 (code TEXT PRIMARY KEY, name_en TEXT NOT NULL);
             CREATE TABLE icd9 (code TEXT PRIMARY KEY, name_en TEXT NOT NULL);
@@ -448,11 +448,12 @@ def main() -> int:
     write_json(artifact_dir / "icd10.json", icd10)
     write_json(artifact_dir / "icd9.json", icd9)
     write_json(artifact_dir / "icd9_to_icd10_gem.json", crosswalk)
-    write_json(artifact_dir / "source-metadata.json", metadata)
+    metadata_artifact_path = artifact_dir / "source-metadata.json"
+    write_json(metadata_artifact_path, metadata)
     write_json(artifact_dir / "validation-errors.json", validation_errors)
 
     build_sqlite(artifact_dir / "medical-codes.sqlite", atc5, icd10, icd9, crosswalk, metadata)
-    build_report(args.report_file, diffs, {"atc5": len(atc5), "icd10": len(icd10), "icd9": len(icd9)}, metadata_path)
+    build_report(args.report_file, diffs, {"atc5": len(atc5), "icd10": len(icd10), "icd9": len(icd9)}, metadata_artifact_path)
 
     if validation_errors:
         print("Validation failed:")

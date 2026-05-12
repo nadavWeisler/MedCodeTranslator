@@ -16,6 +16,10 @@ permissions:
   contents: write
   pull-requests: write
 
+concurrency:
+  group: refresh-medical-db
+  cancel-in-progress: true
+
 jobs:
   refresh:
     runs-on: ubuntu-latest

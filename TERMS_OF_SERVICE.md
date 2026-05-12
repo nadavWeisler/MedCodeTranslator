@@ -11,7 +11,7 @@ MedCodeTranslator is provided for informational and administrative reference pur
 The service is provided "as is" and "as available" without warranties of any kind, express or implied, including fitness for a particular purpose, non-infringement, accuracy, completeness, and timeliness.
 
 ## 3) Limitation of Liability
-To the maximum extent permitted by law, MedCodeTranslator maintainers and contributors are not liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising from use of the service or reliance on its content.
+To the maximum extent permitted by law, the MedCodeTranslator maintainers and contributors are not liable for any direct, indirect, incidental, consequential, special, or exemplary damages arising from use of the service or reliance on its content.
 
 ## 4) Prohibited Uses
 You may not use the service to:

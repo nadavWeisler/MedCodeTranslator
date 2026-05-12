@@ -76,7 +76,26 @@ def unique_sorted(entries: list[dict[str, str]]) -> list[dict[str, str]]:
         name = normalize_label(entry.get("name_en", ""))
         if not code or not name:
             continue
-        by_code[code] = {"code": code, "name_en": name}
+
+        normalized_entry = dict(entry)
+        normalized_entry["code"] = code
+        normalized_entry["name_en"] = name
+
+        existing = by_code.get(code)
+        if existing is None:
+            by_code[code] = normalized_entry
+            continue
+
+        merged = dict(existing)
+        for key, value in normalized_entry.items():
+            if key in {"code", "name_en"}:
+                merged[key] = value
+            elif value and not merged.get(key):
+                merged[key] = value
+            elif key not in merged:
+                merged[key] = value
+        by_code[code] = merged
+
     return sorted(by_code.values(), key=lambda item: item["code"])
 
 

@@ -37,6 +37,8 @@ const LANGUAGES: { code: Language; label: string; name: string }[] = [
   { code: 'ru', label: '🇷🇺', name: 'Russian' },
 ];
 const DISCLAIMER_ACK_KEY = 'medcodetranslator:disclaimer-ack:v1';
+const HEADER_LAYER = 2;
+const SHELL_LAYER = 1;
 
 function firstParam(v: string | string[] | undefined): string | undefined {
   if (v === undefined) return undefined;
@@ -244,8 +246,7 @@ export default function HomeScreen() {
                 {selectedLanguage.label} {selectedLanguage.name}
               </Text>
               <Text
-                accessibilityElementsHidden
-                importantForAccessibility="no"
+                importantForAccessibility="no-hide-descendants"
                 style={[styles.langPickerChevron, showLanguageDropdown && { color: schemeColor }]}
               >
                 ▾
@@ -419,7 +420,7 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'relative',
-    zIndex: 20,
+    zIndex: HEADER_LAYER,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
@@ -506,7 +507,7 @@ const styles = StyleSheet.create({
   },
   shell: {
     flex: 1,
-    zIndex: 1,
+    zIndex: SHELL_LAYER,
     backgroundColor: '#ffffff',
     borderRadius: 14,
     borderWidth: 1,

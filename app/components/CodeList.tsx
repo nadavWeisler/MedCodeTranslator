@@ -106,10 +106,12 @@ export default function CodeList({
 const styles = StyleSheet.create({
   resultsContainer: {
     flex: 1,
+    minHeight: 0,
     gap: 12,
   },
   listView: {
     flex: 1,
+    minHeight: 0,
   },
   list: {
     paddingBottom: 10,

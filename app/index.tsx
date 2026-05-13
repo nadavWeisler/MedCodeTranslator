@@ -37,8 +37,8 @@ const LANGUAGES: { code: Language; label: string; name: string }[] = [
   { code: 'ru', label: '🇷🇺', name: 'Russian' },
 ];
 const DISCLAIMER_ACK_KEY = 'medcodetranslator:disclaimer-ack:v1';
-const HEADER_LAYER = 2;
-const SHELL_LAYER = 1;
+const HEADER_Z_INDEX = 2;
+const SHELL_Z_INDEX = 1;
 
 function firstParam(v: string | string[] | undefined): string | undefined {
   if (v === undefined) return undefined;
@@ -238,7 +238,7 @@ export default function HomeScreen() {
                 showLanguageDropdown && { borderColor: `${schemeColor}50` },
               ]}
               onPress={() => setShowLanguageDropdown(prev => !prev)}
-              accessibilityLabel="Select language"
+              accessibilityLabel={`Select language, ${selectedLanguage.name}`}
               accessibilityRole="button"
               accessibilityState={{ expanded: showLanguageDropdown }}
             >
@@ -422,7 +422,7 @@ const styles = StyleSheet.create({
   },
   header: {
     position: 'relative',
-    zIndex: HEADER_LAYER,
+    zIndex: HEADER_Z_INDEX,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
@@ -509,7 +509,7 @@ const styles = StyleSheet.create({
   },
   shell: {
     flex: 1,
-    zIndex: SHELL_LAYER,
+    zIndex: SHELL_Z_INDEX,
     backgroundColor: '#ffffff',
     borderRadius: 14,
     borderWidth: 1,

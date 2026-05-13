@@ -25,16 +25,16 @@ import i18n from '../i18n';
 import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel } from './services/sourceMetadata';
 
 type Language = 'en' | 'he' | 'es' | 'fr' | 'de' | 'ar' | 'pt' | 'zh' | 'ru';
-const LANGUAGES: { code: Language; label: string }[] = [
-  { code: 'en', label: '🇺🇸' },
-  { code: 'he', label: '🇮🇱' },
-  { code: 'es', label: '🇪🇸' },
-  { code: 'fr', label: '🇫🇷' },
-  { code: 'de', label: '🇩🇪' },
-  { code: 'ar', label: '🇸🇦' },
-  { code: 'pt', label: '🇧🇷' },
-  { code: 'zh', label: '🇨🇳' },
-  { code: 'ru', label: '🇷🇺' },
+const LANGUAGES: { code: Language; label: string; name: string }[] = [
+  { code: 'en', label: '🇺🇸', name: 'English' },
+  { code: 'he', label: '🇮🇱', name: 'Hebrew' },
+  { code: 'es', label: '🇪🇸', name: 'Spanish' },
+  { code: 'fr', label: '🇫🇷', name: 'French' },
+  { code: 'de', label: '🇩🇪', name: 'German' },
+  { code: 'ar', label: '🇸🇦', name: 'Arabic' },
+  { code: 'pt', label: '🇧🇷', name: 'Portuguese' },
+  { code: 'zh', label: '🇨🇳', name: 'Chinese' },
+  { code: 'ru', label: '🇷🇺', name: 'Russian' },
 ];
 const DISCLAIMER_ACK_KEY = 'medcodetranslator:disclaimer-ack:v1';
 
@@ -235,6 +235,9 @@ export default function HomeScreen() {
                   lang === l.code && { backgroundColor: `${schemeColor}14`, borderColor: `${schemeColor}50` },
                 ]}
                 onPress={() => handleLanguageChange(l.code)}
+                accessibilityLabel={l.name}
+                accessibilityRole="button"
+                accessibilityState={{ selected: lang === l.code }}
               >
                 <Text
                   style={[

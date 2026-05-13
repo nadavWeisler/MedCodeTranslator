@@ -16,7 +16,7 @@ export default function SuggestionItem({ item, lang, onPress, schemeColor }: Pro
       <View style={[styles.codePill, { backgroundColor: schemeColor + '22' }]}>
         <Text style={[styles.code, { color: schemeColor }]}>{item.code}</Text>
       </View>
-      <Text style={[styles.name, { textAlign: lang === 'he' ? 'right' : 'left' }]} numberOfLines={1}>
+      <Text style={[styles.name, { textAlign: (lang === 'he' || lang === 'ar') ? 'right' : 'left' }]} numberOfLines={1}>
         {name}
       </Text>
     </TouchableOpacity>

@@ -32,16 +32,16 @@ export default function CodeList({
   selectedCode,
   selectedMetadataRows = [],
 }: Props) {
-  const isHebrew = lang === 'he';
+  const isRTL = lang === 'he' || lang === 'ar';
 
   if (!query.trim()) {
     return (
       <View style={styles.stateCard}>
         <Text style={styles.stateIcon}>🩺</Text>
-        <Text style={[styles.stateTitle, isHebrew ? styles.textRight : styles.textLeft]}>
+        <Text style={[styles.stateTitle, isRTL ? styles.textRight : styles.textLeft]}>
           {t('empty_state_title')}
         </Text>
-        <Text style={[styles.stateBody, isHebrew ? styles.textRight : styles.textLeft]}>
+        <Text style={[styles.stateBody, isRTL ? styles.textRight : styles.textLeft]}>
           {t('empty_state_body')}
         </Text>
       </View>
@@ -52,10 +52,10 @@ export default function CodeList({
     return (
       <View style={styles.stateCard}>
         <Text style={styles.stateIcon}>🔎</Text>
-        <Text style={[styles.stateTitle, isHebrew ? styles.textRight : styles.textLeft]}>{t('no_results')}</Text>
+        <Text style={[styles.stateTitle, isRTL ? styles.textRight : styles.textLeft]}>{t('no_results')}</Text>
         {fuzzyMatches.length > 0 && (
           <View style={styles.didYouMean}>
-            <Text style={[styles.didYouMeanTitle, isHebrew ? styles.textRight : styles.textLeft]}>
+            <Text style={[styles.didYouMeanTitle, isRTL ? styles.textRight : styles.textLeft]}>
               {t('did_you_mean')}
             </Text>
             {fuzzyMatches.map(item => (

@@ -23,7 +23,7 @@ export default function CodeCard({
   const primaryName = lang === 'he' && entry.name_he ? entry.name_he : entry.name_en;
   const secondaryName = lang === 'he' && entry.name_he ? entry.name_en : null;
   const showMetadata = isSelected && metadataRows.length > 0;
-  const textAlign = lang === 'he' ? 'right' : 'left';
+  const textAlign = (lang === 'he' || lang === 'ar') ? 'right' : 'left';
 
   return (
     <TouchableOpacity

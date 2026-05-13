@@ -23,10 +23,18 @@ import { useSelectedCodeResult } from './services/useSelectedCodeResult';
 import i18n from '../i18n';
 import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel } from './services/sourceMetadata';
 
-type Language = 'en' | 'he';
+type Language = 'en' | 'he' | 'es' | 'fr' | 'de' | 'ar' | 'pt' | 'zh' | 'ru';
+const RTL_LANGUAGES: Language[] = ['he', 'ar'];
 const LANGUAGES: { code: Language; label: string }[] = [
-  { code: 'en', label: 'EN' },
-  { code: 'he', label: 'עברית' },
+  { code: 'en', label: '🇺🇸' },
+  { code: 'he', label: '🇮🇱' },
+  { code: 'es', label: '🇪🇸' },
+  { code: 'fr', label: '🇫🇷' },
+  { code: 'de', label: '🇩🇪' },
+  { code: 'ar', label: '🇸🇦' },
+  { code: 'pt', label: '🇧🇷' },
+  { code: 'zh', label: '🇨🇳' },
+  { code: 'ru', label: '🇷🇺' },
 ];
 const DISCLAIMER_ACK_KEY = 'medcodetranslator:disclaimer-ack:v1';
 
@@ -47,7 +55,10 @@ export default function HomeScreen() {
       : 'atc5';
 
   const initialLangParam = firstParam(params.lang);
-  const initialLang: Language = initialLangParam === 'he' ? 'he' : 'en';
+  const initialLang: Language =
+    initialLangParam && LANGUAGES.some(l => l.code === initialLangParam)
+      ? (initialLangParam as Language)
+      : 'en';
 
   const [scheme, setScheme] = useState<SchemeKey>(initialScheme);
   const [query, setQuery] = useState(firstParam(params.q) ?? '');
@@ -64,7 +75,7 @@ export default function HomeScreen() {
 
   const activeScheme = SCHEMES.find(s => s.key === scheme)!;
   const { selectedCode, metadataRows, selectEntry } = useSelectedCodeResult(results);
-  const isHebrew = lang === 'he';
+  const isRTL = RTL_LANGUAGES.includes(lang);
 
   useEffect(() => {
     i18n.changeLanguage(lang);
@@ -192,7 +203,7 @@ export default function HomeScreen() {
   };
 
   const schemeColor = activeScheme.color;
-  const directionalText = isHebrew ? styles.textRight : styles.textLeft;
+  const directionalText = isRTL ? styles.textRight : styles.textLeft;
 
   return (
     <SafeAreaView style={styles.safeArea}>

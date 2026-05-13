@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import type { CodeEntry } from '../../db/queries';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
+import { isRTL } from '../services/rtl';
 
 type Props = {
   entry: CodeEntry;
@@ -23,7 +24,7 @@ export default function CodeCard({
   const primaryName = lang === 'he' && entry.name_he ? entry.name_he : entry.name_en;
   const secondaryName = lang === 'he' && entry.name_he ? entry.name_en : null;
   const showMetadata = isSelected && metadataRows.length > 0;
-  const textAlign = lang === 'he' ? 'right' : 'left';
+  const textAlign = isRTL(lang) ? 'right' : 'left';
 
   return (
     <TouchableOpacity

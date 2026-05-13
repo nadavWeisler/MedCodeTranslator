@@ -17,16 +17,24 @@ import SearchBar from './components/SearchBar';
 import CodeList from './components/CodeList';
 import SchemeTabs, { SCHEMES } from './components/SchemeTabs';
 import { searchByScheme, type CodeEntry } from '../db/queries';
+import { isRTL as checkRTL } from './services/rtl';
 import type { SchemeKey } from '../db/database';
 import { buildIndex, getSuggestions, getDidYouMean } from './services/fuzzySearch';
 import { useSelectedCodeResult } from './services/useSelectedCodeResult';
 import i18n from '../i18n';
 import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel } from './services/sourceMetadata';
 
-type Language = 'en' | 'he';
-const LANGUAGES: { code: Language; label: string }[] = [
-  { code: 'en', label: 'EN' },
-  { code: 'he', label: 'עברית' },
+type Language = 'en' | 'he' | 'es' | 'fr' | 'de' | 'ar' | 'pt' | 'zh' | 'ru';
+const LANGUAGES: { code: Language; label: string; name: string }[] = [
+  { code: 'en', label: '🇺🇸', name: 'English' },
+  { code: 'he', label: '🇮🇱', name: 'Hebrew' },
+  { code: 'es', label: '🇪🇸', name: 'Spanish' },
+  { code: 'fr', label: '🇫🇷', name: 'French' },
+  { code: 'de', label: '🇩🇪', name: 'German' },
+  { code: 'ar', label: '🇸🇦', name: 'Arabic' },
+  { code: 'pt', label: '🇧🇷', name: 'Portuguese' },
+  { code: 'zh', label: '🇨🇳', name: 'Chinese' },
+  { code: 'ru', label: '🇷🇺', name: 'Russian' },
 ];
 const DISCLAIMER_ACK_KEY = 'medcodetranslator:disclaimer-ack:v1';
 
@@ -47,7 +55,10 @@ export default function HomeScreen() {
       : 'atc5';
 
   const initialLangParam = firstParam(params.lang);
-  const initialLang: Language = initialLangParam === 'he' ? 'he' : 'en';
+  const initialLang: Language =
+    initialLangParam && LANGUAGES.some(l => l.code === initialLangParam)
+      ? (initialLangParam as Language)
+      : 'en';
 
   const [scheme, setScheme] = useState<SchemeKey>(initialScheme);
   const [query, setQuery] = useState(firstParam(params.q) ?? '');
@@ -64,7 +75,7 @@ export default function HomeScreen() {
 
   const activeScheme = SCHEMES.find(s => s.key === scheme)!;
   const { selectedCode, metadataRows, selectEntry } = useSelectedCodeResult(results);
-  const isHebrew = lang === 'he';
+  const isRTL = checkRTL(lang);
 
   useEffect(() => {
     i18n.changeLanguage(lang);
@@ -192,7 +203,7 @@ export default function HomeScreen() {
   };
 
   const schemeColor = activeScheme.color;
-  const directionalText = isHebrew ? styles.textRight : styles.textLeft;
+  const directionalText = isRTL ? styles.textRight : styles.textLeft;
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -224,6 +235,9 @@ export default function HomeScreen() {
                   lang === l.code && { backgroundColor: `${schemeColor}14`, borderColor: `${schemeColor}50` },
                 ]}
                 onPress={() => handleLanguageChange(l.code)}
+                accessibilityLabel={l.name}
+                accessibilityRole="button"
+                accessibilityState={{ selected: lang === l.code }}
               >
                 <Text
                   style={[

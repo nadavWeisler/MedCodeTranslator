@@ -1,0 +1,122 @@
+name: Bug report
+description: Report a problem in search, results, UI, CI, deployment, or documentation/compliance behavior.
+title: "[Bug]: "
+labels:
+  - "type: bug"
+  - "needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve MedCodeTranslator.
+
+        - Do **not** include patient-identifiable information (PHI) or protected health information.
+        - MedCodeTranslator is an informational lookup tool only and should not be used for diagnosis, treatment, or prescribing decisions.
+        - If the issue is tied to a coding scheme, include the exact query or code that reproduced it.
+  - type: checkboxes
+    id: safeguards
+    attributes:
+      label: Safeguards
+      options:
+        - label: I confirm this report does not include PHI or patient-identifiable data.
+          required: true
+        - label: I understand this project is limited to informational code lookup and this report is not requesting clinical guidance.
+          required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Problem summary
+      description: Describe the problem in one or two sentences.
+      placeholder: Searching for a valid ICD-10 code on web returns no results even though the code exists in the bundled dataset.
+    validations:
+      required: true
+  - type: dropdown
+    id: affected-area
+    attributes:
+      label: Affected area
+      description: Choose the part of the product or workflow impacted.
+      options:
+        - Search / results / UI
+        - Web deployment or GitHub Pages
+        - Mobile build or EAS workflow
+        - CI / GitHub Actions
+        - Documentation / compliance
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform scope
+      description: Select the platform where you observed the issue.
+      options:
+        - Web
+        - iOS
+        - Android
+        - Shared / all platforms
+    validations:
+      required: true
+  - type: dropdown
+    id: scheme
+    attributes:
+      label: Coding scheme affected
+      description: Select the scheme if the issue is tied to medical-code lookup behavior.
+      options:
+        - Not applicable
+        - ATC-5
+        - ICD-10
+        - ICD-9-CM
+        - ICD-11
+        - LOINC
+        - CPT-4
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+      placeholder: The matching code should appear in the result list and the suggestion panel should remain visible.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+      placeholder: The result list stays empty and no suggestion is shown.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps or data example
+      description: Include exact steps, sample query text, and code examples when possible.
+      placeholder: |
+        1. Open the web app.
+        2. Select ICD-10.
+        3. Search for "diabetes" or code "E11".
+        4. Observe the result panel.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Supporting evidence
+      description: Add screenshots, logs, workflow run links, or copied error output when relevant.
+      placeholder: Paste the failing workflow URL, console error, or screenshot details.
+  - type: textarea
+    id: risk
+    attributes:
+      label: Risk or compliance notes
+      description: Note any user-facing safety, privacy, or regulatory concerns triggered by this bug.
+      placeholder: The empty-state copy may encourage repeated retries, but no PHI exposure is involved.
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      description: List the conditions that would make this issue done.
+      placeholder: |
+        - Search returns the expected record on web.
+        - The same query behaves consistently across supported platforms.
+        - A regression check covers the failure mode.
+    validations:
+      required: true

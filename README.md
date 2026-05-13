@@ -153,6 +153,11 @@ npx tsc --noEmit
 npm run build:web
 ```
 
+## Contributing
+
+- Use the GitHub issue forms for bug reports, feature requests, and data issues.
+- Follow [`CONTRIBUTING.md`](CONTRIBUTING.md) for issue categories, labels, backlog seeding, and triage guidance.
+
 ## Branch Protection
 
 - A CI workflow (`.github/workflows/ci.yml`) runs type checking and web build validation on pull requests and pushes.

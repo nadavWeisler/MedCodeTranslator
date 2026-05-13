@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import type { CodeEntry } from '../../db/queries';
 import SuggestionItem from './SuggestionItem';
+import { isRTL } from '../services/rtl';
 
 type Props = {
   value: string;
@@ -34,7 +35,7 @@ export default function SearchBar({
 }: Props) {
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<TextInput>(null);
-  const isRTL = lang === 'he' || lang === 'ar';
+  const rtl = isRTL(lang);
 
   const showDropdown = focused && suggestions.length > 0 && value.length >= 2;
   // Only show ghost text when nothing is selected yet in dropdown
@@ -49,7 +50,7 @@ export default function SearchBar({
         {/* Ghost text sits behind the real input */}
         <View style={styles.inputArea}>
           {showGhost && (
-            <Text style={[styles.ghost, isRTL ? styles.textRight : styles.textLeft]} numberOfLines={1}>
+            <Text style={[styles.ghost, rtl ? styles.textRight : styles.textLeft]} numberOfLines={1}>
               {/* Show ghost as completion suffix */}
               <Text style={{ color: 'transparent' }}>{value}</Text>
               {ghostText.slice(value.length)}
@@ -57,7 +58,7 @@ export default function SearchBar({
           )}
           <TextInput
             ref={inputRef}
-            style={[styles.input, isRTL ? styles.textRight : styles.textLeft]}
+            style={[styles.input, rtl ? styles.textRight : styles.textLeft]}
             value={value}
             onChangeText={onChangeText}
             placeholder={placeholder}

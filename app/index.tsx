@@ -17,6 +17,7 @@ import SearchBar from './components/SearchBar';
 import CodeList from './components/CodeList';
 import SchemeTabs, { SCHEMES } from './components/SchemeTabs';
 import { searchByScheme, type CodeEntry } from '../db/queries';
+import { isRTL as checkRTL } from './services/rtl';
 import type { SchemeKey } from '../db/database';
 import { buildIndex, getSuggestions, getDidYouMean } from './services/fuzzySearch';
 import { useSelectedCodeResult } from './services/useSelectedCodeResult';
@@ -24,7 +25,6 @@ import i18n from '../i18n';
 import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel } from './services/sourceMetadata';
 
 type Language = 'en' | 'he' | 'es' | 'fr' | 'de' | 'ar' | 'pt' | 'zh' | 'ru';
-const RTL_LANGUAGES: Language[] = ['he', 'ar'];
 const LANGUAGES: { code: Language; label: string }[] = [
   { code: 'en', label: '🇺🇸' },
   { code: 'he', label: '🇮🇱' },
@@ -75,7 +75,7 @@ export default function HomeScreen() {
 
   const activeScheme = SCHEMES.find(s => s.key === scheme)!;
   const { selectedCode, metadataRows, selectEntry } = useSelectedCodeResult(results);
-  const isRTL = RTL_LANGUAGES.includes(lang);
+  const isRTL = checkRTL(lang);
 
   useEffect(() => {
     i18n.changeLanguage(lang);

@@ -4,6 +4,7 @@ import CodeCard from './CodeCard';
 import SuggestionItem from './SuggestionItem';
 import type { CodeEntry } from '../../db/queries';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
+import { isRTL as checkRTL } from '../services/rtl';
 
 type Props = {
   entries: CodeEntry[];
@@ -32,7 +33,7 @@ export default function CodeList({
   selectedCode,
   selectedMetadataRows = [],
 }: Props) {
-  const isRTL = lang === 'he' || lang === 'ar';
+  const isRTL = checkRTL(lang);
 
   if (!query.trim()) {
     return (

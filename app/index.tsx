@@ -243,7 +243,8 @@ export default function HomeScreen() {
               accessibilityState={{ expanded: showLanguageDropdown }}
             >
               <Text style={styles.langPickerValue}>
-                {selectedLanguage.label} {selectedLanguage.name}
+                <Text importantForAccessibility="no">{selectedLanguage.label} </Text>
+                <Text>{selectedLanguage.name}</Text>
               </Text>
               <Text
                 importantForAccessibility="no"
@@ -273,7 +274,8 @@ export default function HomeScreen() {
                         lang === l.code && { color: schemeColor },
                       ]}
                     >
-                      {l.label} {l.name}
+                      <Text importantForAccessibility="no">{l.label} </Text>
+                      <Text>{l.name}</Text>
                     </Text>
                   </TouchableOpacity>
                 ))}

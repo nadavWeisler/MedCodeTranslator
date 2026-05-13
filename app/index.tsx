@@ -243,7 +243,13 @@ export default function HomeScreen() {
               <Text style={styles.langPickerValue}>
                 {selectedLanguage.label} {selectedLanguage.name}
               </Text>
-              <Text style={[styles.langPickerChevron, showLanguageDropdown && { color: schemeColor }]}>▾</Text>
+              <Text
+                accessibilityElementsHidden
+                importantForAccessibility="no"
+                style={[styles.langPickerChevron, showLanguageDropdown && { color: schemeColor }]}
+              >
+                ▾
+              </Text>
             </TouchableOpacity>
 
             {showLanguageDropdown ? (
@@ -446,7 +452,6 @@ const styles = StyleSheet.create({
   },
   langPickerWrap: {
     position: 'relative',
-    zIndex: 10,
   },
   langPickerWrapMobile: {
     alignSelf: 'flex-start',

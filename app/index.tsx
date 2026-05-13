@@ -287,29 +287,48 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        <View style={styles.complianceFooter}>
-          <Text style={[styles.complianceTitle, directionalText]}>Informational use only</Text>
-          <Text style={[styles.complianceBody, directionalText]}>
-            MedCodeTranslator is an informational reference tool only and is not intended for diagnosis, treatment decisions, prescribing, or medical advice.
-          </Text>
-          <Text style={[styles.noPhiBody, directionalText]}>
-            Do not enter patient-identifiable or protected health information (PHI) into this application.
-          </Text>
-          <Text style={[styles.complianceBody, directionalText]}>
-            Last updated: {formatDateLabel(DATASET_METADATA_GENERATED_AT)}
-          </Text>
-          <View style={styles.complianceActions}>
-            <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/about')}>
-              <Text style={styles.linkBtnText}>About & Data Sources</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/legal/terms')}>
-              <Text style={styles.linkBtnText}>Terms</Text>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/legal/privacy')}>
-              <Text style={styles.linkBtnText}>Privacy</Text>
-            </TouchableOpacity>
+        {isMobile ? (
+          <View style={styles.complianceFooterCompact}>
+            <Text style={styles.complianceFooterCompactLabel} numberOfLines={1}>ⓘ Informational use only</Text>
+            <View style={styles.complianceActionsCompact}>
+              <TouchableOpacity onPress={() => router.push('/about')}>
+                <Text style={styles.linkBtnTextCompact}>About</Text>
+              </TouchableOpacity>
+              <Text style={styles.complianceSep}>·</Text>
+              <TouchableOpacity onPress={() => router.push('/legal/terms')}>
+                <Text style={styles.linkBtnTextCompact}>Terms</Text>
+              </TouchableOpacity>
+              <Text style={styles.complianceSep}>·</Text>
+              <TouchableOpacity onPress={() => router.push('/legal/privacy')}>
+                <Text style={styles.linkBtnTextCompact}>Privacy</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
+        ) : (
+          <View style={styles.complianceFooter}>
+            <Text style={[styles.complianceTitle, directionalText]}>Informational use only</Text>
+            <Text style={[styles.complianceBody, directionalText]}>
+              MedCodeTranslator is an informational reference tool only and is not intended for diagnosis, treatment decisions, prescribing, or medical advice.
+            </Text>
+            <Text style={[styles.noPhiBody, directionalText]}>
+              Do not enter patient-identifiable or protected health information (PHI) into this application.
+            </Text>
+            <Text style={[styles.complianceBody, directionalText]}>
+              Last updated: {formatDateLabel(DATASET_METADATA_GENERATED_AT)}
+            </Text>
+            <View style={styles.complianceActions}>
+              <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/about')}>
+                <Text style={styles.linkBtnText}>About & Data Sources</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/legal/terms')}>
+                <Text style={styles.linkBtnText}>Terms</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/legal/privacy')}>
+                <Text style={styles.linkBtnText}>Privacy</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        )}
       </View>
 
       <Modal
@@ -457,6 +476,38 @@ const styles = StyleSheet.create({
   },
   textRight: {
     textAlign: 'right',
+  },
+  complianceFooterCompact: {
+    backgroundColor: '#ffffff',
+    borderColor: '#e5e7eb',
+    borderWidth: 1,
+    borderRadius: 10,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 8,
+  },
+  complianceFooterCompactLabel: {
+    fontSize: 11,
+    color: '#64748b',
+    fontWeight: '700',
+    flexShrink: 1,
+  },
+  complianceActionsCompact: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  complianceSep: {
+    fontSize: 11,
+    color: '#94a3b8',
+  },
+  linkBtnTextCompact: {
+    fontSize: 11,
+    color: '#1d4ed8',
+    fontWeight: '700',
   },
   complianceFooter: {
     backgroundColor: '#ffffff',

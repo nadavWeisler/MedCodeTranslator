@@ -2,10 +2,8 @@
 
 [![Accessibility review](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/accessibility-review.yml/badge.svg)](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/accessibility-review.yml)
 
-Med Code Translator is an Expo app for fast medication and medical terminology code lookup across major coding systems.
-It provides bilingual English/Hebrew support, autocomplete, and suggestion-based search across iOS, Android, and Web.
-
-Positioning: medication terminology and code lookup utility for research and administrative workflows.
+Med Code Translator is a cross-platform app (iOS, Android, and Web) for fast medication and medical terminology code lookup across major coding systems.
+It supports bilingual English/Hebrew interfaces, autocomplete, and suggestion-based search — making it a practical reference tool for research and administrative workflows.
 
 > **Medical disclaimer:** MedCodeTranslator is an informational reference tool only and is not intended for diagnosis, treatment decisions, prescribing, or medical advice.
 >
@@ -13,18 +11,21 @@ Positioning: medication terminology and code lookup utility for research and adm
 >
 > Do **not** enter patient-identifiable or protected health information (PHI) into this application.
 
-## Deployment Status
+## Availability
 
-- **Web (live):** https://nadavweisler.github.io/MedCodeTranslator/
-- **iOS:** EAS build workflow is configured; public deployment is planned
-- **Android:** EAS build workflow is configured; public deployment is planned
+| Platform | Status |
+|----------|--------|
+| **Web** | [Live →](https://nadavweisler.github.io/MedCodeTranslator/) |
+| **iOS** | Coming soon |
+| **Android** | Coming soon |
 
-## What the Product Does
+## Features
 
-- Search ATC-5, ICD-10, ICD-9-CM, ICD-11, LOINC, and CPT-4
+- Search across ATC-5, ICD-10, ICD-9-CM, ICD-11, LOINC, and CPT-4
 - Match by code or medical term
-- Offer autocomplete and fallback suggestions for near matches
-- Run from bundled local data for offline-friendly use
+- Autocomplete and fallback suggestions for near matches
+- Bundled local data for fast, offline-friendly lookups
+- Bilingual English / Hebrew UI
 
 ## Screenshots
 
@@ -110,26 +111,24 @@ Web routes are available at `/legal/terms`, `/legal/privacy`, and `/about` (data
 
 ## Deployments
 
-### Mobile
-
-- `.github/workflows/deploy-mobile.yml` builds iOS and Android apps through Expo Application Services (EAS)
-- Supports `development`, `preview`, and `production` build profiles from `eas.json`
-- Requires an `EXPO_TOKEN` GitHub Actions secret for authenticated builds
-
 ### Web
 
-- Deployed automatically to GitHub Pages from `master` via `.github/workflows/deploy-pages.yml`
-- Hosted under the project Pages path `/MedCodeTranslator`
+The web app is deployed automatically to GitHub Pages and is available at:
+[https://nadavweisler.github.io/MedCodeTranslator/](https://nadavweisler.github.io/MedCodeTranslator/)
 
-### Accessibility Review
+### Mobile
 
-- `.github/workflows/accessibility-review.yml` builds the static web app for each pull request and push to `master`/`main`
-- Lighthouse runs an accessibility audit against a Pages-compatible base path and uploads the HTML/JSON report as the `accessibility-review-report` workflow artifact
-- The latest workflow status is shown in the badge at the top of this README
+iOS and Android builds are managed through [Expo Application Services (EAS)](https://expo.dev/eas).
+Public App Store and Google Play releases are planned.
 
-## Data Operations
+### Accessibility
 
-Medical datasets are refreshed through `.github/workflows/refresh-medical-db.yml` or with:
+Every build includes an automated [Lighthouse](https://developer.chrome.com/docs/lighthouse/overview/) accessibility audit.
+The current status is shown in the badge at the top of this README.
+
+## Data
+
+Medical datasets are refreshed periodically. To refresh and validate them locally:
 
 ```bash
 npm run refresh:data
@@ -138,26 +137,13 @@ npm run validate:data
 
 ## Development
 
-For repository validation:
-
 ```bash
 npm ci
-npx tsc --noEmit
-npm run build:web
+npx tsc --noEmit   # type check
+npm run build:web  # build static web export → dist/
 ```
 
 ## Contributing
 
 - Use the GitHub issue forms for bug reports, feature requests, and data issues.
 - Follow [`CONTRIBUTING.md`](CONTRIBUTING.md) for issue categories, labels, backlog seeding, and triage guidance.
-
-## Branch Protection
-
-- A CI workflow (`.github/workflows/ci.yml`) runs type checking and web build validation on pull requests and pushes.
-- The accessibility workflow (`.github/workflows/accessibility-review.yml`) publishes a Lighthouse accessibility review report for pull requests and pushes.
-- Standard default-branch protection is defined in `.github/settings.yml`:
-  - Require pull requests with at least 1 approval
-  - Dismiss stale approvals on new commits
-  - Require passing `CI / validate` and `Accessibility Review / audit` status checks
-  - Require conversation resolution and linear history
-  - Disallow force pushes and branch deletion

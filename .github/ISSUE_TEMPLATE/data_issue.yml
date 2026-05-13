@@ -1,0 +1,116 @@
+name: Data issue
+description: Report incorrect, stale, or missing medical-code data or refresh workflow output.
+title: "[Data]: "
+labels:
+  - "type: data"
+  - "area: dataset"
+  - "needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for dataset accuracy, freshness, crosswalk, or refresh-pipeline problems.
+
+        - Do **not** include PHI or patient-identifiable information.
+        - MedCodeTranslator is an informational reference tool only.
+        - Include the exact code, term, language, and source reference when possible so the issue can be verified.
+  - type: checkboxes
+    id: safeguards
+    attributes:
+      label: Safeguards
+      options:
+        - label: I confirm this report does not include PHI or patient-identifiable data.
+          required: true
+        - label: I understand any data change must preserve the app's informational-only scope.
+          required: true
+  - type: dropdown
+    id: dataset
+    attributes:
+      label: Dataset or scheme
+      options:
+        - ATC-5
+        - ICD-10
+        - ICD-9-CM
+        - ICD-11
+        - LOINC
+        - CPT-4
+        - Crosswalk / shared data
+        - Refresh workflow output
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform scope
+      options:
+        - Web
+        - iOS
+        - Android
+        - Shared / all platforms
+    validations:
+      required: true
+  - type: input
+    id: query-code
+    attributes:
+      label: Affected code or query
+      description: Provide the exact code, text query, or record identifier.
+      placeholder: E11 / diabetes / aspirin
+    validations:
+      required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Problem summary
+      description: Describe what is missing, incorrect, stale, or inconsistent.
+      placeholder: The Hebrew ATC-5 display name for aspirin is missing from the bundled dataset.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected data behavior
+      placeholder: The record should appear in both English and Hebrew search results with the same code mapping.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual data behavior
+      placeholder: The English record exists, but the Hebrew query returns no result.
+    validations:
+      required: true
+  - type: textarea
+    id: source
+    attributes:
+      label: Source reference or evidence
+      description: Cite the upstream source, refresh report, or official reference used to verify the issue.
+      placeholder: Link to the official terminology source, data release note, or refresh workflow log.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps or data example
+      placeholder: |
+        1. Open the app on web.
+        2. Switch language to Hebrew.
+        3. Search for the provided term or code.
+        4. Compare the returned record with the cited source.
+    validations:
+      required: true
+  - type: textarea
+    id: risk
+    attributes:
+      label: Risk or compliance notes
+      description: Describe any safety, trust, or audit concerns caused by the data issue.
+      placeholder: Outdated terminology could mislead administrative lookup workflows until the next refresh.
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - The cited record matches the approved source.
+        - The refresh or bundled data is updated consistently across platforms.
+        - Validation passes after the data fix.
+    validations:
+      required: true

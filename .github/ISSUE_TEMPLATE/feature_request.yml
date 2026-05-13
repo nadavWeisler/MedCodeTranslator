@@ -1,0 +1,105 @@
+name: Feature request
+description: Propose a product improvement that stays within the project's informational lookup scope.
+title: "[Feature]: "
+labels:
+  - "type: feature"
+  - "needs-triage"
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for improvements to MedCodeTranslator's lookup, search, language, or platform experience.
+
+        - Do **not** include PHI or patient-identifiable information.
+        - MedCodeTranslator is an informational lookup tool only. Requests for diagnosis, treatment, prescribing, interaction checking, or patient-specific recommendations are out of scope.
+        - If your request may affect clinical decision-making, flag it clearly so it can be routed for legal/regulatory review before implementation.
+  - type: checkboxes
+    id: safeguards
+    attributes:
+      label: Safeguards
+      options:
+        - label: I confirm this request does not include PHI or patient-identifiable data.
+          required: true
+        - label: I confirm this request stays within informational terminology/code lookup scope, or I have explicitly called out any regulatory concern below.
+          required: true
+  - type: textarea
+    id: summary
+    attributes:
+      label: Problem summary
+      description: What user or workflow problem should this feature solve?
+      placeholder: Users can only deep-link into a single query and cannot share a bilingual search context for the same coding scheme.
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Feature category
+      options:
+        - Search / discovery
+        - Results / UI
+        - Data freshness / maintenance
+        - Web experience
+        - Mobile experience
+        - Documentation / compliance
+        - CI / deployment
+        - Other
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Platform scope
+      options:
+        - Web
+        - iOS
+        - Android
+        - Shared / all platforms
+    validations:
+      required: true
+  - type: dropdown
+    id: scheme
+    attributes:
+      label: Coding scheme affected
+      description: Select the scheme when the request is tied to code lookup behavior.
+      options:
+        - Not applicable
+        - ATC-5
+        - ICD-10
+        - ICD-9-CM
+        - ICD-11
+        - LOINC
+        - CPT-4
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Desired outcome
+      description: Describe the end state, not the implementation.
+      placeholder: Users can share a stable URL that restores scheme, query text, and language.
+    validations:
+      required: true
+  - type: textarea
+    id: user-flow
+    attributes:
+      label: User flow or example
+      description: Provide a concrete workflow, use case, or example query/code.
+      placeholder: A researcher sends a link for ICD-10 diabetes terms and the recipient lands in the same scheme and language context.
+    validations:
+      required: true
+  - type: textarea
+    id: risks
+    attributes:
+      label: Risk or compliance notes
+      description: Call out privacy, safety, data-quality, or regulatory concerns.
+      placeholder: This should stay read-only and must not provide treatment recommendations.
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+      placeholder: |
+        - The requested workflow is available on the targeted platforms.
+        - Existing lookup behavior remains unchanged.
+        - Any compliance or copy updates are included if needed.
+    validations:
+      required: true

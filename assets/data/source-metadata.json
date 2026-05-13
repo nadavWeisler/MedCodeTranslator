@@ -19,7 +19,7 @@
       "provider": "U.S. Centers for Medicare & Medicaid Services (CMS)",
       "url": "https://www.cms.gov/medicare/coding-billing/icd-10-codes",
       "dataset_version": "FY2026 ICD-10-CM code descriptions (valid-for-coding only)",
-      "source_revision": "CMS ICD-10-CM tabular order file",
+      "source_revision": "CMS ICD-10-CM tabular order file (valid-for-coding codes only)",
       "last_updated_utc": "2026-05-13T00:00:00Z",
       "retrieved_at_utc": "2026-05-13T00:00:00Z",
       "record_count": 113,

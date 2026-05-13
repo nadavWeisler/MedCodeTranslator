@@ -254,7 +254,7 @@ def parse_hcpcs_zip(raw: bytes) -> list[dict[str, str]]:
     entries: list[dict[str, str]] = []
     seen: set[str] = set()
     # HCPCS Level II codes: one letter (A–V, excluding I/O) followed by 4 digits.
-    hcpcs_re = re.compile(r"^([A-HJ-NP-V][0-9]{4})\s{2,}(.+)$")
+    hcpcs_re = re.compile(r"^([A-HJ-NP-V][0-9]{4})\s+(.+)$")
     for line in content.splitlines():
         stripped = line.strip()
         if not stripped:
@@ -276,14 +276,17 @@ def parse_cvx_txt(raw: bytes) -> list[dict[str, str]]:
     The CDC publishes cvx.txt as a pipe-delimited file with columns:
         Short Description | Full Vaccine Name | CVX Code | Notes |
         Vaccine Status | Last Updated | Internal Notes
-    CVX codes are integers; we zero-pad them to three digits for consistency.
-    Only rows with vaccine status "Active" or "Inactive" are included (rows
-    with status "Never Active" or clearly deprecated entries are skipped).
+    CVX codes are integers; we zero-pad them to three digits for consistent
+    sorting and display (e.g. "8" → "008", matching HL7 value set conventions).
+    Rows with statuses that indicate the code has never been in active clinical
+    use ("Never Active", "Pending", "Non-US") are skipped.
     """
     text = raw.decode("utf-8-sig", errors="replace")
     entries: list[dict[str, str]] = []
     seen: set[str] = set()
-    skip_statuses = {"never active", "pending"}
+    # CDC statuses: Active, Inactive, Never Active, Pending, Non-US.
+    # Skip codes that have never entered or are not in U.S. clinical use.
+    skip_statuses = {"never active", "pending", "non-us"}
     for line in text.splitlines():
         stripped = line.strip()
         if not stripped or stripped.startswith("#"):
@@ -300,6 +303,7 @@ def parse_cvx_txt(raw: bytes) -> list[dict[str, str]]:
             continue
         if status in skip_statuses:
             continue
+        # Zero-pad CVX numeric codes to 3 digits for consistent sorting and display.
         code = code_raw.zfill(3)
         name = full_name or short_desc
         if code and name and code not in seen:

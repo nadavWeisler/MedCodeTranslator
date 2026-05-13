@@ -67,6 +67,7 @@ export default function HomeScreen() {
   const [didYouMean, setDidYouMean] = useState<CodeEntry[]>([]);
   const [ghostText, setGhostText] = useState<string | undefined>();
   const [lang, setLang] = useState<Language>(initialLang);
+  const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const { width } = useWindowDimensions();
   const isTablet = width >= 768;
@@ -74,6 +75,7 @@ export default function HomeScreen() {
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeScheme = SCHEMES.find(s => s.key === scheme)!;
+  const selectedLanguage = LANGUAGES.find(l => l.code === lang)!;
   const { selectedCode, metadataRows, selectEntry } = useSelectedCodeResult(results);
   const isRTL = checkRTL(lang);
 
@@ -190,6 +192,7 @@ export default function HomeScreen() {
 
   const handleLanguageChange = (l: Language) => {
     setLang(l);
+    setShowLanguageDropdown(false);
   };
 
   const acknowledgeDisclaimer = async () => {
@@ -226,29 +229,49 @@ export default function HomeScreen() {
             </Text>
           </View>
 
-          <View style={[styles.langPicker, isMobile && styles.langPickerMobile]}>
-            {LANGUAGES.map(l => (
-              <TouchableOpacity
-                key={l.code}
-                style={[
-                  styles.langBtn,
-                  lang === l.code && { backgroundColor: `${schemeColor}14`, borderColor: `${schemeColor}50` },
-                ]}
-                onPress={() => handleLanguageChange(l.code)}
-                accessibilityLabel={l.name}
-                accessibilityRole="button"
-                accessibilityState={{ selected: lang === l.code }}
-              >
-                <Text
-                  style={[
-                    styles.langBtnText,
-                    lang === l.code && { color: schemeColor },
-                  ]}
-                >
-                  {l.label}
-                </Text>
-              </TouchableOpacity>
-            ))}
+          <View style={[styles.langPickerWrap, isMobile && styles.langPickerWrapMobile]}>
+            <TouchableOpacity
+              style={[
+                styles.langPicker,
+                showLanguageDropdown && { borderColor: `${schemeColor}50` },
+              ]}
+              onPress={() => setShowLanguageDropdown(prev => !prev)}
+              accessibilityLabel="Select language"
+              accessibilityRole="button"
+              accessibilityState={{ expanded: showLanguageDropdown }}
+            >
+              <Text style={styles.langPickerValue}>
+                {selectedLanguage.label} {selectedLanguage.name}
+              </Text>
+              <Text style={[styles.langPickerChevron, showLanguageDropdown && { color: schemeColor }]}>▾</Text>
+            </TouchableOpacity>
+
+            {showLanguageDropdown ? (
+              <View style={[styles.langDropdown, { borderColor: `${schemeColor}20` }]}>
+                {LANGUAGES.map(l => (
+                  <TouchableOpacity
+                    key={l.code}
+                    style={[
+                      styles.langOption,
+                      lang === l.code && { backgroundColor: `${schemeColor}12` },
+                    ]}
+                    onPress={() => handleLanguageChange(l.code)}
+                    accessibilityLabel={l.name}
+                    accessibilityRole="button"
+                    accessibilityState={{ selected: lang === l.code }}
+                  >
+                    <Text
+                      style={[
+                        styles.langOptionText,
+                        lang === l.code && { color: schemeColor },
+                      ]}
+                    >
+                      {l.label} {l.name}
+                    </Text>
+                  </TouchableOpacity>
+                ))}
+              </View>
+            ) : null}
           </View>
         </View>
 
@@ -389,6 +412,8 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   header: {
+    position: 'relative',
+    zIndex: 20,
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
@@ -419,32 +444,64 @@ const styles = StyleSheet.create({
     color: '#64748b',
     maxWidth: 720,
   },
+  langPickerWrap: {
+    position: 'relative',
+    zIndex: 10,
+  },
+  langPickerWrapMobile: {
+    alignSelf: 'flex-start',
+  },
   langPicker: {
+    minWidth: 148,
     flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
     borderRadius: 12,
     borderWidth: 1,
     borderColor: '#e5e7eb',
     backgroundColor: '#ffffff',
-    padding: 3,
-    gap: 6,
-  },
-  langPickerMobile: {
-    alignSelf: 'flex-start',
-  },
-  langBtn: {
     paddingHorizontal: 12,
-    paddingVertical: 8,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'transparent',
+    paddingVertical: 10,
   },
-  langBtnText: {
+  langPickerValue: {
+    fontSize: 13,
+    color: '#0f172a',
+    fontWeight: '700',
+  },
+  langPickerChevron: {
+    fontSize: 12,
+    color: '#64748b',
+    fontWeight: '800',
+  },
+  langDropdown: {
+    position: 'absolute',
+    top: '100%',
+    right: 0,
+    marginTop: 6,
+    minWidth: 180,
+    borderRadius: 12,
+    borderWidth: 1,
+    backgroundColor: '#ffffff',
+    padding: 4,
+    shadowColor: '#0f172a',
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 6 },
+    elevation: 6,
+  },
+  langOption: {
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  langOptionText: {
     fontSize: 13,
     color: '#334155',
     fontWeight: '700',
   },
   shell: {
     flex: 1,
+    zIndex: 1,
     backgroundColor: '#ffffff',
     borderRadius: 14,
     borderWidth: 1,

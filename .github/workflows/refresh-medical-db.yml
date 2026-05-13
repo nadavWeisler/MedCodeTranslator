@@ -61,14 +61,17 @@ jobs:
           commit-message: 'chore(data): refresh medical code datasets'
           title: 'chore(data): refresh medical code datasets'
           body: |
-            Automated refresh of ICD-9, ICD-10, ATC5 and ICD-9↔ICD-10 crosswalk datasets.
+            Automated refresh of ICD-9, ICD-10, ATC5, HCPCS Level II, CVX and ICD-9↔ICD-10 crosswalk datasets.
 
             - Updated source metadata and deterministic JSON outputs
+            - ICD-10 filtered to valid-for-coding (VALID=1) codes only
             - Rebuilt SQLite artifact for app consumption
             - Included refresh report with added/removed/changed counts
           add-paths: |
             assets/data/atc5.json
             assets/data/icd9.json
             assets/data/icd10.json
+            assets/data/hcpcs.json
+            assets/data/cvx.json
             assets/data/source-metadata.json
           delete-branch: true

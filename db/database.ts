@@ -5,13 +5,15 @@ import icd9Data from '../assets/data/icd9.json';
 import icd11Data from '../assets/data/icd11.json';
 import loincData from '../assets/data/loinc.json';
 import cptData from '../assets/data/cpt.json';
+import hcpcsData from '../assets/data/hcpcs.json';
+import cvxData from '../assets/data/cvx.json';
 
 const DB_NAME = 'medcodes.db';
-const SCHEMA_VERSION = 2;
+const SCHEMA_VERSION = 3;
 
 let db: SQLite.SQLiteDatabase | null = null;
 
-export type SchemeKey = 'atc5' | 'icd10' | 'icd9' | 'icd11' | 'loinc' | 'cpt';
+export type SchemeKey = 'atc5' | 'icd10' | 'icd9' | 'icd11' | 'loinc' | 'cpt' | 'hcpcs' | 'cvx';
 
 export async function initDB(): Promise<void> {
   db = await SQLite.openDatabaseAsync(DB_NAME);
@@ -50,6 +52,16 @@ export async function initDB(): Promise<void> {
       name_he TEXT
     );
     CREATE TABLE IF NOT EXISTS cpt (
+      code TEXT PRIMARY KEY,
+      name_en TEXT NOT NULL,
+      name_he TEXT
+    );
+    CREATE TABLE IF NOT EXISTS hcpcs (
+      code TEXT PRIMARY KEY,
+      name_en TEXT NOT NULL,
+      name_he TEXT
+    );
+    CREATE TABLE IF NOT EXISTS cvx (
       code TEXT PRIMARY KEY,
       name_en TEXT NOT NULL,
       name_he TEXT
@@ -93,6 +105,8 @@ async function seedAll(): Promise<void> {
     ['icd11', icd11Data as RawEntry[]],
     ['loinc', loincData as RawEntry[]],
     ['cpt',   cptData   as RawEntry[]],
+    ['hcpcs', hcpcsData as RawEntry[]],
+    ['cvx',   cvxData   as RawEntry[]],
   ];
   for (const [table, data] of datasets) {
     await seedTable(table, data);

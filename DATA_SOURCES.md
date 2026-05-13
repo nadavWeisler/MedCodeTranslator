@@ -10,9 +10,11 @@ _Last updated: 2026-05-12_
 | ICD-11 (repo sample) | WHO | https://icd.who.int/ | Official WHO ICD-11 terms apply to full dataset | Attribute WHO | Full licensing review required for full production distribution | This repo currently stores a curated subset sample |
 | LOINC (repo sample) | Regenstrief Institute | https://loinc.org/ | LOINC license/terms apply | Attribute LOINC/Regenstrief | Review/confirm latest terms before commercial deployment | This repo currently stores a curated subset sample |
 | CPT-like procedures (repo sample) | Curated sample (not official AMA CPT distribution) | https://www.ama-assn.org/practice-management/cpt/cpt-overview-and-code-approval | Official CPT is proprietary and requires AMA licensing | Do not represent curated sample as official CPT | Official CPT requires license for production/commercial use | Do not redistribute official CPT without license |
+| HCPCS Level II | CMS | https://www.cms.gov/medicare/coding-billing/healthcare-common-procedure-system | U.S. government/public CMS distribution | Cite CMS as source | Generally acceptable; verify latest terms | Allowed per source terms |
+| CVX (Vaccine Administered Codes) | CDC / NCIRD | https://www2.cdc.gov/vaccines/iis/iisstandards/vaccines.asp?rpt=cvx | U.S. government public domain | Attribute CDC as source | Acceptable; verify terms before commercial redistribution | Allowed per source terms |
 
 ## Update Frequency
-- Automated refresh pipeline: weekly (`.github/workflows/refresh-medical-db.yml`) for ATC5/ICD10/ICD9 public sources.
+- Automated refresh pipeline: weekly (`.github/workflows/refresh-medical-db.yml`) for ATC5/ICD10/ICD9/HCPCS/CVX public sources.
 - Curated sample datasets must be reviewed manually before release.
 
 ## Restricted / High-Risk Sources (Not Bundled)

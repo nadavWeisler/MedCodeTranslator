@@ -17,6 +17,8 @@ export const SCHEMES: SchemeConfig[] = [
   { key: 'icd11', label: 'ICD-11',       shortLabel: 'ICD-11',color: '#0891b2', icon: '🔬' },
   { key: 'loinc', label: 'LOINC (Labs)', shortLabel: 'LOINC', color: '#d97706', icon: '🧪' },
   { key: 'cpt',   label: 'CPT-4 (Procs)',shortLabel: 'CPT',   color: '#dc2626', icon: '⚕️' },
+  { key: 'hcpcs', label: 'HCPCS Level II',shortLabel: 'HCPCS',color: '#0f766e', icon: '🏥' },
+  { key: 'cvx',   label: 'CVX (Vaccines)',shortLabel: 'CVX',  color: '#7e22ce', icon: '💉' },
 ];
 
 type Props = {

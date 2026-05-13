@@ -8,6 +8,7 @@ branches:
         strict: true
         contexts:
           - "CI / validate"
+          - "Accessibility Review / audit"
       enforce_admins: false
       required_linear_history: true
       required_conversation_resolution: true
@@ -23,6 +24,7 @@ branches:
         strict: true
         contexts:
           - "CI / validate"
+          - "Accessibility Review / audit"
       enforce_admins: false
       required_linear_history: true
       required_conversation_resolution: true

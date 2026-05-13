@@ -1,0 +1,141 @@
+name: Accessibility Review
+
+on:
+  pull_request:
+    branches: [master, main]
+  push:
+    branches: [master, main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: accessibility-review-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    env:
+      ACCESSIBILITY_URL: http://127.0.0.1:4173/MedCodeTranslator/
+      MIN_ACCESSIBILITY_SCORE: '0.80'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build web
+        run: npm run build:web
+
+      - name: Run Lighthouse accessibility review
+        run: |
+          set -euo pipefail
+
+          REPORT_DIR="$GITHUB_WORKSPACE/build/accessibility"
+          SITE_ROOT="/tmp/accessibility-site"
+
+          rm -rf "$REPORT_DIR" "$SITE_ROOT"
+          mkdir -p "$REPORT_DIR" "$SITE_ROOT"
+          ln -s "$GITHUB_WORKSPACE/dist" "$SITE_ROOT/MedCodeTranslator"
+
+          cleanup() {
+            if [ -n "${SERVER_PID:-}" ]; then
+              kill "$SERVER_PID" || true
+              wait "$SERVER_PID" 2>/dev/null || true
+            fi
+          }
+
+          trap cleanup EXIT
+
+          python -m http.server 4173 --directory "$SITE_ROOT" >/tmp/accessibility-server.log 2>&1 &
+          SERVER_PID=$!
+
+          python - <<'PY'
+          import os
+          import time
+          import urllib.request
+
+          url = os.environ["ACCESSIBILITY_URL"]
+          for _ in range(30):
+              try:
+                  with urllib.request.urlopen(url) as response:
+                      if response.status == 200:
+                          break
+              except Exception:
+                  time.sleep(1)
+          else:
+              raise SystemExit(f"Preview server did not start for {url}")
+          PY
+
+          npx --yes lighthouse "$ACCESSIBILITY_URL" \
+            --only-categories=accessibility \
+            --chrome-flags="--headless=new --no-sandbox" \
+            --output json \
+            --output html \
+            --output-path "$REPORT_DIR/report"
+
+      - name: Publish accessibility summary
+        run: |
+          python - <<'PY'
+          import json
+          import os
+          from pathlib import Path
+
+          report_path = Path("build/accessibility/report.report.json")
+          report = json.loads(report_path.read_text())
+          score = int(round((report["categories"]["accessibility"]["score"] or 0) * 100))
+          threshold = int(float(os.environ["MIN_ACCESSIBILITY_SCORE"]) * 100)
+
+          issues = []
+          for audit in report["audits"].values():
+              mode = audit.get("scoreDisplayMode")
+              audit_score = audit.get("score")
+              if mode in {"notApplicable", "manual", "informative"}:
+                  continue
+              if audit_score is None or audit_score >= 1:
+                  continue
+              issues.append((audit["title"], audit.get("description", "")))
+
+          lines = [
+              "# Accessibility review",
+              "",
+              f"- URL: `{os.environ['ACCESSIBILITY_URL']}`",
+              f"- Accessibility score: **{score}/100**",
+              f"- Minimum passing score: **{threshold}/100**",
+              "",
+              "## Findings",
+          ]
+
+          if issues:
+              for title, description in sorted(issues):
+                  details = f" — {description}" if description else ""
+                  lines.append(f"- {title}{details}")
+          else:
+              lines.append("- No failing Lighthouse accessibility audits were reported.")
+
+          summary = "\n".join(lines) + "\n"
+          Path("build/accessibility/summary.md").write_text(summary)
+          with open(os.environ["GITHUB_STEP_SUMMARY"], "a", encoding="utf-8") as handle:
+              handle.write(summary)
+
+          if score < threshold:
+              raise SystemExit(
+                  f"Accessibility score {score}/100 is below the minimum passing score of {threshold}/100."
+              )
+          PY
+
+      - name: Upload accessibility report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: accessibility-review-report
+          path: build/accessibility

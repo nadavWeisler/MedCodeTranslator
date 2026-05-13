@@ -1,5 +1,7 @@
 # Med Code Translator
 
+[![Accessibility review](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/accessibility-review.yml/badge.svg)](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/accessibility-review.yml)
+
 Med Code Translator is an Expo app for fast medication and medical terminology code lookup across major coding systems.
 It provides bilingual English/Hebrew support, autocomplete, and suggestion-based search across iOS, Android, and Web.
 
@@ -59,14 +61,6 @@ Positioning: medication terminology and code lookup utility for research and adm
 npm ci
 ```
 
-### Run (Web)
-
-```bash
-npm run web
-```
-
-Expo prints the dev-server URL (default: `http://localhost:19006`).
-
 ### Build (Static Web)
 
 ```bash
@@ -74,13 +68,6 @@ npm run build:web
 ```
 
 The static export is generated in `dist/`.
-
-### Run (iOS / Android)
-
-```bash
-npm run ios
-npm run android
-```
 
 ## Deep Links (Web)
 
@@ -92,8 +79,8 @@ On web, you can initialize the app state from query params:
 
 Examples:
 
-- `http://localhost:19006/?scheme=atc5&q=aspirin&lang=en`
-- `http://localhost:19006/?scheme=icd10&q=diabetes&lang=en`
+- `https://nadavweisler.github.io/MedCodeTranslator/?scheme=atc5&q=aspirin&lang=en`
+- `https://nadavweisler.github.io/MedCodeTranslator/?scheme=icd10&q=diabetes&lang=en`
 
 ## How It Works (High-Level)
 
@@ -123,16 +110,22 @@ Web routes are available at `/legal/terms`, `/legal/privacy`, and `/about` (data
 
 ## Deployments
 
-### Web
-
-- Deployed automatically to GitHub Pages from `master` via `.github/workflows/deploy-pages.yml`
-- Hosted under the project Pages path `/MedCodeTranslator`
-
 ### Mobile
 
 - `.github/workflows/deploy-mobile.yml` builds iOS and Android apps through Expo Application Services (EAS)
 - Supports `development`, `preview`, and `production` build profiles from `eas.json`
 - Requires an `EXPO_TOKEN` GitHub Actions secret for authenticated builds
+
+### Web
+
+- Deployed automatically to GitHub Pages from `master` via `.github/workflows/deploy-pages.yml`
+- Hosted under the project Pages path `/MedCodeTranslator`
+
+### Accessibility Review
+
+- `.github/workflows/accessibility-review.yml` builds the static web app for each pull request and push to `master`/`main`
+- Lighthouse runs an accessibility audit against a Pages-compatible base path and uploads the HTML/JSON report as the `accessibility-review-report` workflow artifact
+- The latest workflow status is shown in the badge at the top of this README
 
 ## Data Operations
 
@@ -145,7 +138,7 @@ npm run validate:data
 
 ## Development
 
-For local validation:
+For repository validation:
 
 ```bash
 npm ci
@@ -161,9 +154,10 @@ npm run build:web
 ## Branch Protection
 
 - A CI workflow (`.github/workflows/ci.yml`) runs type checking and web build validation on pull requests and pushes.
+- The accessibility workflow (`.github/workflows/accessibility-review.yml`) publishes a Lighthouse accessibility review report for pull requests and pushes.
 - Standard default-branch protection is defined in `.github/settings.yml`:
   - Require pull requests with at least 1 approval
   - Dismiss stale approvals on new commits
-  - Require passing `CI / validate` status checks
+  - Require passing `CI / validate` and `Accessibility Review / audit` status checks
   - Require conversation resolution and linear history
   - Disallow force pushes and branch deletion

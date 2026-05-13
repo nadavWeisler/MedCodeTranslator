@@ -246,7 +246,7 @@ export default function HomeScreen() {
                 {selectedLanguage.label} {selectedLanguage.name}
               </Text>
               <Text
-                importantForAccessibility="no-hide-descendants"
+                importantForAccessibility="no"
                 style={[styles.langPickerChevron, showLanguageDropdown && { color: schemeColor }]}
               >
                 ▾

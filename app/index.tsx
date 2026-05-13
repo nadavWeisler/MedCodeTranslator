@@ -226,7 +226,10 @@ export default function HomeScreen() {
             <Text style={[styles.appTitle, isTablet && styles.appTitleTablet, directionalText]}>
               {t('app_title')}
             </Text>
-            <Text style={[styles.appSubtitle, directionalText]} numberOfLines={1}>
+            <Text
+              style={[styles.appSubtitle, isMobile && styles.appSubtitleMobile, directionalText]}
+              numberOfLines={isMobile ? undefined : 1}
+            >
               {t('hero_subtitle')}
             </Text>
           </View>
@@ -235,6 +238,7 @@ export default function HomeScreen() {
             <TouchableOpacity
               style={[
                 styles.langPicker,
+                isMobile && styles.langPickerMobile,
                 showLanguageDropdown && { borderColor: `${schemeColor}50` },
               ]}
               onPress={() => setShowLanguageDropdown(prev => !prev)}
@@ -255,7 +259,13 @@ export default function HomeScreen() {
             </TouchableOpacity>
 
             {showLanguageDropdown ? (
-              <View style={[styles.langDropdown, { borderColor: `${schemeColor}20` }]}>
+              <View
+                style={[
+                  styles.langDropdown,
+                  isMobile && styles.langDropdownMobile,
+                  { borderColor: `${schemeColor}20` },
+                ]}
+              >
                 {LANGUAGES.map(l => (
                   <TouchableOpacity
                     key={l.code}
@@ -453,11 +463,14 @@ const styles = StyleSheet.create({
     color: '#64748b',
     maxWidth: 720,
   },
+  appSubtitleMobile: {
+    maxWidth: '100%',
+  },
   langPickerWrap: {
     position: 'relative',
   },
   langPickerWrapMobile: {
-    alignSelf: 'flex-start',
+    alignSelf: 'stretch',
   },
   langPicker: {
     minWidth: 148,
@@ -470,6 +483,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
     paddingHorizontal: 12,
     paddingVertical: 10,
+  },
+  langPickerMobile: {
+    alignSelf: 'flex-start',
   },
   langPickerValue: {
     fontSize: 13,
@@ -496,6 +512,12 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     shadowOffset: { width: 0, height: 6 },
     elevation: 6,
+  },
+  langDropdownMobile: {
+    left: 0,
+    right: 0,
+    minWidth: 0,
+    padding: 8,
   },
   langOption: {
     paddingHorizontal: 12,

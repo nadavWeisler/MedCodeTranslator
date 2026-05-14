@@ -3,9 +3,9 @@ import { ScrollViewStyleReset } from 'expo-router/html';
 
 const SITE_URL = 'https://nadavweisler.github.io/MedCodeTranslator/';
 const IMAGE_URL = `${SITE_URL}social-preview.png`;
-const SITE_TITLE = 'Med Code Translator';
+const SITE_TITLE = 'MedCodeTranslator — Medical Code Lookup Prototype';
 const SITE_DESCRIPTION =
-  'Search medications, diagnoses, labs, and procedures across multiple clinical coding systems.';
+  'Fast medical terminology and code lookup for research and clinical workflows.';
 
 export default function Root({ children }: PropsWithChildren) {
   return (

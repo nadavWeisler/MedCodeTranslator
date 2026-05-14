@@ -155,3 +155,15 @@ npm run build:web  # build static web export → dist/
 
 - Use the GitHub issue forms for bug reports, feature requests, and data issues.
 - Follow [`CONTRIBUTING.md`](CONTRIBUTING.md) for issue categories, labels, backlog seeding, and triage guidance.
+
+## Copilot Custom Agents
+
+Repository-tailored GitHub Copilot customizations are defined in:
+
+- `.github/copilot-instructions.md`
+- `.github/agents/search-ux-specialist.agent.md`
+- `.github/agents/dataset-maintainer.agent.md`
+- `.github/agents/compliance-scope-guard.agent.md`
+- `.github/agents/ci-release-engineer.agent.md`
+
+These agents are intended to keep Copilot work aligned with the app's search UX, dataset refresh flow, compliance boundaries, and CI/deployment model.

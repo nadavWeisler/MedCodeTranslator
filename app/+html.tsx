@@ -30,7 +30,7 @@ export default function Root({ children }: PropsWithChildren) {
         <meta name="twitter:image" content={IMAGE_URL} />
 
         <link rel="icon" href="/MedCodeTranslator/favicon.ico" />
-        <link rel="apple-touch-icon" href="/MedCodeTranslator/social-preview.png" />
+        <link rel="apple-touch-icon" href="/MedCodeTranslator/apple-touch-icon.png" />
         <ScrollViewStyleReset />
       </head>
       <body>{children}</body>

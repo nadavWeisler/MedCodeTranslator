@@ -46,6 +46,14 @@ jobs:
             cat build/medical-db/update-report.md >> "$GITHUB_STEP_SUMMARY"
           fi
 
+      - name: Validate crosswalk integrity
+        if: success()
+        run: |
+          python agents/crosswalk-validator/validate_crosswalk.py \
+            --icd9-json assets/data/icd9.json \
+            --icd10-json assets/data/icd10.json \
+            --crosswalk-json build/medical-db/icd9_to_icd10_gem.json
+
       - name: Upload refreshed DB artifact
         if: success()
         uses: actions/upload-artifact@v4

@@ -1,0 +1,62 @@
+[
+  {
+    "query": "glucose",
+    "expected_codes": ["2345-7"],
+    "category": "partial-name",
+    "note": "name_en is 'Glucose [Mass/volume] in Serum or Plasma (Blood glucose)'"
+  },
+  {
+    "query": "hemoglobin",
+    "expected_codes": ["718-7", "17856-6"],
+    "category": "partial-name",
+    "note": "718-7 (Hemoglobin in blood) and 17856-6 (HbA1c) both contain 'hemoglobin'"
+  },
+  {
+    "query": "creatinine",
+    "expected_codes": ["2160-0"],
+    "category": "partial-name",
+    "note": "name_en is 'Creatinine [Mass/volume] in Serum or Plasma'"
+  },
+  {
+    "query": "2345-7",
+    "expected_codes": ["2345-7"],
+    "category": "exact-code",
+    "note": "Direct LOINC code lookup"
+  },
+  {
+    "query": "HbA1c",
+    "expected_codes": ["17856-6"],
+    "category": "partial-name",
+    "note": "name_en contains '(HbA1c)'"
+  },
+  {
+    "query": "potassium",
+    "expected_codes": ["2823-3"],
+    "category": "partial-name",
+    "note": "name_en is 'Potassium [Moles/volume] in Serum or Plasma'"
+  },
+  {
+    "query": "sodium",
+    "expected_codes": ["2951-2"],
+    "category": "partial-name",
+    "note": "name_en is 'Sodium [Moles/volume] in Serum or Plasma'"
+  },
+  {
+    "query": "platelets",
+    "expected_codes": ["777-3"],
+    "category": "partial-name",
+    "note": "name_en is 'Platelets [#/volume] in Blood by Automated count'"
+  },
+  {
+    "query": "ALT",
+    "expected_codes": ["1742-6"],
+    "category": "partial-name",
+    "note": "name_en contains 'ALT/SGPT'"
+  },
+  {
+    "query": "albumin",
+    "expected_codes": ["1751-7"],
+    "category": "partial-name",
+    "note": "name_en is 'Albumin [Mass/volume] in Serum or Plasma'"
+  }
+]

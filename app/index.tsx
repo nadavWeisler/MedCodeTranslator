@@ -323,9 +323,11 @@ export default function HomeScreen() {
             </View>
 
             <View style={styles.resultsCol}>
-              <Text style={styles.resultsTitleMinimal}>
-                {t(query.trim() ? 'results_title_active' : 'results_title_idle')}
-              </Text>
+              <View style={styles.resultsTitleWrap}>
+                <Text style={styles.resultsTitleMinimal}>
+                  {t(query.trim() ? 'results_title_active' : 'results_title_idle')}
+                </Text>
+              </View>
               <CodeList
                 entries={results}
                 query={query}
@@ -565,6 +567,10 @@ const styles = StyleSheet.create({
     flex: 1,
     minHeight: 0,
     gap: 10,
+  },
+  resultsTitleWrap: {
+    backgroundColor: '#ffffff',
+    zIndex: 1,
   },
   resultsTitleMinimal: {
     fontSize: 14,

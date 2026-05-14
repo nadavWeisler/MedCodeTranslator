@@ -1,6 +1,14 @@
 # Med Code Translator
 
 [![Accessibility review](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/accessibility-review.yml/badge.svg)](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/accessibility-review.yml)
+[![Repo Size](https://img.shields.io/github/repo-size/nadavWeisler/MedCodeTranslator)](https://github.com/nadavWeisler/MedCodeTranslator)
+[![Top Language](https://img.shields.io/github/languages/top/nadavWeisler/MedCodeTranslator)](https://github.com/nadavWeisler/MedCodeTranslator)
+[![Language Count](https://img.shields.io/github/languages/count/nadavWeisler/MedCodeTranslator)](https://github.com/nadavWeisler/MedCodeTranslator)
+[![Stars](https://img.shields.io/github/stars/nadavWeisler/MedCodeTranslator)](https://github.com/nadavWeisler/MedCodeTranslator/stargazers)
+[![Forks](https://img.shields.io/github/forks/nadavWeisler/MedCodeTranslator)](https://github.com/nadavWeisler/MedCodeTranslator/network/members)
+[![Open Issues](https://img.shields.io/github/issues/nadavWeisler/MedCodeTranslator)](https://github.com/nadavWeisler/MedCodeTranslator/issues)
+[![TypeScript](https://img.shields.io/badge/TypeScript-Ready-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Made with Expo](https://img.shields.io/badge/Made%20with-Expo-000020.svg?logo=expo)](https://expo.dev/)
 
 Med Code Translator is a cross-platform app (iOS, Android, and Web) for fast medication and medical terminology code lookup across major coding systems.
 It supports bilingual English/Hebrew interfaces, autocomplete, and suggestion-based search — making it a practical reference tool for research and administrative workflows.

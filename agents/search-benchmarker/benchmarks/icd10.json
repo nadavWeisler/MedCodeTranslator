@@ -1,0 +1,74 @@
+[
+  {
+    "query": "cholera",
+    "expected_codes": ["A00"],
+    "category": "exact-name",
+    "note": "name_en is 'Cholera'"
+  },
+  {
+    "query": "typhoid",
+    "expected_codes": ["A01"],
+    "category": "partial-name",
+    "note": "name_en is 'Typhoid and paratyphoid fevers'"
+  },
+  {
+    "query": "diabetes",
+    "expected_codes": ["E10", "E11"],
+    "category": "partial-name",
+    "note": "Both E10 (Type 1) and E11 (Type 2) contain 'diabetes' — either is acceptable"
+  },
+  {
+    "query": "hypertension",
+    "expected_codes": ["I10"],
+    "category": "partial-name",
+    "note": "name_en is 'Essential (primary) hypertension'"
+  },
+  {
+    "query": "asthma",
+    "expected_codes": ["J45"],
+    "category": "exact-name",
+    "note": "name_en is 'Asthma'"
+  },
+  {
+    "query": "migraine",
+    "expected_codes": ["G43"],
+    "category": "exact-name",
+    "note": "name_en is 'Migraine'"
+  },
+  {
+    "query": "I10",
+    "expected_codes": ["I10"],
+    "category": "exact-code",
+    "note": "Direct ICD-10 code lookup"
+  },
+  {
+    "query": "A00",
+    "expected_codes": ["A00"],
+    "category": "exact-code",
+    "note": "Direct ICD-10 code lookup"
+  },
+  {
+    "query": "influenza",
+    "expected_codes": ["J11"],
+    "category": "partial-name",
+    "note": "name_en is 'Influenza, virus not identified'"
+  },
+  {
+    "query": "pneumonia",
+    "expected_codes": ["J12", "J18"],
+    "category": "partial-name",
+    "note": "Both J12 (viral) and J18 (unspecified) contain 'pneumonia'"
+  },
+  {
+    "query": "heart failure",
+    "expected_codes": ["I50"],
+    "category": "partial-name",
+    "note": "name_en is 'Heart failure'"
+  },
+  {
+    "query": "alzheimer",
+    "expected_codes": ["G30"],
+    "category": "partial-name",
+    "note": "name_en is 'Alzheimer's disease'"
+  }
+]

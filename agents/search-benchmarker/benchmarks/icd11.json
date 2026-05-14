@@ -1,0 +1,56 @@
+[
+  {
+    "query": "cholera",
+    "expected_codes": ["1A00"],
+    "category": "exact-name",
+    "note": "name_en is 'Cholera'"
+  },
+  {
+    "query": "influenza",
+    "expected_codes": ["1D01"],
+    "category": "partial-name",
+    "note": "name_en is 'Influenza due to identified seasonal influenza virus'"
+  },
+  {
+    "query": "diabetes",
+    "expected_codes": ["5A10", "5A11", "5A12"],
+    "category": "partial-name",
+    "note": "Type 1 (5A10), Type 2 (5A11), gestational (5A12) — all contain 'diabetes'"
+  },
+  {
+    "query": "1A00",
+    "expected_codes": ["1A00"],
+    "category": "exact-code",
+    "note": "Direct ICD-11 code lookup"
+  },
+  {
+    "query": "COVID",
+    "expected_codes": ["1C62.Z", "1C62.0"],
+    "category": "partial-name",
+    "note": "name_en contains 'COVID-19'"
+  },
+  {
+    "query": "hypertension",
+    "expected_codes": ["BA00"],
+    "category": "partial-name",
+    "note": "ICD-11 hypertension code"
+  },
+  {
+    "query": "obesity",
+    "expected_codes": ["5B80"],
+    "category": "exact-name",
+    "note": "name_en is 'Obesity'"
+  },
+  {
+    "query": "sepsis",
+    "expected_codes": ["1B1Z"],
+    "category": "exact-name",
+    "note": "name_en is 'Sepsis'"
+  },
+  {
+    "query": "breast cancer",
+    "expected_codes": ["2C70"],
+    "category": "partial-name",
+    "note": "name_en is 'Malignant neoplasm of breast'"
+  }
+]

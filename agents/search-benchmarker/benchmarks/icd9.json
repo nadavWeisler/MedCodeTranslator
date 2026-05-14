@@ -1,0 +1,50 @@
+[
+  {
+    "query": "cholera",
+    "expected_codes": ["001.0"],
+    "category": "partial-name",
+    "note": "name_en is 'Cholera due to Vibrio cholerae el tor'"
+  },
+  {
+    "query": "typhoid",
+    "expected_codes": ["002.0"],
+    "category": "partial-name",
+    "note": "name_en is 'Typhoid fever'"
+  },
+  {
+    "query": "scarlet fever",
+    "expected_codes": ["034.1"],
+    "category": "exact-name",
+    "note": "name_en is 'Scarlet fever'"
+  },
+  {
+    "query": "HIV",
+    "expected_codes": ["042"],
+    "category": "partial-name",
+    "note": "name_en is 'Human immunodeficiency virus (HIV) disease'"
+  },
+  {
+    "query": "034.0",
+    "expected_codes": ["034.0"],
+    "category": "exact-code",
+    "note": "Direct ICD-9 code lookup"
+  },
+  {
+    "query": "hepatitis B",
+    "expected_codes": ["070.30"],
+    "category": "partial-name",
+    "note": "name_en contains 'hepatitis B'"
+  },
+  {
+    "query": "septicemia",
+    "expected_codes": ["038.9"],
+    "category": "partial-name",
+    "note": "name_en is 'Unspecified septicemia (sepsis)'"
+  },
+  {
+    "query": "varicella",
+    "expected_codes": ["052.9"],
+    "category": "partial-name",
+    "note": "name_en is 'Chickenpox (varicella), unspecified'"
+  }
+]

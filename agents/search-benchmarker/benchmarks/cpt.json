@@ -1,0 +1,50 @@
+[
+  {
+    "query": "ECG",
+    "expected_codes": ["93000", "93015"],
+    "category": "partial-name",
+    "note": "93000: 'Electrocardiogram (ECG/EKG)...'; 93015: 'Cardiovascular stress test (treadmill/exercise ECG)'"
+  },
+  {
+    "query": "office visit",
+    "expected_codes": ["99213-25", "99213", "99214", "99215", "99203", "99204", "99205"],
+    "category": "partial-name",
+    "note": "All office/outpatient visit codes contain 'office' and 'visit'; 99213-25 is also a valid top result"
+  },
+  {
+    "query": "99213",
+    "expected_codes": ["99213"],
+    "category": "exact-code",
+    "note": "Direct CPT code lookup"
+  },
+  {
+    "query": "chest",
+    "expected_codes": ["76604", "71046", "71045"],
+    "category": "partial-name",
+    "note": "76604 (Ultrasound, chest) is a valid top result; 71046/71045 are also chest procedures"
+  },
+  {
+    "query": "echocardiogram",
+    "expected_codes": ["93306", "93307"],
+    "category": "partial-name",
+    "note": "93306 (with Doppler) and 93307 (without) both contain 'Echocardiography'"
+  },
+  {
+    "query": "blood collection",
+    "expected_codes": ["36415", "36416"],
+    "category": "partial-name",
+    "note": "36415: venipuncture; 36416: capillary — both are blood collection"
+  },
+  {
+    "query": "critical care",
+    "expected_codes": ["99291"],
+    "category": "partial-name",
+    "note": "name_en is 'Critical care, first 30-74 minutes'"
+  },
+  {
+    "query": "CT abdomen",
+    "expected_codes": ["74177", "74178"],
+    "category": "partial-name",
+    "note": "74177: 'CT abdomen and pelvis with contrast'; 74178: 'without and with contrast'"
+  }
+]

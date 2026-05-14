@@ -1,0 +1,39 @@
+name: PHI guard
+
+on:
+  pull_request:
+    branches: [master, main]
+    paths:
+      - 'app/**'
+      - 'db/**'
+      - 'scripts/**'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: phi-guard-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  scan:
+    name: Scan diff for PHI and SAFE_SCOPE violations
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Fetch base branch
+        run: git fetch origin ${{ github.base_ref }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run PHI guard
+        run: |
+          git diff origin/${{ github.base_ref }}...HEAD \
+            | python agents/phi-guard/phi_guard.py

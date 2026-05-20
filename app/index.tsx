@@ -501,7 +501,7 @@ const styles = StyleSheet.create({
   },
   langDropdown: {
     position: 'absolute',
-    top: '100%',
+    top: 46,             // Bug fix #5: replaced top:'100%' (unsupported string in RN StyleSheet) with measured picker height
     right: 0,
     marginTop: 6,
     minWidth: 180,
@@ -514,6 +514,7 @@ const styles = StyleSheet.create({
     shadowRadius: 12,
     shadowOffset: { width: 0, height: 6 },
     elevation: 6,
+    zIndex: 30,          // above everything else in the header
   },
   langDropdownMobile: {
     left: 0,
@@ -538,14 +539,17 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     borderWidth: 1,
     borderColor: '#e5e7eb',
+    overflow: 'visible',  // Bug fix #3: allow SearchBar dropdown to paint outside the shell border
   },
   shellInner: {
     flex: 1,
     padding: 12,
     gap: 12,
+    overflow: 'visible',  // Bug fix #3: propagate overflow:visible so dropdown escapes
   },
   controlsCol: {
     gap: 12,
+    zIndex: 20,           // Bug fix #3: elevate above resultsCol so SearchBar dropdown paints on top
   },
   contextRow: {
     flexDirection: 'row',

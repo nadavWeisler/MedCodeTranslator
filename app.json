@@ -3,7 +3,6 @@
     "name": "Med Code Translator",
     "slug": "med-code-translator",
     "version": "1.0.0",
-    "owner": "nadavweisler",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -14,8 +13,7 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.medcodetranslator.app"
+      "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
@@ -23,8 +21,7 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false,
-      "package": "com.medcodetranslator.app"
+      "predictiveBackGestureEnabled": false
     },
     "scheme": "medcodes",
     "web": {

@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import type { CodeEntry } from '../../db/queries';
 import SuggestionItem from './SuggestionItem';
+import { isRTL } from '../services/rtl';
 
 type Props = {
   value: string;
@@ -34,6 +35,7 @@ export default function SearchBar({
 }: Props) {
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<TextInput>(null);
+  const rtl = isRTL(lang);
 
   const showDropdown = focused && suggestions.length > 0 && value.length >= 2;
   // Only show ghost text when nothing is selected yet in dropdown
@@ -42,13 +44,13 @@ export default function SearchBar({
   return (
     <View style={styles.wrapper}>
       {/* Input row */}
-      <View style={[styles.container, focused && { borderColor: schemeColor }]}>
+      <View style={[styles.container, focused && [styles.containerFocused, { borderColor: schemeColor }]]}>
         <Text style={styles.icon}>🔍</Text>
 
         {/* Ghost text sits behind the real input */}
         <View style={styles.inputArea}>
           {showGhost && (
-            <Text style={styles.ghost} numberOfLines={1}>
+            <Text style={[styles.ghost, rtl ? styles.textRight : styles.textLeft]} numberOfLines={1}>
               {/* Show ghost as completion suffix */}
               <Text style={{ color: 'transparent' }}>{value}</Text>
               {ghostText.slice(value.length)}
@@ -56,7 +58,7 @@ export default function SearchBar({
           )}
           <TextInput
             ref={inputRef}
-            style={styles.input}
+            style={[styles.input, rtl ? styles.textRight : styles.textLeft]}
             value={value}
             onChangeText={onChangeText}
             placeholder={placeholder}
@@ -109,26 +111,25 @@ const styles = StyleSheet.create({
   wrapper: {
     position: 'relative',
     zIndex: 10,
-    marginBottom: 12,
+    marginBottom: 2,
   },
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#fff',
+    backgroundColor: '#ffffff',
     borderRadius: 12,
-    paddingHorizontal: 12,
-    paddingVertical: Platform.OS === 'ios' ? 12 : 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.08,
-    shadowRadius: 4,
-    elevation: 2,
+    paddingHorizontal: 16,
+    paddingVertical: Platform.OS === 'ios' ? 14 : 12,
+    minHeight: 52,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+  },
+  containerFocused: {
     borderWidth: 1.5,
-    borderColor: '#e2e8f0',
   },
   icon: {
-    fontSize: 16,
-    marginRight: 8,
+    fontSize: 17,
+    marginRight: 10,
   },
   inputArea: {
     flex: 1,
@@ -137,26 +138,30 @@ const styles = StyleSheet.create({
   },
   ghost: {
     position: 'absolute',
-    fontSize: 15,
-    color: '#94a3b8',
+    fontSize: 16,
+    lineHeight: 20,
+    color: '#9aaabc',
     top: 0,
     left: 0,
     right: 0,
     pointerEvents: 'none',
   },
   input: {
-    fontSize: 15,
-    color: '#1e293b',
+    fontSize: 16,
+    lineHeight: 20,
+    color: '#102a3f',
     padding: 0,
     backgroundColor: 'transparent',
   },
   clearBtn: {
-    padding: 4,
-    marginLeft: 4,
+    padding: 6,
+    marginLeft: 6,
+    borderRadius: 999,
+    backgroundColor: '#f1f5f9',
   },
   clearIcon: {
-    fontSize: 14,
-    color: '#94a3b8',
+    fontSize: 13,
+    color: '#6f8395',
   },
   dropdown: {
     position: 'absolute',
@@ -166,13 +171,14 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.12,
-    shadowRadius: 8,
-    elevation: 8,
+    borderColor: '#e5e7eb',
     overflow: 'hidden',
-    marginTop: 4,
+    marginTop: 10,
+  },
+  textLeft: {
+    textAlign: 'left',
+  },
+  textRight: {
+    textAlign: 'right',
   },
 });

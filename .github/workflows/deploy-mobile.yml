@@ -1,0 +1,72 @@
+name: Deploy mobile (iOS & Android)
+
+on:
+  push:
+    branches: [master]
+    paths-ignore:
+      - '**.md'
+      - '.github/workflows/ci.yml'
+      - '.github/workflows/deploy-pages.yml'
+      - '.github/workflows/refresh-medical-db.yml'
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: EAS build profile
+        required: true
+        default: preview
+        type: choice
+        options:
+          - development
+          - preview
+          - production
+      platform:
+        description: Target platform
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - ios
+          - android
+
+permissions:
+  contents: read
+
+concurrency:
+  group: mobile-deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: EAS Build
+    runs-on: ubuntu-latest
+    env:
+      EAS_PLATFORM: ${{ inputs.platform }}
+      EAS_PROFILE: ${{ inputs.profile }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Build on EAS
+        run: |
+          PLATFORM="${EAS_PLATFORM:-all}"
+          PROFILE="${EAS_PROFILE:-preview}"
+          eas build \
+            --platform "$PLATFORM" \
+            --profile "$PROFILE" \
+            --non-interactive

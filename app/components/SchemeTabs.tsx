@@ -17,14 +17,18 @@ export const SCHEMES: SchemeConfig[] = [
   { key: 'icd11', label: 'ICD-11',       shortLabel: 'ICD-11',color: '#0891b2', icon: '🔬' },
   { key: 'loinc', label: 'LOINC (Labs)', shortLabel: 'LOINC', color: '#d97706', icon: '🧪' },
   { key: 'cpt',   label: 'CPT-4 (Procs)',shortLabel: 'CPT',   color: '#dc2626', icon: '⚕️' },
+  { key: 'hcpcs', label: 'HCPCS Level II',shortLabel: 'HCPCS',color: '#0f766e', icon: '🏥' },
+  { key: 'cvx',   label: 'CVX (Vaccines)',shortLabel: 'CVX',  color: '#7e22ce', icon: '💉' },
 ];
 
 type Props = {
   active: SchemeKey;
   onChange: (scheme: SchemeKey) => void;
+  hintLabel?: string;
+  compact?: boolean;
 };
 
-export default function SchemeTabs({ active, onChange }: Props) {
+export default function SchemeTabs({ active, onChange, hintLabel, compact = false }: Props) {
   const activeScheme = SCHEMES.find(s => s.key === active)!;
 
   return (
@@ -42,14 +46,16 @@ export default function SchemeTabs({ active, onChange }: Props) {
               key={scheme.key}
               style={[
                 styles.pill,
-                isActive && { backgroundColor: scheme.color, borderColor: scheme.color },
+                isActive && (compact
+                  ? { backgroundColor: `${scheme.color}14`, borderColor: `${scheme.color}50` }
+                  : { backgroundColor: scheme.color, borderColor: scheme.color }),
               ]}
               onPress={() => onChange(scheme.key)}
               accessibilityRole="tab"
               accessibilityState={{ selected: isActive }}
             >
-              <Text style={styles.icon}>{scheme.icon}</Text>
-              <Text style={[styles.label, isActive && styles.labelActive]}>
+              {!compact && <Text style={styles.icon}>{scheme.icon}</Text>}
+              <Text style={[styles.label, isActive && (compact ? { color: scheme.color } : styles.labelActive)]}>
                 {scheme.shortLabel}
               </Text>
             </TouchableOpacity>
@@ -58,52 +64,64 @@ export default function SchemeTabs({ active, onChange }: Props) {
       </ScrollView>
 
       {/* Active scheme full label */}
-      <Text style={[styles.schemeTitle, { color: activeScheme.color }]}>
-        {activeScheme.icon} {activeScheme.label}
-        <Text style={styles.searchHint}>  ·  search by code or name</Text>
-      </Text>
+      {!compact && (
+        <View style={styles.schemeSummary}>
+          <Text style={[styles.schemeTitle, { color: activeScheme.color }]}>
+            {activeScheme.icon} {activeScheme.label}
+          </Text>
+          {!!hintLabel && <Text style={styles.searchHint}>{hintLabel}</Text>}
+        </View>
+      )}
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   wrapper: {
-    marginBottom: 12,
+    gap: 10,
   },
   scroll: {
-    paddingBottom: 8,
+    paddingBottom: 4,
     gap: 8,
   },
   pill: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 20,
-    borderWidth: 1.5,
-    borderColor: '#e2e8f0',
-    backgroundColor: '#f8fafc',
+    paddingHorizontal: 12,
+    paddingVertical: 9,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#e5e7eb',
+    backgroundColor: '#ffffff',
   },
   icon: {
     fontSize: 14,
   },
   label: {
     fontSize: 13,
-    fontWeight: '600',
-    color: '#64748b',
+    fontWeight: '700',
+    color: '#334155',
   },
   labelActive: {
     color: '#fff',
   },
+  schemeSummary: {
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    borderRadius: 18,
+    backgroundColor: '#f4f9fb',
+    borderWidth: 1,
+    borderColor: '#dce7ee',
+    gap: 4,
+  },
   schemeTitle: {
-    fontSize: 13,
-    fontWeight: '600',
-    marginTop: 4,
+    fontSize: 14,
+    fontWeight: '700',
   },
   searchHint: {
-    fontWeight: '400',
-    color: '#94a3b8',
+    fontWeight: '500',
+    color: '#708495',
     fontSize: 12,
   },
 });

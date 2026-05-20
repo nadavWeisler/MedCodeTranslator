@@ -1,0 +1,30 @@
+{
+  "_comment": "Shared configuration for MedCodeTranslator autonomous agents. See agents/README.md.",
+  "repo": "nadavWeisler/MedCodeTranslator",
+  "assets_dir": "assets/data",
+  "safe_scope_doc": "docs/SAFE_SCOPE.md",
+  "thresholds": {
+    "search_precision_at_1_min": 0.70,
+    "search_precision_at_5_min": 0.85,
+    "accessibility_score_min": 0.80,
+    "crosswalk_orphan_alert_count": 50,
+    "crosswalk_many_many_pct_alert": 0.05
+  },
+  "phi_guard": {
+    "checked_path_prefixes": ["app/", "db/", "scripts/"],
+    "skipped_path_prefixes": ["agents/phi-guard/", "legal/", "docs/", "i18n/"],
+    "hard_violation_exit_code": 1
+  },
+  "upstream_sentinel": {
+    "probe_timeout_seconds": 20,
+    "cms_year_probe_offsets": [-1, 0, 1, 2],
+    "report_dir": "build/upstream-sentinel"
+  },
+  "search_benchmarker": {
+    "benchmark_dir": "agents/search-benchmarker/benchmarks",
+    "results_dir": "build/search-quality",
+    "schemes": ["atc5", "icd10", "icd9", "icd11", "loinc", "cpt", "hcpcs", "cvx"],
+    "precision_at_1_threshold": 0.70,
+    "precision_at_5_threshold": 0.85
+  }
+}

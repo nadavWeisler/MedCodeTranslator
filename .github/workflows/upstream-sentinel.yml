@@ -1,0 +1,52 @@
+name: Upstream source sentinel
+
+on:
+  schedule:
+    # Run daily at 06:00 UTC — before the Monday 04:00 UTC weekly refresh
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      create_issue:
+        description: Create a GitHub Issue for unreachable sources
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: upstream-sentinel
+  cancel-in-progress: true
+
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run upstream sentinel
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          CREATE_ISSUE_FLAG=""
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] && [ "${{ inputs.create_issue }}" = "true" ]; then
+            CREATE_ISSUE_FLAG="--create-issue"
+          fi
+          python agents/upstream-sentinel/sentinel.py \
+            --repo nadavWeisler/MedCodeTranslator \
+            $CREATE_ISSUE_FLAG
+
+      - name: Upload sentinel report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: upstream-sentinel-report
+          path: build/upstream-sentinel/
+          if-no-files-found: warn

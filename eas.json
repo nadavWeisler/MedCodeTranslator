@@ -1,7 +1,7 @@
 {
   "cli": {
-    "version": ">= 12.0.0",
-    "appVersionSource": "appjson"
+    "version": ">= 16.0.0",
+    "promptToConfigurePushNotifications": false
   },
   "build": {
     "development": {
@@ -21,22 +21,19 @@
       "autoIncrement": true,
       "android": {
         "buildType": "app-bundle"
-      },
-      "ios": {
-        "image": "latest"
       }
     }
   },
   "submit": {
     "production": {
-      "android": {
-        "serviceAccountKeyPath": "./google-play-key.json",
-        "track": "production"
-      },
       "ios": {
-        "appleId": "REPLACE_WITH_YOUR_APPLE_ID",
-        "ascAppId": "REPLACE_WITH_APP_STORE_CONNECT_APP_ID",
-        "appleTeamId": "REPLACE_WITH_APPLE_TEAM_ID"
+        "appleId": "$APPLE_ID",
+        "ascAppId": "$ASC_APP_ID",
+        "appleTeamId": "$APPLE_TEAM_ID"
+      },
+      "android": {
+        "serviceAccountKeyPath": "$GOOGLE_SERVICE_ACCOUNT_KEY_PATH",
+        "track": "internal"
       }
     }
   }

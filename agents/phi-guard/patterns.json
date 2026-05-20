@@ -1,0 +1,47 @@
+{
+  "_description": "PHI guard pattern definitions for MedCodeTranslator. Hard violations block PRs. Warnings are informational. See agents/phi-guard/README.md and docs/SAFE_SCOPE.md.",
+  "hard_violations": [
+    {
+      "id": "phi-field-ts",
+      "description": "PHI-named field or parameter declared in TypeScript (in a type, interface, function signature, or object literal)",
+      "pattern": "\\b(patientId|patient_id|mrn\\b|medicalRecordNum|dateOfBirth|dob\\b|ssn\\b|socialSecurityNum|phiField|patientRecord|healthRecordId)\\s*[?:]",
+      "file_extensions": [".ts", ".tsx"],
+      "case_insensitive": false,
+      "message": "PHI-named identifier detected in TypeScript. Patient-identifiable data is prohibited — see docs/SAFE_SCOPE.md."
+    },
+    {
+      "id": "clinical-decision-field-ts",
+      "description": "Clinical decision support field declared in a TypeScript type or interface",
+      "pattern": "\\b(dosageRecommendation|treatmentRecommendation|prescriptionInfo|clinicalAdvice|diagnosisResult|riskScore|drugInteraction|clinicalGuidance|patientRisk)\\s*[?:]",
+      "file_extensions": [".ts", ".tsx"],
+      "case_insensitive": false,
+      "message": "Clinical decision support field detected. These features are out of scope — see docs/SAFE_SCOPE.md."
+    },
+    {
+      "id": "external-fetch-app",
+      "description": "fetch() call to an absolute external URL inside app/ or db/ layer",
+      "pattern": "fetch\\(['\"`]https?://(?!localhost|127\\.0\\.0\\.1)",
+      "file_extensions": [".ts", ".tsx"],
+      "case_insensitive": false,
+      "message": "External HTTP request detected in app/db layer. Verify no user query data is transmitted to third-party endpoints."
+    },
+    {
+      "id": "asyncstorage-phi-key",
+      "description": "AsyncStorage call with a PHI-adjacent key string",
+      "pattern": "AsyncStorage\\.(setItem|getItem|removeItem)\\s*\\(['\"`][^'\"`]*(patient|:mrn:|:phi:|:dob:|:ssn:)",
+      "file_extensions": [".ts", ".tsx"],
+      "case_insensitive": true,
+      "message": "AsyncStorage key contains a PHI-adjacent term. Patient data must not be persisted — see docs/SAFE_SCOPE.md."
+    }
+  ],
+  "warnings": [
+    {
+      "id": "patient-variable",
+      "description": "Variable declaration with 'patient' prefix in app/db code",
+      "pattern": "\\b(const|let|var)\\s+patient[A-Za-z_]",
+      "file_extensions": [".ts", ".tsx"],
+      "case_insensitive": false,
+      "message": "Variable name starts with 'patient'. Confirm this does not handle patient-identifiable data."
+    }
+  ]
+}

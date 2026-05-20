@@ -1,0 +1,50 @@
+[
+  {
+    "query": "MMR",
+    "expected_codes": ["03"],
+    "category": "partial-name",
+    "note": "name_en is 'MMR (Measles, Mumps, Rubella)'"
+  },
+  {
+    "query": "influenza",
+    "expected_codes": ["15", "16"],
+    "category": "partial-name",
+    "note": "15: 'Influenza, split...'; 16: 'Influenza, whole' — both contain 'Influenza'"
+  },
+  {
+    "query": "hepatitis B",
+    "expected_codes": ["08", "42", "43", "44", "45"],
+    "category": "partial-name",
+    "note": "Multiple hepatitis B codes — any is acceptable"
+  },
+  {
+    "query": "03",
+    "expected_codes": ["03"],
+    "category": "exact-code",
+    "note": "Direct CVX code lookup for MMR"
+  },
+  {
+    "query": "varicella",
+    "expected_codes": ["21"],
+    "category": "exact-name",
+    "note": "name_en is 'Varicella (Chickenpox)'"
+  },
+  {
+    "query": "DTP",
+    "expected_codes": ["01", "20", "50"],
+    "category": "partial-name",
+    "note": "01: DTP; 20: DTaP; 50: DTaP-Hib — all contain 'DTP' or 'DTaP'"
+  },
+  {
+    "query": "rabies",
+    "expected_codes": ["18", "40"],
+    "category": "partial-name",
+    "note": "18: 'Rabies, intramuscular injection'; 40: 'Rabies, intradermal injection'"
+  },
+  {
+    "query": "pneumococcal",
+    "expected_codes": ["33"],
+    "category": "partial-name",
+    "note": "name_en is 'Pneumococcal polysaccharide (PPV23)'"
+  }
+]

@@ -70,7 +70,7 @@ export default function SearchBar({
         <View style={styles.inputArea}>
           {/* Bug fix #4: pointerEvents must be a prop on View, not a style on Text */}
           {showGhost && (
-            <View style={[styles.ghostContainer, rtl ? styles.textRight : styles.textLeft]} pointerEvents="none">
+            <View style={styles.ghostContainer} pointerEvents="none">
               <Text style={[styles.ghost, rtl ? styles.textRight : styles.textLeft]} numberOfLines={1}>
                 <Text style={{ color: 'transparent' }}>{value}</Text>
                 {ghostText.slice(value.length)}
@@ -207,4 +207,3 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
 });
-

@@ -4,12 +4,12 @@
     "strict": true,
     "resolveJsonModule": true,
     "paths": {
-      "@/db/*": [
-        "./db/*"
-      ],
-      "@/i18n/*": [
-        "./i18n/*"
-      ]
+      "@/db/*": ["./db/*"],
+      "@/i18n/*": ["./i18n/*"],
+      "@medcode/core": ["./packages/core/src/index.ts"],
+      "@medcode/core/*": ["./packages/core/src/*"],
+      "@medcode/search": ["./packages/search/src/index.ts"],
+      "@medcode/search/*": ["./packages/search/src/*"]
     }
   },
   "include": [

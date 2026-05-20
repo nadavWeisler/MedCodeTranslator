@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import type { CodeEntry } from '../../db/queries';
+import type { ScoredEntry } from '@medcode/core';
 import { isRTL } from '../services/rtl';
 
 type Props = {
-  item: CodeEntry;
+  item: ScoredEntry;
   lang: string;
-  onPress: (item: CodeEntry) => void;
+  onPress: (item: ScoredEntry) => void;
   schemeColor: string;
 };
 

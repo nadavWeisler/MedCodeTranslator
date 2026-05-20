@@ -1,0 +1,44 @@
+[
+  {
+    "query": "wheelchair",
+    "expected_codes": ["A0130"],
+    "category": "partial-name",
+    "note": "name_en is 'Nonemergency transportation; wheelchair van'"
+  },
+  {
+    "query": "syringe",
+    "expected_codes": ["A4206", "A4207", "A4208", "A4209"],
+    "category": "partial-name",
+    "note": "Multiple syringe codes — any syringe code in top 5 is acceptable"
+  },
+  {
+    "query": "A0100",
+    "expected_codes": ["A0100"],
+    "category": "exact-code",
+    "note": "Direct HCPCS code lookup"
+  },
+  {
+    "query": "cane",
+    "expected_codes": ["E0100", "E0105"],
+    "category": "partial-name",
+    "note": "E0100: cane; E0105: quad/three-prong cane — both contain 'cane'"
+  },
+  {
+    "query": "ambulance",
+    "expected_codes": ["A0021"],
+    "category": "partial-name",
+    "note": "name_en is 'Ambulance service, outside state per transport...'"
+  },
+  {
+    "query": "taxi",
+    "expected_codes": ["A0100"],
+    "category": "partial-name",
+    "note": "name_en is 'Nonemergency transportation; taxi'"
+  },
+  {
+    "query": "splint",
+    "expected_codes": ["A4570"],
+    "category": "exact-name",
+    "note": "name_en is 'Splint'"
+  }
+]

@@ -1,15 +1,23 @@
 import React from 'react';
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
-import type { CodeEntry } from '../../db/queries';
+import type { ScoredEntry } from '@medcode/core';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
 import { isRTL } from '../services/rtl';
 
+const METHOD_LABEL: Record<string, string> = {
+  exact: 'exact',
+  prefix: 'prefix',
+  substring: 'match',
+  fuzzy: 'fuzzy',
+  alias: 'alias',
+};
+
 type Props = {
-  entry: CodeEntry;
+  entry: ScoredEntry;
   lang: string;
   schemeColor: string;
   isSelected?: boolean;
-  onPress?: (entry: CodeEntry) => void;
+  onPress?: (entry: ScoredEntry) => void;
   metadataRows?: MetadataRow[];
 };
 
@@ -25,6 +33,8 @@ export default function CodeCard({
   const secondaryName = lang === 'he' && entry.name_he ? entry.name_en : null;
   const showMetadata = isSelected && metadataRows.length > 0;
   const textAlign = isRTL(lang) ? 'right' : 'left';
+  const matchLabel = METHOD_LABEL[entry.matchMethod] ?? entry.matchMethod;
+  const scorePercent = Math.round(entry.score * 100);
 
   return (
     <TouchableOpacity
@@ -47,6 +57,12 @@ export default function CodeCard({
           </Text>
         </View>
         <Text style={[styles.name, { textAlign }]} numberOfLines={2}>{primaryName}</Text>
+        <View style={styles.scoreMeta}>
+          <Text style={[styles.methodBadge, { color: schemeColor, borderColor: schemeColor + '40', backgroundColor: schemeColor + '10' }]}>
+            {matchLabel}
+          </Text>
+          <Text style={styles.scoreText}>{scorePercent}%</Text>
+        </View>
       </View>
       {secondaryName && (
         <Text style={[styles.altName, { textAlign }]} numberOfLines={1}>{secondaryName}</Text>
@@ -91,6 +107,26 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '800',
     letterSpacing: 0.6,
+  },
+  scoreMeta: {
+    alignItems: 'flex-end',
+    gap: 3,
+    marginLeft: 4,
+  },
+  methodBadge: {
+    fontSize: 10,
+    fontWeight: '700',
+    letterSpacing: 0.3,
+    borderWidth: 1,
+    borderRadius: 6,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    textTransform: 'uppercase',
+  },
+  scoreText: {
+    fontSize: 10,
+    color: '#94a3b8',
+    fontWeight: '600',
   },
   name: {
     flex: 1,

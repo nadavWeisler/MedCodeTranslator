@@ -1,0 +1,74 @@
+[
+  {
+    "query": "omeprazole",
+    "expected_codes": ["A02BC01"],
+    "category": "exact-name",
+    "note": "Exact match on name_en"
+  },
+  {
+    "query": "metformin",
+    "expected_codes": ["A10BA02"],
+    "category": "exact-name",
+    "note": "Exact match on name_en"
+  },
+  {
+    "query": "aspirin",
+    "expected_codes": ["B01AC06"],
+    "category": "partial-name",
+    "note": "name_en is 'Acetylsalicylic acid (Aspirin)' — 'aspirin' is in the parenthetical"
+  },
+  {
+    "query": "A02BC01",
+    "expected_codes": ["A02BC01"],
+    "category": "exact-code",
+    "note": "Direct ATC code lookup"
+  },
+  {
+    "query": "warfarin",
+    "expected_codes": ["B01AA03"],
+    "category": "exact-name",
+    "note": "Exact match on name_en"
+  },
+  {
+    "query": "insulin",
+    "expected_codes": ["A10AB01", "A10AB04", "A10AB05", "A10AC01", "A10AE04", "A10AE05"],
+    "category": "partial-name",
+    "note": "Multiple insulins in dataset — any insulin code acceptable in top 5"
+  },
+  {
+    "query": "metoprolol",
+    "expected_codes": ["C07AB02"],
+    "category": "exact-name",
+    "note": "Exact match on name_en"
+  },
+  {
+    "query": "furosemide",
+    "expected_codes": ["C03CA01"],
+    "category": "exact-name",
+    "note": "Exact match on name_en"
+  },
+  {
+    "query": "atorvastatin",
+    "expected_codes": ["C10AA05"],
+    "category": "exact-name",
+    "note": "Exact match on name_en"
+  },
+  {
+    "query": "ibuprofen",
+    "expected_codes": ["M01AE01"],
+    "category": "exact-name",
+    "note": "Exact match on name_en"
+  },
+  {
+    "query": "amoxicillin",
+    "expected_codes": ["J01CA04"],
+    "category": "exact-name",
+    "note": "Exact match on name_en"
+  },
+  {
+    "query": "B01AC06",
+    "expected_codes": ["B01AC06"],
+    "category": "exact-code",
+    "note": "Direct ATC code lookup for aspirin"
+  }
+]

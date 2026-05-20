@@ -2,20 +2,20 @@ import React from 'react';
 import { FlatList, Text, StyleSheet, View } from 'react-native';
 import CodeCard from './CodeCard';
 import SuggestionItem from './SuggestionItem';
-import type { CodeEntry } from '../../db/queries';
+import type { ScoredEntry } from '@medcode/core';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
 import { isRTL as checkRTL } from '../services/rtl';
 
 type Props = {
-  entries: CodeEntry[];
+  entries: ScoredEntry[];
   query: string;
   lang: string;
   t: (key: string, options?: Record<string, unknown>) => string;
-  fuzzyMatches?: CodeEntry[];   // "did you mean" suggestions
-  onFuzzySelect?: (item: CodeEntry) => void;
+  fuzzyMatches?: ScoredEntry[];
+  onFuzzySelect?: (item: ScoredEntry) => void;
   schemeColor: string;
   resultCount: number;
-  onEntrySelect?: (entry: CodeEntry) => void;
+  onEntrySelect?: (entry: ScoredEntry) => void;
   selectedCode?: string | null;
   selectedMetadataRows?: MetadataRow[];
 };

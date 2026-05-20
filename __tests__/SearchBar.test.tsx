@@ -1,11 +1,11 @@
 import React from 'react';
 import { render, fireEvent, act } from '@testing-library/react-native';
 import SearchBar from '../app/components/SearchBar';
-import type { CodeEntry } from '../db/queries';
+import type { ScoredEntry } from '@medcode/core';
 
-const SUGGESTIONS: CodeEntry[] = [
-  { code: 'A10BA02', name_en: 'Metformin', name_he: 'מטפורמין' },
-  { code: 'A10BB01', name_en: 'Glibenclamide', name_he: null },
+const SUGGESTIONS: ScoredEntry[] = [
+  { code: 'A10BA02', name_en: 'Metformin', name_he: 'מטפורמין', score: 1.0, matchMethod: 'exact' },
+  { code: 'A10BB01', name_en: 'Glibenclamide', name_he: null, score: 0.9, matchMethod: 'prefix' },
 ];
 
 function renderSearchBar(overrides: Partial<React.ComponentProps<typeof SearchBar>> = {}) {

@@ -8,7 +8,7 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import type { CodeEntry } from '../../db/queries';
+import type { ScoredEntry } from '@medcode/core';
 import SuggestionItem from './SuggestionItem';
 import { isRTL } from '../services/rtl';
 
@@ -16,9 +16,9 @@ type Props = {
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
-  suggestions: CodeEntry[];
+  suggestions: ScoredEntry[];
   ghostText?: string;            // inline completion hint
-  onSuggestionSelect: (item: CodeEntry) => void;
+  onSuggestionSelect: (item: ScoredEntry) => void;
   schemeColor: string;
   lang: string;
 };

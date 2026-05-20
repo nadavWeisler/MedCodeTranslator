@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-05-13T00:00:00Z",
+  "generated_at_utc": "2026-05-20T18:21:10+00:00",
   "imported_by": "repo-bundled-assets",
   "sources": [
     {
@@ -12,7 +12,7 @@
       "retrieved_at_utc": "2026-05-13T00:00:00Z",
       "record_count": 143,
       "license_text": "WHOCC public terms; verify latest redistribution/commercial terms.",
-      "attribution_text": "ATC/DDD data © WHOCC."
+      "attribution_text": "ATC/DDD data \u00a9 WHOCC."
     },
     {
       "dataset": "icd10",

@@ -4,7 +4,6 @@
 [![Tests](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/ci.yml/badge.svg?label=tests)](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/ci.yml)
 [![Accessibility review](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/accessibility-review.yml/badge.svg)](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/accessibility-review.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Made with Expo](https://img.shields.io/badge/Expo-SDK%2054-000020?logo=expo)](https://expo.dev/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://nadavweisler.github.io/MedCodeTranslator/)
 
@@ -20,8 +19,8 @@ Biomedical terminology is fragmented across a dozen incompatible standards — I
 
 MedCodeTranslator is a **transparent, offline-capable, open-source retrieval engine** that works across all major coding schemes without sending data to a third party.
 
-> **Medical disclaimer:** This is an informational reference tool only.  
-> Not for diagnosis, treatment decisions, prescribing, or clinical recommendations.  
+> **Medical disclaimer:** This is an informational reference tool only.
+> Not for diagnosis, treatment decisions, prescribing, or clinical recommendations.
 > Never enter patient-identifiable (PHI) data.
 
 ---
@@ -35,14 +34,6 @@ MedCodeTranslator is a **transparent, offline-capable, open-source retrieval eng
 | Mobile/offline-unfriendly tools | React Native app, SQLite on-device |
 | Hard to reproduce or evaluate search quality | Benchmark suite with precision@1, precision@5, MRR |
 | No programmatic access | Shared TypeScript + Python packages |
-
----
-
-## Screenshots
-
-| Mobile — ICD-10 search | Mobile — Hebrew UI | Web — LOINC search |
-|---|---|---|
-| ![ICD-10](docs/screenshots/mobile-icd10-diabetes.png) | ![Hebrew](docs/screenshots/mobile-atc5-aspirin-he.png) | ![Web](docs/screenshots/web-wide-loinc-glucose.png) |
 
 ---
 
@@ -80,6 +71,14 @@ Data files live in [`data/vocabularies/`](data/vocabularies/). See [`DATA_SOURCE
 
 ---
 
+## Screenshots
+
+| Mobile — ICD-10 search | Mobile — Hebrew UI | Web — LOINC search |
+|---|---|---|
+| ![ICD-10](docs/screenshots/mobile-icd10-diabetes.png) | ![Hebrew](docs/screenshots/mobile-atc5-aspirin-he.png) | ![Web](docs/screenshots/web-wide-loinc-glucose.png) |
+
+---
+
 ## Search Architecture
 
 ```
@@ -114,107 +113,31 @@ All retrieval logic lives in [`packages/search/src/`](packages/search/src/):
 
 ---
 
-## Repository Layout
-
-```
-apps/                     (future: split apps here)
-packages/
-  core/src/types.ts       Shared TypeScript types (SchemeKey, CodeEntry, ScoredEntry)
-  search/src/             Retrieval engine (exact / fuzzy / layered)
-  python-client/          Python client (medcodetranslator package)
-data/
-  vocabularies/           JSON vocabulary files (one per scheme)
-  benchmarks/             Benchmark query sets per scheme
-  aliases/common.json     Abbreviation / brand-name alias table
-app/                      Expo Router screens
-  components/             SearchBar, SuggestionItem, SchemeTabs, CodeList, CodeCard
-  services/               App-level adapters (fuzzySearch, sourceMetadata, RTL)
-db/                       expo-sqlite init + query layer
-i18n/                     i18next locale files (9 languages)
-scripts/                  Data refresh + validation scripts
-agents/                   Autonomous workflow agents (benchmarker, phi-guard, etc.)
-benchmarks/               Evaluation scripts
-__tests__/                Jest test suites (53 tests)
-docs/                     Architecture, API, and retrieval docs
-.github/workflows/        CI + deploy pipelines
-```
-
----
-
-## Installation
-
-```bash
-# Prerequisites: Node.js 18+, npm
-git clone https://github.com/nadavWeisler/MedCodeTranslator.git
-cd MedCodeTranslator
-npm ci
-```
-
----
-
-## Quick Start
-
-### Run the web app (development)
-
-```bash
-npx expo start --web
-```
-
-### Run on mobile (Expo Go)
-
-```bash
-npx expo start
-# Scan QR with Expo Go on iOS or Android
-```
-
-### Build static PWA
-
-```bash
-npm run build:web
-# Output in dist/ — deploy to any static host
-```
-
-### Run tests
-
-```bash
-npm test
-npm run test:coverage
-```
-
-### Run benchmarks
-
-```bash
-npm run benchmark
-```
-
----
-
 ## API Examples
 
-### TypeScript (packages/search)
+### TypeScript (`packages/search`)
 
 ```typescript
 import { layeredSearch } from '@medcode/search';
-import type { CodeEntry } from '@medcode/core';
+import type { ScoredEntry } from '@medcode/core';
 
-// entries from SQLite or JSON
 const results = layeredSearch(entries, 'diabetes', 'icd10', { limit: 10 });
 
-results.forEach(r => {
+results.forEach((r: ScoredEntry) => {
   console.log(r.code, r.name_en);
   console.log('  score:', r.score, '  via:', r.matchMethod);
-  console.log('  highlights:', r.highlights); // [[0,7]] character spans
+  console.log('  highlights:', r.highlights); // [[0, 7]] character spans
 });
 ```
 
-### Python (packages/python-client)
+### Python (`packages/python-client`)
 
 ```python
 from medcodetranslator import MedCodeTranslator
 
 client = MedCodeTranslator()
-
 results = client.search('icd10', 'diabetes', fuzzy=True, limit=5)
+
 for r in results:
     print(f"{r.code}  {r.name_en:<45}  score={r.score:.3f}  via={r.match_method}")
 ```
@@ -223,16 +146,6 @@ for r in results:
 E11  Type 2 diabetes mellitus                         score=1.000  via=substring
 E10  Type 1 diabetes mellitus                         score=1.000  via=substring
 E13  Other specified diabetes mellitus                score=1.000  via=substring
-```
-
-### Direct database query (Node.js / benchmark scripts)
-
-```javascript
-const { sqliteLikeSearch } = require('./agents/search-benchmarker/run_benchmark');
-const data = require('./data/vocabularies/icd10.json');
-
-const hits = sqliteLikeSearch(data, 'myocardial');
-// Returns entries sorted: code matches first, then alphabetical
 ```
 
 ---
@@ -256,8 +169,6 @@ Results always include:
 
 ## Benchmark Results
 
-Run `npm run benchmark` to reproduce. Results written to `build/search-quality/benchmark-report.json`.
-
 | Scheme | Precision@1 | Precision@5 |
 |--------|------------|------------|
 | ATC-5 | — | — |
@@ -266,22 +177,27 @@ Run `npm run benchmark` to reproduce. Results written to `build/search-quality/b
 | LOINC | — | — |
 | CVX | — | — |
 
-*Run `npm run benchmark` to populate.*
+*See [`data/benchmarks/`](data/benchmarks/) for query sets and evaluation methodology.*
 
 ---
 
-## Roadmap
+## Repository Layout
 
-- [ ] **Alias expansion** — plug `data/aliases/common.json` into retrieval pipeline
-- [ ] **BM25 ranking** — `elasticlunr` / `rank-bm25` as an optional 5th layer
-- [ ] **Score indicators in UI** — display `matchMethod` badge + score bar per result
-- [ ] **Match highlighting** — render character-level highlights in search results
-- [ ] **Recent searches** — persist last 10 queries in AsyncStorage/localStorage
-- [ ] **Keyboard navigation** — arrow-key selection in web dropdown
-- [ ] **Gradio demo** — Hugging Face Space for terminology retrieval playground
-- [ ] **Full dataset ingestion** — replace demo subsets with full official releases
-- [ ] **Multilingual fuzzy** — extend Fuse.js index to all 9 UI languages
-- [ ] **Embeddings layer** — optional `sentence-transformers` semantic search (opt-in)
+```
+packages/
+  core/src/types.ts       Shared TypeScript types (SchemeKey, CodeEntry, ScoredEntry)
+  search/src/             Retrieval engine (exact / fuzzy / layered)
+  python-client/          Python client (medcodetranslator package)
+data/
+  vocabularies/           JSON vocabulary files (one per scheme)
+  benchmarks/             Benchmark query sets per scheme
+  aliases/common.json     Abbreviation / brand-name alias table
+app/                      Expo Router screens + components
+db/                       expo-sqlite init + query layer
+i18n/                     i18next locale files (9 languages)
+docs/                     Architecture, API, and retrieval docs
+.github/workflows/        CI + deploy pipelines
+```
 
 ---
 
@@ -290,7 +206,7 @@ Run `npm run benchmark` to reproduce. Results written to `build/search-quality/b
 See [CONTRIBUTING.md](CONTRIBUTING.md). In brief:
 
 1. Fork and create a feature branch
-2. Run `npm test` and ensure all 53 tests pass
+2. Run `npm test` and ensure all 54 tests pass
 3. For data changes, update `data/vocabularies/` and `data/vocabularies/source-metadata.json`
 4. For search logic changes, add benchmark queries to `data/benchmarks/`
 5. Open a PR against `master`
@@ -301,27 +217,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). In brief:
 
 ## Deployment
 
-### GitHub Pages (PWA)
-
-Automatic via `.github/workflows/deploy-pages.yml` on push to `master`.  
-Live: [https://nadavweisler.github.io/MedCodeTranslator/](https://nadavweisler.github.io/MedCodeTranslator/)
-
-### EAS (iOS / Android)
-
-```bash
-npm install -g eas-cli
-eas login
-eas build --platform all --profile production
-```
-
-See [`eas.json`](eas.json) for build profiles.
-
-### Self-hosted static
-
-```bash
-npm run build:web
-# Serve the dist/ directory from any static host (Netlify, Vercel, S3, nginx)
-```
+Live PWA: [https://nadavweisler.github.io/MedCodeTranslator/](https://nadavweisler.github.io/MedCodeTranslator/) — auto-deployed on every push to `master`.
 
 ---
 

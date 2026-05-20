@@ -35,13 +35,32 @@ export default function SearchBar({
 }: Props) {
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<TextInput>(null);
+  // Bug fix #2: guard against blur firing before suggestion onPress completes
+  const suggestionPressedRef = useRef(false);
   const rtl = isRTL(lang);
 
   const showDropdown = focused && suggestions.length > 0 && value.length >= 2;
   // Only show ghost text when nothing is selected yet in dropdown
   const showGhost = focused && !!ghostText && value.length >= 2 && !showDropdown;
 
+  const handleBlur = () => {
+    // Bug fix #2: wait 250ms (Android tap takes 200-300ms); skip close if suggestion was pressed
+    setTimeout(() => {
+      if (!suggestionPressedRef.current) {
+        setFocused(false);
+      }
+      suggestionPressedRef.current = false;
+    }, 250);
+  };
+
+  const handleSuggestionPress = (item: CodeEntry) => {
+    suggestionPressedRef.current = true;
+    onSuggestionSelect(item);
+    setFocused(false);
+  };
+
   return (
+    // Bug fix #3: elevate zIndex so dropdown paints above sibling Views
     <View style={styles.wrapper}>
       {/* Input row */}
       <View style={[styles.container, focused && [styles.containerFocused, { borderColor: schemeColor }]]}>
@@ -49,12 +68,14 @@ export default function SearchBar({
 
         {/* Ghost text sits behind the real input */}
         <View style={styles.inputArea}>
+          {/* Bug fix #4: pointerEvents must be a prop on View, not a style on Text */}
           {showGhost && (
-            <Text style={[styles.ghost, rtl ? styles.textRight : styles.textLeft]} numberOfLines={1}>
-              {/* Show ghost as completion suffix */}
-              <Text style={{ color: 'transparent' }}>{value}</Text>
-              {ghostText.slice(value.length)}
-            </Text>
+            <View style={styles.ghostContainer} pointerEvents="none">
+              <Text style={[styles.ghost, rtl ? styles.textRight : styles.textLeft]} numberOfLines={1}>
+                <Text style={{ color: 'transparent' }}>{value}</Text>
+                {ghostText.slice(value.length)}
+              </Text>
+            </View>
           )}
           <TextInput
             ref={inputRef}
@@ -68,7 +89,7 @@ export default function SearchBar({
             returnKeyType="search"
             clearButtonMode="never"
             onFocus={() => setFocused(true)}
-            onBlur={() => setTimeout(() => setFocused(false), 150)}
+            onBlur={handleBlur}
             accessibilityLabel="Search input"
           />
         </View>
@@ -84,7 +105,7 @@ export default function SearchBar({
         )}
       </View>
 
-      {/* Autocomplete dropdown */}
+      {/* Bug fix #1: use marginTop instead of top:'100%' — RN StyleSheet doesn't support string percentages for position */}
       {showDropdown && (
         <View style={styles.dropdown}>
           <ScrollView keyboardShouldPersistTaps="handled" style={{ maxHeight: 220 }}>
@@ -94,10 +115,7 @@ export default function SearchBar({
                 item={item}
                 lang={lang}
                 schemeColor={schemeColor}
-                onPress={s => {
-                  onSuggestionSelect(s);
-                  setFocused(false);
-                }}
+                onPress={handleSuggestionPress}
               />
             ))}
           </ScrollView>
@@ -109,8 +127,7 @@ export default function SearchBar({
 
 const styles = StyleSheet.create({
   wrapper: {
-    position: 'relative',
-    zIndex: 10,
+    zIndex: 20,          // Bug fix #3: high enough to paint above sibling Views
     marginBottom: 2,
   },
   container: {
@@ -136,15 +153,16 @@ const styles = StyleSheet.create({
     position: 'relative',
     justifyContent: 'center',
   },
-  ghost: {
+  ghostContainer: {
     position: 'absolute',
-    fontSize: 16,
-    lineHeight: 20,
-    color: '#9aaabc',
     top: 0,
     left: 0,
     right: 0,
-    pointerEvents: 'none',
+  },
+  ghost: {
+    fontSize: 16,
+    lineHeight: 20,
+    color: '#9aaabc',
   },
   input: {
     fontSize: 16,
@@ -163,9 +181,10 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#6f8395',
   },
+  // Bug fix #1: removed top:'100%' — use marginTop to position below the input container
   dropdown: {
     position: 'absolute',
-    top: '100%',
+    top: 52,             // matches minHeight of the input container
     left: 0,
     right: 0,
     backgroundColor: '#fff',
@@ -173,7 +192,13 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e5e7eb',
     overflow: 'hidden',
-    marginTop: 10,
+    marginTop: 4,
+    // Shadow for web/iOS
+    shadowColor: '#0f172a',
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 6,
   },
   textLeft: {
     textAlign: 'left',

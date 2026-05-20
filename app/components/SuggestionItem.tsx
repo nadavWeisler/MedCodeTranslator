@@ -12,12 +12,17 @@ type Props = {
 
 export default function SuggestionItem({ item, lang, onPress, schemeColor }: Props) {
   const name = lang === 'he' && item.name_he ? item.name_he : item.name_en;
+  const rtl = isRTL(lang);
   return (
-    <TouchableOpacity style={styles.row} onPress={() => onPress(item)} activeOpacity={0.7}>
+    <TouchableOpacity
+      style={[styles.row, rtl && styles.rowRTL]}
+      onPress={() => onPress(item)}
+      activeOpacity={0.7}
+    >
       <View style={[styles.codePill, { backgroundColor: schemeColor + '22' }]}>
         <Text style={[styles.code, { color: schemeColor }]}>{item.code}</Text>
       </View>
-      <Text style={[styles.name, { textAlign: isRTL(lang) ? 'right' : 'left' }]} numberOfLines={1}>
+      <Text style={[styles.name, { textAlign: rtl ? 'right' : 'left' }]} numberOfLines={1}>
         {name}
       </Text>
     </TouchableOpacity>
@@ -33,6 +38,9 @@ const styles = StyleSheet.create({
     gap: 10,
     borderBottomWidth: 1,
     borderBottomColor: '#e5e7eb',
+  },
+  rowRTL: {
+    flexDirection: 'row-reverse',
   },
   codePill: {
     borderRadius: 10,

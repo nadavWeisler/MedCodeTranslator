@@ -34,6 +34,10 @@ yarn-error.*
 # local env files
 .env*.local
 
+# Store submission secrets (never commit these)
+google-play-key.json
+*.p8
+
 # typescript
 *.tsbuildinfo
 

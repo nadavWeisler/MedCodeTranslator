@@ -3,6 +3,7 @@
     "name": "Med Code Translator",
     "slug": "med-code-translator",
     "version": "1.0.0",
+    "owner": "nadavweisler",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",

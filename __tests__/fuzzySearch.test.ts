@@ -21,9 +21,15 @@ describe('fuzzySearch', () => {
     expect(results).toEqual([]);
   });
 
-  it('getSuggestions returns empty for queries shorter than 2 chars', async () => {
+  it('getSuggestions returns empty for empty query', async () => {
     await buildIndex('atc5');
-    expect(getSuggestions('m', 'atc5', 5)).toEqual([]);
+    expect(getSuggestions('', 'atc5', 5)).toEqual([]);
+  });
+
+  it('getSuggestions returns prefix matches for single char', async () => {
+    await buildIndex('atc5');
+    const results = getSuggestions('m', 'atc5', 5);
+    expect(results.some(r => r.name_en === 'Metformin')).toBe(true);
   });
 
   it('getSuggestions returns matching entries after buildIndex', async () => {
@@ -43,8 +49,7 @@ describe('fuzzySearch', () => {
   it('getSuggestions respects the limit', async () => {
     await buildIndex('atc5');
     const results = getSuggestions('a', 'atc5', 2);
-    // query too short — returns []
-    expect(results).toEqual([]);
+    expect(results.length).toBeLessThanOrEqual(2);
   });
 
   it('getSuggestions result entries have code, name_en, name_he fields', async () => {

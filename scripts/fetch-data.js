@@ -17,7 +17,7 @@ const https = require('https');
 const fs = require('fs');
 const path = require('path');
 
-const OUT_DIR = path.join(__dirname, '..', 'assets', 'data');
+const OUT_DIR = path.join(__dirname, '..', 'data', 'vocabularies');
 
 function fetchText(url) {
   return new Promise((resolve, reject) => {

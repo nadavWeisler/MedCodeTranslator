@@ -8,17 +8,18 @@ import {
   Platform,
   ScrollView,
 } from 'react-native';
-import type { CodeEntry } from '../../db/queries';
+import type { ScoredEntry } from '@medcode/core';
 import SuggestionItem from './SuggestionItem';
 import { isRTL } from '../services/rtl';
+import { spacing, radius } from '../constants/spacing';
 
 type Props = {
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
-  suggestions: CodeEntry[];
+  suggestions: ScoredEntry[];
   ghostText?: string;            // inline completion hint
-  onSuggestionSelect: (item: CodeEntry) => void;
+  onSuggestionSelect: (item: ScoredEntry) => void;
   schemeColor: string;
   lang: string;
 };
@@ -53,7 +54,7 @@ export default function SearchBar({
     }, 250);
   };
 
-  const handleSuggestionPress = (item: CodeEntry) => {
+  const handleSuggestionPress = (item: ScoredEntry) => {
     suggestionPressedRef.current = true;
     onSuggestionSelect(item);
     setFocused(false);
@@ -135,8 +136,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
     borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: Platform.OS === 'ios' ? 14 : 12,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: Platform.OS === 'ios' ? 14 : spacing.md,
     minHeight: 52,
     borderWidth: 1,
     borderColor: '#e5e7eb',

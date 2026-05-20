@@ -1,19 +1,21 @@
 import * as SQLite from 'expo-sqlite';
-import atc5Data from '../assets/data/atc5.json';
-import icd10Data from '../assets/data/icd10.json';
-import icd9Data from '../assets/data/icd9.json';
-import icd11Data from '../assets/data/icd11.json';
-import loincData from '../assets/data/loinc.json';
-import cptData from '../assets/data/cpt.json';
-import hcpcsData from '../assets/data/hcpcs.json';
-import cvxData from '../assets/data/cvx.json';
+import atc5Data from '../data/vocabularies/atc5.json';
+import icd10Data from '../data/vocabularies/icd10.json';
+import icd9Data from '../data/vocabularies/icd9.json';
+import icd11Data from '../data/vocabularies/icd11.json';
+import loincData from '../data/vocabularies/loinc.json';
+import cptData from '../data/vocabularies/cpt.json';
+import hcpcsData from '../data/vocabularies/hcpcs.json';
+import cvxData from '../data/vocabularies/cvx.json';
+import type { SchemeKey } from '@medcode/core';
+
+// Re-export so existing callers that import SchemeKey from here keep working
+export type { SchemeKey } from '@medcode/core';
 
 const DB_NAME = 'medcodes.db';
 const SCHEMA_VERSION = 3;
 
 let db: SQLite.SQLiteDatabase | null = null;
-
-export type SchemeKey = 'atc5' | 'icd10' | 'icd9' | 'icd11' | 'loinc' | 'cpt' | 'hcpcs' | 'cvx';
 
 export async function initDB(): Promise<void> {
   db = await SQLite.openDatabaseAsync(DB_NAME);

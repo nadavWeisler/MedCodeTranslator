@@ -18,7 +18,7 @@ import zipfile
 from collections import Counter
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
-DEFAULT_ASSETS_DIR = ROOT / "assets" / "data"
+DEFAULT_ASSETS_DIR = ROOT / "data" / "vocabularies"
 DEFAULT_ARTIFACT_DIR = ROOT / "build" / "medical-db"
 
 

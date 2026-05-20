@@ -1,31 +1,17 @@
 import { getDB } from './database';
 import type { SchemeKey } from './database';
 
-export type CodeEntry = {
-  code: string;
-  name_en: string;
-  name_he: string | null;
-  metadata?: CodeMetadata | null;
-};
-
-export type CodeMetadataValue =
-  | string
-  | number
-  | boolean
-  | null
-  | CodeMetadataValue[]
-  | { [key: string]: CodeMetadataValue };
-
-export type CodeMetadata = Record<string, CodeMetadataValue>;
+// Re-export shared types from @medcode/core so existing consumers keep working
+export type { CodeEntry, CodeMetadata, CodeMetadataValue, ScoredEntry } from '@medcode/core';
 
 export async function searchByScheme(
   scheme: SchemeKey,
   query: string,
   _lang = 'en'
-): Promise<CodeEntry[]> {
+): Promise<import('@medcode/core').CodeEntry[]> {
   const db = getDB();
   const q = `%${query.trim()}%`;
-  return db.getAllAsync<CodeEntry>(
+  return db.getAllAsync<import('@medcode/core').CodeEntry>(
     `SELECT code, name_en, name_he FROM ${scheme}
      WHERE code LIKE ? OR name_en LIKE ? OR (name_he IS NOT NULL AND name_he LIKE ?)
      ORDER BY

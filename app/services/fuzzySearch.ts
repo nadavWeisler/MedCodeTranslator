@@ -1,44 +1,56 @@
-import Fuse, { type IFuseOptions } from 'fuse.js';
-import { getAllEntries, type SchemeKey } from '../../db/database';
-import type { CodeEntry } from '../../db/queries';
+/**
+ * App-level search service.
+ *
+ * Bridges the @medcode/search package with the Expo SQLite database.
+ * Loads all entries once per scheme and runs the full layered retrieval
+ * pipeline (exact → prefix → substring → fuzzy) in memory.
+ */
+import { getAllEntries } from '../../db/database';
+import type { SchemeKey } from '../../db/database';
+import type { CodeEntry, ScoredEntry } from '@medcode/core';
+import { buildFuseIndex, clearFuseIndex, layeredSearch, didYouMean as _didYouMean } from '@medcode/search';
 
-// Fuse-compatible entry (name_he can be undefined)
-type FuseEntry = { code: string; name_en: string; name_he?: string | null };
-
-const indexCache: Partial<Record<SchemeKey, Fuse<FuseEntry>>> = {};
-
-const FUSE_OPTIONS: IFuseOptions<FuseEntry> = {
-  keys: [
-    { name: 'name_en', weight: 0.6 },
-    { name: 'name_he', weight: 0.3 },
-    { name: 'code',    weight: 0.1 },
-  ],
-  threshold: 0.4,
-  distance: 100,
-  includeScore: true,
-  minMatchCharLength: 2,
-};
+// Per-scheme entry cache (populated on first buildIndex call)
+const entryCache: Map<string, CodeEntry[]> = new Map();
 
 export async function buildIndex(scheme: SchemeKey): Promise<void> {
-  if (indexCache[scheme]) return;
+  if (entryCache.has(scheme)) return;
   const entries = await getAllEntries(scheme);
-  indexCache[scheme] = new Fuse(entries as FuseEntry[], FUSE_OPTIONS);
+  const typed = entries as CodeEntry[];
+  entryCache.set(scheme, typed);
+  buildFuseIndex(scheme, typed);
 }
 
-function toCodeEntry(e: FuseEntry): CodeEntry {
-  return { code: e.code, name_en: e.name_en, name_he: e.name_he ?? null };
+/** Run layered retrieval (exact → prefix → substring → fuzzy). */
+export function search(
+  query: string,
+  scheme: SchemeKey,
+  limit = 20
+): ScoredEntry[] {
+  const entries = entryCache.get(scheme) ?? [];
+  return layeredSearch(entries, query, scheme, { limit });
 }
 
-export function getSuggestions(query: string, scheme: SchemeKey, limit = 5): CodeEntry[] {
-  const index = indexCache[scheme];
-  if (!index || query.trim().length < 2) return [];
-  return index.search(query, { limit }).map(r => toCodeEntry(r.item));
+/** Autocomplete suggestions (fuzzy, top-5, fast). */
+export function getSuggestions(
+  query: string,
+  scheme: SchemeKey,
+  limit = 5
+): ScoredEntry[] {
+  return search(query, scheme, limit);
 }
 
-export function getDidYouMean(query: string, scheme: SchemeKey, limit = 3): CodeEntry[] {
-  return getSuggestions(query, scheme, limit);
+/** "Did you mean" fallback — only fires when layered search returns nothing. */
+export function getDidYouMean(
+  query: string,
+  scheme: SchemeKey,
+  limit = 3
+): ScoredEntry[] {
+  const entries = entryCache.get(scheme) ?? [];
+  return _didYouMean(entries, query, scheme).slice(0, limit);
 }
 
 export function clearIndex(scheme: SchemeKey): void {
-  delete indexCache[scheme];
+  entryCache.delete(scheme);
+  clearFuseIndex(scheme);
 }

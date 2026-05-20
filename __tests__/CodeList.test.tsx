@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import CodeList from '../app/components/CodeList';
-import type { CodeEntry } from '../db/queries';
+import type { ScoredEntry } from '@medcode/core';
 
 const t = (key: string, opts?: Record<string, unknown>): string => {
   const map: Record<string, string> = {
@@ -16,13 +16,17 @@ const t = (key: string, opts?: Record<string, unknown>): string => {
   return map[key] ?? key;
 };
 
-const ENTRIES: CodeEntry[] = [
-  { code: 'E11', name_en: 'Type 2 diabetes mellitus', name_he: null },
-  { code: 'E11.9', name_en: 'Type 2 diabetes without complications', name_he: null },
+const S = (code: string, name_en: string): ScoredEntry => ({
+  code, name_en, name_he: null, score: 1.0, matchMethod: 'exact',
+});
+
+const ENTRIES: ScoredEntry[] = [
+  S('E11', 'Type 2 diabetes mellitus'),
+  S('E11.9', 'Type 2 diabetes without complications'),
 ];
 
-const FUZZY: CodeEntry[] = [
-  { code: 'E10', name_en: 'Type 1 diabetes mellitus', name_he: null },
+const FUZZY: ScoredEntry[] = [
+  S('E10', 'Type 1 diabetes mellitus'),
 ];
 
 describe('CodeList', () => {
@@ -93,8 +97,8 @@ describe('CodeList', () => {
   });
 
   it('renders Hebrew name when lang=he and name_he is set', () => {
-    const heEntries: CodeEntry[] = [
-      { code: 'E11', name_en: 'Type 2 diabetes', name_he: 'סוכרת סוג 2' },
+    const heEntries: ScoredEntry[] = [
+      { code: 'E11', name_en: 'Type 2 diabetes', name_he: 'סוכרת סוג 2', score: 1.0, matchMethod: 'exact' },
     ];
     const { getByText } = render(
       <CodeList entries={heEntries} query="סוכרת" lang="he" t={t}

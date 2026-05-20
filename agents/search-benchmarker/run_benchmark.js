@@ -25,8 +25,8 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = path.resolve(__dirname, '..', '..');
-const ASSETS_DIR = path.join(ROOT, 'assets', 'data');
-const BENCHMARK_DIR = path.join(__dirname, 'benchmarks');
+const ASSETS_DIR = path.join(ROOT, 'data', 'vocabularies');
+const BENCHMARK_DIR = path.join(ROOT, 'data', 'benchmarks');
 const RESULTS_DIR = path.join(ROOT, 'build', 'search-quality');
 
 // Mirror the exact Fuse.js config from app/services/fuzzySearch.ts

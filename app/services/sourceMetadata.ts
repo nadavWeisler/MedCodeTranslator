@@ -1,4 +1,4 @@
-import sourceMetadata from '../../assets/data/source-metadata.json';
+import sourceMetadata from '../../data/vocabularies/source-metadata.json';
 
 export type SourceMetadataEntry = {
   dataset: string;

@@ -16,13 +16,14 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SearchBar from './components/SearchBar';
 import CodeList from './components/CodeList';
 import SchemeTabs, { SCHEMES } from './components/SchemeTabs';
-import { searchByScheme, type CodeEntry } from '../db/queries';
 import { isRTL as checkRTL } from './services/rtl';
 import type { SchemeKey } from '../db/database';
-import { buildIndex, getSuggestions, getDidYouMean } from './services/fuzzySearch';
+import { buildIndex, search as layeredSearch, getSuggestions, getDidYouMean } from './services/fuzzySearch';
+import type { ScoredEntry } from '@medcode/core';
 import { useSelectedCodeResult } from './services/useSelectedCodeResult';
 import i18n from '../i18n';
 import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel } from './services/sourceMetadata';
+import { spacing, radius } from './constants/spacing';
 
 type Language = 'en' | 'he' | 'es' | 'fr' | 'de' | 'ar' | 'pt' | 'zh' | 'ru';
 const LANGUAGES: { code: Language; label: string; name: string }[] = [
@@ -37,6 +38,8 @@ const LANGUAGES: { code: Language; label: string; name: string }[] = [
   { code: 'ru', label: '🇷🇺', name: 'Russian' },
 ];
 const DISCLAIMER_ACK_KEY = 'medcodetranslator:disclaimer-ack:v1';
+const RECENT_SEARCHES_KEY = 'medcodetranslator:recent-searches:v1';
+const MAX_RECENT_SEARCHES = 8;
 const HEADER_Z_INDEX = 2;
 const SHELL_Z_INDEX = 1;
 
@@ -64,13 +67,14 @@ export default function HomeScreen() {
 
   const [scheme, setScheme] = useState<SchemeKey>(initialScheme);
   const [query, setQuery] = useState(firstParam(params.q) ?? '');
-  const [results, setResults] = useState<CodeEntry[]>([]);
-  const [suggestions, setSuggestions] = useState<CodeEntry[]>([]);
-  const [didYouMean, setDidYouMean] = useState<CodeEntry[]>([]);
+  const [results, setResults] = useState<ScoredEntry[]>([]);
+  const [suggestions, setSuggestions] = useState<ScoredEntry[]>([]);
+  const [didYouMean, setDidYouMean] = useState<ScoredEntry[]>([]);
   const [ghostText, setGhostText] = useState<string | undefined>();
   const [lang, setLang] = useState<Language>(initialLang);
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
+  const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const { width } = useWindowDimensions();
   const isTablet = width >= 768;
   const isMobile = !isTablet;
@@ -87,10 +91,12 @@ export default function HomeScreen() {
 
   useEffect(() => {
     AsyncStorage.getItem(DISCLAIMER_ACK_KEY)
-      .then(value => {
-        if (!value) setShowDisclaimer(true);
-      })
+      .then(value => { if (!value) setShowDisclaimer(true); })
       .catch(() => setShowDisclaimer(true));
+
+    AsyncStorage.getItem(RECENT_SEARCHES_KEY)
+      .then(raw => { if (raw) setRecentSearches(JSON.parse(raw)); })
+      .catch(() => {});
   }, []);
 
   useEffect(() => {
@@ -131,12 +137,15 @@ export default function HomeScreen() {
   // Run search + autocomplete on query change
   const runSearch = useCallback(
     async (q: string, s: SchemeKey, l: Language) => {
-      // Autocomplete suggestions (fuse, immediate)
-      const fuzzySuggestions = getSuggestions(q, s, 5);
-      setSuggestions(fuzzySuggestions);
+      // Ensure index is ready (no-op if already built)
+      await buildIndex(s).catch(console.error);
+
+      // Autocomplete suggestions (layered, immediate)
+      const suggestions_ = getSuggestions(q, s, 5);
+      setSuggestions(suggestions_);
 
       // Ghost text: top suggestion that starts with current query
-      const ghost = fuzzySuggestions.find(e => {
+      const ghost = suggestions_.find(e => {
         const name = l === 'he' && e.name_he ? e.name_he : e.name_en;
         return name.toLowerCase().startsWith(q.toLowerCase()) && name !== q;
       });
@@ -152,19 +161,23 @@ export default function HomeScreen() {
         return;
       }
 
-      // Exact SQL search
-      try {
-        const data = await searchByScheme(s, q, l);
-        setResults(data);
-        // Only show "did you mean" when exact results are empty
-        if (data.length === 0) {
-          setDidYouMean(getDidYouMean(q, s, 3));
-        } else {
-          setDidYouMean([]);
+      // Layered retrieval: exact → prefix → substring → fuzzy
+      const data = layeredSearch(q, s, 20);
+      setResults(data);
+
+      // "Did you mean" only when layered search returns nothing
+      if (data.length === 0) {
+        setDidYouMean(getDidYouMean(q, s, 3));
+      } else {
+        setDidYouMean([]);
+        // Persist non-empty query to recent searches
+        if (q.trim().length >= 2) {
+          setRecentSearches(prev => {
+            const next = [q.trim(), ...prev.filter(r => r !== q.trim())].slice(0, MAX_RECENT_SEARCHES);
+            AsyncStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(next)).catch(() => {});
+            return next;
+          });
         }
-      } catch (e) {
-        console.error('Search error:', e);
-        setResults([]);
       }
     },
     []
@@ -185,7 +198,7 @@ export default function HomeScreen() {
     setGhostText(undefined);
   };
 
-  const handleSuggestionSelect = (item: CodeEntry) => {
+  const handleSuggestionSelect = (item: ScoredEntry) => {
     const name = lang === 'he' && item.name_he ? item.name_he : item.name_en;
     setQuery(name);
     setSuggestions([]);
@@ -216,8 +229,8 @@ export default function HomeScreen() {
         style={[
           styles.page,
           {
-            paddingHorizontal: isTablet ? 24 : 16,
-            paddingTop: Platform.OS === 'web' ? (isTablet ? 28 : 18) : 12,
+            paddingHorizontal: isTablet ? spacing.xl : spacing.lg,
+            paddingTop: Platform.OS === 'web' ? (isTablet ? 28 : 18) : spacing.md,
           },
         ]}
       >
@@ -483,7 +496,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e5e7eb',
     backgroundColor: '#ffffff',
-    paddingHorizontal: 12,
+    paddingHorizontal: spacing.md,
     paddingVertical: 10,
   },
   langPickerMobile: {
@@ -508,7 +521,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     backgroundColor: '#ffffff',
-    padding: 4,
+    padding: spacing.xs,
     shadowColor: '#0f172a',
     shadowOpacity: 0.08,
     shadowRadius: 12,
@@ -520,10 +533,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     minWidth: 0,
-    padding: 8,
+    padding: spacing.sm,
   },
   langOption: {
-    paddingHorizontal: 12,
+    paddingHorizontal: spacing.md,
     paddingVertical: 10,
     borderRadius: 10,
   },
@@ -543,7 +556,7 @@ const styles = StyleSheet.create({
   },
   shellInner: {
     flex: 1,
-    padding: 12,
+    padding: spacing.md,
     gap: 12,
     overflow: 'visible',  // Bug fix #3: propagate overflow:visible so dropdown escapes
   },
@@ -593,8 +606,8 @@ const styles = StyleSheet.create({
     borderColor: '#e5e7eb',
     borderWidth: 1,
     borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
@@ -624,7 +637,7 @@ const styles = StyleSheet.create({
     borderColor: '#e5e7eb',
     borderWidth: 1,
     borderRadius: 12,
-    padding: 12,
+    padding: spacing.md,
     gap: 8,
   },
   complianceTitle: {
@@ -666,7 +679,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(15, 23, 42, 0.52)',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 16,
+    padding: spacing.lg,
   },
   modalCard: {
     width: '100%',
@@ -675,7 +688,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e2e8f0',
     backgroundColor: '#ffffff',
-    padding: 16,
+    padding: spacing.lg,
     gap: 10,
   },
   modalTitle: {

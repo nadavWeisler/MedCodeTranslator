@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import type { CodeEntry, CodeMetadataValue } from '../../db/queries';
+import type { CodeEntry, CodeMetadataValue } from '@medcode/core';
 
 export type MetadataRow = {
   key: string;

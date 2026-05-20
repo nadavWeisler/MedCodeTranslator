@@ -1,18 +1,22 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
 import SuggestionItem from '../app/components/SuggestionItem';
-import type { CodeEntry } from '../db/queries';
+import type { ScoredEntry } from '@medcode/core';
 
-const MOCK_ENTRY: CodeEntry = {
+const MOCK_ENTRY: ScoredEntry = {
   code: 'A10BA02',
   name_en: 'Metformin',
   name_he: 'מטפורמין',
+  score: 1.0,
+  matchMethod: 'exact',
 };
 
-const MOCK_ENTRY_NO_HE: CodeEntry = {
+const MOCK_ENTRY_NO_HE: ScoredEntry = {
   code: 'J01CA04',
   name_en: 'Amoxicillin',
   name_he: null,
+  score: 1.0,
+  matchMethod: 'exact',
 };
 
 describe('SuggestionItem', () => {

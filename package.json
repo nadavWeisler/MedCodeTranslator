@@ -7,6 +7,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "test": "jest",
     "build:web": "expo export -p web",
     "refresh:data": "python scripts/refresh_medical_db.py --assets-dir assets/data --artifact-dir build/medical-db --report-file build/medical-db/update-report.md",
     "validate:data": "python scripts/refresh_medical_db.py --validate-only --allow-missing-crosswalk --allow-missing-icd10-parents --assets-dir assets/data --artifact-dir build/medical-db --report-file build/medical-db/update-report.md",

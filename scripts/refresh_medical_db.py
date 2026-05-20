@@ -172,7 +172,9 @@ def parse_icd10_codes_zip(raw: bytes) -> list[dict[str, str]]:
         if not raw_line.strip():
             continue
         if use_order_format:
-            # CMS tabular-order fixed-width format:
+            # CMS tabular-order fixed-width format (two layouts exist across years):
+            #
+            # Layout A — used in CMS releases up to ~2023:
             #   cols 0-4  : order number (5 chars)
             #   col  5    : space
             #   col  6    : valid-for-coding flag (0=header, 1=billable)
@@ -180,13 +182,33 @@ def parse_icd10_codes_zip(raw: bytes) -> list[dict[str, str]]:
             #   cols 8-14 : ICD-10-CM code (7 chars, left-justified, space-padded)
             #   col  15   : space
             #   cols 16+  : short description
+            #
+            # Layout B — used in CMS 2024+ releases:
+            #   cols 0-4  : order number (5 chars)
+            #   col  5    : space
+            #   cols 6-12 : ICD-10-CM code (7 chars, left-justified, space-padded)
+            #   col  13   : space
+            #   col  14   : valid-for-coding flag (0=header, 1=billable)
+            #   col  15   : space
+            #   cols 16+  : short description
+            #
+            # Auto-detect: if col 6 is an ASCII letter (A-Z), it is a code char → Layout B.
             if len(raw_line) < 17:
                 continue
-            valid_flag = raw_line[6:7]
-            if valid_flag != "1":
-                continue  # skip non-billable header/category codes
-            code_raw = raw_line[8:15].strip()
-            desc = raw_line[16:].strip() if len(raw_line) > 16 else ""
+            if raw_line[6:7].isalpha():
+                # Layout B (2024+ format)
+                valid_flag = raw_line[14:15]
+                if valid_flag != "1":
+                    continue
+                code_raw = raw_line[6:13].strip()
+                desc = raw_line[16:].strip() if len(raw_line) > 16 else ""
+            else:
+                # Layout A (pre-2024 format)
+                valid_flag = raw_line[6:7]
+                if valid_flag != "1":
+                    continue
+                code_raw = raw_line[8:15].strip()
+                desc = raw_line[16:].strip() if len(raw_line) > 16 else ""
         else:
             # Simplified format: CODE  DESCRIPTION (one code per line)
             stripped = raw_line.strip()
@@ -228,6 +250,29 @@ def parse_atc_csv(raw: bytes) -> list[dict[str, str]]:
         name = normalize_label(row.get(name_key, ""))
         if re.fullmatch(r"[A-Z][0-9]{2}[A-Z]{2}[0-9]{2}", code) and name:
             entries.append({"code": code, "name_en": name})
+    return unique_sorted(entries)
+
+
+def fetch_atc_chembl() -> list[dict[str, str]]:
+    """Fetch ATC level-5 codes from the ChEMBL API (EBI, WHO ATC classification).
+    Returns ~5,500 level-5 drug codes with WHO names.
+    Falls back to an empty list on network error."""
+    import time as _time
+    entries: list[dict[str, str]] = []
+    url: str | None = "https://www.ebi.ac.uk/chembl/api/data/atc_class?format=json&limit=1000&offset=0"
+    while url:
+        req = urllib.request.Request(url, headers={"User-Agent": "MedCodeTranslator refresh bot"})
+        with urllib.request.urlopen(req, timeout=60) as r:
+            data = json.loads(r.read())
+        for item in data.get("atc", []):
+            code = str(item.get("level5", "")).strip()
+            name = str(item.get("who_name", "")).strip()
+            if re.fullmatch(r"[A-Z][0-9]{2}[A-Z]{2}[0-9]{2}", code) and name:
+                entries.append({"code": code, "name_en": normalize_label(name)})
+        nxt = data.get("page_meta", {}).get("next")
+        url = ("https://www.ebi.ac.uk" + nxt) if nxt else None
+        if url:
+            _time.sleep(0.05)
     return unique_sorted(entries)
 
 
@@ -587,11 +632,11 @@ def main() -> int:
                 "source_revision": "NBER public CSV",
             },
             "atc5": {
-                "provider": "WHOCC",
-                "url": "https://www.whocc.no/atc_ddd_index_and_guidelines/atc_ddd_alterations__cumulative/atc_alterations__cumulative.csv",
-                "parser": parse_atc_csv,
-                "dataset_version": "whocc-cumulative-alterations",
-                "source_revision": "ATC cumulative alterations CSV",
+                "provider": "ChEMBL/EBI",
+                "url": "https://www.ebi.ac.uk/chembl/api/data/atc_class",
+                "parser": None,  # uses fetch_atc_chembl() directly — no raw bytes needed
+                "dataset_version": f"chembl-atc-{dt.datetime.now(dt.timezone.utc).year}",
+                "source_revision": "ChEMBL ATC classification API (EBI, WHO ATC level 5)",
             },
             "hcpcs": {
                 "provider": "CMS",
@@ -619,9 +664,17 @@ def main() -> int:
         refresh_timestamp = utc_now()
         parsed: dict[str, object] = {}
         for name, src in sources.items():
-            raw = fetch_bytes(src["url"])
-            sha = hashlib.sha256(raw).hexdigest()
-            data = src["parser"](raw)
+            if src.get("parser") is None:
+                # Special case: dataset fetched via dedicated function (no raw bytes)
+                if name == "atc5":
+                    data = fetch_atc_chembl()
+                    sha = hashlib.sha256(json.dumps(data, sort_keys=True).encode()).hexdigest()
+                else:
+                    raise ValueError(f"No parser or fetcher defined for dataset: {name}")
+            else:
+                raw = fetch_bytes(src["url"])
+                sha = hashlib.sha256(raw).hexdigest()
+                data = src["parser"](raw)
             parsed[name] = data
             fetched_meta.append(
                 {

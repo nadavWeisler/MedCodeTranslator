@@ -1,6 +1,7 @@
 import React from 'react';
 import { ScrollView, TouchableOpacity, Text, StyleSheet, View } from 'react-native';
 import type { SchemeKey } from '../../db/database';
+import { spacing, radius } from '../constants/spacing';
 
 export type SchemeConfig = {
   key: SchemeKey;
@@ -81,14 +82,14 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   scroll: {
-    paddingBottom: 4,
+    paddingBottom: spacing.xs,
     gap: 8,
   },
   pill: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,
-    paddingHorizontal: 12,
+    paddingHorizontal: spacing.md,
     paddingVertical: 9,
     borderRadius: 12,
     borderWidth: 1,
@@ -108,7 +109,7 @@ const styles = StyleSheet.create({
   },
   schemeSummary: {
     paddingHorizontal: 14,
-    paddingVertical: 12,
+    paddingVertical: spacing.md,
     borderRadius: 18,
     backgroundColor: '#f4f9fb',
     borderWidth: 1,

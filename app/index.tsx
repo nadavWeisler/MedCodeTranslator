@@ -23,6 +23,7 @@ import type { ScoredEntry } from '@medcode/core';
 import { useSelectedCodeResult } from './services/useSelectedCodeResult';
 import i18n from '../i18n';
 import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel } from './services/sourceMetadata';
+import { spacing, radius } from './constants/spacing';
 
 type Language = 'en' | 'he' | 'es' | 'fr' | 'de' | 'ar' | 'pt' | 'zh' | 'ru';
 const LANGUAGES: { code: Language; label: string; name: string }[] = [
@@ -228,8 +229,8 @@ export default function HomeScreen() {
         style={[
           styles.page,
           {
-            paddingHorizontal: isTablet ? 24 : 16,
-            paddingTop: Platform.OS === 'web' ? (isTablet ? 28 : 18) : 12,
+            paddingHorizontal: isTablet ? spacing.xl : spacing.lg,
+            paddingTop: Platform.OS === 'web' ? (isTablet ? 28 : 18) : spacing.md,
           },
         ]}
       >
@@ -495,7 +496,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e5e7eb',
     backgroundColor: '#ffffff',
-    paddingHorizontal: 12,
+    paddingHorizontal: spacing.md,
     paddingVertical: 10,
   },
   langPickerMobile: {
@@ -520,7 +521,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     backgroundColor: '#ffffff',
-    padding: 4,
+    padding: spacing.xs,
     shadowColor: '#0f172a',
     shadowOpacity: 0.08,
     shadowRadius: 12,
@@ -532,10 +533,10 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     minWidth: 0,
-    padding: 8,
+    padding: spacing.sm,
   },
   langOption: {
-    paddingHorizontal: 12,
+    paddingHorizontal: spacing.md,
     paddingVertical: 10,
     borderRadius: 10,
   },
@@ -555,7 +556,7 @@ const styles = StyleSheet.create({
   },
   shellInner: {
     flex: 1,
-    padding: 12,
+    padding: spacing.md,
     gap: 12,
     overflow: 'visible',  // Bug fix #3: propagate overflow:visible so dropdown escapes
   },
@@ -605,8 +606,8 @@ const styles = StyleSheet.create({
     borderColor: '#e5e7eb',
     borderWidth: 1,
     borderRadius: 10,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.sm,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
@@ -636,7 +637,7 @@ const styles = StyleSheet.create({
     borderColor: '#e5e7eb',
     borderWidth: 1,
     borderRadius: 12,
-    padding: 12,
+    padding: spacing.md,
     gap: 8,
   },
   complianceTitle: {
@@ -678,7 +679,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(15, 23, 42, 0.52)',
     alignItems: 'center',
     justifyContent: 'center',
-    padding: 16,
+    padding: spacing.lg,
   },
   modalCard: {
     width: '100%',
@@ -687,7 +688,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#e2e8f0',
     backgroundColor: '#ffffff',
-    padding: 16,
+    padding: spacing.lg,
     gap: 10,
   },
   modalTitle: {

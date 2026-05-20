@@ -11,6 +11,7 @@ import {
 import type { ScoredEntry } from '@medcode/core';
 import SuggestionItem from './SuggestionItem';
 import { isRTL } from '../services/rtl';
+import { spacing, radius } from '../constants/spacing';
 
 type Props = {
   value: string;
@@ -135,8 +136,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#ffffff',
     borderRadius: 12,
-    paddingHorizontal: 16,
-    paddingVertical: Platform.OS === 'ios' ? 14 : 12,
+    paddingHorizontal: spacing.lg,
+    paddingVertical: Platform.OS === 'ios' ? 14 : spacing.md,
     minHeight: 52,
     borderWidth: 1,
     borderColor: '#e5e7eb',

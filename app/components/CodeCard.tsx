@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native
 import type { ScoredEntry } from '@medcode/core';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
 import { isRTL } from '../services/rtl';
+import { spacing, radius } from '../constants/spacing';
 
 const METHOD_LABEL: Record<string, string> = {
   exact: 'exact',
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
   },
   codeBadge: {
     borderRadius: 12,
-    paddingHorizontal: 12,
+    paddingHorizontal: spacing.md,
     paddingVertical: 6,
     minWidth: 80,
     alignItems: 'center',

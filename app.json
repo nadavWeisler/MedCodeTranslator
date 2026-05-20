@@ -1,8 +1,9 @@
 {
   "expo": {
-    "name": "med-code-translator",
+    "name": "Med Code Translator",
     "slug": "med-code-translator",
     "version": "1.0.0",
+    "owner": "nadavweisler",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -13,7 +14,13 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.nadavweisler.medcodetranslator",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": false,
+        "NSCameraUsageDescription": false
+      }
     },
     "android": {
       "adaptiveIcon": {
@@ -21,16 +28,25 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.nadavweisler.medcodetranslator",
+      "versionCode": 1,
+      "permissions": []
     },
     "scheme": "medcodes",
     "web": {
       "bundler": "metro",
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "baseUrl": "/MedCodeTranslator"
     },
     "plugins": [
       "expo-sqlite",
       "expo-router"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "REPLACE_WITH_EAS_PROJECT_ID"
+      }
+    }
   }
 }

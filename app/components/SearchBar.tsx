@@ -53,7 +53,7 @@ export default function SearchBar({
     }, 250);
   };
 
-  const handleSuggestionPress = (item: CodeEntry) => {
+  const handleSuggestionPress = (item: ScoredEntry) => {
     suggestionPressedRef.current = true;
     onSuggestionSelect(item);
     setFocused(false);

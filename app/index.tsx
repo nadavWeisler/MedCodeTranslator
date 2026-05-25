@@ -68,7 +68,6 @@ export default function HomeScreen() {
   const [scheme, setScheme] = useState<SchemeKey>(initialScheme);
   const [query, setQuery] = useState(firstParam(params.q) ?? '');
   const [results, setResults] = useState<ScoredEntry[]>([]);
-  const [suggestions, setSuggestions] = useState<ScoredEntry[]>([]);
   const [didYouMean, setDidYouMean] = useState<ScoredEntry[]>([]);
   const [ghostText, setGhostText] = useState<string | undefined>();
   const [lang, setLang] = useState<Language>(initialLang);
@@ -140,9 +139,8 @@ export default function HomeScreen() {
       // Ensure index is ready (no-op if already built)
       await buildIndex(s).catch(console.error);
 
-      // Autocomplete suggestions (layered, immediate)
+      // Autocomplete suggestions (for ghost text hint)
       const suggestions_ = getSuggestions(q, s, 5);
-      setSuggestions(suggestions_);
 
       // Ghost text: top suggestion that starts with current query
       const ghost = suggestions_.find(e => {
@@ -193,7 +191,6 @@ export default function HomeScreen() {
     setScheme(s);
     setQuery('');
     setResults([]);
-    setSuggestions([]);
     setDidYouMean([]);
     setGhostText(undefined);
   };
@@ -201,7 +198,6 @@ export default function HomeScreen() {
   const handleSuggestionSelect = (item: ScoredEntry) => {
     const name = lang === 'he' && item.name_he ? item.name_he : item.name_en;
     setQuery(name);
-    setSuggestions([]);
     selectEntry(item);
   };
 
@@ -321,9 +317,7 @@ export default function HomeScreen() {
                 value={query}
                 onChangeText={setQuery}
                 placeholder={t('search_placeholder_generic', { schemeLabel: activeScheme.shortLabel })}
-                suggestions={suggestions}
                 ghostText={ghostText}
-                onSuggestionSelect={handleSuggestionSelect}
                 schemeColor={schemeColor}
                 lang={lang}
               />

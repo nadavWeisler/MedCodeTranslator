@@ -75,8 +75,12 @@ function codeMatchesExpected(schemeName, code, expectedCode) {
   if (!actual || !expected) return false;
   if (actual === expected) return true;
 
-  if (schemeName === 'icd10' && !expected.includes('.')) {
-    return actual.startsWith(`${expected}.`);
+  if (schemeName === 'icd10') {
+    const actualHasDecimal = actual.includes('.');
+    const expectedHasDecimal = expected.includes('.');
+
+    if (!expectedHasDecimal && actual.startsWith(`${expected}.`)) return true;
+    if (!actualHasDecimal && expected.startsWith(`${actual}.`)) return true;
   }
 
   return false;

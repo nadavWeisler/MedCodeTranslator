@@ -6,6 +6,8 @@ import type { CrosswalkDisplayRow } from '../services/useCrosswalk';
 import { isRTL } from '../services/rtl';
 import { spacing, radius } from '../constants/spacing';
 
+const MONOSPACE_FONT = Platform.OS === 'web' ? 'monospace' : undefined;
+
 const METHOD_LABEL: Record<string, string> = {
   exact: 'exact',
   prefix: 'prefix',
@@ -67,7 +69,7 @@ export default function CodeCard({
     >
       <View style={styles.row}>
         <View style={[styles.codeBadge, { backgroundColor: schemeColor + '18' }]}>
-          <Text style={[styles.codeText, { color: schemeColor, fontFamily: Platform.OS === 'web' ? 'monospace' : undefined }]}>
+          <Text style={[styles.codeText, { color: schemeColor, fontFamily: MONOSPACE_FONT }]}>
             {entry.code}
           </Text>
         </View>
@@ -98,7 +100,7 @@ export default function CodeCard({
           {crosswalkRows.map(row => (
             <View key={`${row.icd9Code}:${row.icd10Code}`} style={styles.crosswalkRow}>
               <View style={styles.crosswalkCodes}>
-                <Text style={[styles.crosswalkCode, { color: schemeColor, fontFamily: Platform.OS === 'web' ? 'monospace' : undefined }]}>
+                <Text style={[styles.crosswalkCode, { color: schemeColor, fontFamily: MONOSPACE_FONT }]}>
                   {crosswalkScheme === 'icd9' ? row.icd10Code : row.icd9Code}
                 </Text>
                 {row.cardinality !== '1:1' && (

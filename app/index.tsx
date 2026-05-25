@@ -21,6 +21,7 @@ import type { SchemeKey } from '../db/database';
 import { buildIndex, search as layeredSearch, getSuggestions, getDidYouMean } from './services/fuzzySearch';
 import type { ScoredEntry } from '@medcode/core';
 import { useSelectedCodeResult } from './services/useSelectedCodeResult';
+import { useCrosswalk } from './services/useCrosswalk';
 import i18n from '../i18n';
 import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel } from './services/sourceMetadata';
 import { spacing, radius } from './constants/spacing';
@@ -82,6 +83,9 @@ export default function HomeScreen() {
   const activeScheme = SCHEMES.find(s => s.key === scheme)!;
   const selectedLanguage = LANGUAGES.find(l => l.code === lang)!;
   const { selectedCode, metadataRows, selectEntry } = useSelectedCodeResult(results);
+  const crosswalkRows = useCrosswalk(scheme, selectedCode);
+  const crosswalkScheme: 'icd9' | 'icd10' | undefined =
+    scheme === 'icd9' || scheme === 'icd10' ? scheme : undefined;
   const isRTL = checkRTL(lang);
 
   useEffect(() => {
@@ -347,6 +351,8 @@ export default function HomeScreen() {
                 onEntrySelect={selectEntry}
                 selectedCode={selectedCode}
                 selectedMetadataRows={metadataRows}
+                selectedCrosswalkRows={crosswalkRows}
+                crosswalkScheme={crosswalkScheme}
               />
             </View>
           </View>

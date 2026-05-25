@@ -8,7 +8,7 @@ jest.mock('../db/database', () => ({
   }),
 }));
 
-import { searchByScheme } from '../db/queries';
+import { searchByScheme, getCrosswalkFromIcd9, getCrosswalkFromIcd10 } from '../db/queries';
 
 describe('searchByScheme', () => {
   beforeEach(() => {
@@ -57,5 +57,73 @@ describe('searchByScheme', () => {
     mockGetAllAsync.mockResolvedValue([]);
     const results = await searchByScheme('atc5', 'zzznomatch');
     expect(results).toEqual([]);
+  });
+});
+
+describe('getCrosswalkFromIcd9', () => {
+  beforeEach(() => {
+    mockGetAllAsync.mockReset();
+  });
+
+  it('queries icd9_to_icd10_gem table with the given ICD-9 code', async () => {
+    const fakeRows = [
+      { icd9_code: '250.00', icd10_code: 'E11.9', cardinality: '1:1',
+        is_one_to_one: 1, is_one_to_many: 0, is_many_to_one: 0 },
+    ];
+    mockGetAllAsync.mockResolvedValue(fakeRows);
+
+    const result = await getCrosswalkFromIcd9('250.00');
+    expect(result).toEqual(fakeRows);
+    expect(mockGetAllAsync).toHaveBeenCalledWith(
+      expect.stringContaining('icd9_to_icd10_gem'),
+      ['250.00']
+    );
+  });
+
+  it('filters by icd9_code column', async () => {
+    mockGetAllAsync.mockResolvedValue([]);
+    await getCrosswalkFromIcd9('401.9');
+    const sql = mockGetAllAsync.mock.calls.at(-1)?.[0] as string;
+    expect(sql).toContain('WHERE icd9_code = ?');
+  });
+
+  it('returns empty array when no mapping exists', async () => {
+    mockGetAllAsync.mockResolvedValue([]);
+    const result = await getCrosswalkFromIcd9('999.99');
+    expect(result).toEqual([]);
+  });
+});
+
+describe('getCrosswalkFromIcd10', () => {
+  beforeEach(() => {
+    mockGetAllAsync.mockReset();
+  });
+
+  it('queries icd9_to_icd10_gem table with the given ICD-10 code', async () => {
+    const fakeRows = [
+      { icd9_code: '250.00', icd10_code: 'E11.9', cardinality: '1:1',
+        is_one_to_one: 1, is_one_to_many: 0, is_many_to_one: 0 },
+    ];
+    mockGetAllAsync.mockResolvedValue(fakeRows);
+
+    const result = await getCrosswalkFromIcd10('E11.9');
+    expect(result).toEqual(fakeRows);
+    expect(mockGetAllAsync).toHaveBeenCalledWith(
+      expect.stringContaining('icd9_to_icd10_gem'),
+      ['E11.9']
+    );
+  });
+
+  it('filters by icd10_code column', async () => {
+    mockGetAllAsync.mockResolvedValue([]);
+    await getCrosswalkFromIcd10('I10');
+    const sql = mockGetAllAsync.mock.calls.at(-1)?.[0] as string;
+    expect(sql).toContain('WHERE icd10_code = ?');
+  });
+
+  it('returns empty array when no mapping exists', async () => {
+    mockGetAllAsync.mockResolvedValue([]);
+    const result = await getCrosswalkFromIcd10('Z99.999');
+    expect(result).toEqual([]);
   });
 });

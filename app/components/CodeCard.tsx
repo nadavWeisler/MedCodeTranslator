@@ -2,8 +2,11 @@ import React from 'react';
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import type { ScoredEntry } from '@medcode/core';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
+import type { CrosswalkDisplayRow } from '../services/useCrosswalk';
 import { isRTL } from '../services/rtl';
 import { spacing, radius } from '../constants/spacing';
+
+const MONOSPACE_FONT = Platform.OS === 'web' ? 'monospace' : undefined;
 
 const METHOD_LABEL: Record<string, string> = {
   exact: 'exact',
@@ -20,6 +23,9 @@ type Props = {
   isSelected?: boolean;
   onPress?: (entry: ScoredEntry) => void;
   metadataRows?: MetadataRow[];
+  crosswalkRows?: CrosswalkDisplayRow[];
+  /** 'icd9' or 'icd10' to label crosswalk direction; undefined = no crosswalk */
+  crosswalkScheme?: 'icd9' | 'icd10';
 };
 
 export default function CodeCard({
@@ -29,13 +35,23 @@ export default function CodeCard({
   isSelected = false,
   onPress,
   metadataRows = [],
+  crosswalkRows = [],
+  crosswalkScheme,
 }: Props) {
   const primaryName = lang === 'he' && entry.name_he ? entry.name_he : entry.name_en;
   const secondaryName = lang === 'he' && entry.name_he ? entry.name_en : null;
   const showMetadata = isSelected && metadataRows.length > 0;
+  const showCrosswalk = isSelected && crosswalkRows.length > 0;
   const textAlign = isRTL(lang) ? 'right' : 'left';
   const matchLabel = METHOD_LABEL[entry.matchMethod] ?? entry.matchMethod;
   const scorePercent = Math.round(entry.score * 100);
+
+  const crosswalkTitle =
+    crosswalkScheme === 'icd9'
+      ? '→ ICD-10 equivalents (CMS GEM)'
+      : crosswalkScheme === 'icd10'
+      ? '← ICD-9 equivalents (CMS GEM)'
+      : 'Code conversions (CMS GEM)';
 
   return (
     <TouchableOpacity
@@ -53,7 +69,7 @@ export default function CodeCard({
     >
       <View style={styles.row}>
         <View style={[styles.codeBadge, { backgroundColor: schemeColor + '18' }]}>
-          <Text style={[styles.codeText, { color: schemeColor, fontFamily: Platform.OS === 'web' ? 'monospace' : undefined }]}>
+          <Text style={[styles.codeText, { color: schemeColor, fontFamily: MONOSPACE_FONT }]}>
             {entry.code}
           </Text>
         </View>
@@ -74,6 +90,25 @@ export default function CodeCard({
             <View key={item.key} style={styles.metadataRow}>
               <Text style={[styles.metadataLabel, { color: schemeColor }]}>{item.label}</Text>
               <Text style={styles.metadataValue}>{item.value}</Text>
+            </View>
+          ))}
+        </View>
+      )}
+      {showCrosswalk && (
+        <View style={styles.crosswalk}>
+          <Text style={[styles.crosswalkTitle, { color: schemeColor }]}>{crosswalkTitle}</Text>
+          {crosswalkRows.map(row => (
+            <View key={`${row.icd9Code}:${row.icd10Code}`} style={styles.crosswalkRow}>
+              <View style={styles.crosswalkCodes}>
+                <Text style={[styles.crosswalkCode, { color: schemeColor, fontFamily: MONOSPACE_FONT }]}>
+                  {crosswalkScheme === 'icd9' ? row.icd10Code : row.icd9Code}
+                </Text>
+                {row.cardinality !== '1:1' && (
+                  <Text style={[styles.crosswalkCardinality, { borderColor: schemeColor + '40', color: schemeColor }]}>
+                    {row.cardinality}
+                  </Text>
+                )}
+              </View>
             </View>
           ))}
         </View>
@@ -160,5 +195,41 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#334155',
     lineHeight: 18,
+  },
+  crosswalk: {
+    marginTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: '#e2e8f0',
+    paddingTop: 10,
+    gap: 6,
+  },
+  crosswalkTitle: {
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 0.3,
+    textTransform: 'uppercase',
+    marginBottom: 2,
+  },
+  crosswalkRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  crosswalkCodes: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  crosswalkCode: {
+    fontSize: 13,
+    fontWeight: '700',
+    letterSpacing: 0.4,
+  },
+  crosswalkCardinality: {
+    fontSize: 10,
+    fontWeight: '600',
+    borderWidth: 1,
+    borderRadius: 4,
+    paddingHorizontal: 5,
+    paddingVertical: 1,
   },
 });

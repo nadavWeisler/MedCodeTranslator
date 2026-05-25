@@ -1,0 +1,514 @@
+[
+  {
+    "icd9_code": "001.0",
+    "icd10_code": "A00.0",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "002.0",
+    "icd10_code": "A01.00",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "034.0",
+    "icd10_code": "J02.0",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "034.1",
+    "icd10_code": "A38.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "038.9",
+    "icd10_code": "A41.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "042",
+    "icd10_code": "B20",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "052.9",
+    "icd10_code": "B01.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "053.9",
+    "icd10_code": "B02.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "070.30",
+    "icd10_code": "B18.1",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "070.51",
+    "icd10_code": "B17.10",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "153.9",
+    "icd10_code": "C18.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "162.9",
+    "icd10_code": "C34.90",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "174.9",
+    "icd10_code": "C50.919",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "185",
+    "icd10_code": "C61",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "244.9",
+    "icd10_code": "E03.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "250.00",
+    "icd10_code": "E11.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "250.01",
+    "icd10_code": "E10.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "272.0",
+    "icd10_code": "E78.00",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "272.4",
+    "icd10_code": "E78.5",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "274.0",
+    "icd10_code": "M10.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "278.00",
+    "icd10_code": "E66.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "295.90",
+    "icd10_code": "F20.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "296.20",
+    "icd10_code": "F32.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "296.30",
+    "icd10_code": "F33.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "300.00",
+    "icd10_code": "F41.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "309.81",
+    "icd10_code": "F43.10",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "331.0",
+    "icd10_code": "G30.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "332.0",
+    "icd10_code": "G20.A1",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "340",
+    "icd10_code": "G35",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "345.90",
+    "icd10_code": "G40.909",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "346.90",
+    "icd10_code": "G43.909",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "401.9",
+    "icd10_code": "I10",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "410.90",
+    "icd10_code": "I21.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "413.9",
+    "icd10_code": "I20.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "414.01",
+    "icd10_code": "I25.10",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "427.31",
+    "icd10_code": "I48.91",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "428.0",
+    "icd10_code": "I50.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "433.10",
+    "icd10_code": "I65.29",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "434.91",
+    "icd10_code": "I63.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "486",
+    "icd10_code": "J18.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "493.90",
+    "icd10_code": "J45.909",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "496",
+    "icd10_code": "J44.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "530.81",
+    "icd10_code": "K21.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "531.90",
+    "icd10_code": "K25.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "535.50",
+    "icd10_code": "K29.70",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "550.90",
+    "icd10_code": "K40.90",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "555.9",
+    "icd10_code": "K50.90",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "556.9",
+    "icd10_code": "K51.90",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "574.20",
+    "icd10_code": "K80.20",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "585.9",
+    "icd10_code": "N18.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "592.0",
+    "icd10_code": "N20.0",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "599.0",
+    "icd10_code": "N39.0",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "600.00",
+    "icd10_code": "N40.0",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "714.0",
+    "icd10_code": "M06.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "715.90",
+    "icd10_code": "M19.90",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "716.90",
+    "icd10_code": "M12.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "722.10",
+    "icd10_code": "M51.26",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "724.2",
+    "icd10_code": "M54.50",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "733.00",
+    "icd10_code": "M81.0",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "780.6",
+    "icd10_code": "R50.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "784.0",
+    "icd10_code": "R51.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "786.05",
+    "icd10_code": "R06.09",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "786.50",
+    "icd10_code": "R07.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  },
+  {
+    "icd9_code": "789.00",
+    "icd10_code": "R10.9",
+    "cardinality": "1:1",
+    "is_one_to_one": true,
+    "is_one_to_many": false,
+    "is_many_to_one": false
+  }
+]

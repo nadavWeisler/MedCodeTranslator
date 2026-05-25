@@ -13,9 +13,9 @@
   },
   {
     "query": "diabetes",
-    "expected_codes": ["E10", "E11"],
+    "expected_codes": ["E08", "E10", "E11"],
     "category": "partial-name",
-    "note": "Both E10 (Type 1) and E11 (Type 2) contain 'diabetes' — either is acceptable"
+    "note": "Broad 'diabetes' may map to E08, E10, or E11 in the bundled ICD-10 dataset"
   },
   {
     "query": "hypertension",

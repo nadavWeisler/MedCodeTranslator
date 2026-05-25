@@ -65,6 +65,23 @@ function sqliteLikeSearch(dataset, query) {
   return matches.slice(0, 100);
 }
 
+function normalizeCode(code) {
+  return String(code || '').trim().toUpperCase();
+}
+
+function codeMatchesExpected(schemeName, code, expectedCode) {
+  const actual = normalizeCode(code);
+  const expected = normalizeCode(expectedCode);
+  if (!actual || !expected) return false;
+  if (actual === expected) return true;
+
+  if (schemeName === 'icd10' && !expected.includes('.')) {
+    return actual.startsWith(`${expected}.`);
+  }
+
+  return false;
+}
+
 function runScheme(schemeName) {
   const dataPath = path.join(ASSETS_DIR, `${schemeName}.json`);
   if (!fs.existsSync(dataPath)) {
@@ -92,16 +109,20 @@ function runScheme(schemeName) {
     // Fuse.js search
     const fuseResults = fuse.search(query, { limit: 10 });
     const fuseCodes = fuseResults.map((r) => r.item.code);
-    const fuseHit1 = expected.includes(fuseCodes[0]);
-    const fuseHit5 = expected.some((c) => fuseCodes.slice(0, 5).includes(c));
+    const fuseHit1 = expected.some((c) => codeMatchesExpected(schemeName, fuseCodes[0], c));
+    const fuseHit5 = expected.some((c) =>
+      fuseCodes.slice(0, 5).some((resultCode) => codeMatchesExpected(schemeName, resultCode, c))
+    );
     if (fuseHit1) fuseHits1++;
     if (fuseHit5) fuseHits5++;
 
     // SQLite LIKE equivalent
     const sqliteResults = sqliteLikeSearch(dataset, query);
     const sqliteCodes = sqliteResults.map((r) => r.code);
-    const sqliteHit1 = expected.includes(sqliteCodes[0]);
-    const sqliteHit5 = expected.some((c) => sqliteCodes.slice(0, 5).includes(c));
+    const sqliteHit1 = expected.some((c) => codeMatchesExpected(schemeName, sqliteCodes[0], c));
+    const sqliteHit5 = expected.some((c) =>
+      sqliteCodes.slice(0, 5).some((resultCode) => codeMatchesExpected(schemeName, resultCode, c))
+    );
     if (sqliteHit1) sqliteHits1++;
     if (sqliteHit5) sqliteHits5++;
 

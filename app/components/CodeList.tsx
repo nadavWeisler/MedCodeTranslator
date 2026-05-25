@@ -4,6 +4,7 @@ import CodeCard from './CodeCard';
 import SuggestionItem from './SuggestionItem';
 import type { ScoredEntry } from '@medcode/core';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
+import type { CrosswalkDisplayRow } from '../services/useCrosswalk';
 import { isRTL as checkRTL } from '../services/rtl';
 import { spacing, radius } from '../constants/spacing';
 
@@ -19,6 +20,8 @@ type Props = {
   onEntrySelect?: (entry: ScoredEntry) => void;
   selectedCode?: string | null;
   selectedMetadataRows?: MetadataRow[];
+  selectedCrosswalkRows?: CrosswalkDisplayRow[];
+  crosswalkScheme?: 'icd9' | 'icd10';
 };
 
 export default function CodeList({
@@ -33,6 +36,8 @@ export default function CodeList({
   onEntrySelect,
   selectedCode,
   selectedMetadataRows = [],
+  selectedCrosswalkRows = [],
+  crosswalkScheme,
 }: Props) {
   const isRTL = checkRTL(lang);
 
@@ -93,6 +98,8 @@ export default function CodeList({
             onPress={onEntrySelect}
             isSelected={item.code === selectedCode}
             metadataRows={item.code === selectedCode ? selectedMetadataRows : []}
+            crosswalkRows={item.code === selectedCode ? selectedCrosswalkRows : []}
+            crosswalkScheme={crosswalkScheme}
           />
         )}
         showsVerticalScrollIndicator={false}

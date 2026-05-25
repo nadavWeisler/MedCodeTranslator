@@ -4,6 +4,15 @@ import type { SchemeKey } from './database';
 // Re-export shared types from @medcode/core so existing consumers keep working
 export type { CodeEntry, CodeMetadata, CodeMetadataValue, ScoredEntry } from '@medcode/core';
 
+export type CrosswalkRow = {
+  icd9_code: string;
+  icd10_code: string;
+  cardinality: string;
+  is_one_to_one: number;
+  is_one_to_many: number;
+  is_many_to_one: number;
+};
+
 export async function searchByScheme(
   scheme: SchemeKey,
   query: string,
@@ -19,6 +28,38 @@ export async function searchByScheme(
        code
      LIMIT 100`,
     [q, q, q, q]
+  );
+}
+
+/**
+ * Returns ICD-10 crosswalk rows for a given ICD-9 code.
+ * Source: CMS General Equivalence Mappings (GEM),
+ * https://www.cms.gov/Medicare/Coding/ICD10/2018-ICD-10-CM-and-GEMs
+ */
+export async function getCrosswalkFromIcd9(icd9Code: string): Promise<CrosswalkRow[]> {
+  const db = getDB();
+  return db.getAllAsync<CrosswalkRow>(
+    `SELECT icd9_code, icd10_code, cardinality, is_one_to_one, is_one_to_many, is_many_to_one
+     FROM icd9_to_icd10_gem
+     WHERE icd9_code = ?
+     ORDER BY icd10_code`,
+    [icd9Code]
+  );
+}
+
+/**
+ * Returns ICD-9 crosswalk rows for a given ICD-10 code.
+ * Source: CMS General Equivalence Mappings (GEM),
+ * https://www.cms.gov/Medicare/Coding/ICD10/2018-ICD-10-CM-and-GEMs
+ */
+export async function getCrosswalkFromIcd10(icd10Code: string): Promise<CrosswalkRow[]> {
+  const db = getDB();
+  return db.getAllAsync<CrosswalkRow>(
+    `SELECT icd9_code, icd10_code, cardinality, is_one_to_one, is_one_to_many, is_many_to_one
+     FROM icd9_to_icd10_gem
+     WHERE icd10_code = ?
+     ORDER BY icd9_code`,
+    [icd10Code]
   );
 }
 

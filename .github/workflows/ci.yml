@@ -2,9 +2,9 @@ name: CI
 
 on:
   pull_request:
-    branches: [master, main]
+    branches: [master, dev]
   push:
-    branches: [master, main]
+    branches: [master, dev]
 
 permissions:
   contents: read
@@ -24,6 +24,16 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+
+      - name: Set web base path
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.base_ref }}" = "dev" ]; then
+            echo "MEDCODE_BASE_URL=/MedCodeTranslator/dev" >> "$GITHUB_ENV"
+          elif [ "${{ github.ref_name }}" = "dev" ]; then
+            echo "MEDCODE_BASE_URL=/MedCodeTranslator/dev" >> "$GITHUB_ENV"
+          else
+            echo "MEDCODE_BASE_URL=/MedCodeTranslator" >> "$GITHUB_ENV"
+          fi
 
       - name: Type check
         run: npx tsc --noEmit

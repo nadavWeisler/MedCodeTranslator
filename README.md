@@ -5,11 +5,11 @@
 [![Accessibility review](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/accessibility-review.yml/badge.svg)](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/accessibility-review.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-strict-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Live Demo](https://img.shields.io/badge/demo-live-brightgreen)](https://nadavweisler.github.io/MedCodeTranslator/)
+[![Live Demo](https://img.shields.io/badge/demo-production-brightgreen)](https://nadavweisler.github.io/MedCodeTranslator/)
 
 **Open-source biomedical terminology retrieval and semantic search infrastructure.**
 
-[Live Demo](https://nadavweisler.github.io/MedCodeTranslator/) · [API Docs](docs/API.md) · [Architecture](docs/architecture.md) · [Contributing](CONTRIBUTING.md)
+[Production Demo](https://nadavweisler.github.io/MedCodeTranslator/) · [Development Demo](https://nadavweisler.github.io/MedCodeTranslator/dev/) · [API Docs](docs/API.md) · [Architecture](docs/architecture.md) · [Contributing](CONTRIBUTING.md)
 
 ---
 
@@ -217,7 +217,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). In brief:
 
 ## Deployment
 
-Live PWA: [https://nadavweisler.github.io/MedCodeTranslator/](https://nadavweisler.github.io/MedCodeTranslator/) — auto-deployed on every push to `master`.
+Production PWA: [https://nadavweisler.github.io/MedCodeTranslator/](https://nadavweisler.github.io/MedCodeTranslator/) — built from `master`.
+
+Development PWA: [https://nadavweisler.github.io/MedCodeTranslator/dev/](https://nadavweisler.github.io/MedCodeTranslator/dev/) — built from `dev`.
+
+The GitHub Pages workflow publishes both builds together so production and development stay isolated under separate URLs.
 
 ---
 

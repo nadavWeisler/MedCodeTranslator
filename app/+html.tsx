@@ -1,7 +1,9 @@
 import type { PropsWithChildren } from 'react';
 import { ScrollViewStyleReset } from 'expo-router/html';
 
-const SITE_URL = 'https://nadavweisler.github.io/MedCodeTranslator/';
+import { getAssetUrl, getSiteUrl } from '../config/webDeployment';
+
+const SITE_URL = getSiteUrl();
 const IMAGE_URL = `${SITE_URL}social-preview.png`;
 const SITE_TITLE = 'MedCodeTranslator — Medical Code Lookup Prototype';
 const SITE_DESCRIPTION =
@@ -29,8 +31,8 @@ export default function Root({ children }: PropsWithChildren) {
         <meta name="twitter:description" content={SITE_DESCRIPTION} />
         <meta name="twitter:image" content={IMAGE_URL} />
 
-        <link rel="icon" href="/MedCodeTranslator/favicon.ico" />
-        <link rel="apple-touch-icon" href="/MedCodeTranslator/apple-touch-icon.png" />
+        <link rel="icon" href={getAssetUrl('favicon.ico')} />
+        <link rel="apple-touch-icon" href={getAssetUrl('apple-touch-icon.png')} />
         <ScrollViewStyleReset />
       </head>
       <body>{children}</body>

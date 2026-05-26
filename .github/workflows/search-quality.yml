@@ -2,13 +2,13 @@ name: Search quality benchmark
 
 on:
   pull_request:
-    branches: [master, main]
+    branches: [master, dev]
     paths:
       - 'assets/data/**'
       - 'app/services/fuzzySearch.ts'
       - 'db/queries.ts'
   push:
-    branches: [master, main]
+    branches: [master, dev]
     paths:
       - 'assets/data/**'
       - 'app/services/fuzzySearch.ts'

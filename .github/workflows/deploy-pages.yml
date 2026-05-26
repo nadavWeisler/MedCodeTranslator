@@ -65,7 +65,7 @@ jobs:
             local base_url="$3"
             local output_dir="$4"
 
-            git worktree add --force --detach "$worktree" "origin/$branch"
+            git worktree add --detach "$worktree" "origin/$branch"
             (
               cd "$worktree"
               npm ci
@@ -95,7 +95,7 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     environment:
-      name: ${{ github.ref_name == 'dev' && 'github-pages-development' || 'github-pages-production' }}
+      name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages

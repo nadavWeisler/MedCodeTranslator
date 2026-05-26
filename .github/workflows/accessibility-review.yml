@@ -10,6 +10,10 @@ on:
 permissions:
   contents: read
 
+env:
+  PROD_BASE_URL: /MedCodeTranslator
+  DEV_BASE_URL: /MedCodeTranslator/dev
+
 concurrency:
   group: accessibility-review-${{ github.ref }}
   cancel-in-progress: true
@@ -35,14 +39,14 @@ jobs:
       - name: Set web base path
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.base_ref }}" = "dev" ]; then
-            echo "MEDCODE_BASE_URL=/MedCodeTranslator/dev" >> "$GITHUB_ENV"
-            echo "ACCESSIBILITY_URL=http://127.0.0.1:4173/MedCodeTranslator/dev/" >> "$GITHUB_ENV"
+            echo "MEDCODE_BASE_URL=$DEV_BASE_URL" >> "$GITHUB_ENV"
+            echo "ACCESSIBILITY_URL=http://127.0.0.1:4173$DEV_BASE_URL/" >> "$GITHUB_ENV"
           elif [ "${{ github.ref_name }}" = "dev" ]; then
-            echo "MEDCODE_BASE_URL=/MedCodeTranslator/dev" >> "$GITHUB_ENV"
-            echo "ACCESSIBILITY_URL=http://127.0.0.1:4173/MedCodeTranslator/dev/" >> "$GITHUB_ENV"
+            echo "MEDCODE_BASE_URL=$DEV_BASE_URL" >> "$GITHUB_ENV"
+            echo "ACCESSIBILITY_URL=http://127.0.0.1:4173$DEV_BASE_URL/" >> "$GITHUB_ENV"
           else
-            echo "MEDCODE_BASE_URL=/MedCodeTranslator" >> "$GITHUB_ENV"
-            echo "ACCESSIBILITY_URL=http://127.0.0.1:4173/MedCodeTranslator/" >> "$GITHUB_ENV"
+            echo "MEDCODE_BASE_URL=$PROD_BASE_URL" >> "$GITHUB_ENV"
+            echo "ACCESSIBILITY_URL=http://127.0.0.1:4173$PROD_BASE_URL/" >> "$GITHUB_ENV"
           fi
 
       - name: Build web

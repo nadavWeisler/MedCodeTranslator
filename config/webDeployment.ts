@@ -3,22 +3,14 @@ export const DEVELOPMENT_BRANCH = 'dev';
 export const PRODUCTION_BASE_URL = '/MedCodeTranslator';
 export const DEVELOPMENT_BASE_URL = '/MedCodeTranslator/dev';
 const DEFAULT_SITE_ORIGIN = 'https://nadavweisler.github.io';
-const ENV =
-  typeof globalThis === 'object' && globalThis && 'process' in globalThis
-    ? (
-        globalThis as {
-          process?: {
-            env?: Record<string, string | undefined>;
-          };
-        }
-      ).process?.env
-    : undefined;
+const ENV = (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env;
 
 function trimTrailingSlashes(value: string) {
   return value.replace(/\/+$/, '');
 }
 
 export function normalizeBaseUrl(value?: string) {
+  // Empty values and the site root fall back to the production Pages path.
   if (!value) {
     return PRODUCTION_BASE_URL;
   }

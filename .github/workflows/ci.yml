@@ -9,6 +9,10 @@ on:
 permissions:
   contents: read
 
+env:
+  PROD_BASE_URL: /MedCodeTranslator
+  DEV_BASE_URL: /MedCodeTranslator/dev
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -28,11 +32,11 @@ jobs:
       - name: Set web base path
         run: |
           if [ "${{ github.event_name }}" = "pull_request" ] && [ "${{ github.base_ref }}" = "dev" ]; then
-            echo "MEDCODE_BASE_URL=/MedCodeTranslator/dev" >> "$GITHUB_ENV"
+            echo "MEDCODE_BASE_URL=$DEV_BASE_URL" >> "$GITHUB_ENV"
           elif [ "${{ github.ref_name }}" = "dev" ]; then
-            echo "MEDCODE_BASE_URL=/MedCodeTranslator/dev" >> "$GITHUB_ENV"
+            echo "MEDCODE_BASE_URL=$DEV_BASE_URL" >> "$GITHUB_ENV"
           else
-            echo "MEDCODE_BASE_URL=/MedCodeTranslator" >> "$GITHUB_ENV"
+            echo "MEDCODE_BASE_URL=$PROD_BASE_URL" >> "$GITHUB_ENV"
           fi
 
       - name: Type check

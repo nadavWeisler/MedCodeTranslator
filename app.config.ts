@@ -1,6 +1,15 @@
 import type { ExpoConfig } from 'expo/config';
 
-import { getBaseUrl } from './config/webDeployment';
+function getBaseUrl() {
+  const baseUrl = process.env.MEDCODE_BASE_URL?.trim();
+
+  if (!baseUrl || baseUrl === '/') {
+    return '/MedCodeTranslator';
+  }
+
+  const normalized = baseUrl.replace(/\/+$/, '');
+  return normalized.startsWith('/') ? normalized : `/${normalized}`;
+}
 
 const config: ExpoConfig = {
   name: 'Med Code Translator',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react-native';
-import SchemeTabs, { SCHEMES } from '../app/components/SchemeTabs';
+import SchemeTabs, { SCHEMES, SCHEME_GROUPS, getSchemeGroup } from '../app/components/SchemeTabs';
 import type { SchemeKey } from '../db/database';
 
 describe('SchemeTabs', () => {
@@ -69,5 +69,17 @@ describe('SchemeTabs', () => {
       <SchemeTabs active="atc5" onChange={jest.fn()} hintLabel="Search by code or name" />
     );
     expect(getByText('Search by code or name')).toBeTruthy();
+  });
+
+  it('groups schemes by clinical family', () => {
+    const { getByText } = render(
+      <SchemeTabs active="icd10" onChange={jest.fn()} compact />
+    );
+
+    for (const group of SCHEME_GROUPS) {
+      expect(getByText(group.label)).toBeTruthy();
+    }
+    expect(getSchemeGroup('icd9').label).toBe('Diagnoses');
+    expect(getSchemeGroup('icd10').label).toBe('Diagnoses');
   });
 });

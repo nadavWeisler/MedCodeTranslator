@@ -9,18 +9,38 @@ export type SchemeConfig = {
   shortLabel: string;
   color: string;
   icon: string;
+  group: SchemeGroupKey;
 };
 
-export const SCHEMES: SchemeConfig[] = [
-  { key: 'atc5',  label: 'Medications',  shortLabel: 'ATC5',  color: '#2563eb', icon: '💊' },
-  { key: 'icd10', label: 'ICD-10',       shortLabel: 'ICD-10',color: '#059669', icon: '🩺' },
-  { key: 'icd9',  label: 'ICD-9-CM',     shortLabel: 'ICD-9', color: '#7c3aed', icon: '📋' },
-  { key: 'icd11', label: 'ICD-11',       shortLabel: 'ICD-11',color: '#0891b2', icon: '🔬' },
-  { key: 'loinc', label: 'LOINC (Labs)', shortLabel: 'LOINC', color: '#d97706', icon: '🧪' },
-  { key: 'cpt',   label: 'CPT-4 (Procs)',shortLabel: 'CPT',   color: '#dc2626', icon: '⚕️' },
-  { key: 'hcpcs', label: 'HCPCS Level II',shortLabel: 'HCPCS',color: '#0f766e', icon: '🏥' },
-  { key: 'cvx',   label: 'CVX (Vaccines)',shortLabel: 'CVX',  color: '#7e22ce', icon: '💉' },
+export type SchemeGroupKey = 'medications' | 'diagnoses' | 'labs' | 'procedures';
+
+export type SchemeGroupConfig = {
+  key: SchemeGroupKey;
+  label: string;
+};
+
+export const SCHEME_GROUPS: SchemeGroupConfig[] = [
+  { key: 'diagnoses', label: 'Diagnoses' },
+  { key: 'medications', label: 'Drugs & vaccines' },
+  { key: 'labs', label: 'Labs' },
+  { key: 'procedures', label: 'Procedures' },
 ];
+
+export const SCHEMES: SchemeConfig[] = [
+  { key: 'icd10', label: 'ICD-10',       shortLabel: 'ICD-10',color: '#059669', icon: '🩺', group: 'diagnoses' },
+  { key: 'icd9',  label: 'ICD-9-CM',     shortLabel: 'ICD-9', color: '#7c3aed', icon: '📋', group: 'diagnoses' },
+  { key: 'icd11', label: 'ICD-11',       shortLabel: 'ICD-11',color: '#0891b2', icon: '🔬', group: 'diagnoses' },
+  { key: 'atc5',  label: 'Medications',  shortLabel: 'ATC5',  color: '#2563eb', icon: '💊', group: 'medications' },
+  { key: 'cvx',   label: 'CVX (Vaccines)',shortLabel: 'CVX',  color: '#7e22ce', icon: '💉', group: 'medications' },
+  { key: 'loinc', label: 'LOINC (Labs)', shortLabel: 'LOINC', color: '#d97706', icon: '🧪', group: 'labs' },
+  { key: 'cpt',   label: 'CPT-4 (Procs)',shortLabel: 'CPT',   color: '#dc2626', icon: '⚕️', group: 'procedures' },
+  { key: 'hcpcs', label: 'HCPCS Level II',shortLabel: 'HCPCS',color: '#0f766e', icon: '🏥', group: 'procedures' },
+];
+
+export function getSchemeGroup(scheme: SchemeKey): SchemeGroupConfig {
+  const schemeConfig = SCHEMES.find(item => item.key === scheme)!;
+  return SCHEME_GROUPS.find(group => group.key === schemeConfig.group)!;
+}
 
 type Props = {
   active: SchemeKey;
@@ -40,28 +60,35 @@ export default function SchemeTabs({ active, onChange, hintLabel, compact = fals
         contentContainerStyle={styles.scroll}
         keyboardShouldPersistTaps="handled"
       >
-        {SCHEMES.map(scheme => {
-          const isActive = scheme.key === active;
-          return (
-            <TouchableOpacity
-              key={scheme.key}
-              style={[
-                styles.pill,
-                isActive && (compact
-                  ? { backgroundColor: `${scheme.color}14`, borderColor: `${scheme.color}50` }
-                  : { backgroundColor: scheme.color, borderColor: scheme.color }),
-              ]}
-              onPress={() => onChange(scheme.key)}
-              accessibilityRole="tab"
-              accessibilityState={{ selected: isActive }}
-            >
-              {!compact && <Text style={styles.icon}>{scheme.icon}</Text>}
-              <Text style={[styles.label, isActive && (compact ? { color: scheme.color } : styles.labelActive)]}>
-                {scheme.shortLabel}
-              </Text>
-            </TouchableOpacity>
-          );
-        })}
+        {SCHEME_GROUPS.map(group => (
+          <View key={group.key} style={styles.group}>
+            <Text style={styles.groupLabel}>{group.label}</Text>
+            <View style={styles.groupTabs}>
+              {SCHEMES.filter(scheme => scheme.group === group.key).map(scheme => {
+                const isActive = scheme.key === active;
+                return (
+                  <TouchableOpacity
+                    key={scheme.key}
+                    style={[
+                      styles.pill,
+                      isActive && (compact
+                        ? { backgroundColor: `${scheme.color}14`, borderColor: `${scheme.color}50` }
+                        : { backgroundColor: scheme.color, borderColor: scheme.color }),
+                    ]}
+                    onPress={() => onChange(scheme.key)}
+                    accessibilityRole="tab"
+                    accessibilityState={{ selected: isActive }}
+                  >
+                    {!compact && <Text style={styles.icon}>{scheme.icon}</Text>}
+                    <Text style={[styles.label, isActive && (compact ? { color: scheme.color } : styles.labelActive)]}>
+                      {scheme.shortLabel}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </View>
+        ))}
       </ScrollView>
 
       {/* Active scheme full label */}
@@ -83,6 +110,20 @@ const styles = StyleSheet.create({
   },
   scroll: {
     paddingBottom: spacing.xs,
+    gap: 8,
+  },
+  group: {
+    gap: 5,
+  },
+  groupLabel: {
+    fontSize: 10,
+    color: '#64748b',
+    fontWeight: '800',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
+  },
+  groupTabs: {
+    flexDirection: 'row',
     gap: 8,
   },
   pill: {

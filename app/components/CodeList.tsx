@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Text, StyleSheet, View } from 'react-native';
+import { Platform, SectionList, Text, StyleSheet, View } from 'react-native';
 import CodeCard from './CodeCard';
 import SuggestionItem from './SuggestionItem';
 import type { ScoredEntry } from '@medcode/core';
@@ -7,6 +7,8 @@ import type { MetadataRow } from '../services/useSelectedCodeResult';
 import type { CrosswalkDisplayRow } from '../services/useCrosswalk';
 import { isRTL as checkRTL } from '../services/rtl';
 import { spacing, radius } from '../constants/spacing';
+
+const MONOSPACE_FONT = Platform.OS === 'web' ? 'monospace' : undefined;
 
 type Props = {
   entries: ScoredEntry[];
@@ -24,6 +26,31 @@ type Props = {
   crosswalkScheme?: 'icd9' | 'icd10';
 };
 
+type ResultSection = {
+  title: string | null;
+  data: ScoredEntry[];
+};
+
+function getCodeGroup(code: string): string {
+  return code.split('.')[0] || code;
+}
+
+function groupEntries(entries: ScoredEntry[]): ResultSection[] {
+  const grouped = new Map<string, ScoredEntry[]>();
+
+  for (const entry of entries) {
+    const group = getCodeGroup(entry.code);
+    const groupEntries = grouped.get(group) ?? [];
+    groupEntries.push(entry);
+    grouped.set(group, groupEntries);
+  }
+
+  return [...grouped.entries()].map(([group, groupEntries]) => ({
+    title: groupEntries.length > 1 ? group : null,
+    data: groupEntries,
+  }));
+}
+
 export default function CodeList({
   entries,
   query,
@@ -40,6 +67,7 @@ export default function CodeList({
   crosswalkScheme,
 }: Props) {
   const isRTL = checkRTL(lang);
+  const sections = groupEntries(entries);
 
   if (!query.trim()) {
     return (
@@ -87,9 +115,18 @@ export default function CodeList({
           {t('results_count', { count: resultCount === 100 ? '100+' : resultCount })}
         </Text>
       </View>
-      <FlatList
-        data={entries}
+      <SectionList
+        sections={sections}
         keyExtractor={item => item.code}
+        renderSectionHeader={({ section }) =>
+          section.title ? (
+            <View style={styles.groupHeader}>
+              <Text style={[styles.groupTitle, { color: schemeColor, fontFamily: MONOSPACE_FONT }]}>
+                {section.title}
+              </Text>
+            </View>
+          ) : null
+        }
         renderItem={({ item }) => (
           <CodeCard
             entry={item}
@@ -123,6 +160,23 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingBottom: 10,
+  },
+  groupHeader: {
+    paddingTop: 4,
+    paddingBottom: 6,
+    backgroundColor: '#ffffff',
+  },
+  groupTitle: {
+    alignSelf: 'flex-start',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#e2e8f0',
+    backgroundColor: '#f8fafc',
+    paddingHorizontal: 9,
+    paddingVertical: 4,
+    fontSize: 12,
+    fontWeight: '800',
+    letterSpacing: 0.5,
   },
   countBadge: {
     alignSelf: 'flex-start',

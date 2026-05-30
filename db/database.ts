@@ -1,16 +1,5 @@
 import * as SQLite from 'expo-sqlite';
-import atc1Data from '../data/vocabularies/atc1.json';
-import atc2Data from '../data/vocabularies/atc2.json';
-import atc3Data from '../data/vocabularies/atc3.json';
-import atc4Data from '../data/vocabularies/atc4.json';
-import atc5Data from '../data/vocabularies/atc5.json';
-import icd10Data from '../data/vocabularies/icd10.json';
-import icd9Data from '../data/vocabularies/icd9.json';
-import icd11Data from '../data/vocabularies/icd11.json';
-import loincData from '../data/vocabularies/loinc.json';
-import cptData from '../data/vocabularies/cpt.json';
-import hcpcsData from '../data/vocabularies/hcpcs.json';
-import cvxData from '../data/vocabularies/cvx.json';
+// Crosswalk is small (~12 KB) — static import is fine
 import crosswalkData from '../data/vocabularies/icd9_to_icd10_gem.json';
 import type { SchemeKey } from '@medcode/core';
 
@@ -18,7 +7,31 @@ import type { SchemeKey } from '@medcode/core';
 export type { SchemeKey } from '@medcode/core';
 
 const DB_NAME = 'medcodes.db';
-const SCHEMA_VERSION = 5;
+// Bumped to 6: switches from eager seedAll() to per-scheme lazy seeding.
+// On upgrade the seeded_* flags are cleared so each scheme re-seeds on first access.
+const SCHEMA_VERSION = 6;
+
+// In-memory cache: avoids a meta-table query on every getAllEntries() call
+const seededSchemes = new Set<SchemeKey>();
+
+type RawEntry = { code: string; name_en: string; name_he?: string | null };
+
+// Dynamic loaders — each JSON becomes a separate bundle chunk in the web PWA build,
+// and is never parsed until the user first selects that scheme on any platform.
+const VOCABULARY_LOADERS: Record<SchemeKey, () => Promise<RawEntry[]>> = {
+  atc1:  () => import('../data/vocabularies/atc1.json').then(m => m.default as unknown as RawEntry[]),
+  atc2:  () => import('../data/vocabularies/atc2.json').then(m => m.default as unknown as RawEntry[]),
+  atc3:  () => import('../data/vocabularies/atc3.json').then(m => m.default as unknown as RawEntry[]),
+  atc4:  () => import('../data/vocabularies/atc4.json').then(m => m.default as unknown as RawEntry[]),
+  atc5:  () => import('../data/vocabularies/atc5.json').then(m => m.default as unknown as RawEntry[]),
+  icd10: () => import('../data/vocabularies/icd10.json').then(m => m.default as unknown as RawEntry[]),
+  icd9:  () => import('../data/vocabularies/icd9.json').then(m => m.default as unknown as RawEntry[]),
+  icd11: () => import('../data/vocabularies/icd11.json').then(m => m.default as unknown as RawEntry[]),
+  loinc: () => import('../data/vocabularies/loinc.json').then(m => m.default as unknown as RawEntry[]),
+  cpt:   () => import('../data/vocabularies/cpt.json').then(m => m.default as unknown as RawEntry[]),
+  hcpcs: () => import('../data/vocabularies/hcpcs.json').then(m => m.default as unknown as RawEntry[]),
+  cvx:   () => import('../data/vocabularies/cvx.json').then(m => m.default as unknown as RawEntry[]),
+};
 
 let db: SQLite.SQLiteDatabase | null = null;
 
@@ -104,21 +117,23 @@ export async function initDB(): Promise<void> {
     );
   `);
 
-  const seeded = await db.getFirstAsync<{ value: string }>(
+  const stored = await db.getFirstAsync<{ value: string }>(
     'SELECT value FROM meta WHERE key = ?',
     ['schema_version']
   );
 
-  if (!seeded || parseInt(seeded.value, 10) < SCHEMA_VERSION) {
-    await seedAll();
+  if (!stored || parseInt(stored.value, 10) < SCHEMA_VERSION) {
+    // Clear per-scheme seeded flags so each scheme lazy-seeds on first access
+    await db.runAsync("DELETE FROM meta WHERE key LIKE 'seeded_%'");
     await db.runAsync(
       'INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)',
       ['schema_version', String(SCHEMA_VERSION)]
     );
+    seededSchemes.clear();
+    // Crosswalk is small — seed eagerly so ICD-9→ICD-10 lookups work immediately
+    await seedCrosswalk(crosswalkData as CrosswalkEntry[]);
   }
 }
-
-type RawEntry = { code: string; name_en: string; name_he?: string | null };
 
 type CrosswalkEntry = {
   icd9_code: string;
@@ -164,25 +179,25 @@ async function seedCrosswalk(data: CrosswalkEntry[]): Promise<void> {
   });
 }
 
-async function seedAll(): Promise<void> {
-  const datasets: [string, RawEntry[]][] = [
-    ['atc1',  atc1Data  as RawEntry[]],
-    ['atc2',  atc2Data  as RawEntry[]],
-    ['atc3',  atc3Data  as RawEntry[]],
-    ['atc4',  atc4Data  as RawEntry[]],
-    ['atc5',  atc5Data  as RawEntry[]],
-    ['icd10', icd10Data as RawEntry[]],
-    ['icd9',  icd9Data  as RawEntry[]],
-    ['icd11', icd11Data as RawEntry[]],
-    ['loinc', loincData as RawEntry[]],
-    ['cpt',   cptData   as RawEntry[]],
-    ['hcpcs', hcpcsData as RawEntry[]],
-    ['cvx',   cvxData   as RawEntry[]],
-  ];
-  for (const [table, data] of datasets) {
-    await seedTable(table, data);
+/** Lazily seed a scheme on first access. No-op if already seeded in this session. */
+async function ensureSchemeSeeded(scheme: SchemeKey): Promise<void> {
+  if (seededSchemes.has(scheme)) return;
+  const d = getDB();
+  const flag = await d.getFirstAsync<{ value: string }>(
+    'SELECT value FROM meta WHERE key = ?',
+    [`seeded_${scheme}`]
+  );
+  if (flag?.value === '1') {
+    seededSchemes.add(scheme);
+    return;
   }
-  await seedCrosswalk(crosswalkData as CrosswalkEntry[]);
+  const data = await VOCABULARY_LOADERS[scheme]();
+  await seedTable(scheme, data);
+  await d.runAsync(
+    'INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)',
+    [`seeded_${scheme}`, '1']
+  );
+  seededSchemes.add(scheme);
 }
 
 export function getDB(): SQLite.SQLiteDatabase {
@@ -190,8 +205,10 @@ export function getDB(): SQLite.SQLiteDatabase {
   return db;
 }
 
-/** Load ALL entries from a scheme (for building fuse.js index) */
+/** Load ALL entries from a scheme (for building fuse.js index).
+ *  Lazily seeds the scheme into SQLite on first call — subsequent calls are instant. */
 export async function getAllEntries(scheme: SchemeKey): Promise<RawEntry[]> {
+  await ensureSchemeSeeded(scheme);
   const d = getDB();
   return d.getAllAsync<RawEntry>(`SELECT code, name_en, name_he FROM ${scheme}`);
 }

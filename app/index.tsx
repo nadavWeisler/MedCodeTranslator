@@ -4,6 +4,7 @@ import {
   StyleSheet,
   TouchableOpacity,
   Text,
+  ActivityIndicator,
   Platform,
   useWindowDimensions,
   Modal,
@@ -18,7 +19,7 @@ import CodeList from './components/CodeList';
 import SchemeTabs, { SCHEMES, getSchemeGroup } from './components/SchemeTabs';
 import { isRTL as checkRTL } from './services/rtl';
 import type { SchemeKey } from '../db/database';
-import { buildIndex, search as layeredSearch, getSuggestions, getDidYouMean } from './services/fuzzySearch';
+import { buildIndex, search as layeredSearch, getSuggestions, getDidYouMean, isIndexReady } from './services/fuzzySearch';
 import type { ScoredEntry } from '@medcode/core';
 import { useSelectedCodeResult } from './services/useSelectedCodeResult';
 import { useCrosswalk } from './services/useCrosswalk';
@@ -75,6 +76,7 @@ export default function HomeScreen() {
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
+  const [isSchemeLoading, setIsSchemeLoading] = useState(() => !isIndexReady(initialScheme));
   const { width } = useWindowDimensions();
   const isTablet = width >= 768;
   const isMobile = !isTablet;
@@ -133,9 +135,16 @@ export default function HomeScreen() {
     };
   }, []);
 
-  // Build fuse index when scheme changes
+  // Build fuse index when scheme changes; track loading for UX indicator
   useEffect(() => {
-    buildIndex(scheme).catch(console.error);
+    if (isIndexReady(scheme)) {
+      setIsSchemeLoading(false);
+      return;
+    }
+    setIsSchemeLoading(true);
+    buildIndex(scheme)
+      .catch(console.error)
+      .finally(() => setIsSchemeLoading(false));
   }, [scheme]);
 
   // Run search + autocomplete on query change
@@ -348,21 +357,30 @@ export default function HomeScreen() {
                   {t(query.trim() ? 'results_title_active' : 'results_title_idle')}
                 </Text>
               </View>
-              <CodeList
-                entries={results}
-                query={query}
-                lang={lang}
-                t={t}
-                fuzzyMatches={didYouMean}
-                onFuzzySelect={handleSuggestionSelect}
-                schemeColor={schemeColor}
-                resultCount={results.length}
-                onEntrySelect={selectEntry}
-                selectedCode={selectedCode}
-                selectedMetadataRows={metadataRows}
-                selectedCrosswalkRows={crosswalkRows}
-                crosswalkScheme={crosswalkScheme}
-              />
+              {isSchemeLoading ? (
+                <View style={styles.loadingWrap}>
+                  <ActivityIndicator size="large" color={schemeColor} />
+                  <Text style={[styles.loadingText, { color: schemeColor }]}>
+                    Loading {activeScheme.label}…
+                  </Text>
+                </View>
+              ) : (
+                <CodeList
+                  entries={results}
+                  query={query}
+                  lang={lang}
+                  t={t}
+                  fuzzyMatches={didYouMean}
+                  onFuzzySelect={handleSuggestionSelect}
+                  schemeColor={schemeColor}
+                  resultCount={results.length}
+                  onEntrySelect={selectEntry}
+                  selectedCode={selectedCode}
+                  selectedMetadataRows={metadataRows}
+                  selectedCrosswalkRows={crosswalkRows}
+                  crosswalkScheme={crosswalkScheme}
+                />
+              )}
             </View>
           </View>
         </View>
@@ -618,6 +636,18 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     letterSpacing: -0.2,
     color: '#0f172a',
+  },
+  loadingWrap: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 12,
+    paddingVertical: 40,
+  },
+  loadingText: {
+    fontSize: 14,
+    fontWeight: '500',
+    opacity: 0.75,
   },
   textLeft: {
     textAlign: 'left',

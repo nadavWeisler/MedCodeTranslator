@@ -54,3 +54,7 @@ export function clearIndex(scheme: SchemeKey): void {
   entryCache.delete(scheme);
   clearFuseIndex(scheme);
 }
+
+export function isIndexReady(scheme: SchemeKey): boolean {
+  return entryCache.has(scheme);
+}

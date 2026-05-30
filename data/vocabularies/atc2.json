@@ -1,0 +1,452 @@
+[
+  {
+    "code": "A01",
+    "name_en": "STOMATOLOGICAL PREPARATIONS",
+    "name_he": null
+  },
+  {
+    "code": "A02",
+    "name_en": "DRUGS FOR ACID RELATED DISORDERS",
+    "name_he": null
+  },
+  {
+    "code": "A03",
+    "name_en": "DRUGS FOR FUNCTIONAL GASTROINTESTINAL DISORDERS",
+    "name_he": null
+  },
+  {
+    "code": "A04",
+    "name_en": "ANTIEMETICS AND ANTINAUSEANTS",
+    "name_he": null
+  },
+  {
+    "code": "A05",
+    "name_en": "BILE AND LIVER THERAPY",
+    "name_he": null
+  },
+  {
+    "code": "A06",
+    "name_en": "DRUGS FOR CONSTIPATION",
+    "name_he": null
+  },
+  {
+    "code": "A07",
+    "name_en": "ANTIDIARRHEALS, INTESTINAL ANTIINFLAMMATORY/ANTIINFECTIVE AGENTS",
+    "name_he": null
+  },
+  {
+    "code": "A08",
+    "name_en": "ANTIOBESITY PREPARATIONS, EXCL. DIET PRODUCTS",
+    "name_he": null
+  },
+  {
+    "code": "A09",
+    "name_en": "DIGESTIVES, INCL. ENZYMES",
+    "name_he": null
+  },
+  {
+    "code": "A10",
+    "name_en": "DRUGS USED IN DIABETES",
+    "name_he": null
+  },
+  {
+    "code": "A11",
+    "name_en": "VITAMINS",
+    "name_he": null
+  },
+  {
+    "code": "A12",
+    "name_en": "MINERAL SUPPLEMENTS",
+    "name_he": null
+  },
+  {
+    "code": "A14",
+    "name_en": "ANABOLIC AGENTS FOR SYSTEMIC USE",
+    "name_he": null
+  },
+  {
+    "code": "A16",
+    "name_en": "OTHER ALIMENTARY TRACT AND METABOLISM PRODUCTS",
+    "name_he": null
+  },
+  {
+    "code": "B01",
+    "name_en": "ANTITHROMBOTIC AGENTS",
+    "name_he": null
+  },
+  {
+    "code": "B02",
+    "name_en": "ANTIHEMORRHAGICS",
+    "name_he": null
+  },
+  {
+    "code": "B03",
+    "name_en": "ANTIANEMIC PREPARATIONS",
+    "name_he": null
+  },
+  {
+    "code": "B05",
+    "name_en": "BLOOD SUBSTITUTES AND PERFUSION SOLUTIONS",
+    "name_he": null
+  },
+  {
+    "code": "B06",
+    "name_en": "OTHER HEMATOLOGICAL AGENTS",
+    "name_he": null
+  },
+  {
+    "code": "C01",
+    "name_en": "CARDIAC THERAPY",
+    "name_he": null
+  },
+  {
+    "code": "C02",
+    "name_en": "ANTIHYPERTENSIVES",
+    "name_he": null
+  },
+  {
+    "code": "C03",
+    "name_en": "DIURETICS",
+    "name_he": null
+  },
+  {
+    "code": "C04",
+    "name_en": "PERIPHERAL VASODILATORS",
+    "name_he": null
+  },
+  {
+    "code": "C05",
+    "name_en": "VASOPROTECTIVES",
+    "name_he": null
+  },
+  {
+    "code": "C07",
+    "name_en": "BETA BLOCKING AGENTS",
+    "name_he": null
+  },
+  {
+    "code": "C08",
+    "name_en": "CALCIUM CHANNEL BLOCKERS",
+    "name_he": null
+  },
+  {
+    "code": "C09",
+    "name_en": "AGENTS ACTING ON THE RENIN-ANGIOTENSIN SYSTEM",
+    "name_he": null
+  },
+  {
+    "code": "C10",
+    "name_en": "LIPID MODIFYING AGENTS",
+    "name_he": null
+  },
+  {
+    "code": "D01",
+    "name_en": "ANTIFUNGALS FOR DERMATOLOGICAL USE",
+    "name_he": null
+  },
+  {
+    "code": "D02",
+    "name_en": "EMOLLIENTS AND PROTECTIVES",
+    "name_he": null
+  },
+  {
+    "code": "D03",
+    "name_en": "PREPARATIONS FOR TREATMENT OF WOUNDS AND ULCERS",
+    "name_he": null
+  },
+  {
+    "code": "D04",
+    "name_en": "ANTIPRURITICS, INCL. ANTIHISTAMINES, ANESTHETICS, ETC.",
+    "name_he": null
+  },
+  {
+    "code": "D05",
+    "name_en": "ANTIPSORIATICS",
+    "name_he": null
+  },
+  {
+    "code": "D06",
+    "name_en": "ANTIBIOTICS AND CHEMOTHERAPEUTICS FOR DERMATOLOGICAL USE",
+    "name_he": null
+  },
+  {
+    "code": "D07",
+    "name_en": "CORTICOSTEROIDS, DERMATOLOGICAL PREPARATIONS",
+    "name_he": null
+  },
+  {
+    "code": "D08",
+    "name_en": "ANTISEPTICS AND DISINFECTANTS",
+    "name_he": null
+  },
+  {
+    "code": "D09",
+    "name_en": "MEDICATED DRESSINGS",
+    "name_he": null
+  },
+  {
+    "code": "D10",
+    "name_en": "ANTI-ACNE PREPARATIONS",
+    "name_he": null
+  },
+  {
+    "code": "D11",
+    "name_en": "OTHER DERMATOLOGICAL PREPARATIONS",
+    "name_he": null
+  },
+  {
+    "code": "G01",
+    "name_en": "GYNECOLOGICAL ANTIINFECTIVES AND ANTISEPTICS",
+    "name_he": null
+  },
+  {
+    "code": "G02",
+    "name_en": "OTHER GYNECOLOGICALS",
+    "name_he": null
+  },
+  {
+    "code": "G03",
+    "name_en": "SEX HORMONES AND MODULATORS OF THE GENITAL SYSTEM",
+    "name_he": null
+  },
+  {
+    "code": "G04",
+    "name_en": "UROLOGICALS",
+    "name_he": null
+  },
+  {
+    "code": "H01",
+    "name_en": "PITUITARY AND HYPOTHALAMIC HORMONES AND ANALOGUES",
+    "name_he": null
+  },
+  {
+    "code": "H02",
+    "name_en": "CORTICOSTEROIDS FOR SYSTEMIC USE",
+    "name_he": null
+  },
+  {
+    "code": "H03",
+    "name_en": "THYROID THERAPY",
+    "name_he": null
+  },
+  {
+    "code": "H04",
+    "name_en": "PANCREATIC HORMONES",
+    "name_he": null
+  },
+  {
+    "code": "H05",
+    "name_en": "CALCIUM HOMEOSTASIS",
+    "name_he": null
+  },
+  {
+    "code": "J01",
+    "name_en": "ANTIBACTERIALS FOR SYSTEMIC USE",
+    "name_he": null
+  },
+  {
+    "code": "J02",
+    "name_en": "ANTIMYCOTICS FOR SYSTEMIC USE",
+    "name_he": null
+  },
+  {
+    "code": "J04",
+    "name_en": "ANTIMYCOBACTERIALS",
+    "name_he": null
+  },
+  {
+    "code": "J05",
+    "name_en": "ANTIVIRALS FOR SYSTEMIC USE",
+    "name_he": null
+  },
+  {
+    "code": "J06",
+    "name_en": "IMMUNE SERA AND IMMUNOGLOBULINS",
+    "name_he": null
+  },
+  {
+    "code": "J07",
+    "name_en": "VACCINES",
+    "name_he": null
+  },
+  {
+    "code": "L01",
+    "name_en": "ANTINEOPLASTIC AGENTS",
+    "name_he": null
+  },
+  {
+    "code": "L02",
+    "name_en": "ENDOCRINE THERAPY",
+    "name_he": null
+  },
+  {
+    "code": "L03",
+    "name_en": "IMMUNOSTIMULANTS",
+    "name_he": null
+  },
+  {
+    "code": "L04",
+    "name_en": "IMMUNOSUPPRESSANTS",
+    "name_he": null
+  },
+  {
+    "code": "M01",
+    "name_en": "ANTIINFLAMMATORY AND ANTIRHEUMATIC PRODUCTS",
+    "name_he": null
+  },
+  {
+    "code": "M02",
+    "name_en": "TOPICAL PRODUCTS FOR JOINT AND MUSCULAR PAIN",
+    "name_he": null
+  },
+  {
+    "code": "M03",
+    "name_en": "MUSCLE RELAXANTS",
+    "name_he": null
+  },
+  {
+    "code": "M04",
+    "name_en": "ANTIGOUT PREPARATIONS",
+    "name_he": null
+  },
+  {
+    "code": "M05",
+    "name_en": "DRUGS FOR TREATMENT OF BONE DISEASES",
+    "name_he": null
+  },
+  {
+    "code": "M09",
+    "name_en": "OTHER DRUGS FOR DISORDERS OF THE MUSCULO-SKELETAL SYSTEM",
+    "name_he": null
+  },
+  {
+    "code": "N01",
+    "name_en": "ANESTHETICS",
+    "name_he": null
+  },
+  {
+    "code": "N02",
+    "name_en": "ANALGESICS",
+    "name_he": null
+  },
+  {
+    "code": "N03",
+    "name_en": "ANTIEPILEPTICS",
+    "name_he": null
+  },
+  {
+    "code": "N04",
+    "name_en": "ANTI-PARKINSON DRUGS",
+    "name_he": null
+  },
+  {
+    "code": "N05",
+    "name_en": "PSYCHOLEPTICS",
+    "name_he": null
+  },
+  {
+    "code": "N06",
+    "name_en": "PSYCHOANALEPTICS",
+    "name_he": null
+  },
+  {
+    "code": "N07",
+    "name_en": "OTHER NERVOUS SYSTEM DRUGS",
+    "name_he": null
+  },
+  {
+    "code": "P01",
+    "name_en": "ANTIPROTOZOALS",
+    "name_he": null
+  },
+  {
+    "code": "P02",
+    "name_en": "ANTHELMINTICS",
+    "name_he": null
+  },
+  {
+    "code": "P03",
+    "name_en": "ECTOPARASITICIDES, INCL. SCABICIDES, INSECTICIDES AND REPELLENTS",
+    "name_he": null
+  },
+  {
+    "code": "R01",
+    "name_en": "NASAL PREPARATIONS",
+    "name_he": null
+  },
+  {
+    "code": "R02",
+    "name_en": "THROAT PREPARATIONS",
+    "name_he": null
+  },
+  {
+    "code": "R03",
+    "name_en": "DRUGS FOR OBSTRUCTIVE AIRWAY DISEASES",
+    "name_he": null
+  },
+  {
+    "code": "R05",
+    "name_en": "COUGH AND COLD PREPARATIONS",
+    "name_he": null
+  },
+  {
+    "code": "R06",
+    "name_en": "ANTIHISTAMINES FOR SYSTEMIC USE",
+    "name_he": null
+  },
+  {
+    "code": "R07",
+    "name_en": "OTHER RESPIRATORY SYSTEM PRODUCTS",
+    "name_he": null
+  },
+  {
+    "code": "S01",
+    "name_en": "OPHTHALMOLOGICALS",
+    "name_he": null
+  },
+  {
+    "code": "S02",
+    "name_en": "OTOLOGICALS",
+    "name_he": null
+  },
+  {
+    "code": "S03",
+    "name_en": "OPHTHALMOLOGICAL AND OTOLOGICAL PREPARATIONS",
+    "name_he": null
+  },
+  {
+    "code": "V01",
+    "name_en": "ALLERGENS",
+    "name_he": null
+  },
+  {
+    "code": "V03",
+    "name_en": "ALL OTHER THERAPEUTIC PRODUCTS",
+    "name_he": null
+  },
+  {
+    "code": "V04",
+    "name_en": "DIAGNOSTIC AGENTS",
+    "name_he": null
+  },
+  {
+    "code": "V06",
+    "name_en": "GENERAL NUTRIENTS",
+    "name_he": null
+  },
+  {
+    "code": "V08",
+    "name_en": "CONTRAST MEDIA",
+    "name_he": null
+  },
+  {
+    "code": "V09",
+    "name_en": "DIAGNOSTIC RADIOPHARMACEUTICALS",
+    "name_he": null
+  },
+  {
+    "code": "V10",
+    "name_en": "THERAPEUTIC RADIOPHARMACEUTICALS",
+    "name_he": null
+  }
+]

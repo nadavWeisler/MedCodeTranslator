@@ -40,7 +40,7 @@ MedCodeTranslator is a **transparent, offline-capable, open-source retrieval eng
 ## Features
 
 - **Layered retrieval** — exact → prefix → substring → fuzzy, with per-result score and `matchMethod`
-- **8 medical code schemes** — ATC-5, ICD-10, ICD-9-CM, ICD-11, LOINC, CPT, HCPCS, CVX
+- **12 medical code schemes** — ATC-1, ATC-2, ATC-3, ATC-4, ATC-5, ICD-10, ICD-9-CM, ICD-11, LOINC, CPT, HCPCS, CVX
 - **Offline-first** — SQLite on-device via expo-sqlite; no network calls for search
 - **Transparent ranking** — every result exposes its score (0–1) and how it was matched
 - **Match highlighting** — character-level match spans returned for all result types
@@ -56,6 +56,10 @@ MedCodeTranslator is a **transparent, offline-capable, open-source retrieval eng
 
 | Scheme | Authority | Coverage |
 |--------|-----------|----------|
+| **ATC-1** | WHO/WHOCC | Drug anatomical main groups |
+| **ATC-2** | WHO/WHOCC | Drug therapeutic subgroups |
+| **ATC-3** | WHO/WHOCC | Drug pharmacological subgroups |
+| **ATC-4** | WHO/WHOCC | Drug chemical subgroups |
 | **ATC-5** | WHO Collaborating Centre (WHOCC) | Drug classification (level 5) |
 | **ICD-10** | CMS / WHO | Diagnosis codes |
 | **ICD-9-CM** | NBER / CMS (historical) | Legacy diagnosis codes |
@@ -67,7 +71,7 @@ MedCodeTranslator is a **transparent, offline-capable, open-source retrieval eng
 
 Data files live in [`data/vocabularies/`](data/vocabularies/). See [`DATA_SOURCES.md`](DATA_SOURCES.md) and [`data/vocabularies/source-metadata.json`](data/vocabularies/source-metadata.json) for provenance.
 
-> **Note:** Bundled datasets are curated demo subsets. For production use, replace with full official releases — see [`scripts/refresh_medical_db.py`](scripts/refresh_medical_db.py).
+> **Note:** Public vocabularies such as ATC, ICD-9-CM, ICD-10-CM, HCPCS, and CVX are bundled from source refreshes; ICD-11, LOINC, and CPT remain curated demo subsets. See [`data/vocabularies/source-metadata.json`](data/vocabularies/source-metadata.json) and [`scripts/fetch_public_vocabularies.py`](scripts/fetch_public_vocabularies.py).
 
 ---
 

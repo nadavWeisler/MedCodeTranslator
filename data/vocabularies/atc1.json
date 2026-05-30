@@ -1,0 +1,72 @@
+[
+  {
+    "code": "A",
+    "name_en": "ALIMENTARY TRACT AND METABOLISM",
+    "name_he": null
+  },
+  {
+    "code": "B",
+    "name_en": "BLOOD AND BLOOD FORMING ORGANS",
+    "name_he": null
+  },
+  {
+    "code": "C",
+    "name_en": "CARDIOVASCULAR SYSTEM",
+    "name_he": null
+  },
+  {
+    "code": "D",
+    "name_en": "DERMATOLOGICALS",
+    "name_he": null
+  },
+  {
+    "code": "G",
+    "name_en": "GENITO URINARY SYSTEM AND SEX HORMONES",
+    "name_he": null
+  },
+  {
+    "code": "H",
+    "name_en": "SYSTEMIC HORMONAL PREPARATIONS, EXCL. SEX HORMONES AND INSULINS",
+    "name_he": null
+  },
+  {
+    "code": "J",
+    "name_en": "ANTIINFECTIVES FOR SYSTEMIC USE",
+    "name_he": null
+  },
+  {
+    "code": "L",
+    "name_en": "ANTINEOPLASTIC AND IMMUNOMODULATING AGENTS",
+    "name_he": null
+  },
+  {
+    "code": "M",
+    "name_en": "MUSCULO-SKELETAL SYSTEM",
+    "name_he": null
+  },
+  {
+    "code": "N",
+    "name_en": "NERVOUS SYSTEM",
+    "name_he": null
+  },
+  {
+    "code": "P",
+    "name_en": "ANTIPARASITIC PRODUCTS, INSECTICIDES AND REPELLENTS",
+    "name_he": null
+  },
+  {
+    "code": "R",
+    "name_en": "RESPIRATORY SYSTEM",
+    "name_he": null
+  },
+  {
+    "code": "S",
+    "name_en": "SENSORY ORGANS",
+    "name_he": null
+  },
+  {
+    "code": "V",
+    "name_en": "VARIOUS",
+    "name_he": null
+  }
+]

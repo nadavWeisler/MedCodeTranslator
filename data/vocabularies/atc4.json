@@ -1,0 +1,4207 @@
+[
+  {
+    "code": "A01AA",
+    "name_en": "Caries prophylactic agents",
+    "name_he": null
+  },
+  {
+    "code": "A01AB",
+    "name_en": "Antiinfectives and antiseptics for local oral treatment",
+    "name_he": null
+  },
+  {
+    "code": "A01AC",
+    "name_en": "Corticosteroids for local oral treatment",
+    "name_he": null
+  },
+  {
+    "code": "A01AD",
+    "name_en": "Other agents for local oral treatment",
+    "name_he": null
+  },
+  {
+    "code": "A02AA",
+    "name_en": "Magnesium compounds",
+    "name_he": null
+  },
+  {
+    "code": "A02AB",
+    "name_en": "Aluminium compounds",
+    "name_he": null
+  },
+  {
+    "code": "A02AC",
+    "name_en": "Calcium compounds",
+    "name_he": null
+  },
+  {
+    "code": "A02AD",
+    "name_en": "Combinations and complexes of aluminium, calcium and magnesium compounds",
+    "name_he": null
+  },
+  {
+    "code": "A02AF",
+    "name_en": "Antacids with antiflatulents",
+    "name_he": null
+  },
+  {
+    "code": "A02BA",
+    "name_en": "H2-receptor antagonists",
+    "name_he": null
+  },
+  {
+    "code": "A02BB",
+    "name_en": "Prostaglandins",
+    "name_he": null
+  },
+  {
+    "code": "A02BC",
+    "name_en": "Proton pump inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "A02BD",
+    "name_en": "Combinations for eradication of Helicobacter pylori",
+    "name_he": null
+  },
+  {
+    "code": "A02BX",
+    "name_en": "Other drugs for peptic ulcer and gastro-oesophageal reflux disease (GORD)",
+    "name_he": null
+  },
+  {
+    "code": "A03AA",
+    "name_en": "Synthetic anticholinergics, esters with tertiary amino group",
+    "name_he": null
+  },
+  {
+    "code": "A03AB",
+    "name_en": "Synthetic anticholinergics, quaternary ammonium compounds",
+    "name_he": null
+  },
+  {
+    "code": "A03AC",
+    "name_en": "Synthetic antispasmodics, amides with tertiary amines",
+    "name_he": null
+  },
+  {
+    "code": "A03AD",
+    "name_en": "Papaverine and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "A03AE",
+    "name_en": "Serotonin receptor antagonists",
+    "name_he": null
+  },
+  {
+    "code": "A03AX",
+    "name_en": "Other drugs for functional gastrointestinal disorders",
+    "name_he": null
+  },
+  {
+    "code": "A03BA",
+    "name_en": "Belladonna alkaloids, tertiary amines",
+    "name_he": null
+  },
+  {
+    "code": "A03BB",
+    "name_en": "Belladonna alkaloids, semisynthetic, quaternary ammonium compounds",
+    "name_he": null
+  },
+  {
+    "code": "A03CA",
+    "name_en": "Synthetic anticholinergic agents in combination with psycholeptics",
+    "name_he": null
+  },
+  {
+    "code": "A03CB",
+    "name_en": "Belladonna and derivatives in combination with psycholeptics",
+    "name_he": null
+  },
+  {
+    "code": "A03DA",
+    "name_en": "Synthetic anticholinergic agents in combination with analgesics",
+    "name_he": null
+  },
+  {
+    "code": "A03DB",
+    "name_en": "Belladonna and derivatives in combination with analgesics",
+    "name_he": null
+  },
+  {
+    "code": "A03FA",
+    "name_en": "Propulsives",
+    "name_he": null
+  },
+  {
+    "code": "A04AA",
+    "name_en": "Serotonin (5HT3) antagonists",
+    "name_he": null
+  },
+  {
+    "code": "A04AD",
+    "name_en": "Other antiemetics",
+    "name_he": null
+  },
+  {
+    "code": "A05AA",
+    "name_en": "Bile acids and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "A05AB",
+    "name_en": "Preparations for biliary tract therapy",
+    "name_he": null
+  },
+  {
+    "code": "A05AX",
+    "name_en": "Other drugs for bile therapy",
+    "name_he": null
+  },
+  {
+    "code": "A05BA",
+    "name_en": "Liver therapy",
+    "name_he": null
+  },
+  {
+    "code": "A06AA",
+    "name_en": "Softeners, emollients",
+    "name_he": null
+  },
+  {
+    "code": "A06AB",
+    "name_en": "Contact laxatives",
+    "name_he": null
+  },
+  {
+    "code": "A06AC",
+    "name_en": "Bulk-forming laxatives",
+    "name_he": null
+  },
+  {
+    "code": "A06AD",
+    "name_en": "Osmotically acting laxatives",
+    "name_he": null
+  },
+  {
+    "code": "A06AG",
+    "name_en": "Enemas",
+    "name_he": null
+  },
+  {
+    "code": "A06AH",
+    "name_en": "Peripheral opioid receptor antagonists",
+    "name_he": null
+  },
+  {
+    "code": "A06AX",
+    "name_en": "Other drugs for constipation",
+    "name_he": null
+  },
+  {
+    "code": "A07AA",
+    "name_en": "Antibiotics",
+    "name_he": null
+  },
+  {
+    "code": "A07AB",
+    "name_en": "Sulfonamides",
+    "name_he": null
+  },
+  {
+    "code": "A07AC",
+    "name_en": "Imidazole derivatives",
+    "name_he": null
+  },
+  {
+    "code": "A07AX",
+    "name_en": "Other intestinal antiinfectives",
+    "name_he": null
+  },
+  {
+    "code": "A07BA",
+    "name_en": "Charcoal preparations",
+    "name_he": null
+  },
+  {
+    "code": "A07BC",
+    "name_en": "Other intestinal adsorbents",
+    "name_he": null
+  },
+  {
+    "code": "A07DA",
+    "name_en": "Antipropulsives",
+    "name_he": null
+  },
+  {
+    "code": "A07EA",
+    "name_en": "Corticosteroids acting locally",
+    "name_he": null
+  },
+  {
+    "code": "A07EB",
+    "name_en": "Antiallergic agents, excl. corticosteroids",
+    "name_he": null
+  },
+  {
+    "code": "A07EC",
+    "name_en": "Aminosalicylic acid and similar agents",
+    "name_he": null
+  },
+  {
+    "code": "A07FA",
+    "name_en": "Antidiarrheal microorganisms",
+    "name_he": null
+  },
+  {
+    "code": "A07XA",
+    "name_en": "Other antidiarrheals",
+    "name_he": null
+  },
+  {
+    "code": "A08AA",
+    "name_en": "Centrally acting antiobesity products",
+    "name_he": null
+  },
+  {
+    "code": "A08AB",
+    "name_en": "Peripherally acting antiobesity products",
+    "name_he": null
+  },
+  {
+    "code": "A08AX",
+    "name_en": "Other antiobesity drugs",
+    "name_he": null
+  },
+  {
+    "code": "A09AA",
+    "name_en": "Enzyme preparations",
+    "name_he": null
+  },
+  {
+    "code": "A09AB",
+    "name_en": "Acid preparations",
+    "name_he": null
+  },
+  {
+    "code": "A09AC",
+    "name_en": "Enzyme and acid preparations, combinations",
+    "name_he": null
+  },
+  {
+    "code": "A10AB",
+    "name_en": "Insulins and analogues for injection, fast-acting",
+    "name_he": null
+  },
+  {
+    "code": "A10AC",
+    "name_en": "Insulins and analogues for injection, intermediate-acting",
+    "name_he": null
+  },
+  {
+    "code": "A10AD",
+    "name_en": "Insulins and analogues for injection, intermediate- or long-acting combined with fast-acting",
+    "name_he": null
+  },
+  {
+    "code": "A10AE",
+    "name_en": "Insulins and analogues for injection, long-acting",
+    "name_he": null
+  },
+  {
+    "code": "A10AF",
+    "name_en": "Insulins and analogues for inhalation",
+    "name_he": null
+  },
+  {
+    "code": "A10BA",
+    "name_en": "Biguanides",
+    "name_he": null
+  },
+  {
+    "code": "A10BB",
+    "name_en": "Sulfonylureas",
+    "name_he": null
+  },
+  {
+    "code": "A10BC",
+    "name_en": "Sulfonamides (heterocyclic)",
+    "name_he": null
+  },
+  {
+    "code": "A10BD",
+    "name_en": "Combinations of oral blood glucose lowering drugs",
+    "name_he": null
+  },
+  {
+    "code": "A10BF",
+    "name_en": "Alpha glucosidase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "A10BG",
+    "name_en": "Thiazolidinediones",
+    "name_he": null
+  },
+  {
+    "code": "A10BH",
+    "name_en": "Dipeptidyl peptidase 4 (DPP-4) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "A10BJ",
+    "name_en": "Glucagon-like peptide-1 (GLP-1) analogues",
+    "name_he": null
+  },
+  {
+    "code": "A10BK",
+    "name_en": "Sodium-glucose co-transporter 2 (SGLT2) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "A10BX",
+    "name_en": "Other blood glucose lowering drugs, excl. insulins",
+    "name_he": null
+  },
+  {
+    "code": "A10XA",
+    "name_en": "Aldose reductase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "A10XX",
+    "name_en": "Other drugs used in diabetes",
+    "name_he": null
+  },
+  {
+    "code": "A11AA",
+    "name_en": "Multivitamins with minerals",
+    "name_he": null
+  },
+  {
+    "code": "A11CA",
+    "name_en": "Vitamin A, plain",
+    "name_he": null
+  },
+  {
+    "code": "A11CC",
+    "name_en": "Vitamin D and analogues",
+    "name_he": null
+  },
+  {
+    "code": "A11DA",
+    "name_en": "Vitamin B1, plain",
+    "name_he": null
+  },
+  {
+    "code": "A11GA",
+    "name_en": "Ascorbic acid (vitamin C), plain",
+    "name_he": null
+  },
+  {
+    "code": "A11GB",
+    "name_en": "Ascorbic acid (vitamin C), combinations",
+    "name_he": null
+  },
+  {
+    "code": "A11HA",
+    "name_en": "Other plain vitamin preparations",
+    "name_he": null
+  },
+  {
+    "code": "A12AA",
+    "name_en": "Calcium",
+    "name_he": null
+  },
+  {
+    "code": "A12BA",
+    "name_en": "Potassium",
+    "name_he": null
+  },
+  {
+    "code": "A12CA",
+    "name_en": "Sodium",
+    "name_he": null
+  },
+  {
+    "code": "A12CB",
+    "name_en": "Zinc",
+    "name_he": null
+  },
+  {
+    "code": "A12CC",
+    "name_en": "Magnesium",
+    "name_he": null
+  },
+  {
+    "code": "A12CD",
+    "name_en": "Fluoride",
+    "name_he": null
+  },
+  {
+    "code": "A12CE",
+    "name_en": "Selenium",
+    "name_he": null
+  },
+  {
+    "code": "A14AA",
+    "name_en": "Androstan derivatives",
+    "name_he": null
+  },
+  {
+    "code": "A14AB",
+    "name_en": "Estren derivatives",
+    "name_he": null
+  },
+  {
+    "code": "A16AA",
+    "name_en": "Amino acids and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "A16AB",
+    "name_en": "Enzymes",
+    "name_he": null
+  },
+  {
+    "code": "A16AX",
+    "name_en": "Various alimentary tract and metabolism products",
+    "name_he": null
+  },
+  {
+    "code": "B01AA",
+    "name_en": "Vitamin K antagonists",
+    "name_he": null
+  },
+  {
+    "code": "B01AB",
+    "name_en": "Heparin group",
+    "name_he": null
+  },
+  {
+    "code": "B01AC",
+    "name_en": "Platelet aggregation inhibitors excl. heparin",
+    "name_he": null
+  },
+  {
+    "code": "B01AD",
+    "name_en": "Enzymes",
+    "name_he": null
+  },
+  {
+    "code": "B01AE",
+    "name_en": "Direct thrombin inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "B01AF",
+    "name_en": "Direct factor Xa inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "B01AX",
+    "name_en": "Other antithrombotic agents",
+    "name_he": null
+  },
+  {
+    "code": "B02AA",
+    "name_en": "Amino acids",
+    "name_he": null
+  },
+  {
+    "code": "B02AB",
+    "name_en": "Proteinase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "B02BA",
+    "name_en": "Vitamin K",
+    "name_he": null
+  },
+  {
+    "code": "B02BB",
+    "name_en": "Fibrinogen",
+    "name_he": null
+  },
+  {
+    "code": "B02BC",
+    "name_en": "Local hemostatics",
+    "name_he": null
+  },
+  {
+    "code": "B02BD",
+    "name_en": "Blood coagulation factors",
+    "name_he": null
+  },
+  {
+    "code": "B02BX",
+    "name_en": "Other systemic hemostatics",
+    "name_he": null
+  },
+  {
+    "code": "B03AA",
+    "name_en": "Iron bivalent, oral preparations",
+    "name_he": null
+  },
+  {
+    "code": "B03AB",
+    "name_en": "Iron trivalent, oral preparations",
+    "name_he": null
+  },
+  {
+    "code": "B03AD",
+    "name_en": "Iron in combination with folic acid",
+    "name_he": null
+  },
+  {
+    "code": "B03AE",
+    "name_en": "Iron in other combinations",
+    "name_he": null
+  },
+  {
+    "code": "B03BA",
+    "name_en": "Vitamin B12 (cyanocobalamin and analogues)",
+    "name_he": null
+  },
+  {
+    "code": "B03BB",
+    "name_en": "Folic acid and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "B03XA",
+    "name_en": "Other antianemic preparations",
+    "name_he": null
+  },
+  {
+    "code": "B05AA",
+    "name_en": "Blood substitutes and plasma protein fractions",
+    "name_he": null
+  },
+  {
+    "code": "B05AX",
+    "name_en": "Other blood products",
+    "name_he": null
+  },
+  {
+    "code": "B05BA",
+    "name_en": "Solutions for parenteral nutrition",
+    "name_he": null
+  },
+  {
+    "code": "B05BB",
+    "name_en": "Solutions affecting the electrolyte balance",
+    "name_he": null
+  },
+  {
+    "code": "B05BC",
+    "name_en": "Solutions producing osmotic diuresis",
+    "name_he": null
+  },
+  {
+    "code": "B05CA",
+    "name_en": "Antiinfectives",
+    "name_he": null
+  },
+  {
+    "code": "B05CB",
+    "name_en": "Salt solutions",
+    "name_he": null
+  },
+  {
+    "code": "B05CX",
+    "name_en": "Other irrigating solutions",
+    "name_he": null
+  },
+  {
+    "code": "B05XA",
+    "name_en": "Electrolyte solutions",
+    "name_he": null
+  },
+  {
+    "code": "B05XB",
+    "name_en": "Amino acids",
+    "name_he": null
+  },
+  {
+    "code": "B05XX",
+    "name_en": "Other i.v. solution additives",
+    "name_he": null
+  },
+  {
+    "code": "B06AA",
+    "name_en": "Enzymes",
+    "name_he": null
+  },
+  {
+    "code": "B06AB",
+    "name_en": "Heme products",
+    "name_he": null
+  },
+  {
+    "code": "B06AC",
+    "name_en": "Drugs used in hereditary angioedema",
+    "name_he": null
+  },
+  {
+    "code": "B06AX",
+    "name_en": "Other hematological agents",
+    "name_he": null
+  },
+  {
+    "code": "C01AA",
+    "name_en": "Digitalis glycosides",
+    "name_he": null
+  },
+  {
+    "code": "C01AB",
+    "name_en": "Scilla glycosides",
+    "name_he": null
+  },
+  {
+    "code": "C01AC",
+    "name_en": "Strophanthus glycosides",
+    "name_he": null
+  },
+  {
+    "code": "C01AX",
+    "name_en": "Other cardiac glycosides",
+    "name_he": null
+  },
+  {
+    "code": "C01BA",
+    "name_en": "Antiarrhythmics, class Ia",
+    "name_he": null
+  },
+  {
+    "code": "C01BB",
+    "name_en": "Antiarrhythmics, class Ib",
+    "name_he": null
+  },
+  {
+    "code": "C01BC",
+    "name_en": "Antiarrhythmics, class Ic",
+    "name_he": null
+  },
+  {
+    "code": "C01BD",
+    "name_en": "Antiarrhythmics, class III",
+    "name_he": null
+  },
+  {
+    "code": "C01BG",
+    "name_en": "Other antiarrhythmics, class I and III",
+    "name_he": null
+  },
+  {
+    "code": "C01CA",
+    "name_en": "Adrenergic and dopaminergic agents",
+    "name_he": null
+  },
+  {
+    "code": "C01CE",
+    "name_en": "Phosphodiesterase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "C01CX",
+    "name_en": "Other cardiac stimulants",
+    "name_he": null
+  },
+  {
+    "code": "C01DA",
+    "name_en": "Organic nitrates",
+    "name_he": null
+  },
+  {
+    "code": "C01DB",
+    "name_en": "Quinolone vasodilators",
+    "name_he": null
+  },
+  {
+    "code": "C01DX",
+    "name_en": "Other vasodilators used in cardiac diseases",
+    "name_he": null
+  },
+  {
+    "code": "C01EA",
+    "name_en": "Prostaglandins",
+    "name_he": null
+  },
+  {
+    "code": "C01EB",
+    "name_en": "Other cardiac preparations",
+    "name_he": null
+  },
+  {
+    "code": "C02AA",
+    "name_en": "Rauwolfia alkaloids",
+    "name_he": null
+  },
+  {
+    "code": "C02AB",
+    "name_en": "Methyldopa",
+    "name_he": null
+  },
+  {
+    "code": "C02AC",
+    "name_en": "Imidazoline receptor agonists",
+    "name_he": null
+  },
+  {
+    "code": "C02BA",
+    "name_en": "Sulfonium derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C02BB",
+    "name_en": "Secondary and tertiary amines",
+    "name_he": null
+  },
+  {
+    "code": "C02CA",
+    "name_en": "Alpha-adrenoreceptor antagonists",
+    "name_he": null
+  },
+  {
+    "code": "C02CC",
+    "name_en": "Guanidine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C02DA",
+    "name_en": "Thiazide derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C02DB",
+    "name_en": "Hydrazinophthalazine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C02DC",
+    "name_en": "Pyrimidine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C02DD",
+    "name_en": "Nitroferricyanide derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C02DG",
+    "name_en": "Guanidine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C02KA",
+    "name_en": "Alkaloids, excl. rauwolfia",
+    "name_he": null
+  },
+  {
+    "code": "C02KB",
+    "name_en": "Tyrosine hydroxylase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "C02KC",
+    "name_en": "MAO inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "C02KD",
+    "name_en": "Serotonin antagonists",
+    "name_he": null
+  },
+  {
+    "code": "C02KN",
+    "name_en": "Other antihypertensives",
+    "name_he": null
+  },
+  {
+    "code": "C02KX",
+    "name_en": "Antihypertensives for pulmonary arterial hypertension",
+    "name_he": null
+  },
+  {
+    "code": "C02LA",
+    "name_en": "Rauwolfia alkaloids and diuretics in combination",
+    "name_he": null
+  },
+  {
+    "code": "C02LB",
+    "name_en": "Methyldopa and diuretics in combination",
+    "name_he": null
+  },
+  {
+    "code": "C02LC",
+    "name_en": "Imidazoline receptor agonists in combination with diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C02LE",
+    "name_en": "Alpha-adrenoreceptor antagonists and diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C02LF",
+    "name_en": "Guanidine derivatives and diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C02LG",
+    "name_en": "Hydrazinophthalazine derivatives and diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C02LK",
+    "name_en": "Alkaloids, excl. rauwolfia, in combination with diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C02LL",
+    "name_en": "MAO inhibitors and diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C02LX",
+    "name_en": "Other antihypertensives and diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C03AA",
+    "name_en": "Thiazides, plain",
+    "name_he": null
+  },
+  {
+    "code": "C03AB",
+    "name_en": "Thiazides and potassium in combination",
+    "name_he": null
+  },
+  {
+    "code": "C03AH",
+    "name_en": "Thiazides, combinations with psycholeptics and/or analgesics",
+    "name_he": null
+  },
+  {
+    "code": "C03AX",
+    "name_en": "Thiazides, combinations with other drugs",
+    "name_he": null
+  },
+  {
+    "code": "C03BA",
+    "name_en": "Sulfonamides, plain",
+    "name_he": null
+  },
+  {
+    "code": "C03BB",
+    "name_en": "Sulfonamides and potassium in combination",
+    "name_he": null
+  },
+  {
+    "code": "C03BC",
+    "name_en": "Mercurial diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C03BD",
+    "name_en": "Xanthine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C03BX",
+    "name_en": "Other low-ceiling diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C03CA",
+    "name_en": "Sulfonamides, plain",
+    "name_he": null
+  },
+  {
+    "code": "C03CB",
+    "name_en": "Sulfonamides and potassium in combination",
+    "name_he": null
+  },
+  {
+    "code": "C03CC",
+    "name_en": "Aryloxyacetic acid derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C03CD",
+    "name_en": "Pyrazolone derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C03CX",
+    "name_en": "Other high-ceiling diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C03DA",
+    "name_en": "Aldosterone antagonists",
+    "name_he": null
+  },
+  {
+    "code": "C03DB",
+    "name_en": "Other potassium-sparing agents",
+    "name_he": null
+  },
+  {
+    "code": "C03EA",
+    "name_en": "Low-ceiling diuretics and potassium-sparing agents",
+    "name_he": null
+  },
+  {
+    "code": "C03EB",
+    "name_en": "High-ceiling diuretics and potassium-sparing agents",
+    "name_he": null
+  },
+  {
+    "code": "C03XA",
+    "name_en": "Vasopressin antagonists",
+    "name_he": null
+  },
+  {
+    "code": "C04AA",
+    "name_en": "2-amino-1-phenylethanol derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C04AB",
+    "name_en": "Imidazoline derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C04AC",
+    "name_en": "Nicotinic acid and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C04AD",
+    "name_en": "Purine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C04AE",
+    "name_en": "Ergot alkaloids",
+    "name_he": null
+  },
+  {
+    "code": "C04AF",
+    "name_en": "Enzymes",
+    "name_he": null
+  },
+  {
+    "code": "C04AX",
+    "name_en": "Other peripheral vasodilators",
+    "name_he": null
+  },
+  {
+    "code": "C05AA",
+    "name_en": "Corticosteroids",
+    "name_he": null
+  },
+  {
+    "code": "C05AD",
+    "name_en": "Local anesthetics",
+    "name_he": null
+  },
+  {
+    "code": "C05AE",
+    "name_en": "Muscle relaxants",
+    "name_he": null
+  },
+  {
+    "code": "C05AX",
+    "name_en": "Other agents for treatment of hemorrhoids and anal fissures for topical use",
+    "name_he": null
+  },
+  {
+    "code": "C05BA",
+    "name_en": "Heparins or heparinoids for topical use",
+    "name_he": null
+  },
+  {
+    "code": "C05BB",
+    "name_en": "Sclerosing agents for local injection",
+    "name_he": null
+  },
+  {
+    "code": "C05BX",
+    "name_en": "Other sclerosing agents",
+    "name_he": null
+  },
+  {
+    "code": "C05CA",
+    "name_en": "Bioflavonoids",
+    "name_he": null
+  },
+  {
+    "code": "C05CX",
+    "name_en": "Other capillary stabilizing agents",
+    "name_he": null
+  },
+  {
+    "code": "C05XX",
+    "name_en": "Other vasoprotectives",
+    "name_he": null
+  },
+  {
+    "code": "C07AA",
+    "name_en": "Beta blocking agents, non-selective",
+    "name_he": null
+  },
+  {
+    "code": "C07AB",
+    "name_en": "Beta blocking agents, selective",
+    "name_he": null
+  },
+  {
+    "code": "C07AG",
+    "name_en": "Alpha and beta blocking agents",
+    "name_he": null
+  },
+  {
+    "code": "C07BA",
+    "name_en": "Beta blocking agents, non-selective, and thiazides",
+    "name_he": null
+  },
+  {
+    "code": "C07BB",
+    "name_en": "Beta blocking agents, selective, and thiazides",
+    "name_he": null
+  },
+  {
+    "code": "C07BG",
+    "name_en": "Alpha and beta blocking agents and thiazides",
+    "name_he": null
+  },
+  {
+    "code": "C07CA",
+    "name_en": "Beta blocking agents, non-selective, and other diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C07CB",
+    "name_en": "Beta blocking agents, selective, and other diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C07CG",
+    "name_en": "Alpha and beta blocking agents and other diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C07DA",
+    "name_en": "Beta blocking agents, non-selective, thiazides and other diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C07DB",
+    "name_en": "Beta blocking agents, selective, thiazides and other diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C07FB",
+    "name_en": "Beta blocking agents and calcium channel blockers",
+    "name_he": null
+  },
+  {
+    "code": "C07FX",
+    "name_en": "Beta blocking agents, other combinations",
+    "name_he": null
+  },
+  {
+    "code": "C08CA",
+    "name_en": "Dihydropyridine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C08CX",
+    "name_en": "Other selective calcium channel blockers with mainly vascular effects",
+    "name_he": null
+  },
+  {
+    "code": "C08DA",
+    "name_en": "Phenylalkylamine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C08DB",
+    "name_en": "Benzothiazepine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C08EA",
+    "name_en": "Phenylalkylamine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C08EX",
+    "name_en": "Other non-selective calcium channel blockers",
+    "name_he": null
+  },
+  {
+    "code": "C08GA",
+    "name_en": "Calcium channel blockers and diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C09AA",
+    "name_en": "ACE inhibitors, plain",
+    "name_he": null
+  },
+  {
+    "code": "C09BA",
+    "name_en": "ACE inhibitors and diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C09BB",
+    "name_en": "ACE inhibitors and calcium channel blockers",
+    "name_he": null
+  },
+  {
+    "code": "C09BX",
+    "name_en": "ACE inhibitors, other combinations",
+    "name_he": null
+  },
+  {
+    "code": "C09CA",
+    "name_en": "Angiotensin II receptor blockers (ARBs), plain",
+    "name_he": null
+  },
+  {
+    "code": "C09DA",
+    "name_en": "Angiotensin II receptor blockers (ARBs) and diuretics",
+    "name_he": null
+  },
+  {
+    "code": "C09DB",
+    "name_en": "Angiotensin II receptor blockers (ARBs) and calcium channel blockers",
+    "name_he": null
+  },
+  {
+    "code": "C09DX",
+    "name_en": "Angiotensin II receptor blockers (ARBs), other combinations",
+    "name_he": null
+  },
+  {
+    "code": "C09XA",
+    "name_en": "Renin-inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "C09XX",
+    "name_en": "Other agents acting on the renin-angiotensin system",
+    "name_he": null
+  },
+  {
+    "code": "C10AA",
+    "name_en": "HMG CoA reductase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "C10AB",
+    "name_en": "Fibrates",
+    "name_he": null
+  },
+  {
+    "code": "C10AC",
+    "name_en": "Bile acid sequestrants",
+    "name_he": null
+  },
+  {
+    "code": "C10AD",
+    "name_en": "Nicotinic acid and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "C10AX",
+    "name_en": "Other lipid modifying agents",
+    "name_he": null
+  },
+  {
+    "code": "C10BA",
+    "name_en": "Combinations of various lipid modifying agents",
+    "name_he": null
+  },
+  {
+    "code": "C10BX",
+    "name_en": "Lipid modifying agents in combination with other drugs",
+    "name_he": null
+  },
+  {
+    "code": "D01AA",
+    "name_en": "Antibiotics",
+    "name_he": null
+  },
+  {
+    "code": "D01AC",
+    "name_en": "Imidazole and triazole derivatives",
+    "name_he": null
+  },
+  {
+    "code": "D01AE",
+    "name_en": "Other antifungals for topical use",
+    "name_he": null
+  },
+  {
+    "code": "D01BA",
+    "name_en": "Antifungals for systemic use",
+    "name_he": null
+  },
+  {
+    "code": "D02AE",
+    "name_en": "Carbamide products",
+    "name_he": null
+  },
+  {
+    "code": "D02BA",
+    "name_en": "Protectives against UV-radiation for topical use",
+    "name_he": null
+  },
+  {
+    "code": "D02BB",
+    "name_en": "Protectives against UV-radiation for systemic use",
+    "name_he": null
+  },
+  {
+    "code": "D03AX",
+    "name_en": "Other cicatrizants",
+    "name_he": null
+  },
+  {
+    "code": "D03BA",
+    "name_en": "Proteolytic enzymes",
+    "name_he": null
+  },
+  {
+    "code": "D04AA",
+    "name_en": "Antihistamines for topical use",
+    "name_he": null
+  },
+  {
+    "code": "D04AB",
+    "name_en": "Anesthetics for topical use",
+    "name_he": null
+  },
+  {
+    "code": "D04AX",
+    "name_en": "Other antipruritics",
+    "name_he": null
+  },
+  {
+    "code": "D05AC",
+    "name_en": "Antracen derivatives",
+    "name_he": null
+  },
+  {
+    "code": "D05AD",
+    "name_en": "Psoralens for topical use",
+    "name_he": null
+  },
+  {
+    "code": "D05AX",
+    "name_en": "Other antipsoriatics for topical use",
+    "name_he": null
+  },
+  {
+    "code": "D05BA",
+    "name_en": "Psoralens for systemic use",
+    "name_he": null
+  },
+  {
+    "code": "D05BB",
+    "name_en": "Retinoids for treatment of psoriasis",
+    "name_he": null
+  },
+  {
+    "code": "D05BX",
+    "name_en": "Other antipsoriatics for systemic use",
+    "name_he": null
+  },
+  {
+    "code": "D06AA",
+    "name_en": "Tetracycline and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "D06AX",
+    "name_en": "Other antibiotics for topical use",
+    "name_he": null
+  },
+  {
+    "code": "D06BA",
+    "name_en": "Sulfonamides",
+    "name_he": null
+  },
+  {
+    "code": "D06BB",
+    "name_en": "Antivirals",
+    "name_he": null
+  },
+  {
+    "code": "D06BX",
+    "name_en": "Other chemotherapeutics",
+    "name_he": null
+  },
+  {
+    "code": "D07AA",
+    "name_en": "Corticosteroids, weak (group I)",
+    "name_he": null
+  },
+  {
+    "code": "D07AB",
+    "name_en": "Corticosteroids, moderately potent (group II)",
+    "name_he": null
+  },
+  {
+    "code": "D07AC",
+    "name_en": "Corticosteroids, potent (group III)",
+    "name_he": null
+  },
+  {
+    "code": "D07AD",
+    "name_en": "Corticosteroids, very potent (group IV)",
+    "name_he": null
+  },
+  {
+    "code": "D07BA",
+    "name_en": "Corticosteroids, weak, combinations with antiseptics",
+    "name_he": null
+  },
+  {
+    "code": "D07BB",
+    "name_en": "Corticosteroids, moderately potent, combinations with antiseptics",
+    "name_he": null
+  },
+  {
+    "code": "D07BC",
+    "name_en": "Corticosteroids, potent, combinations with antiseptics",
+    "name_he": null
+  },
+  {
+    "code": "D07CA",
+    "name_en": "Corticosteroids, weak, combinations with antibiotics",
+    "name_he": null
+  },
+  {
+    "code": "D07CB",
+    "name_en": "Corticosteroids, moderately potent, combinations with antibiotics",
+    "name_he": null
+  },
+  {
+    "code": "D07CC",
+    "name_en": "Corticosteroids, potent, combinations with antibiotics",
+    "name_he": null
+  },
+  {
+    "code": "D07CD",
+    "name_en": "Corticosteroids, very potent, combinations with antibiotics",
+    "name_he": null
+  },
+  {
+    "code": "D07XA",
+    "name_en": "Corticosteroids, weak, other combinations",
+    "name_he": null
+  },
+  {
+    "code": "D07XB",
+    "name_en": "Corticosteroids, moderately potent, other combinations",
+    "name_he": null
+  },
+  {
+    "code": "D07XC",
+    "name_en": "Corticosteroids, potent, other combinations",
+    "name_he": null
+  },
+  {
+    "code": "D08AA",
+    "name_en": "Acridine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "D08AC",
+    "name_en": "Biguanides and amidines",
+    "name_he": null
+  },
+  {
+    "code": "D08AE",
+    "name_en": "Phenol and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "D08AF",
+    "name_en": "Nitrofuran derivatives",
+    "name_he": null
+  },
+  {
+    "code": "D08AG",
+    "name_en": "Iodine products",
+    "name_he": null
+  },
+  {
+    "code": "D08AH",
+    "name_en": "Quinoline derivatives",
+    "name_he": null
+  },
+  {
+    "code": "D08AJ",
+    "name_en": "Quaternary ammonium compounds",
+    "name_he": null
+  },
+  {
+    "code": "D08AK",
+    "name_en": "Mercurial products",
+    "name_he": null
+  },
+  {
+    "code": "D08AL",
+    "name_en": "Silver compounds",
+    "name_he": null
+  },
+  {
+    "code": "D08AX",
+    "name_en": "Other antiseptics and disinfectants",
+    "name_he": null
+  },
+  {
+    "code": "D09AA",
+    "name_en": "Medicated dressings with antiinfectives",
+    "name_he": null
+  },
+  {
+    "code": "D09AB",
+    "name_en": "Zinc bandages",
+    "name_he": null
+  },
+  {
+    "code": "D10AA",
+    "name_en": "Corticosteroids, combinations for treatment of acne",
+    "name_he": null
+  },
+  {
+    "code": "D10AB",
+    "name_en": "Preparations containing sulfur",
+    "name_he": null
+  },
+  {
+    "code": "D10AD",
+    "name_en": "Retinoids for topical use in acne",
+    "name_he": null
+  },
+  {
+    "code": "D10AE",
+    "name_en": "Peroxides",
+    "name_he": null
+  },
+  {
+    "code": "D10AF",
+    "name_en": "Antiinfectives for treatment of acne",
+    "name_he": null
+  },
+  {
+    "code": "D10AX",
+    "name_en": "Other anti-acne preparations for topical use",
+    "name_he": null
+  },
+  {
+    "code": "D10BA",
+    "name_en": "Retinoids for treatment of acne",
+    "name_he": null
+  },
+  {
+    "code": "D10BX",
+    "name_en": "Other anti-acne preparations for systemic use",
+    "name_he": null
+  },
+  {
+    "code": "D11AA",
+    "name_en": "Antihidrotics",
+    "name_he": null
+  },
+  {
+    "code": "D11AC",
+    "name_en": "Medicated shampoos",
+    "name_he": null
+  },
+  {
+    "code": "D11AE",
+    "name_en": "Androgens for topical use",
+    "name_he": null
+  },
+  {
+    "code": "D11AH",
+    "name_en": "Agents for dermatitis, excluding corticosteroids",
+    "name_he": null
+  },
+  {
+    "code": "D11AX",
+    "name_en": "Other dermatologicals",
+    "name_he": null
+  },
+  {
+    "code": "G01AA",
+    "name_en": "Antibiotics",
+    "name_he": null
+  },
+  {
+    "code": "G01AB",
+    "name_en": "Arsenic compounds",
+    "name_he": null
+  },
+  {
+    "code": "G01AC",
+    "name_en": "Quinoline derivatives",
+    "name_he": null
+  },
+  {
+    "code": "G01AD",
+    "name_en": "Organic acids",
+    "name_he": null
+  },
+  {
+    "code": "G01AE",
+    "name_en": "Sulfonamides",
+    "name_he": null
+  },
+  {
+    "code": "G01AF",
+    "name_en": "Imidazole derivatives",
+    "name_he": null
+  },
+  {
+    "code": "G01AG",
+    "name_en": "Triazole derivatives",
+    "name_he": null
+  },
+  {
+    "code": "G01AX",
+    "name_en": "Other antiinfectives and antiseptics",
+    "name_he": null
+  },
+  {
+    "code": "G02AB",
+    "name_en": "Ergot alkaloids",
+    "name_he": null
+  },
+  {
+    "code": "G02AC",
+    "name_en": "Ergot alkaloids and oxytocin incl. analogues, in combination",
+    "name_he": null
+  },
+  {
+    "code": "G02AD",
+    "name_en": "Prostaglandins",
+    "name_he": null
+  },
+  {
+    "code": "G02BA",
+    "name_en": "Intrauterine contraceptives",
+    "name_he": null
+  },
+  {
+    "code": "G02BB",
+    "name_en": "Intravaginal contraceptives",
+    "name_he": null
+  },
+  {
+    "code": "G02CA",
+    "name_en": "Sympathomimetics, labour repressants",
+    "name_he": null
+  },
+  {
+    "code": "G02CB",
+    "name_en": "Prolactine inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "G02CC",
+    "name_en": "Antiinflammatory products for vaginal administration",
+    "name_he": null
+  },
+  {
+    "code": "G02CX",
+    "name_en": "Other gynecologicals",
+    "name_he": null
+  },
+  {
+    "code": "G03AA",
+    "name_en": "Progestogens and estrogens, fixed combinations",
+    "name_he": null
+  },
+  {
+    "code": "G03AB",
+    "name_en": "Progestogens and estrogens, sequential preparations",
+    "name_he": null
+  },
+  {
+    "code": "G03AC",
+    "name_en": "Progestogens",
+    "name_he": null
+  },
+  {
+    "code": "G03AD",
+    "name_en": "Emergency contraceptives",
+    "name_he": null
+  },
+  {
+    "code": "G03BA",
+    "name_en": "3-oxoandrosten (4) derivatives",
+    "name_he": null
+  },
+  {
+    "code": "G03BB",
+    "name_en": "5-androstanon (3) derivatives",
+    "name_he": null
+  },
+  {
+    "code": "G03CA",
+    "name_en": "Natural and semisynthetic estrogens, plain",
+    "name_he": null
+  },
+  {
+    "code": "G03CB",
+    "name_en": "Synthetic estrogens, plain",
+    "name_he": null
+  },
+  {
+    "code": "G03CC",
+    "name_en": "Estrogens, combinations with other drugs",
+    "name_he": null
+  },
+  {
+    "code": "G03CX",
+    "name_en": "Other estrogens",
+    "name_he": null
+  },
+  {
+    "code": "G03DA",
+    "name_en": "Pregnen (4) derivatives",
+    "name_he": null
+  },
+  {
+    "code": "G03DB",
+    "name_en": "Pregnadien derivatives",
+    "name_he": null
+  },
+  {
+    "code": "G03DC",
+    "name_en": "Estren derivatives",
+    "name_he": null
+  },
+  {
+    "code": "G03EA",
+    "name_en": "Androgens and estrogens",
+    "name_he": null
+  },
+  {
+    "code": "G03EK",
+    "name_en": "Androgens and female sex hormones in combination with other drugs",
+    "name_he": null
+  },
+  {
+    "code": "G03FA",
+    "name_en": "Progestogens and estrogens, fixed combinations",
+    "name_he": null
+  },
+  {
+    "code": "G03FB",
+    "name_en": "Progestogens and estrogens, sequential preparations",
+    "name_he": null
+  },
+  {
+    "code": "G03GA",
+    "name_en": "Gonadotropins",
+    "name_he": null
+  },
+  {
+    "code": "G03GB",
+    "name_en": "Ovulation stimulants, synthetic",
+    "name_he": null
+  },
+  {
+    "code": "G03HA",
+    "name_en": "Antiandrogens, plain",
+    "name_he": null
+  },
+  {
+    "code": "G03HB",
+    "name_en": "Antiandrogens and estrogens",
+    "name_he": null
+  },
+  {
+    "code": "G03XA",
+    "name_en": "Antigonadotropins and similar agents",
+    "name_he": null
+  },
+  {
+    "code": "G03XB",
+    "name_en": "Progesterone receptor modulators",
+    "name_he": null
+  },
+  {
+    "code": "G03XC",
+    "name_en": "Selective estrogen receptor modulators",
+    "name_he": null
+  },
+  {
+    "code": "G03XX",
+    "name_en": "Other sex hormones and modulators of the genital system",
+    "name_he": null
+  },
+  {
+    "code": "G04BA",
+    "name_en": "Acidifiers",
+    "name_he": null
+  },
+  {
+    "code": "G04BD",
+    "name_en": "Drugs for urinary frequency and incontinence",
+    "name_he": null
+  },
+  {
+    "code": "G04BE",
+    "name_en": "Drugs used in erectile dysfunction",
+    "name_he": null
+  },
+  {
+    "code": "G04BX",
+    "name_en": "Other urologicals",
+    "name_he": null
+  },
+  {
+    "code": "G04CA",
+    "name_en": "Alpha-adrenoreceptor antagonists",
+    "name_he": null
+  },
+  {
+    "code": "G04CB",
+    "name_en": "Testosterone-5-alpha reductase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "G04CX",
+    "name_en": "Other drugs used in benign prostatic hypertrophy",
+    "name_he": null
+  },
+  {
+    "code": "H01AA",
+    "name_en": "ACTH",
+    "name_he": null
+  },
+  {
+    "code": "H01AB",
+    "name_en": "Thyrotropin",
+    "name_he": null
+  },
+  {
+    "code": "H01AC",
+    "name_en": "Somatropin and somatropin agonists",
+    "name_he": null
+  },
+  {
+    "code": "H01AX",
+    "name_en": "Other anterior pituitary lobe hormones and analogues",
+    "name_he": null
+  },
+  {
+    "code": "H01BA",
+    "name_en": "Vasopressin and analogues",
+    "name_he": null
+  },
+  {
+    "code": "H01BB",
+    "name_en": "Oxytocin and analogues",
+    "name_he": null
+  },
+  {
+    "code": "H01CA",
+    "name_en": "Gonadotropin-releasing hormones",
+    "name_he": null
+  },
+  {
+    "code": "H01CB",
+    "name_en": "Somatostatin and analogues",
+    "name_he": null
+  },
+  {
+    "code": "H01CC",
+    "name_en": "Anti-gonadotropin-releasing hormones",
+    "name_he": null
+  },
+  {
+    "code": "H02AA",
+    "name_en": "Mineralocorticoids",
+    "name_he": null
+  },
+  {
+    "code": "H02AB",
+    "name_en": "Glucocorticoids",
+    "name_he": null
+  },
+  {
+    "code": "H02BX",
+    "name_en": "Corticosteroids for systemic use, combinations",
+    "name_he": null
+  },
+  {
+    "code": "H02CA",
+    "name_en": "Anticorticosteroids",
+    "name_he": null
+  },
+  {
+    "code": "H03AA",
+    "name_en": "Thyroid hormones",
+    "name_he": null
+  },
+  {
+    "code": "H03BA",
+    "name_en": "Thiouracils",
+    "name_he": null
+  },
+  {
+    "code": "H03BB",
+    "name_en": "Sulfur-containing imidazole derivatives",
+    "name_he": null
+  },
+  {
+    "code": "H03BC",
+    "name_en": "Perchlorates",
+    "name_he": null
+  },
+  {
+    "code": "H03BX",
+    "name_en": "Other antithyroid preparations",
+    "name_he": null
+  },
+  {
+    "code": "H04AA",
+    "name_en": "Glycogenolytic hormones",
+    "name_he": null
+  },
+  {
+    "code": "H05AA",
+    "name_en": "Parathyroid hormones and analogues",
+    "name_he": null
+  },
+  {
+    "code": "H05BA",
+    "name_en": "Calcitonin preparations",
+    "name_he": null
+  },
+  {
+    "code": "H05BX",
+    "name_en": "Other anti-parathyroid agents",
+    "name_he": null
+  },
+  {
+    "code": "J01AA",
+    "name_en": "Tetracyclines",
+    "name_he": null
+  },
+  {
+    "code": "J01BA",
+    "name_en": "Amphenicols",
+    "name_he": null
+  },
+  {
+    "code": "J01CA",
+    "name_en": "Penicillins with extended spectrum",
+    "name_he": null
+  },
+  {
+    "code": "J01CE",
+    "name_en": "Beta-lactamase sensitive penicillins",
+    "name_he": null
+  },
+  {
+    "code": "J01CF",
+    "name_en": "Beta-lactamase resistant penicillins",
+    "name_he": null
+  },
+  {
+    "code": "J01CG",
+    "name_en": "Beta-lactamase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "J01CR",
+    "name_en": "Combinations of penicillins, incl. beta-lactamase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "J01DB",
+    "name_en": "First-generation cephalosporins",
+    "name_he": null
+  },
+  {
+    "code": "J01DC",
+    "name_en": "Second-generation cephalosporins",
+    "name_he": null
+  },
+  {
+    "code": "J01DD",
+    "name_en": "Third-generation cephalosporins",
+    "name_he": null
+  },
+  {
+    "code": "J01DE",
+    "name_en": "Fourth-generation cephalosporins",
+    "name_he": null
+  },
+  {
+    "code": "J01DF",
+    "name_en": "Monobactams",
+    "name_he": null
+  },
+  {
+    "code": "J01DH",
+    "name_en": "Carbapenems",
+    "name_he": null
+  },
+  {
+    "code": "J01DI",
+    "name_en": "Other cephalosporins and penems",
+    "name_he": null
+  },
+  {
+    "code": "J01EA",
+    "name_en": "Trimethoprim and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "J01EB",
+    "name_en": "Short-acting sulfonamides",
+    "name_he": null
+  },
+  {
+    "code": "J01EC",
+    "name_en": "Intermediate-acting sulfonamides",
+    "name_he": null
+  },
+  {
+    "code": "J01ED",
+    "name_en": "Long-acting sulfonamides",
+    "name_he": null
+  },
+  {
+    "code": "J01EE",
+    "name_en": "Combinations of sulfonamides and trimethoprim, incl. derivatives",
+    "name_he": null
+  },
+  {
+    "code": "J01FA",
+    "name_en": "Macrolides",
+    "name_he": null
+  },
+  {
+    "code": "J01FF",
+    "name_en": "Lincosamides",
+    "name_he": null
+  },
+  {
+    "code": "J01FG",
+    "name_en": "Streptogramins",
+    "name_he": null
+  },
+  {
+    "code": "J01GA",
+    "name_en": "Streptomycins",
+    "name_he": null
+  },
+  {
+    "code": "J01GB",
+    "name_en": "Other aminoglycosides",
+    "name_he": null
+  },
+  {
+    "code": "J01MA",
+    "name_en": "Fluoroquinolones",
+    "name_he": null
+  },
+  {
+    "code": "J01MB",
+    "name_en": "Other quinolones",
+    "name_he": null
+  },
+  {
+    "code": "J01RA",
+    "name_en": "Combinations of antibacterials",
+    "name_he": null
+  },
+  {
+    "code": "J01XA",
+    "name_en": "Glycopeptide antibacterials",
+    "name_he": null
+  },
+  {
+    "code": "J01XB",
+    "name_en": "Polymyxins",
+    "name_he": null
+  },
+  {
+    "code": "J01XC",
+    "name_en": "Steroid antibacterials",
+    "name_he": null
+  },
+  {
+    "code": "J01XD",
+    "name_en": "Imidazole derivatives",
+    "name_he": null
+  },
+  {
+    "code": "J01XE",
+    "name_en": "Nitrofuran derivatives",
+    "name_he": null
+  },
+  {
+    "code": "J01XX",
+    "name_en": "Other antibacterials",
+    "name_he": null
+  },
+  {
+    "code": "J02AA",
+    "name_en": "Antibiotics",
+    "name_he": null
+  },
+  {
+    "code": "J02AB",
+    "name_en": "Imidazole derivatives",
+    "name_he": null
+  },
+  {
+    "code": "J02AC",
+    "name_en": "Triazole and tetrazole derivatives",
+    "name_he": null
+  },
+  {
+    "code": "J02AX",
+    "name_en": "Other antimycotics for systemic use",
+    "name_he": null
+  },
+  {
+    "code": "J04AA",
+    "name_en": "Aminosalicylic acid and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "J04AB",
+    "name_en": "Antibiotics",
+    "name_he": null
+  },
+  {
+    "code": "J04AC",
+    "name_en": "Hydrazides",
+    "name_he": null
+  },
+  {
+    "code": "J04AD",
+    "name_en": "Thiocarbamide derivatives",
+    "name_he": null
+  },
+  {
+    "code": "J04AK",
+    "name_en": "Other drugs for treatment of tuberculosis",
+    "name_he": null
+  },
+  {
+    "code": "J04AM",
+    "name_en": "Combinations of drugs for treatment of tuberculosis",
+    "name_he": null
+  },
+  {
+    "code": "J04BA",
+    "name_en": "Drugs for treatment of lepra",
+    "name_he": null
+  },
+  {
+    "code": "J05AA",
+    "name_en": "Thiosemicarbazones",
+    "name_he": null
+  },
+  {
+    "code": "J05AB",
+    "name_en": "Nucleosides and nucleotides excl. reverse transcriptase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "J05AC",
+    "name_en": "Cyclic amines",
+    "name_he": null
+  },
+  {
+    "code": "J05AD",
+    "name_en": "Phosphonic acid derivatives",
+    "name_he": null
+  },
+  {
+    "code": "J05AE",
+    "name_en": "Protease inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "J05AF",
+    "name_en": "Nucleoside and nucleotide reverse transcriptase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "J05AG",
+    "name_en": "Non-nucleoside reverse transcriptase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "J05AH",
+    "name_en": "Neuraminidase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "J05AJ",
+    "name_en": "Integrase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "J05AP",
+    "name_en": "Antivirals for treatment of HCV infections",
+    "name_he": null
+  },
+  {
+    "code": "J05AR",
+    "name_en": "Antivirals for treatment of HIV infections, combinations",
+    "name_he": null
+  },
+  {
+    "code": "J05AX",
+    "name_en": "Other antivirals",
+    "name_he": null
+  },
+  {
+    "code": "J06AA",
+    "name_en": "Immune sera",
+    "name_he": null
+  },
+  {
+    "code": "J06BA",
+    "name_en": "Immunoglobulins, normal human",
+    "name_he": null
+  },
+  {
+    "code": "J06BB",
+    "name_en": "Specific immunoglobulins",
+    "name_he": null
+  },
+  {
+    "code": "J06BC",
+    "name_en": "Antibacterial monoclonal antibodies",
+    "name_he": null
+  },
+  {
+    "code": "J06BD",
+    "name_en": "Antiviral monoclonal antibodies",
+    "name_he": null
+  },
+  {
+    "code": "J07AC",
+    "name_en": "Anthrax vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07AD",
+    "name_en": "Brucellosis vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07AE",
+    "name_en": "Cholera vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07AF",
+    "name_en": "Diphtheria vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07AG",
+    "name_en": "Haemophilus influenzae B vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07AH",
+    "name_en": "Meningococcal vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07AJ",
+    "name_en": "Pertussis vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07AK",
+    "name_en": "Plague vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07AL",
+    "name_en": "Pneumococcal vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07AM",
+    "name_en": "Tetanus vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07AN",
+    "name_en": "Tuberculosis vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07AP",
+    "name_en": "Typhoid vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07AR",
+    "name_en": "Typhus (exanthematicus) vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07AX",
+    "name_en": "Other bacterial vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BA",
+    "name_en": "Encephalitis vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BB",
+    "name_en": "Influenza vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BC",
+    "name_en": "Hepatitis vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BD",
+    "name_en": "Measles vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BE",
+    "name_en": "Mumps vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BF",
+    "name_en": "Poliomyelitis vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BG",
+    "name_en": "Rabies vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BH",
+    "name_en": "Rota virus diarrhea vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BJ",
+    "name_en": "Rubella vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BK",
+    "name_en": "Varicella zoster vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BL",
+    "name_en": "Yellow fever vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BM",
+    "name_en": "Papillomavirus vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BN",
+    "name_en": "Covid-19 vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07BX",
+    "name_en": "Other viral vaccines",
+    "name_he": null
+  },
+  {
+    "code": "J07CA",
+    "name_en": "Bacterial and viral vaccines, combined",
+    "name_he": null
+  },
+  {
+    "code": "J07XA",
+    "name_en": "Parasitic vaccines",
+    "name_he": null
+  },
+  {
+    "code": "L01AA",
+    "name_en": "Nitrogen mustard analogues",
+    "name_he": null
+  },
+  {
+    "code": "L01AB",
+    "name_en": "Alkyl sulfonates",
+    "name_he": null
+  },
+  {
+    "code": "L01AC",
+    "name_en": "Ethylene imines",
+    "name_he": null
+  },
+  {
+    "code": "L01AD",
+    "name_en": "Nitrosoureas",
+    "name_he": null
+  },
+  {
+    "code": "L01AG",
+    "name_en": "Epoxides",
+    "name_he": null
+  },
+  {
+    "code": "L01AX",
+    "name_en": "Other alkylating agents",
+    "name_he": null
+  },
+  {
+    "code": "L01BA",
+    "name_en": "Folic acid analogues",
+    "name_he": null
+  },
+  {
+    "code": "L01BB",
+    "name_en": "Purine analogues",
+    "name_he": null
+  },
+  {
+    "code": "L01BC",
+    "name_en": "Pyrimidine analogues",
+    "name_he": null
+  },
+  {
+    "code": "L01CA",
+    "name_en": "Vinca alkaloids and analogues",
+    "name_he": null
+  },
+  {
+    "code": "L01CB",
+    "name_en": "Podophyllotoxin derivatives",
+    "name_he": null
+  },
+  {
+    "code": "L01CC",
+    "name_en": "Colchicine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "L01CD",
+    "name_en": "Taxanes",
+    "name_he": null
+  },
+  {
+    "code": "L01CE",
+    "name_en": "Topoisomerase 1 (TOP1) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01CX",
+    "name_en": "Other plant alkaloids and natural products",
+    "name_he": null
+  },
+  {
+    "code": "L01DA",
+    "name_en": "Actinomycines",
+    "name_he": null
+  },
+  {
+    "code": "L01DB",
+    "name_en": "Anthracyclines and related substances",
+    "name_he": null
+  },
+  {
+    "code": "L01DC",
+    "name_en": "Other cytotoxic antibiotics",
+    "name_he": null
+  },
+  {
+    "code": "L01EA",
+    "name_en": "BCR-ABL tyrosine kinase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01EB",
+    "name_en": "Epidermal growth factor receptor (EGFR) tyrosine kinase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01EC",
+    "name_en": "B-Raf serine-threonine kinase (BRAF) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01ED",
+    "name_en": "Anaplastic lymphoma kinase (ALK) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01EE",
+    "name_en": "Mitogen-activated protein kinase (MEK) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01EF",
+    "name_en": "Cyclin-dependent kinase (CDK) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01EG",
+    "name_en": "Mammalian target of rapamycin (mTOR) kinase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01EH",
+    "name_en": "Human epidermal growth factor receptor 2 (HER2) tyrosine kinase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01EJ",
+    "name_en": "Janus-associated kinase (JAK) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01EK",
+    "name_en": "Vascular endothelial growth factor receptor (VEGFR) tyrosine kinase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01EL",
+    "name_en": "Bruton's tyrosine kinase (BTK) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01EM",
+    "name_en": "Phosphatidylinositol-3-kinase (Pi3K) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01EN",
+    "name_en": "Fibroblast growth factor receptor (FGFR) tyrosine kinase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01EX",
+    "name_en": "Other protein kinase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01FA",
+    "name_en": "CD20 (Clusters of Differentiation 20) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01FB",
+    "name_en": "CD22 (Clusters of Differentiation 22) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01FC",
+    "name_en": "CD38 (Clusters of Differentiation 38) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01FD",
+    "name_en": "HER2 (Human Epidermal Growth Factor Receptor 2) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01FE",
+    "name_en": "EGFR (Epidermal Growth Factor Receptor) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01FF",
+    "name_en": "PD-1/PD-L1 (Programmed cell death protein 1/death ligand 1) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01FG",
+    "name_en": "VEGF/VEGFR (Vascular Endothelial Growth Factor) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01FX",
+    "name_en": "Other monoclonal antibodies and antibody drug conjugates",
+    "name_he": null
+  },
+  {
+    "code": "L01FY",
+    "name_en": "Combinations of monoclonal antibodies and antibody drug conjugates",
+    "name_he": null
+  },
+  {
+    "code": "L01XA",
+    "name_en": "Platinum compounds",
+    "name_he": null
+  },
+  {
+    "code": "L01XB",
+    "name_en": "Methylhydrazines",
+    "name_he": null
+  },
+  {
+    "code": "L01XD",
+    "name_en": "Sensitizers used in photodynamic/radiation therapy",
+    "name_he": null
+  },
+  {
+    "code": "L01XF",
+    "name_en": "Retinoids for cancer treatment",
+    "name_he": null
+  },
+  {
+    "code": "L01XG",
+    "name_en": "Proteasome inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01XH",
+    "name_en": "Histone deacetylase (HDAC) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01XJ",
+    "name_en": "Hedgehog pathway inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01XK",
+    "name_en": "Poly (ADP-ribose) polymerase (PARP) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01XL",
+    "name_en": "Antineoplastic cell and gene therapy",
+    "name_he": null
+  },
+  {
+    "code": "L01XM",
+    "name_en": "Isocitrate dehydrogenase (IDH) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L01XX",
+    "name_en": "Other antineoplastic agents",
+    "name_he": null
+  },
+  {
+    "code": "L01XY",
+    "name_en": "Combinations of antineoplastic agents",
+    "name_he": null
+  },
+  {
+    "code": "L02AA",
+    "name_en": "Estrogens",
+    "name_he": null
+  },
+  {
+    "code": "L02AB",
+    "name_en": "Progestogens",
+    "name_he": null
+  },
+  {
+    "code": "L02AE",
+    "name_en": "Gonadotropin releasing hormone analogues",
+    "name_he": null
+  },
+  {
+    "code": "L02BA",
+    "name_en": "Anti-estrogens",
+    "name_he": null
+  },
+  {
+    "code": "L02BB",
+    "name_en": "Anti-androgens",
+    "name_he": null
+  },
+  {
+    "code": "L02BG",
+    "name_en": "Aromatase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L02BX",
+    "name_en": "Other hormone antagonists and related agents",
+    "name_he": null
+  },
+  {
+    "code": "L03AA",
+    "name_en": "Colony stimulating factors",
+    "name_he": null
+  },
+  {
+    "code": "L03AB",
+    "name_en": "Interferons",
+    "name_he": null
+  },
+  {
+    "code": "L03AC",
+    "name_en": "Interleukins",
+    "name_he": null
+  },
+  {
+    "code": "L03AX",
+    "name_en": "Other immunostimulants",
+    "name_he": null
+  },
+  {
+    "code": "L04AA",
+    "name_en": "Selective immunosuppressants",
+    "name_he": null
+  },
+  {
+    "code": "L04AB",
+    "name_en": "Tumor necrosis factor alpha (TNF-alpha) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L04AC",
+    "name_en": "Interleukin inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L04AD",
+    "name_en": "Calcineurin inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L04AE",
+    "name_en": "Sphingosine-1-phosphate (S1P) receptor modulators",
+    "name_he": null
+  },
+  {
+    "code": "L04AF",
+    "name_en": "Janus-associated kinase (JAK) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L04AG",
+    "name_en": "Monoclonal antibodies",
+    "name_he": null
+  },
+  {
+    "code": "L04AH",
+    "name_en": "Mammalian target of rapamycin (mTOR) kinase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L04AJ",
+    "name_en": "Complement inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L04AK",
+    "name_en": "Dihydroorotate dehydrogenase (DHODH) inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "L04AX",
+    "name_en": "Other immunosuppressants",
+    "name_he": null
+  },
+  {
+    "code": "M01AA",
+    "name_en": "Butylpyrazolidines",
+    "name_he": null
+  },
+  {
+    "code": "M01AB",
+    "name_en": "Acetic acid derivatives and related substances",
+    "name_he": null
+  },
+  {
+    "code": "M01AC",
+    "name_en": "Oxicams",
+    "name_he": null
+  },
+  {
+    "code": "M01AE",
+    "name_en": "Propionic acid derivatives",
+    "name_he": null
+  },
+  {
+    "code": "M01AG",
+    "name_en": "Fenamates",
+    "name_he": null
+  },
+  {
+    "code": "M01AH",
+    "name_en": "Coxibs",
+    "name_he": null
+  },
+  {
+    "code": "M01AX",
+    "name_en": "Other antiinflammatory and antirheumatic agents, non-steroids",
+    "name_he": null
+  },
+  {
+    "code": "M01BA",
+    "name_en": "Antiinflammatory/antirheumatic agents in combination with corticosteroids",
+    "name_he": null
+  },
+  {
+    "code": "M01CA",
+    "name_en": "Quinolines",
+    "name_he": null
+  },
+  {
+    "code": "M01CB",
+    "name_en": "Gold preparations",
+    "name_he": null
+  },
+  {
+    "code": "M01CC",
+    "name_en": "Penicillamine and similar agents",
+    "name_he": null
+  },
+  {
+    "code": "M02AA",
+    "name_en": "Antiinflammatory preparations, non-steroids for topical use",
+    "name_he": null
+  },
+  {
+    "code": "M02AB",
+    "name_en": "Capsaicin and similar agents",
+    "name_he": null
+  },
+  {
+    "code": "M02AX",
+    "name_en": "Other topical products for joint and muscular pain",
+    "name_he": null
+  },
+  {
+    "code": "M03AA",
+    "name_en": "Curare alkaloids",
+    "name_he": null
+  },
+  {
+    "code": "M03AB",
+    "name_en": "Choline derivatives",
+    "name_he": null
+  },
+  {
+    "code": "M03AC",
+    "name_en": "Other quaternary ammonium compounds",
+    "name_he": null
+  },
+  {
+    "code": "M03AX",
+    "name_en": "Other muscle relaxants, peripherally acting agents",
+    "name_he": null
+  },
+  {
+    "code": "M03BA",
+    "name_en": "Carbamic acid esters",
+    "name_he": null
+  },
+  {
+    "code": "M03BB",
+    "name_en": "Oxazol, thiazine, and triazine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "M03BC",
+    "name_en": "Ethers, chemically close to antihistamines",
+    "name_he": null
+  },
+  {
+    "code": "M03BX",
+    "name_en": "Other centrally acting agents",
+    "name_he": null
+  },
+  {
+    "code": "M03CA",
+    "name_en": "Dantrolene and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "M04AA",
+    "name_en": "Preparations inhibiting uric acid production",
+    "name_he": null
+  },
+  {
+    "code": "M04AB",
+    "name_en": "Preparations increasing uric acid excretion",
+    "name_he": null
+  },
+  {
+    "code": "M04AC",
+    "name_en": "Preparations with no effect on uric acid metabolism",
+    "name_he": null
+  },
+  {
+    "code": "M04AX",
+    "name_en": "Other antigout preparations",
+    "name_he": null
+  },
+  {
+    "code": "M05BA",
+    "name_en": "Bisphosphonates",
+    "name_he": null
+  },
+  {
+    "code": "M05BB",
+    "name_en": "Bisphosphonates, combinations",
+    "name_he": null
+  },
+  {
+    "code": "M05BC",
+    "name_en": "Bone morphogenetic proteins",
+    "name_he": null
+  },
+  {
+    "code": "M05BX",
+    "name_en": "Other drugs affecting bone structure and mineralization",
+    "name_he": null
+  },
+  {
+    "code": "M09AA",
+    "name_en": "Quinine and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "M09AB",
+    "name_en": "Enzymes",
+    "name_he": null
+  },
+  {
+    "code": "M09AX",
+    "name_en": "Other drugs for disorders of the musculo-skeletal system",
+    "name_he": null
+  },
+  {
+    "code": "N01AA",
+    "name_en": "Ethers",
+    "name_he": null
+  },
+  {
+    "code": "N01AB",
+    "name_en": "Halogenated hydrocarbons",
+    "name_he": null
+  },
+  {
+    "code": "N01AF",
+    "name_en": "Barbiturates, plain",
+    "name_he": null
+  },
+  {
+    "code": "N01AG",
+    "name_en": "Barbiturates in combination with other drugs",
+    "name_he": null
+  },
+  {
+    "code": "N01AH",
+    "name_en": "Opioid anesthetics",
+    "name_he": null
+  },
+  {
+    "code": "N01AX",
+    "name_en": "Other general anesthetics",
+    "name_he": null
+  },
+  {
+    "code": "N01BA",
+    "name_en": "Esters of aminobenzoic acid",
+    "name_he": null
+  },
+  {
+    "code": "N01BB",
+    "name_en": "Amides",
+    "name_he": null
+  },
+  {
+    "code": "N01BC",
+    "name_en": "Esters of benzoic acid",
+    "name_he": null
+  },
+  {
+    "code": "N01BX",
+    "name_en": "Other local anesthetics",
+    "name_he": null
+  },
+  {
+    "code": "N02AA",
+    "name_en": "Natural opium alkaloids",
+    "name_he": null
+  },
+  {
+    "code": "N02AB",
+    "name_en": "Phenylpiperidine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N02AC",
+    "name_en": "Diphenylpropylamine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N02AD",
+    "name_en": "Benzomorphan derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N02AE",
+    "name_en": "Oripavine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N02AF",
+    "name_en": "Morphinan derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N02AG",
+    "name_en": "Opioids in combination with antispasmodics",
+    "name_he": null
+  },
+  {
+    "code": "N02AJ",
+    "name_en": "Opioids in combination with non-opioid analgesics",
+    "name_he": null
+  },
+  {
+    "code": "N02AX",
+    "name_en": "Other opioids",
+    "name_he": null
+  },
+  {
+    "code": "N02BA",
+    "name_en": "Salicylic acid and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N02BB",
+    "name_en": "Pyrazolones",
+    "name_he": null
+  },
+  {
+    "code": "N02BE",
+    "name_en": "Anilides",
+    "name_he": null
+  },
+  {
+    "code": "N02BF",
+    "name_en": "Gabapentinoids",
+    "name_he": null
+  },
+  {
+    "code": "N02BG",
+    "name_en": "Other analgesics and antipyretics",
+    "name_he": null
+  },
+  {
+    "code": "N02CA",
+    "name_en": "Ergot alkaloids",
+    "name_he": null
+  },
+  {
+    "code": "N02CB",
+    "name_en": "Corticosteroid derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N02CC",
+    "name_en": "Selective serotonin (5HT1) agonists",
+    "name_he": null
+  },
+  {
+    "code": "N02CD",
+    "name_en": "Calcitonin gene-related peptide (CGRP) antagonists",
+    "name_he": null
+  },
+  {
+    "code": "N02CX",
+    "name_en": "Other antimigraine preparations",
+    "name_he": null
+  },
+  {
+    "code": "N03AA",
+    "name_en": "Barbiturates and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N03AB",
+    "name_en": "Hydantoin derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N03AC",
+    "name_en": "Oxazolidine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N03AD",
+    "name_en": "Succinimide derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N03AE",
+    "name_en": "Benzodiazepine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N03AF",
+    "name_en": "Carboxamide derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N03AG",
+    "name_en": "Fatty acid derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N03AX",
+    "name_en": "Other antiepileptics",
+    "name_he": null
+  },
+  {
+    "code": "N04AA",
+    "name_en": "Tertiary amines",
+    "name_he": null
+  },
+  {
+    "code": "N04AB",
+    "name_en": "Ethers chemically close to antihistamines",
+    "name_he": null
+  },
+  {
+    "code": "N04AC",
+    "name_en": "Ethers of tropine or tropine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N04BA",
+    "name_en": "Dopa and dopa derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N04BB",
+    "name_en": "Adamantane derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N04BC",
+    "name_en": "Dopamine agonists",
+    "name_he": null
+  },
+  {
+    "code": "N04BD",
+    "name_en": "Monoamine oxidase B inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "N04BX",
+    "name_en": "Other dopaminergic agents",
+    "name_he": null
+  },
+  {
+    "code": "N04CX",
+    "name_en": "Other antiparkinson drugs",
+    "name_he": null
+  },
+  {
+    "code": "N05AA",
+    "name_en": "Phenothiazines with aliphatic side-chain",
+    "name_he": null
+  },
+  {
+    "code": "N05AB",
+    "name_en": "Phenothiazines with piperazine structure",
+    "name_he": null
+  },
+  {
+    "code": "N05AC",
+    "name_en": "Phenothiazines with piperidine structure",
+    "name_he": null
+  },
+  {
+    "code": "N05AD",
+    "name_en": "Butyrophenone derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N05AE",
+    "name_en": "Indole derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N05AF",
+    "name_en": "Thioxanthene derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N05AG",
+    "name_en": "Diphenylbutylpiperidine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N05AH",
+    "name_en": "Diazepines, oxazepines, thiazepines and oxepines",
+    "name_he": null
+  },
+  {
+    "code": "N05AL",
+    "name_en": "Benzamides",
+    "name_he": null
+  },
+  {
+    "code": "N05AN",
+    "name_en": "Lithium",
+    "name_he": null
+  },
+  {
+    "code": "N05AX",
+    "name_en": "Other antipsychotics",
+    "name_he": null
+  },
+  {
+    "code": "N05BA",
+    "name_en": "Benzodiazepine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N05BB",
+    "name_en": "Diphenylmethane derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N05BC",
+    "name_en": "Carbamates",
+    "name_he": null
+  },
+  {
+    "code": "N05BD",
+    "name_en": "Dibenzo-bicyclo-octadiene derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N05BE",
+    "name_en": "Azaspirodecanedione derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N05BX",
+    "name_en": "Other anxiolytics",
+    "name_he": null
+  },
+  {
+    "code": "N05CA",
+    "name_en": "Barbiturates, plain",
+    "name_he": null
+  },
+  {
+    "code": "N05CB",
+    "name_en": "Barbiturates, combinations",
+    "name_he": null
+  },
+  {
+    "code": "N05CC",
+    "name_en": "Aldehydes and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N05CD",
+    "name_en": "Benzodiazepine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N05CE",
+    "name_en": "Piperidinedione derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N05CF",
+    "name_en": "Benzodiazepine related drugs",
+    "name_he": null
+  },
+  {
+    "code": "N05CH",
+    "name_en": "Melatonin receptor agonists",
+    "name_he": null
+  },
+  {
+    "code": "N05CJ",
+    "name_en": "Orexin receptor antagonists",
+    "name_he": null
+  },
+  {
+    "code": "N05CM",
+    "name_en": "Other hypnotics and sedatives",
+    "name_he": null
+  },
+  {
+    "code": "N05CX",
+    "name_en": "Hypnotics and sedatives in combination, excl. barbiturates",
+    "name_he": null
+  },
+  {
+    "code": "N06AA",
+    "name_en": "Non-selective monoamine reuptake inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "N06AB",
+    "name_en": "Selective serotonin reuptake inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "N06AF",
+    "name_en": "Monoamine oxidase inhibitors, non-selective",
+    "name_he": null
+  },
+  {
+    "code": "N06AG",
+    "name_en": "Monoamine oxidase A inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "N06AX",
+    "name_en": "Other antidepressants",
+    "name_he": null
+  },
+  {
+    "code": "N06BA",
+    "name_en": "Centrally acting sympathomimetics",
+    "name_he": null
+  },
+  {
+    "code": "N06BC",
+    "name_en": "Xanthine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "N06BX",
+    "name_en": "Other psychostimulants and nootropics",
+    "name_he": null
+  },
+  {
+    "code": "N06CA",
+    "name_en": "Antidepressants in combination with psycholeptics",
+    "name_he": null
+  },
+  {
+    "code": "N06DA",
+    "name_en": "Anticholinesterases",
+    "name_he": null
+  },
+  {
+    "code": "N06DX",
+    "name_en": "Other anti-dementia drugs",
+    "name_he": null
+  },
+  {
+    "code": "N07AA",
+    "name_en": "Anticholinesterases",
+    "name_he": null
+  },
+  {
+    "code": "N07AB",
+    "name_en": "Choline esters",
+    "name_he": null
+  },
+  {
+    "code": "N07AX",
+    "name_en": "Other parasympathomimetics",
+    "name_he": null
+  },
+  {
+    "code": "N07BA",
+    "name_en": "Drugs used in nicotine dependence",
+    "name_he": null
+  },
+  {
+    "code": "N07BB",
+    "name_en": "Drugs used in alcohol dependence",
+    "name_he": null
+  },
+  {
+    "code": "N07BC",
+    "name_en": "Drugs used in opioid dependence",
+    "name_he": null
+  },
+  {
+    "code": "N07CA",
+    "name_en": "Antivertigo preparations",
+    "name_he": null
+  },
+  {
+    "code": "N07XX",
+    "name_en": "Other nervous system drugs",
+    "name_he": null
+  },
+  {
+    "code": "P01AA",
+    "name_en": "Hydroxyquinoline derivatives",
+    "name_he": null
+  },
+  {
+    "code": "P01AB",
+    "name_en": "Nitroimidazole derivatives",
+    "name_he": null
+  },
+  {
+    "code": "P01AC",
+    "name_en": "Dichloroacetamide derivatives",
+    "name_he": null
+  },
+  {
+    "code": "P01AR",
+    "name_en": "Arsenic compounds",
+    "name_he": null
+  },
+  {
+    "code": "P01AX",
+    "name_en": "Other agents against amoebiasis and other protozoal diseases",
+    "name_he": null
+  },
+  {
+    "code": "P01BA",
+    "name_en": "Aminoquinolines",
+    "name_he": null
+  },
+  {
+    "code": "P01BB",
+    "name_en": "Biguanides",
+    "name_he": null
+  },
+  {
+    "code": "P01BC",
+    "name_en": "Methanolquinolines",
+    "name_he": null
+  },
+  {
+    "code": "P01BD",
+    "name_en": "Diaminopyrimidines",
+    "name_he": null
+  },
+  {
+    "code": "P01BE",
+    "name_en": "Artemisinin and derivatives, plain",
+    "name_he": null
+  },
+  {
+    "code": "P01BF",
+    "name_en": "Artemisinin and derivatives, combinations",
+    "name_he": null
+  },
+  {
+    "code": "P01BX",
+    "name_en": "Other antimalarials",
+    "name_he": null
+  },
+  {
+    "code": "P01CA",
+    "name_en": "Nitroimidazole derivatives",
+    "name_he": null
+  },
+  {
+    "code": "P01CB",
+    "name_en": "Antimony compounds",
+    "name_he": null
+  },
+  {
+    "code": "P01CC",
+    "name_en": "Nitrofuran derivatives",
+    "name_he": null
+  },
+  {
+    "code": "P01CD",
+    "name_en": "Arsenic compounds",
+    "name_he": null
+  },
+  {
+    "code": "P01CX",
+    "name_en": "Other agents against leishmaniasis and trypanosomiasis",
+    "name_he": null
+  },
+  {
+    "code": "P02BA",
+    "name_en": "Quinoline derivatives and related substances",
+    "name_he": null
+  },
+  {
+    "code": "P02BB",
+    "name_en": "Organophosphorous compounds",
+    "name_he": null
+  },
+  {
+    "code": "P02BX",
+    "name_en": "Other antitrematodal agents",
+    "name_he": null
+  },
+  {
+    "code": "P02CA",
+    "name_en": "Benzimidazole derivatives",
+    "name_he": null
+  },
+  {
+    "code": "P02CB",
+    "name_en": "Piperazine and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "P02CC",
+    "name_en": "Tetrahydropyrimidine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "P02CE",
+    "name_en": "Imidazothiazole derivatives",
+    "name_he": null
+  },
+  {
+    "code": "P02CF",
+    "name_en": "Avermectines",
+    "name_he": null
+  },
+  {
+    "code": "P02CX",
+    "name_en": "Other antinematodals",
+    "name_he": null
+  },
+  {
+    "code": "P02DA",
+    "name_en": "Salicylic acid derivatives",
+    "name_he": null
+  },
+  {
+    "code": "P02DX",
+    "name_en": "Other anticestodals",
+    "name_he": null
+  },
+  {
+    "code": "P03AA",
+    "name_en": "Sulfur containing products",
+    "name_he": null
+  },
+  {
+    "code": "P03AB",
+    "name_en": "Chlorine containing products",
+    "name_he": null
+  },
+  {
+    "code": "P03AC",
+    "name_en": "Pyrethrines, incl. synthetic compounds",
+    "name_he": null
+  },
+  {
+    "code": "P03AX",
+    "name_en": "Other ectoparasiticides, incl. scabicides",
+    "name_he": null
+  },
+  {
+    "code": "P03BA",
+    "name_en": "Pyrethrines",
+    "name_he": null
+  },
+  {
+    "code": "P03BX",
+    "name_en": "Other insecticides and repellents",
+    "name_he": null
+  },
+  {
+    "code": "R01AA",
+    "name_en": "Sympathomimetics, plain",
+    "name_he": null
+  },
+  {
+    "code": "R01AB",
+    "name_en": "Sympathomimetics, combinations excl. corticosteroids",
+    "name_he": null
+  },
+  {
+    "code": "R01AC",
+    "name_en": "Antiallergic agents, excl. corticosteroids",
+    "name_he": null
+  },
+  {
+    "code": "R01AD",
+    "name_en": "Corticosteroids",
+    "name_he": null
+  },
+  {
+    "code": "R01AX",
+    "name_en": "Other nasal preparations",
+    "name_he": null
+  },
+  {
+    "code": "R01BA",
+    "name_en": "Sympathomimetics",
+    "name_he": null
+  },
+  {
+    "code": "R02AA",
+    "name_en": "Antiseptics",
+    "name_he": null
+  },
+  {
+    "code": "R02AB",
+    "name_en": "Antibiotics",
+    "name_he": null
+  },
+  {
+    "code": "R02AD",
+    "name_en": "Anesthetics, local",
+    "name_he": null
+  },
+  {
+    "code": "R02AX",
+    "name_en": "Other throat preparations",
+    "name_he": null
+  },
+  {
+    "code": "R03AA",
+    "name_en": "Alpha- and beta-adrenoreceptor agonists",
+    "name_he": null
+  },
+  {
+    "code": "R03AB",
+    "name_en": "Non-selective beta-adrenoreceptor agonists",
+    "name_he": null
+  },
+  {
+    "code": "R03AC",
+    "name_en": "Selective beta-2-adrenoreceptor agonists",
+    "name_he": null
+  },
+  {
+    "code": "R03AK",
+    "name_en": "Adrenergics in combination with corticosteroids or other drugs, excl. anticholinergics",
+    "name_he": null
+  },
+  {
+    "code": "R03AL",
+    "name_en": "Adrenergics in combination with anticholinergics incl. triple combinations with corticosteroids",
+    "name_he": null
+  },
+  {
+    "code": "R03BA",
+    "name_en": "Glucocorticoids",
+    "name_he": null
+  },
+  {
+    "code": "R03BB",
+    "name_en": "Anticholinergics",
+    "name_he": null
+  },
+  {
+    "code": "R03BC",
+    "name_en": "Antiallergic agents, excl. corticosteroids",
+    "name_he": null
+  },
+  {
+    "code": "R03BX",
+    "name_en": "Other drugs for obstructive airway diseases, inhalants",
+    "name_he": null
+  },
+  {
+    "code": "R03CB",
+    "name_en": "Non-selective beta-adrenoreceptor agonists",
+    "name_he": null
+  },
+  {
+    "code": "R03CC",
+    "name_en": "Selective beta-2-adrenoreceptor agonists",
+    "name_he": null
+  },
+  {
+    "code": "R03DA",
+    "name_en": "Xanthines",
+    "name_he": null
+  },
+  {
+    "code": "R03DB",
+    "name_en": "Xanthines and adrenergics",
+    "name_he": null
+  },
+  {
+    "code": "R03DC",
+    "name_en": "Leukotriene receptor antagonists",
+    "name_he": null
+  },
+  {
+    "code": "R03DX",
+    "name_en": "Other systemic drugs for obstructive airway diseases",
+    "name_he": null
+  },
+  {
+    "code": "R05CA",
+    "name_en": "Expectorants",
+    "name_he": null
+  },
+  {
+    "code": "R05CB",
+    "name_en": "Mucolytics",
+    "name_he": null
+  },
+  {
+    "code": "R05DA",
+    "name_en": "Opium alkaloids and derivatives",
+    "name_he": null
+  },
+  {
+    "code": "R05DB",
+    "name_en": "Other cough suppressants",
+    "name_he": null
+  },
+  {
+    "code": "R05FA",
+    "name_en": "Opium derivatives and expectorants",
+    "name_he": null
+  },
+  {
+    "code": "R05FB",
+    "name_en": "Other cough suppressants and expectorants",
+    "name_he": null
+  },
+  {
+    "code": "R06AA",
+    "name_en": "Aminoalkyl ethers",
+    "name_he": null
+  },
+  {
+    "code": "R06AB",
+    "name_en": "Substituted alkylamines",
+    "name_he": null
+  },
+  {
+    "code": "R06AC",
+    "name_en": "Substituted ethylene diamines",
+    "name_he": null
+  },
+  {
+    "code": "R06AD",
+    "name_en": "Phenothiazine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "R06AE",
+    "name_en": "Piperazine derivatives",
+    "name_he": null
+  },
+  {
+    "code": "R06AX",
+    "name_en": "Other antihistamines for systemic use",
+    "name_he": null
+  },
+  {
+    "code": "R07AA",
+    "name_en": "Lung surfactants",
+    "name_he": null
+  },
+  {
+    "code": "R07AB",
+    "name_en": "Respiratory stimulants",
+    "name_he": null
+  },
+  {
+    "code": "R07AX",
+    "name_en": "Other respiratory system products",
+    "name_he": null
+  },
+  {
+    "code": "S01AA",
+    "name_en": "Antibiotics",
+    "name_he": null
+  },
+  {
+    "code": "S01AB",
+    "name_en": "Sulfonamides",
+    "name_he": null
+  },
+  {
+    "code": "S01AD",
+    "name_en": "Antivirals",
+    "name_he": null
+  },
+  {
+    "code": "S01AE",
+    "name_en": "Fluoroquinolones",
+    "name_he": null
+  },
+  {
+    "code": "S01AX",
+    "name_en": "Other antiinfectives",
+    "name_he": null
+  },
+  {
+    "code": "S01BA",
+    "name_en": "Corticosteroids, plain",
+    "name_he": null
+  },
+  {
+    "code": "S01BB",
+    "name_en": "Corticosteroids and mydriatics in combination",
+    "name_he": null
+  },
+  {
+    "code": "S01BC",
+    "name_en": "Antiinflammatory agents, non-steroids",
+    "name_he": null
+  },
+  {
+    "code": "S01CA",
+    "name_en": "Corticosteroids and antiinfectives in combination",
+    "name_he": null
+  },
+  {
+    "code": "S01CB",
+    "name_en": "Corticosteroids/antiinfectives/mydriatics in combination",
+    "name_he": null
+  },
+  {
+    "code": "S01CC",
+    "name_en": "Antiinflammatory agents, non-steroids and antiinfectives in combination",
+    "name_he": null
+  },
+  {
+    "code": "S01EA",
+    "name_en": "Sympathomimetics in glaucoma therapy",
+    "name_he": null
+  },
+  {
+    "code": "S01EB",
+    "name_en": "Parasympathomimetics",
+    "name_he": null
+  },
+  {
+    "code": "S01EC",
+    "name_en": "Carbonic anhydrase inhibitors",
+    "name_he": null
+  },
+  {
+    "code": "S01ED",
+    "name_en": "Beta blocking agents",
+    "name_he": null
+  },
+  {
+    "code": "S01EE",
+    "name_en": "Prostaglandin analogues",
+    "name_he": null
+  },
+  {
+    "code": "S01EX",
+    "name_en": "Other antiglaucoma preparations",
+    "name_he": null
+  },
+  {
+    "code": "S01FA",
+    "name_en": "Anticholinergics",
+    "name_he": null
+  },
+  {
+    "code": "S01FB",
+    "name_en": "Sympathomimetics excl. antiglaucoma preparations",
+    "name_he": null
+  },
+  {
+    "code": "S01GA",
+    "name_en": "Sympathomimetics used as decongestants",
+    "name_he": null
+  },
+  {
+    "code": "S01GX",
+    "name_en": "Other antiallergics",
+    "name_he": null
+  },
+  {
+    "code": "S01HA",
+    "name_en": "Local anesthetics",
+    "name_he": null
+  },
+  {
+    "code": "S01JA",
+    "name_en": "Colouring agents",
+    "name_he": null
+  },
+  {
+    "code": "S01KA",
+    "name_en": "Viscoelastic substances",
+    "name_he": null
+  },
+  {
+    "code": "S01KX",
+    "name_en": "Other surgical aids",
+    "name_he": null
+  },
+  {
+    "code": "S01LA",
+    "name_en": "Antineovascularisation agents",
+    "name_he": null
+  },
+  {
+    "code": "S01XA",
+    "name_en": "Other ophthalmologicals",
+    "name_he": null
+  },
+  {
+    "code": "S02AA",
+    "name_en": "Antiinfectives",
+    "name_he": null
+  },
+  {
+    "code": "S02BA",
+    "name_en": "Corticosteroids",
+    "name_he": null
+  },
+  {
+    "code": "S02CA",
+    "name_en": "Corticosteroids and antiinfectives in combination",
+    "name_he": null
+  },
+  {
+    "code": "S02DA",
+    "name_en": "Analgesics and anesthetics",
+    "name_he": null
+  },
+  {
+    "code": "S03AA",
+    "name_en": "Antiinfectives",
+    "name_he": null
+  },
+  {
+    "code": "S03BA",
+    "name_en": "Corticosteroids",
+    "name_he": null
+  },
+  {
+    "code": "S03CA",
+    "name_en": "Corticosteroids and antiinfectives in combination",
+    "name_he": null
+  },
+  {
+    "code": "V01AA",
+    "name_en": "Allergen extracts",
+    "name_he": null
+  },
+  {
+    "code": "V03AB",
+    "name_en": "Antidotes",
+    "name_he": null
+  },
+  {
+    "code": "V03AC",
+    "name_en": "Iron chelating agents",
+    "name_he": null
+  },
+  {
+    "code": "V03AE",
+    "name_en": "Drugs for treatment of hyperkalemia and hyperphosphatemia",
+    "name_he": null
+  },
+  {
+    "code": "V03AF",
+    "name_en": "Detoxifying agents for antineoplastic treatment",
+    "name_he": null
+  },
+  {
+    "code": "V03AG",
+    "name_en": "Drugs for treatment of hypercalcemia",
+    "name_he": null
+  },
+  {
+    "code": "V03AH",
+    "name_en": "Drugs for treatment of hypoglycemia",
+    "name_he": null
+  },
+  {
+    "code": "V03AN",
+    "name_en": "Medical gases",
+    "name_he": null
+  },
+  {
+    "code": "V03AX",
+    "name_en": "Other therapeutic products",
+    "name_he": null
+  },
+  {
+    "code": "V03AZ",
+    "name_en": "Nerve depressants",
+    "name_he": null
+  },
+  {
+    "code": "V04CA",
+    "name_en": "Tests for diabetes",
+    "name_he": null
+  },
+  {
+    "code": "V04CB",
+    "name_en": "Tests for fat absorption",
+    "name_he": null
+  },
+  {
+    "code": "V04CC",
+    "name_en": "Tests for bile duct patency",
+    "name_he": null
+  },
+  {
+    "code": "V04CD",
+    "name_en": "Tests for pituitary function",
+    "name_he": null
+  },
+  {
+    "code": "V04CE",
+    "name_en": "Tests for liver functional capacity",
+    "name_he": null
+  },
+  {
+    "code": "V04CF",
+    "name_en": "Tuberculosis diagnostics",
+    "name_he": null
+  },
+  {
+    "code": "V04CG",
+    "name_en": "Tests for gastric secretion",
+    "name_he": null
+  },
+  {
+    "code": "V04CH",
+    "name_en": "Tests for renal function and ureteral injuries",
+    "name_he": null
+  },
+  {
+    "code": "V04CJ",
+    "name_en": "Tests for thyreoidea function",
+    "name_he": null
+  },
+  {
+    "code": "V04CK",
+    "name_en": "Tests for pancreatic function",
+    "name_he": null
+  },
+  {
+    "code": "V04CM",
+    "name_en": "Tests for fertility disturbances",
+    "name_he": null
+  },
+  {
+    "code": "V04CX",
+    "name_en": "Other diagnostic agents",
+    "name_he": null
+  },
+  {
+    "code": "V06DC",
+    "name_en": "Carbohydrates",
+    "name_he": null
+  },
+  {
+    "code": "V08AA",
+    "name_en": "Watersoluble, nephrotropic, high osmolar X-ray contrast media",
+    "name_he": null
+  },
+  {
+    "code": "V08AB",
+    "name_en": "Watersoluble, nephrotropic, low osmolar X-ray contrast media",
+    "name_he": null
+  },
+  {
+    "code": "V08AC",
+    "name_en": "Watersoluble, hepatotropic X-ray contrast media",
+    "name_he": null
+  },
+  {
+    "code": "V08AD",
+    "name_en": "Non-watersoluble X-ray contrast media",
+    "name_he": null
+  },
+  {
+    "code": "V08BA",
+    "name_en": "Barium sulfate containing X-ray contrast media",
+    "name_he": null
+  },
+  {
+    "code": "V08CA",
+    "name_en": "Paramagnetic contrast media",
+    "name_he": null
+  },
+  {
+    "code": "V08CB",
+    "name_en": "Superparamagnetic contrast media",
+    "name_he": null
+  },
+  {
+    "code": "V08CX",
+    "name_en": "Other magnetic resonance imaging contrast media",
+    "name_he": null
+  },
+  {
+    "code": "V08DA",
+    "name_en": "Ultrasound contrast media",
+    "name_he": null
+  },
+  {
+    "code": "V09AA",
+    "name_en": "Technetium (99mTc) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V09AB",
+    "name_en": "Iodine (123I) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V09AX",
+    "name_en": "Other central nervous system diagnostic radiopharmaceuticals",
+    "name_he": null
+  },
+  {
+    "code": "V09BA",
+    "name_en": "Technetium (99mTc) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V09CA",
+    "name_en": "Technetium (99mTc) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V09CX",
+    "name_en": "Other renal system diagnostic radiopharmaceuticals",
+    "name_he": null
+  },
+  {
+    "code": "V09DA",
+    "name_en": "Technetium (99mTc) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V09DB",
+    "name_en": "Technetium (99mTc), particles and colloids",
+    "name_he": null
+  },
+  {
+    "code": "V09DX",
+    "name_en": "Other hepatic and reticulo endothelial system diagnostic radiopharmaceuticals",
+    "name_he": null
+  },
+  {
+    "code": "V09EA",
+    "name_en": "Technetium (99mTc), inhalants",
+    "name_he": null
+  },
+  {
+    "code": "V09EB",
+    "name_en": "Technetium (99mTc), particles for injection",
+    "name_he": null
+  },
+  {
+    "code": "V09EX",
+    "name_en": "Other respiratory system diagnostic radiopharmaceuticals",
+    "name_he": null
+  },
+  {
+    "code": "V09FX",
+    "name_en": "Various thyroid diagnostic radiopharmaceuticals",
+    "name_he": null
+  },
+  {
+    "code": "V09GA",
+    "name_en": "Technetium (99mTc) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V09GB",
+    "name_en": "Iodine (125I) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V09GX",
+    "name_en": "Other cardiovascular system diagnostic radiopharmaceuticals",
+    "name_he": null
+  },
+  {
+    "code": "V09HA",
+    "name_en": "Technetium (99mTc) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V09HB",
+    "name_en": "Indium (111In) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V09HX",
+    "name_en": "Other diagnostic radiopharmaceuticals for inflammation and infection detection",
+    "name_he": null
+  },
+  {
+    "code": "V09IA",
+    "name_en": "Technetium (99mTc) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V09IB",
+    "name_en": "Indium (111In) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V09IX",
+    "name_en": "Other diagnostic radiopharmaceuticals for tumour detection",
+    "name_he": null
+  },
+  {
+    "code": "V09XA",
+    "name_en": "Iodine (131I) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V09XX",
+    "name_en": "Various diagnostic radiopharmaceuticals",
+    "name_he": null
+  },
+  {
+    "code": "V10AA",
+    "name_en": "Yttrium (90Y) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V10AX",
+    "name_en": "Other antiinflammatory therapeutic radiopharmaceuticals",
+    "name_he": null
+  },
+  {
+    "code": "V10BX",
+    "name_en": "Various pain palliation radiopharmaceuticals",
+    "name_he": null
+  },
+  {
+    "code": "V10XA",
+    "name_en": "Iodine (131I) compounds",
+    "name_he": null
+  },
+  {
+    "code": "V10XX",
+    "name_en": "Various therapeutic radiopharmaceuticals",
+    "name_he": null
+  }
+]

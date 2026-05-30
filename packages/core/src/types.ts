@@ -6,6 +6,10 @@
  */
 
 export type SchemeKey =
+  | 'atc1'
+  | 'atc2'
+  | 'atc3'
+  | 'atc4'
   | 'atc5'
   | 'icd10'
   | 'icd9'
@@ -16,7 +20,8 @@ export type SchemeKey =
   | 'cvx';
 
 export const SCHEME_KEYS: SchemeKey[] = [
-  'atc5', 'icd10', 'icd9', 'icd11', 'loinc', 'cpt', 'hcpcs', 'cvx',
+  'atc1', 'atc2', 'atc3', 'atc4', 'atc5',
+  'icd10', 'icd9', 'icd11', 'loinc', 'cpt', 'hcpcs', 'cvx',
 ];
 
 /** A single terminology entry as stored in the database. */

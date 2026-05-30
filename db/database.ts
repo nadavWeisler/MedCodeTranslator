@@ -1,4 +1,8 @@
 import * as SQLite from 'expo-sqlite';
+import atc1Data from '../data/vocabularies/atc1.json';
+import atc2Data from '../data/vocabularies/atc2.json';
+import atc3Data from '../data/vocabularies/atc3.json';
+import atc4Data from '../data/vocabularies/atc4.json';
 import atc5Data from '../data/vocabularies/atc5.json';
 import icd10Data from '../data/vocabularies/icd10.json';
 import icd9Data from '../data/vocabularies/icd9.json';
@@ -14,7 +18,7 @@ import type { SchemeKey } from '@medcode/core';
 export type { SchemeKey } from '@medcode/core';
 
 const DB_NAME = 'medcodes.db';
-const SCHEMA_VERSION = 4;
+const SCHEMA_VERSION = 5;
 
 let db: SQLite.SQLiteDatabase | null = null;
 
@@ -29,6 +33,26 @@ export async function initDB(): Promise<void> {
       value TEXT NOT NULL
     );
 
+    CREATE TABLE IF NOT EXISTS atc1 (
+      code TEXT PRIMARY KEY,
+      name_en TEXT NOT NULL,
+      name_he TEXT
+    );
+    CREATE TABLE IF NOT EXISTS atc2 (
+      code TEXT PRIMARY KEY,
+      name_en TEXT NOT NULL,
+      name_he TEXT
+    );
+    CREATE TABLE IF NOT EXISTS atc3 (
+      code TEXT PRIMARY KEY,
+      name_en TEXT NOT NULL,
+      name_he TEXT
+    );
+    CREATE TABLE IF NOT EXISTS atc4 (
+      code TEXT PRIMARY KEY,
+      name_en TEXT NOT NULL,
+      name_he TEXT
+    );
     CREATE TABLE IF NOT EXISTS atc5 (
       code TEXT PRIMARY KEY,
       name_en TEXT NOT NULL,
@@ -94,7 +118,7 @@ export async function initDB(): Promise<void> {
   }
 }
 
-type RawEntry = { code: string; name_en: string; name_he?: string };
+type RawEntry = { code: string; name_en: string; name_he?: string | null };
 
 type CrosswalkEntry = {
   icd9_code: string;
@@ -142,6 +166,10 @@ async function seedCrosswalk(data: CrosswalkEntry[]): Promise<void> {
 
 async function seedAll(): Promise<void> {
   const datasets: [string, RawEntry[]][] = [
+    ['atc1',  atc1Data  as RawEntry[]],
+    ['atc2',  atc2Data  as RawEntry[]],
+    ['atc3',  atc3Data  as RawEntry[]],
+    ['atc4',  atc4Data  as RawEntry[]],
     ['atc5',  atc5Data  as RawEntry[]],
     ['icd10', icd10Data as RawEntry[]],
     ['icd9',  icd9Data  as RawEntry[]],

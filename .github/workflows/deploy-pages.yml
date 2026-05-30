@@ -2,7 +2,7 @@ name: Deploy web to GitHub Pages
 
 on:
   push:
-    branches: [master, dev]
+    branches: [dev]
   workflow_dispatch:
 
 permissions:
@@ -15,10 +15,8 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PROD_BRANCH: master
-  DEV_BRANCH: dev
+  PROD_BRANCH: dev
   PROD_BASE_URL: /MedCodeTranslator
-  DEV_BASE_URL: /MedCodeTranslator/dev
 
 jobs:
   build:
@@ -41,55 +39,21 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Fetch deployment branches
-        run: |
-          git fetch origin "$PROD_BRANCH:refs/remotes/origin/$PROD_BRANCH"
-          if git ls-remote --exit-code --heads origin "$DEV_BRANCH" >/dev/null 2>&1; then
-            git fetch origin "$DEV_BRANCH:refs/remotes/origin/$DEV_BRANCH"
-          fi
-
-      - name: Build production and development sites
+      - name: Build production site
         run: |
           set -euo pipefail
+          MEDCODE_BASE_URL="$PROD_BASE_URL" npm run build:web
 
-          SITE_ROOT="$RUNNER_TEMP/pages-site"
-          PROD_WORKTREE="$RUNNER_TEMP/worktree-$PROD_BRANCH"
-          DEV_WORKTREE="$RUNNER_TEMP/worktree-$DEV_BRANCH"
+      - name: Add 404 fallback
+        run: cp dist/index.html dist/404.html
 
-          rm -rf "$SITE_ROOT" "$PROD_WORKTREE" "$DEV_WORKTREE"
-          mkdir -p "$SITE_ROOT"
-
-          build_branch() {
-            local branch="$1"
-            local worktree="$2"
-            local base_url="$3"
-            local output_dir="$4"
-
-            git worktree add --detach "$worktree" "origin/$branch"
-            (
-              cd "$worktree"
-              npm ci
-              MEDCODE_BASE_URL="$base_url" npm run build:web
-            )
-
-            mkdir -p "$output_dir"
-            cp -R "$worktree/dist/." "$output_dir/"
-            cp "$worktree/dist/index.html" "$output_dir/404.html"
-            git worktree remove --force "$worktree"
-          }
-
-          build_branch "$PROD_BRANCH" "$PROD_WORKTREE" "$PROD_BASE_URL" "$SITE_ROOT"
-
-          if git show-ref --verify --quiet "refs/remotes/origin/$DEV_BRANCH"; then
-            build_branch "$DEV_BRANCH" "$DEV_WORKTREE" "$DEV_BASE_URL" "$SITE_ROOT/dev"
-          fi
-
-          touch "$SITE_ROOT/.nojekyll"
+      - name: Add nojekyll
+        run: touch dist/.nojekyll
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ${{ runner.temp }}/pages-site
+          path: dist
 
   deploy:
     needs: build

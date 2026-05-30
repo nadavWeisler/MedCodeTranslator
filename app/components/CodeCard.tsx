@@ -46,12 +46,13 @@ export default function CodeCard({
   const matchLabel = METHOD_LABEL[entry.matchMethod] ?? entry.matchMethod;
   const scorePercent = Math.round(entry.score * 100);
 
-  const crosswalkTitle =
-    crosswalkScheme === 'icd9'
-      ? '→ ICD-10 equivalents (CMS GEM)'
-      : crosswalkScheme === 'icd10'
-      ? '← ICD-9 equivalents (CMS GEM)'
-      : 'Code conversions (CMS GEM)';
+  const crosswalkDirection = crosswalkRows[0]
+    ? `${crosswalkRows[0].sourceLabel} -> ${crosswalkRows[0].targetLabel}`
+    : crosswalkScheme === 'icd9'
+    ? 'ICD-9-CM -> ICD-10-CM'
+    : crosswalkScheme === 'icd10'
+    ? 'ICD-10-CM -> ICD-9-CM'
+    : 'Version translation';
 
   return (
     <TouchableOpacity
@@ -96,12 +97,15 @@ export default function CodeCard({
       )}
       {showCrosswalk && (
         <View style={styles.crosswalk}>
-          <Text style={[styles.crosswalkTitle, { color: schemeColor }]}>{crosswalkTitle}</Text>
+          <View style={styles.crosswalkHeader}>
+            <Text style={[styles.crosswalkTitle, { color: schemeColor }]}>ICD family translation</Text>
+            <Text style={styles.crosswalkSubtitle}>{crosswalkDirection} · CMS GEM</Text>
+          </View>
           {crosswalkRows.map(row => (
-            <View key={`${row.icd9Code}:${row.icd10Code}`} style={styles.crosswalkRow}>
+            <View key={`${row.sourceCode}:${row.targetCode}`} style={styles.crosswalkRow}>
               <View style={styles.crosswalkCodes}>
                 <Text style={[styles.crosswalkCode, { color: schemeColor, fontFamily: MONOSPACE_FONT }]}>
-                  {crosswalkScheme === 'icd9' ? row.icd10Code : row.icd9Code}
+                  {row.targetCode}
                 </Text>
                 {row.cardinality !== '1:1' && (
                   <Text style={[styles.crosswalkCardinality, { borderColor: schemeColor + '40', color: schemeColor }]}>
@@ -109,6 +113,9 @@ export default function CodeCard({
                   </Text>
                 )}
               </View>
+              {row.targetName ? (
+                <Text style={styles.crosswalkName} numberOfLines={2}>{row.targetName}</Text>
+              ) : null}
             </View>
           ))}
         </View>
@@ -201,7 +208,10 @@ const styles = StyleSheet.create({
     borderTopWidth: 1,
     borderTopColor: '#e2e8f0',
     paddingTop: 10,
-    gap: 6,
+    gap: 8,
+  },
+  crosswalkHeader: {
+    gap: 2,
   },
   crosswalkTitle: {
     fontSize: 11,
@@ -210,9 +220,13 @@ const styles = StyleSheet.create({
     textTransform: 'uppercase',
     marginBottom: 2,
   },
+  crosswalkSubtitle: {
+    fontSize: 12,
+    color: '#64748b',
+    fontWeight: '600',
+  },
   crosswalkRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    gap: 4,
   },
   crosswalkCodes: {
     flexDirection: 'row',
@@ -231,5 +245,10 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     paddingHorizontal: 5,
     paddingVertical: 1,
+  },
+  crosswalkName: {
+    fontSize: 12,
+    lineHeight: 17,
+    color: '#475569',
   },
 });

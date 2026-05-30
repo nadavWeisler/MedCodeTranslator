@@ -4,19 +4,36 @@ import type { CrosswalkRow } from '../../db/queries';
 import type { SchemeKey } from '@medcode/core';
 
 export type CrosswalkDisplayRow = {
-  /** ICD-9 code */
-  icd9Code: string;
-  /** ICD-10 code */
-  icd10Code: string;
+  sourceScheme: 'icd9' | 'icd10';
+  targetScheme: 'icd9' | 'icd10';
+  sourceCode: string;
+  targetCode: string;
+  targetName: string | null;
   /** Mapping cardinality badge: "1:1", "1:many", "many:1", "many:many" */
   cardinality: string;
+  sourceLabel: string;
+  targetLabel: string;
+  mappingSource: 'CMS GEM';
 };
 
-function rowToDisplay(row: CrosswalkRow): CrosswalkDisplayRow {
+const SCHEME_VERSION_LABELS: Record<'icd9' | 'icd10', string> = {
+  icd9: 'ICD-9-CM',
+  icd10: 'ICD-10-CM',
+};
+
+function rowToDisplay(row: CrosswalkRow, sourceScheme: 'icd9' | 'icd10'): CrosswalkDisplayRow {
+  const targetScheme = sourceScheme === 'icd9' ? 'icd10' : 'icd9';
+
   return {
-    icd9Code: row.icd9_code,
-    icd10Code: row.icd10_code,
+    sourceScheme,
+    targetScheme,
+    sourceCode: sourceScheme === 'icd9' ? row.icd9_code : row.icd10_code,
+    targetCode: sourceScheme === 'icd9' ? row.icd10_code : row.icd9_code,
+    targetName: row.target_name,
     cardinality: row.cardinality,
+    sourceLabel: SCHEME_VERSION_LABELS[sourceScheme],
+    targetLabel: SCHEME_VERSION_LABELS[targetScheme],
+    mappingSource: 'CMS GEM',
   };
 }
 
@@ -47,7 +64,7 @@ export function useCrosswalk(scheme: SchemeKey, selectedCode: string | null): Cr
             ? await getCrosswalkFromIcd9(selectedCode)
             : await getCrosswalkFromIcd10(selectedCode);
         if (!cancelled) {
-          setRows(raw.map(rowToDisplay));
+          setRows(raw.map(row => rowToDisplay(row, scheme)));
         }
       } catch {
         if (!cancelled) setRows([]);

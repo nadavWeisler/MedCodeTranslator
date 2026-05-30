@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import SearchBar from './components/SearchBar';
 import CodeList from './components/CodeList';
-import SchemeTabs, { SCHEMES } from './components/SchemeTabs';
+import SchemeTabs, { SCHEMES, getSchemeGroup } from './components/SchemeTabs';
 import { isRTL as checkRTL } from './services/rtl';
 import type { SchemeKey } from '../db/database';
 import { buildIndex, search as layeredSearch, getSuggestions, getDidYouMean } from './services/fuzzySearch';
@@ -81,6 +81,7 @@ export default function HomeScreen() {
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeScheme = SCHEMES.find(s => s.key === scheme)!;
+  const activeSchemeGroup = getSchemeGroup(scheme);
   const selectedLanguage = LANGUAGES.find(l => l.code === lang)!;
   const { selectedCode, metadataRows, selectEntry } = useSelectedCodeResult(results);
   const crosswalkRows = useCrosswalk(scheme, selectedCode);
@@ -330,6 +331,14 @@ export default function HomeScreen() {
                 <View style={[styles.contextPill, { backgroundColor: `${schemeColor}10`, borderColor: `${schemeColor}30` }]}>
                   <Text style={[styles.contextPillText, { color: schemeColor }]}>{activeScheme.shortLabel}</Text>
                 </View>
+                <View style={styles.contextPillMuted}>
+                  <Text style={styles.contextPillMutedText}>{activeSchemeGroup.label}</Text>
+                </View>
+                {(scheme === 'icd9' || scheme === 'icd10') ? (
+                  <View style={[styles.contextPill, { backgroundColor: '#f8fafc', borderColor: '#cbd5e1' }]}>
+                    <Text style={styles.contextPillMutedText}>ICD-9-CM ↔ ICD-10-CM translation</Text>
+                  </View>
+                ) : null}
               </View>
             </View>
 
@@ -568,6 +577,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'flex-start',
+    flexWrap: 'wrap',
+    gap: 8,
   },
   contextPill: {
     borderRadius: 10,
@@ -579,6 +590,19 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '800',
     letterSpacing: 0.4,
+  },
+  contextPillMuted: {
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#e2e8f0',
+    backgroundColor: '#f8fafc',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+  contextPillMutedText: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#475569',
   },
   resultsCol: {
     flex: 1,

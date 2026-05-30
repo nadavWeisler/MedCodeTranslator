@@ -77,6 +77,21 @@ describe('CodeList', () => {
     expect(getByText('Type 2 diabetes without complications')).toBeTruthy();
   });
 
+  it('groups sibling decimal codes under their shared root code', () => {
+    const entries: ScoredEntry[] = [
+      S('F20.0', 'Paranoid schizophrenia'),
+      S('F20.1', 'Disorganized schizophrenia'),
+    ];
+    const { getByText } = render(
+      <CodeList entries={entries} query="schizophrenia" lang="en" t={t}
+        schemeColor="#059669" resultCount={2} />
+    );
+
+    expect(getByText('F20')).toBeTruthy();
+    expect(getByText('Paranoid schizophrenia')).toBeTruthy();
+    expect(getByText('Disorganized schizophrenia')).toBeTruthy();
+  });
+
   it('shows result count badge', () => {
     const { getByText } = render(
       <CodeList entries={ENTRIES} query="diabetes" lang="en" t={t}
@@ -105,5 +120,30 @@ describe('CodeList', () => {
         schemeColor="#059669" resultCount={1} />
     );
     expect(getByText('סוכרת סוג 2')).toBeTruthy();
+  });
+
+  it('shows ICD version translation details for the selected result', () => {
+    const { getByText } = render(
+      <CodeList entries={[S('250.00', 'Diabetes mellitus without complication')]} query="250.00" lang="en" t={t}
+        schemeColor="#7c3aed" resultCount={1}
+        selectedCode="250.00"
+        selectedCrosswalkRows={[{
+          sourceScheme: 'icd9',
+          targetScheme: 'icd10',
+          sourceCode: '250.00',
+          targetCode: 'E11.9',
+          targetName: 'Type 2 diabetes mellitus without complications',
+          cardinality: '1:1',
+          sourceLabel: 'ICD-9-CM',
+          targetLabel: 'ICD-10-CM',
+          mappingSource: 'CMS GEM',
+        }]}
+        crosswalkScheme="icd9" />
+    );
+
+    expect(getByText('ICD family translation')).toBeTruthy();
+    expect(getByText('ICD-9-CM -> ICD-10-CM · CMS GEM')).toBeTruthy();
+    expect(getByText('E11.9')).toBeTruthy();
+    expect(getByText('Type 2 diabetes mellitus without complications')).toBeTruthy();
   });
 });

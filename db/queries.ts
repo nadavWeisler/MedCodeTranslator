@@ -7,6 +7,7 @@ export type { CodeEntry, CodeMetadata, CodeMetadataValue, ScoredEntry } from '@m
 export type CrosswalkRow = {
   icd9_code: string;
   icd10_code: string;
+  target_name: string | null;
   cardinality: string;
   is_one_to_one: number;
   is_one_to_many: number;
@@ -39,10 +40,12 @@ export async function searchByScheme(
 export async function getCrosswalkFromIcd9(icd9Code: string): Promise<CrosswalkRow[]> {
   const db = getDB();
   return db.getAllAsync<CrosswalkRow>(
-    `SELECT icd9_code, icd10_code, cardinality, is_one_to_one, is_one_to_many, is_many_to_one
-     FROM icd9_to_icd10_gem
+    `SELECT gem.icd9_code, gem.icd10_code, icd10.name_en AS target_name,
+            gem.cardinality, gem.is_one_to_one, gem.is_one_to_many, gem.is_many_to_one
+     FROM icd9_to_icd10_gem AS gem
+     LEFT JOIN icd10 ON icd10.code = gem.icd10_code
      WHERE icd9_code = ?
-     ORDER BY icd10_code`,
+     ORDER BY gem.icd10_code`,
     [icd9Code]
   );
 }
@@ -55,10 +58,12 @@ export async function getCrosswalkFromIcd9(icd9Code: string): Promise<CrosswalkR
 export async function getCrosswalkFromIcd10(icd10Code: string): Promise<CrosswalkRow[]> {
   const db = getDB();
   return db.getAllAsync<CrosswalkRow>(
-    `SELECT icd9_code, icd10_code, cardinality, is_one_to_one, is_one_to_many, is_many_to_one
-     FROM icd9_to_icd10_gem
+    `SELECT gem.icd9_code, gem.icd10_code, icd9.name_en AS target_name,
+            gem.cardinality, gem.is_one_to_one, gem.is_one_to_many, gem.is_many_to_one
+     FROM icd9_to_icd10_gem AS gem
+     LEFT JOIN icd9 ON icd9.code = gem.icd9_code
      WHERE icd10_code = ?
-     ORDER BY icd9_code`,
+     ORDER BY gem.icd9_code`,
     [icd10Code]
   );
 }

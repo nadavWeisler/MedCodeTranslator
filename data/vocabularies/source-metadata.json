@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-05-20T18:21:10+00:00",
+  "generated_at_utc": "2026-05-30T14:00:00+00:00",
   "imported_by": "repo-bundled-assets",
   "sources": [
     {
@@ -10,7 +10,7 @@
       "source_revision": "ATC cumulative alterations CSV",
       "last_updated_utc": "2026-05-13T00:00:00Z",
       "retrieved_at_utc": "2026-05-13T00:00:00Z",
-      "record_count": 143,
+      "record_count": 5579,
       "license_text": "WHOCC public terms; verify latest redistribution/commercial terms.",
       "attribution_text": "ATC/DDD data \u00a9 WHOCC."
     },
@@ -22,7 +22,7 @@
       "source_revision": "CMS ICD-10-CM tabular order file (valid-for-coding codes only)",
       "last_updated_utc": "2026-05-13T00:00:00Z",
       "retrieved_at_utc": "2026-05-13T00:00:00Z",
-      "record_count": 113,
+      "record_count": 74260,
       "license_text": "CMS/U.S. government source terms for ICD-10-CM.",
       "attribution_text": "ICD-10-CM source: CMS."
     },
@@ -46,7 +46,7 @@
       "source_revision": "Curated repository sample",
       "last_updated_utc": "2026-05-13T00:00:00Z",
       "retrieved_at_utc": "2026-05-13T00:00:00Z",
-      "record_count": 145,
+      "record_count": 64,
       "license_text": "WHO ICD-11 terms apply to official distributions.",
       "attribution_text": "ICD-11 source context: WHO."
     },
@@ -58,7 +58,7 @@
       "source_revision": "Curated repository sample",
       "last_updated_utc": "2026-05-13T00:00:00Z",
       "retrieved_at_utc": "2026-05-13T00:00:00Z",
-      "record_count": 146,
+      "record_count": 70,
       "license_text": "LOINC/Regenstrief license terms apply.",
       "attribution_text": "LOINC source context: Regenstrief Institute."
     },
@@ -70,7 +70,7 @@
       "source_revision": "Curated repository sample",
       "last_updated_utc": "2026-05-13T00:00:00Z",
       "retrieved_at_utc": "2026-05-13T00:00:00Z",
-      "record_count": 145,
+      "record_count": 64,
       "license_text": "Official CPT requires AMA license; repo data is curated demo subset only.",
       "attribution_text": "Procedure sample references CPT-like codes; not an official CPT distribution."
     },
@@ -82,7 +82,7 @@
       "source_revision": "CMS Alpha-Numeric HCPCS Level II",
       "last_updated_utc": "2026-05-13T00:00:00Z",
       "retrieved_at_utc": "2026-05-13T00:00:00Z",
-      "record_count": 131,
+      "record_count": 136,
       "license_text": "CMS/U.S. government source terms for HCPCS Level II.",
       "attribution_text": "HCPCS Level II source: CMS."
     },
@@ -94,7 +94,7 @@
       "source_revision": "CDC IIS Standards CVX list",
       "last_updated_utc": "2026-05-13T00:00:00Z",
       "retrieved_at_utc": "2026-05-13T00:00:00Z",
-      "record_count": 159,
+      "record_count": 192,
       "license_text": "CDC/U.S. government public domain; verify terms before commercial redistribution.",
       "attribution_text": "CVX vaccine codes: CDC."
     }

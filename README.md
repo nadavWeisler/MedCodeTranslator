@@ -9,7 +9,7 @@
 
 **Open-source biomedical terminology retrieval and semantic search infrastructure.**
 
-[Production Demo](https://nadavweisler.github.io/MedCodeTranslator/) · [Development Demo](https://nadavweisler.github.io/MedCodeTranslator/dev/) · [API Docs](docs/API.md) · [Architecture](docs/architecture.md) · [Contributing](CONTRIBUTING.md)
+[Production Demo](https://nadavweisler.github.io/MedCodeTranslator/) · [API Docs](docs/API.md) · [Architecture](docs/architecture.md) · [Contributing](CONTRIBUTING.md)
 
 ---
 
@@ -209,7 +209,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). In brief:
 2. Run `npm test` and ensure all 54 tests pass
 3. For data changes, update `data/vocabularies/` and `data/vocabularies/source-metadata.json`
 4. For search logic changes, add benchmark queries to `data/benchmarks/`
-5. Open a PR against `master`
+5. Open a PR against `dev`
 
 **Scope constraint:** This project is a retrieval and reference tool. PRs that add diagnosis generation, clinical recommendations, or LLM inference will not be merged. See [docs/SAFE_SCOPE.md](docs/SAFE_SCOPE.md).
 
@@ -217,11 +217,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). In brief:
 
 ## Deployment
 
-Production PWA: [https://nadavweisler.github.io/MedCodeTranslator/](https://nadavweisler.github.io/MedCodeTranslator/) — built from `master`.
-
-Development PWA: [https://nadavweisler.github.io/MedCodeTranslator/dev/](https://nadavweisler.github.io/MedCodeTranslator/dev/) — built from `dev`.
-
-The GitHub Pages workflow publishes both builds together so production and development stay isolated under separate URLs.
+Production PWA: [https://nadavweisler.github.io/MedCodeTranslator/](https://nadavweisler.github.io/MedCodeTranslator/) — built from `dev`.
 
 ---
 

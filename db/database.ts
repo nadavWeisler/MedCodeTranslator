@@ -14,6 +14,10 @@ const SCHEMA_VERSION = 6;
 // In-memory cache: avoids a meta-table query on every getAllEntries() call
 const seededSchemes = new Set<SchemeKey>();
 
+// Serialise all seeding operations — SQLite allows only one write transaction at a time.
+// Concurrent calls to ensureSchemeSeeded() chain onto this promise instead of racing.
+let seedingQueue: Promise<void> = Promise.resolve();
+
 type RawEntry = { code: string; name_en: string; name_he?: string | null };
 
 // Dynamic loaders — each JSON becomes a separate bundle chunk in the web PWA build,
@@ -146,23 +150,30 @@ type CrosswalkEntry = {
 
 async function seedTable(table: string, data: RawEntry[]): Promise<void> {
   if (!db) return;
-  await db.withTransactionAsync(async () => {
-    await db!.runAsync(`DELETE FROM ${table}`);
+  // Explicit BEGIN/COMMIT avoids withTransactionAsync nesting issues on web SQLite
+  await db.runAsync('BEGIN');
+  try {
+    await db.runAsync(`DELETE FROM ${table}`);
     for (const item of data) {
-      await db!.runAsync(
+      await db.runAsync(
         `INSERT OR REPLACE INTO ${table} (code, name_en, name_he) VALUES (?, ?, ?)`,
         [item.code, item.name_en, item.name_he ?? null]
       );
     }
-  });
+    await db.runAsync('COMMIT');
+  } catch (e) {
+    await db.runAsync('ROLLBACK').catch(() => {});
+    throw e;
+  }
 }
 
 async function seedCrosswalk(data: CrosswalkEntry[]): Promise<void> {
   if (!db) return;
-  await db.withTransactionAsync(async () => {
-    await db!.runAsync('DELETE FROM icd9_to_icd10_gem');
+  await db.runAsync('BEGIN');
+  try {
+    await db.runAsync('DELETE FROM icd9_to_icd10_gem');
     for (const item of data) {
-      await db!.runAsync(
+      await db.runAsync(
         `INSERT OR REPLACE INTO icd9_to_icd10_gem
            (icd9_code, icd10_code, cardinality, is_one_to_one, is_one_to_many, is_many_to_one)
          VALUES (?, ?, ?, ?, ?, ?)`,
@@ -176,28 +187,38 @@ async function seedCrosswalk(data: CrosswalkEntry[]): Promise<void> {
         ]
       );
     }
-  });
+    await db.runAsync('COMMIT');
+  } catch (e) {
+    await db.runAsync('ROLLBACK').catch(() => {});
+    throw e;
+  }
 }
 
-/** Lazily seed a scheme on first access. No-op if already seeded in this session. */
+/** Lazily seed a scheme on first access. Serialised via seedingQueue to prevent
+ *  concurrent transactions (SQLite only allows one write transaction at a time). */
 async function ensureSchemeSeeded(scheme: SchemeKey): Promise<void> {
   if (seededSchemes.has(scheme)) return;
-  const d = getDB();
-  const flag = await d.getFirstAsync<{ value: string }>(
-    'SELECT value FROM meta WHERE key = ?',
-    [`seeded_${scheme}`]
-  );
-  if (flag?.value === '1') {
+  // Chain onto the queue — waits for any in-progress seeding to finish first
+  seedingQueue = seedingQueue.then(async () => {
+    if (seededSchemes.has(scheme)) return; // already seeded while we waited
+    const d = getDB();
+    const flag = await d.getFirstAsync<{ value: string }>(
+      'SELECT value FROM meta WHERE key = ?',
+      [`seeded_${scheme}`]
+    );
+    if (flag?.value === '1') {
+      seededSchemes.add(scheme);
+      return;
+    }
+    const data = await VOCABULARY_LOADERS[scheme]();
+    await seedTable(scheme, data);
+    await d.runAsync(
+      'INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)',
+      [`seeded_${scheme}`, '1']
+    );
     seededSchemes.add(scheme);
-    return;
-  }
-  const data = await VOCABULARY_LOADERS[scheme]();
-  await seedTable(scheme, data);
-  await d.runAsync(
-    'INSERT OR REPLACE INTO meta (key, value) VALUES (?, ?)',
-    [`seeded_${scheme}`, '1']
-  );
-  seededSchemes.add(scheme);
+  });
+  return seedingQueue;
 }
 
 export function getDB(): SQLite.SQLiteDatabase {

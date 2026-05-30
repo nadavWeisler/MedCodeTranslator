@@ -27,14 +27,18 @@ export const SCHEME_GROUPS: SchemeGroupConfig[] = [
 ];
 
 export const SCHEMES: SchemeConfig[] = [
-  { key: 'icd10', label: 'ICD-10',       shortLabel: 'ICD-10',color: '#059669', icon: '🩺', group: 'diagnoses' },
-  { key: 'icd9',  label: 'ICD-9-CM',     shortLabel: 'ICD-9', color: '#7c3aed', icon: '📋', group: 'diagnoses' },
-  { key: 'icd11', label: 'ICD-11',       shortLabel: 'ICD-11',color: '#0891b2', icon: '🔬', group: 'diagnoses' },
-  { key: 'atc5',  label: 'Medications',  shortLabel: 'ATC5',  color: '#2563eb', icon: '💊', group: 'medications' },
-  { key: 'cvx',   label: 'CVX (Vaccines)',shortLabel: 'CVX',  color: '#7e22ce', icon: '💉', group: 'medications' },
-  { key: 'loinc', label: 'LOINC (Labs)', shortLabel: 'LOINC', color: '#d97706', icon: '🧪', group: 'labs' },
-  { key: 'cpt',   label: 'CPT-4 (Procs)',shortLabel: 'CPT',   color: '#dc2626', icon: '⚕️', group: 'procedures' },
-  { key: 'hcpcs', label: 'HCPCS Level II',shortLabel: 'HCPCS',color: '#0f766e', icon: '🏥', group: 'procedures' },
+  { key: 'icd10', label: 'ICD-10',        shortLabel: 'ICD-10', color: '#059669', icon: '🩺', group: 'diagnoses' },
+  { key: 'icd9',  label: 'ICD-9-CM',      shortLabel: 'ICD-9',  color: '#7c3aed', icon: '📋', group: 'diagnoses' },
+  { key: 'icd11', label: 'ICD-11',        shortLabel: 'ICD-11', color: '#0891b2', icon: '🔬', group: 'diagnoses' },
+  { key: 'atc1',  label: 'ATC-1',         shortLabel: 'ATC-1',  color: '#1d4ed8', icon: '🧭', group: 'medications' },
+  { key: 'atc2',  label: 'ATC-2',         shortLabel: 'ATC-2',  color: '#2563eb', icon: '🧪', group: 'medications' },
+  { key: 'atc3',  label: 'ATC-3',         shortLabel: 'ATC-3',  color: '#3b82f6', icon: '🧬', group: 'medications' },
+  { key: 'atc4',  label: 'ATC-4',         shortLabel: 'ATC-4',  color: '#60a5fa', icon: '💊', group: 'medications' },
+  { key: 'atc5',  label: 'ATC-5',         shortLabel: 'ATC-5',  color: '#1e40af', icon: '💉', group: 'medications' },
+  { key: 'cvx',   label: 'CVX (Vaccines)',shortLabel: 'CVX',    color: '#7e22ce', icon: '💉', group: 'medications' },
+  { key: 'loinc', label: 'LOINC (Labs)',  shortLabel: 'LOINC',  color: '#d97706', icon: '🧪', group: 'labs' },
+  { key: 'cpt',   label: 'CPT-4 (Procs)', shortLabel: 'CPT',    color: '#dc2626', icon: '⚕️', group: 'procedures' },
+  { key: 'hcpcs', label: 'HCPCS Level II',shortLabel: 'HCPCS',  color: '#0f766e', icon: '🏥', group: 'procedures' },
 ];
 
 export function getSchemeGroup(scheme: SchemeKey): SchemeGroupConfig {

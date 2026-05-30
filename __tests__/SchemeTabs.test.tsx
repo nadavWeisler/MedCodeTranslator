@@ -4,7 +4,7 @@ import SchemeTabs, { SCHEMES, SCHEME_GROUPS, getSchemeGroup } from '../app/compo
 import type { SchemeKey } from '../db/database';
 
 describe('SchemeTabs', () => {
-  it('renders all 8 scheme tabs', () => {
+  it('renders all 12 scheme tabs', () => {
     const { getAllByRole } = render(
       <SchemeTabs active="atc5" onChange={jest.fn()} />
     );

@@ -2,18 +2,22 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import type { ScoredEntry } from '@medcode/core';
 import { isRTL } from '../services/rtl';
-import { spacing, radius } from '../constants/spacing';
+import HighlightedText from './HighlightedText';
 
 type Props = {
   item: ScoredEntry;
   lang: string;
   onPress: (item: ScoredEntry) => void;
   schemeColor: string;
+  t: (key: string, options?: Record<string, unknown>) => string;
 };
 
-export default function SuggestionItem({ item, lang, onPress, schemeColor }: Props) {
-  const name = lang === 'he' && item.name_he ? item.name_he : item.name_en;
+export default function SuggestionItem({ item, lang, onPress, schemeColor, t }: Props) {
   const rtl = isRTL(lang);
+  const showHebrewPrimary = lang === 'he' && !!item.name_he;
+  const name = showHebrewPrimary ? item.name_he! : item.name_en;
+  const highlights = !showHebrewPrimary ? item.highlights : undefined;
+
   return (
     <TouchableOpacity
       style={[styles.row, rtl && styles.rowRTL]}
@@ -23,9 +27,18 @@ export default function SuggestionItem({ item, lang, onPress, schemeColor }: Pro
       <View style={[styles.codePill, { backgroundColor: schemeColor + '22' }]}>
         <Text style={[styles.code, { color: schemeColor }]}>{item.code}</Text>
       </View>
-      <Text style={[styles.name, { textAlign: rtl ? 'right' : 'left' }]} numberOfLines={1}>
-        {name}
-      </Text>
+      <View style={styles.nameCol}>
+        <HighlightedText
+          text={name}
+          highlights={highlights}
+          style={styles.name}
+          textAlign={rtl ? 'right' : 'left'}
+          numberOfLines={1}
+        />
+        {lang !== 'en' && !item.name_he ? (
+          <Text style={styles.englishOnlyChip}>{t('terminology_english_only')}</Text>
+        ) : null}
+      </View>
     </TouchableOpacity>
   );
 }
@@ -55,10 +68,19 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     letterSpacing: 0.4,
   },
-  name: {
+  nameCol: {
     flex: 1,
+    gap: 2,
+  },
+  name: {
     fontSize: 14,
     color: '#183247',
     fontWeight: '600',
+  },
+  englishOnlyChip: {
+    alignSelf: 'flex-start',
+    fontSize: 9,
+    fontWeight: '700',
+    color: '#92400e',
   },
 });

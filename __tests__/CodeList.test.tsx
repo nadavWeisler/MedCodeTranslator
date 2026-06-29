@@ -11,7 +11,8 @@ const t = (key: string, opts?: Record<string, unknown>): string => {
     did_you_mean: 'Did you mean?',
     results_count: `${opts?.count ?? 0} results`,
     results_title_active: 'Results',
-    results_title_idle: 'Start searching',
+    match_exact: 'exact',
+    terminology_english_only: 'English only',
   };
   return map[key] ?? key;
 };
@@ -120,6 +121,14 @@ describe('CodeList', () => {
         schemeColor="#059669" resultCount={1} />
     );
     expect(getByText('סוכרת סוג 2')).toBeTruthy();
+  });
+
+  it('shows english-only chip when lang is not en and name_he is missing', () => {
+    const { getAllByText } = render(
+      <CodeList entries={ENTRIES} query="diabetes" lang="he" t={t}
+        schemeColor="#059669" resultCount={2} />
+    );
+    expect(getAllByText('English only').length).toBeGreaterThan(0);
   });
 
   it('shows ICD version translation details for the selected result', () => {

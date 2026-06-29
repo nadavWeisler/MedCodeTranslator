@@ -24,7 +24,7 @@ import type { ScoredEntry } from '@medcode/core';
 import { useSelectedCodeResult } from './services/useSelectedCodeResult';
 import { useCrosswalk } from './services/useCrosswalk';
 import i18n from '../i18n';
-import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel } from './services/sourceMetadata';
+import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel, getCoverageI18n, isDemoCoverage, getSchemeSourceMetadata } from './services/sourceMetadata';
 import { spacing, radius } from './constants/spacing';
 
 type Language = 'en' | 'he' | 'es' | 'fr' | 'de' | 'ar' | 'pt' | 'zh' | 'ru';
@@ -232,6 +232,9 @@ export default function HomeScreen() {
 
   const schemeColor = activeScheme.color;
   const directionalText = isRTL ? styles.textRight : styles.textLeft;
+  const schemeCoverage = getCoverageI18n(scheme);
+  const schemeSourceMeta = getSchemeSourceMetadata(scheme);
+  const isDemoScheme = isDemoCoverage(schemeSourceMeta);
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -346,6 +349,35 @@ export default function HomeScreen() {
                 {(scheme === 'icd9' || scheme === 'icd10') ? (
                   <View style={[styles.contextPill, { backgroundColor: '#f8fafc', borderColor: '#cbd5e1' }]}>
                     <Text style={styles.contextPillMutedText}>ICD-9-CM ↔ ICD-10-CM translation</Text>
+                  </View>
+                ) : null}
+                {schemeCoverage ? (
+                  <View
+                    style={[
+                      styles.contextPill,
+                      isDemoScheme
+                        ? { backgroundColor: '#fffbeb', borderColor: '#fcd34d' }
+                        : { backgroundColor: '#f0fdf4', borderColor: '#86efac' },
+                    ]}
+                  >
+                    <Text
+                      style={[
+                        styles.contextPillText,
+                        { color: isDemoScheme ? '#b45309' : '#15803d' },
+                      ]}
+                    >
+                      {t(schemeCoverage.key, {
+                        count: schemeCoverage.count,
+                        countFormatted: schemeCoverage.count.toLocaleString('en-US'),
+                      })}
+                    </Text>
+                  </View>
+                ) : null}
+                {schemeCoverage?.updated ? (
+                  <View style={styles.contextPillMuted}>
+                    <Text style={styles.contextPillMutedText}>
+                      {t('coverage_updated', { date: schemeCoverage.updated })}
+                    </Text>
                   </View>
                 ) : null}
               </View>

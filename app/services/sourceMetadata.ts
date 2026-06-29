@@ -1,4 +1,5 @@
 import sourceMetadata from '../../data/vocabularies/source-metadata.json';
+import type { SchemeKey } from '@medcode/core';
 
 export type SourceMetadataEntry = {
   dataset: string;
@@ -29,4 +30,42 @@ export function formatDateLabel(value: string | undefined | null): string {
   const dt = new Date(value);
   if (Number.isNaN(dt.getTime())) return value;
   return dt.toISOString().slice(0, 10);
+}
+
+export function formatRecordCount(count: number | undefined | null): string {
+  if (count === undefined || count === null) return '—';
+  return count.toLocaleString('en-US');
+}
+
+export function getSchemeSourceMetadata(scheme: SchemeKey): SourceMetadataEntry | undefined {
+  return DATASET_SOURCES.find(source => source.dataset === scheme);
+}
+
+/** True when the bundled dataset is a curated demo/sample rather than a full distribution. */
+export function isDemoCoverage(meta: SourceMetadataEntry | undefined): boolean {
+  if (!meta) return false;
+  const version = (meta.dataset_version ?? '').toLowerCase();
+  const revision = (meta.source_revision ?? '').toLowerCase();
+  return (
+    version.includes('demo') ||
+    version.includes('sample') ||
+    revision.includes('curated') ||
+    revision.includes('sample')
+  );
+}
+
+export type CoverageI18n = {
+  key: 'coverage_demo' | 'coverage_full';
+  count: number;
+  updated?: string;
+};
+
+export function getCoverageI18n(scheme: SchemeKey): CoverageI18n | null {
+  const meta = getSchemeSourceMetadata(scheme);
+  if (!meta?.record_count) return null;
+  return {
+    key: isDemoCoverage(meta) ? 'coverage_demo' : 'coverage_full',
+    count: meta.record_count,
+    updated: formatDateLabel(meta.last_updated_utc ?? meta.retrieved_at_utc),
+  };
 }

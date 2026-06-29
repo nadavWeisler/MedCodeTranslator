@@ -26,9 +26,9 @@ import sys
 from collections import Counter
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
-DEFAULT_ICD9 = ROOT / "assets" / "data" / "icd9.json"
-DEFAULT_ICD10 = ROOT / "assets" / "data" / "icd10.json"
-DEFAULT_XWALK = ROOT / "build" / "medical-db" / "icd9_to_icd10_gem.json"
+DEFAULT_ICD9 = ROOT / "data" / "vocabularies" / "icd9.json"
+DEFAULT_ICD10 = ROOT / "data" / "vocabularies" / "icd10.json"
+DEFAULT_XWALK = ROOT / "data" / "vocabularies" / "icd9_to_icd10_gem.json"
 
 # Alert thresholds (can be overridden via CLI args)
 DEFAULT_MANY_MANY_THRESHOLD = 0.05   # alert if >5 % of pairs are many:many

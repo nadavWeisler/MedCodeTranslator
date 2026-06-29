@@ -34,8 +34,8 @@ jobs:
 
       - name: Refresh data and rebuild database assets
         run: |
-          python scripts/refresh_medical_db.py \
-            --assets-dir assets/data \
+          python3 scripts/refresh_medical_db.py \
+            --assets-dir data/vocabularies \
             --artifact-dir build/medical-db \
             --report-file build/medical-db/update-report.md
 
@@ -49,10 +49,10 @@ jobs:
       - name: Validate crosswalk integrity
         if: success()
         run: |
-          python agents/crosswalk-validator/validate_crosswalk.py \
-            --icd9-json assets/data/icd9.json \
-            --icd10-json assets/data/icd10.json \
-            --crosswalk-json build/medical-db/icd9_to_icd10_gem.json
+          python3 agents/crosswalk-validator/validate_crosswalk.py \
+            --icd9-json data/vocabularies/icd9.json \
+            --icd10-json data/vocabularies/icd10.json \
+            --crosswalk-json data/vocabularies/icd9_to_icd10_gem.json
 
       - name: Upload refreshed DB artifact
         if: success()
@@ -76,10 +76,11 @@ jobs:
             - Rebuilt SQLite artifact for app consumption
             - Included refresh report with added/removed/changed counts
           add-paths: |
-            assets/data/atc5.json
-            assets/data/icd9.json
-            assets/data/icd10.json
-            assets/data/hcpcs.json
-            assets/data/cvx.json
-            assets/data/source-metadata.json
+            data/vocabularies/atc5.json
+            data/vocabularies/icd9.json
+            data/vocabularies/icd10.json
+            data/vocabularies/hcpcs.json
+            data/vocabularies/cvx.json
+            data/vocabularies/source-metadata.json
+            data/vocabularies/icd9_to_icd10_gem.json
           delete-branch: true

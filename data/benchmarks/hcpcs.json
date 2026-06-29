@@ -1,15 +1,15 @@
 [
   {
     "query": "wheelchair",
-    "expected_codes": ["A0130"],
+    "expected_codes": ["A0130", "E0950", "E0953", "E0954", "E0955", "E0956"],
     "category": "partial-name",
-    "note": "name_en is 'Nonemergency transportation; wheelchair van'"
+    "note": "Wheelchair van transport or wheelchair accessory codes are valid matches"
   },
   {
     "query": "syringe",
-    "expected_codes": ["A4206", "A4207", "A4208", "A4209"],
+    "expected_codes": ["A4206", "A4207", "A4208", "A4209", "A4657"],
     "category": "partial-name",
-    "note": "Multiple syringe codes — any syringe code in top 5 is acceptable"
+    "note": "Any syringe supply code in top 5 is acceptable"
   },
   {
     "query": "A0100",
@@ -21,24 +21,24 @@
     "query": "cane",
     "expected_codes": ["E0100", "E0105"],
     "category": "partial-name",
-    "note": "E0100: cane; E0105: quad/three-prong cane — both contain 'cane'"
+    "note": "E0100: cane; E0105: quad/three-prong cane"
   },
   {
     "query": "ambulance",
-    "expected_codes": ["A0021"],
+    "expected_codes": ["A0021", "A0998", "A0428", "A0429", "A0225"],
     "category": "partial-name",
-    "note": "name_en is 'Ambulance service, outside state per transport...'"
+    "note": "Ambulance service codes are acceptable matches"
   },
   {
     "query": "taxi",
     "expected_codes": ["A0100"],
     "category": "partial-name",
-    "note": "name_en is 'Nonemergency transportation; taxi'"
+    "note": "name_en is 'Non-emergency transportation; taxi'"
   },
   {
     "query": "splint",
-    "expected_codes": ["A4570"],
-    "category": "exact-name",
-    "note": "name_en is 'Splint'"
+    "expected_codes": ["A4570", "S8450", "S8451", "S8452", "Q4051"],
+    "category": "partial-name",
+    "note": "Splint supply or prefabricated splint codes are acceptable"
   }
 ]

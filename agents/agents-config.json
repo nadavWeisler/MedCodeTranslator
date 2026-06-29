@@ -1,7 +1,7 @@
 {
   "_comment": "Shared configuration for MedCodeTranslator autonomous agents. See agents/README.md.",
   "repo": "nadavWeisler/MedCodeTranslator",
-  "assets_dir": "assets/data",
+  "assets_dir": "data/vocabularies",
   "safe_scope_doc": "docs/SAFE_SCOPE.md",
   "thresholds": {
     "search_precision_at_1_min": 0.70,

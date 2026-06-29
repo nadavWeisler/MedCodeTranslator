@@ -5,7 +5,7 @@ releases before the weekly `refresh-medical-db` workflow runs.
 
 ## What it checks
 
-1. **Source availability** — every URL in `assets/data/source-metadata.json` is probed
+1. **Source availability** — every URL in `data/vocabularies/source-metadata.json` is probed
    with a HEAD request (GET fallback) to confirm it returns 2xx.
 2. **CMS annual file detection** — probes CMS ICD-10-CM and HCPCS annual ZIP URLs for
    the prior, current, and next two years. Surfaces when a future year's file becomes

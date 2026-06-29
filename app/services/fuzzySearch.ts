@@ -8,10 +8,22 @@
 import { getAllEntries } from '../../db/database';
 import type { SchemeKey } from '../../db/database';
 import type { CodeEntry, ScoredEntry } from '@medcode/core';
-import { buildFuseIndex, clearFuseIndex, layeredSearch, didYouMean as _didYouMean } from '@medcode/search';
+import {
+  buildAliasMap,
+  buildFuseIndex,
+  clearFuseIndex,
+  layeredSearch,
+  didYouMean as _didYouMean,
+  type AliasMap,
+} from '@medcode/search';
+import commonAliases from '../../data/aliases/common.json';
 
 // Per-scheme entry cache (populated on first buildIndex call)
 const entryCache: Map<string, CodeEntry[]> = new Map();
+
+const ALIAS_MAP: AliasMap = buildAliasMap(
+  (commonAliases as { aliases: Record<string, string> }).aliases
+);
 
 export async function buildIndex(scheme: SchemeKey): Promise<void> {
   if (entryCache.has(scheme)) return;
@@ -28,7 +40,7 @@ export function search(
   limit = 20
 ): ScoredEntry[] {
   const entries = entryCache.get(scheme) ?? [];
-  return layeredSearch(entries, query, scheme, { limit });
+  return layeredSearch(entries, query, scheme, { limit, aliases: ALIAS_MAP });
 }
 
 /** Autocomplete suggestions (fuzzy, top-5, fast). */

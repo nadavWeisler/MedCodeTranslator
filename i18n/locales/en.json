@@ -41,5 +41,12 @@
   "recent_searches_title": "Recent searches",
   "example_searches_title": "Try searching",
   "recent_search_chip_a11y": "Recent search",
-  "example_search_chip_a11y": "Example search"
+  "example_search_chip_a11y": "Example search",
+  "conversions_title": "Related codes in other systems",
+  "conversions_subtitle": "Mappings for {{code}}",
+  "conversions_loading": "Loading related codes…",
+  "conversions_count": "{{count}} mapping(s)",
+  "conversions_show_more": "Show {{count}} more",
+  "conversions_show_less": "Show less",
+  "conversion_open_a11y": "Open code {{code}} in its coding system"
 }

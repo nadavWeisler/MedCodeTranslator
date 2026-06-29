@@ -3,9 +3,11 @@ import { Platform, SectionList, Text, StyleSheet, View, ScrollView } from 'react
 import CodeCard from './CodeCard';
 import SuggestionItem from './SuggestionItem';
 import SearchChipRow from './SearchChipRow';
+import CodeConversionsPanel from './CodeConversionsPanel';
 import type { ScoredEntry } from '@medcode/core';
+import type { SchemeKey } from '../../db/database';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
-import type { CrosswalkDisplayRow } from '../services/useCrosswalk';
+import type { ConversionGroup } from '../services/conversionConfig';
 import { isRTL as checkRTL } from '../services/rtl';
 import { spacing, radius } from '../constants/spacing';
 
@@ -23,8 +25,9 @@ type Props = {
   onEntrySelect?: (entry: ScoredEntry) => void;
   selectedCode?: string | null;
   selectedMetadataRows?: MetadataRow[];
-  selectedCrosswalkRows?: CrosswalkDisplayRow[];
-  crosswalkScheme?: 'icd9' | 'icd10';
+  conversionGroups?: ConversionGroup[];
+  conversionsLoading?: boolean;
+  onOpenConversion?: (targetScheme: SchemeKey, targetCode: string) => void;
   recentSearches?: string[];
   exampleSearches?: string[];
   onQuickSearch?: (query: string) => void;
@@ -67,8 +70,9 @@ export default function CodeList({
   onEntrySelect,
   selectedCode,
   selectedMetadataRows = [],
-  selectedCrosswalkRows = [],
-  crosswalkScheme,
+  conversionGroups = [],
+  conversionsLoading = false,
+  onOpenConversion,
   recentSearches = [],
   exampleSearches = [],
   onQuickSearch,
@@ -148,6 +152,16 @@ export default function CodeList({
 
   return (
     <View style={styles.resultsContainer}>
+      {selectedCode && (conversionGroups.length > 0 || conversionsLoading) && onOpenConversion ? (
+        <CodeConversionsPanel
+          groups={conversionGroups}
+          loading={conversionsLoading}
+          schemeColor={schemeColor}
+          sourceCode={selectedCode}
+          t={t}
+          onOpenConversion={onOpenConversion}
+        />
+      ) : null}
       <View style={[styles.countBadge, { backgroundColor: `${schemeColor}14`, borderColor: `${schemeColor}24` }]}>
         <Text style={[styles.countBadgeText, { color: schemeColor }]}>
           {t('results_count', { count: resultCount === 100 ? '100+' : resultCount })}
@@ -174,8 +188,6 @@ export default function CodeList({
             onPress={onEntrySelect}
             isSelected={item.code === selectedCode}
             metadataRows={item.code === selectedCode ? selectedMetadataRows : []}
-            crosswalkRows={item.code === selectedCode ? selectedCrosswalkRows : []}
-            crosswalkScheme={crosswalkScheme}
           />
         )}
         showsVerticalScrollIndicator={false}

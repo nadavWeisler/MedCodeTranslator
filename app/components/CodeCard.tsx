@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
 import type { ScoredEntry } from '@medcode/core';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
-import type { CrosswalkDisplayRow } from '../services/useCrosswalk';
 import { isRTL } from '../services/rtl';
 import { spacing } from '../constants/spacing';
 import HighlightedText from './HighlightedText';
@@ -25,8 +24,6 @@ type Props = {
   isSelected?: boolean;
   onPress?: (entry: ScoredEntry) => void;
   metadataRows?: MetadataRow[];
-  crosswalkRows?: CrosswalkDisplayRow[];
-  crosswalkScheme?: 'icd9' | 'icd10';
 };
 
 export default function CodeCard({
@@ -37,8 +34,6 @@ export default function CodeCard({
   isSelected = false,
   onPress,
   metadataRows = [],
-  crosswalkRows = [],
-  crosswalkScheme,
 }: Props) {
   const rtl = isRTL(lang);
   const textAlign = rtl ? 'right' : 'left';
@@ -48,18 +43,9 @@ export default function CodeCard({
   const secondaryName = showHebrewPrimary ? entry.name_en : null;
   const showEnglishOnlyChip = lang !== 'en' && !entry.name_he;
   const showMetadata = isSelected && metadataRows.length > 0;
-  const showCrosswalk = isSelected && crosswalkRows.length > 0;
   const matchKey = MATCH_METHOD_KEYS[entry.matchMethod] ?? 'match_substring';
   const matchLabel = t(matchKey);
   const scorePercent = Math.round(entry.score * 100);
-
-  const crosswalkDirection = crosswalkRows[0]
-    ? `${crosswalkRows[0].sourceLabel} -> ${crosswalkRows[0].targetLabel}`
-    : crosswalkScheme === 'icd9'
-    ? 'ICD-9-CM -> ICD-10-CM'
-    : crosswalkScheme === 'icd10'
-    ? 'ICD-10-CM -> ICD-9-CM'
-    : 'Version translation';
 
   return (
     <TouchableOpacity
@@ -117,31 +103,6 @@ export default function CodeCard({
             <View key={item.key} style={styles.metadataRow}>
               <Text style={[styles.metadataLabel, { color: schemeColor }]}>{item.label}</Text>
               <Text style={styles.metadataValue}>{item.value}</Text>
-            </View>
-          ))}
-        </View>
-      )}
-      {showCrosswalk && (
-        <View style={styles.crosswalk}>
-          <View style={styles.crosswalkHeader}>
-            <Text style={[styles.crosswalkTitle, { color: schemeColor }]}>ICD family translation</Text>
-            <Text style={styles.crosswalkSubtitle}>{crosswalkDirection} · CMS GEM</Text>
-          </View>
-          {crosswalkRows.map(row => (
-            <View key={`${row.sourceCode}:${row.targetCode}`} style={styles.crosswalkRow}>
-              <View style={styles.crosswalkCodes}>
-                <Text style={[styles.crosswalkCode, { color: schemeColor, fontFamily: MONOSPACE_FONT }]}>
-                  {row.targetCode}
-                </Text>
-                {row.cardinality !== '1:1' && (
-                  <Text style={[styles.crosswalkCardinality, { borderColor: schemeColor + '40', color: schemeColor }]}>
-                    {row.cardinality}
-                  </Text>
-                )}
-              </View>
-              {row.targetName ? (
-                <Text style={styles.crosswalkName} numberOfLines={2}>{row.targetName}</Text>
-              ) : null}
             </View>
           ))}
         </View>
@@ -252,53 +213,5 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: '#334155',
     lineHeight: 18,
-  },
-  crosswalk: {
-    marginTop: 10,
-    borderTopWidth: 1,
-    borderTopColor: '#e2e8f0',
-    paddingTop: 10,
-    gap: 8,
-  },
-  crosswalkHeader: {
-    gap: 2,
-  },
-  crosswalkTitle: {
-    fontSize: 11,
-    fontWeight: '700',
-    letterSpacing: 0.3,
-    textTransform: 'uppercase',
-    marginBottom: 2,
-  },
-  crosswalkSubtitle: {
-    fontSize: 12,
-    color: '#64748b',
-    fontWeight: '600',
-  },
-  crosswalkRow: {
-    gap: 4,
-  },
-  crosswalkCodes: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  crosswalkCode: {
-    fontSize: 13,
-    fontWeight: '700',
-    letterSpacing: 0.4,
-  },
-  crosswalkCardinality: {
-    fontSize: 10,
-    fontWeight: '600',
-    borderWidth: 1,
-    borderRadius: 4,
-    paddingHorizontal: 5,
-    paddingVertical: 1,
-  },
-  crosswalkName: {
-    fontSize: 12,
-    lineHeight: 17,
-    color: '#475569',
   },
 });

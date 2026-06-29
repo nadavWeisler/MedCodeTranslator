@@ -15,6 +15,10 @@ const t = (key: string, opts?: Record<string, unknown>): string => {
     terminology_english_only: 'English only',
     recent_searches_title: 'Recent searches',
     example_searches_title: 'Try searching',
+    conversions_title: 'Related codes in other systems',
+    conversions_subtitle: 'Mappings for {{code}}',
+    conversions_count: `${opts?.count ?? 0} mapping(s)`,
+    conversion_open_a11y: `Open code ${opts?.code ?? ''} in its coding system`,
   };
   return map[key] ?? key;
 };
@@ -151,28 +155,46 @@ describe('CodeList', () => {
     expect(getAllByText('English only').length).toBeGreaterThan(0);
   });
 
-  it('shows ICD version translation details for the selected result', () => {
+  it('shows conversions panel for the selected result', () => {
+    const onOpenConversion = jest.fn();
     const { getByText } = render(
       <CodeList entries={[S('250.00', 'Diabetes mellitus without complication')]} query="250.00" lang="en" t={t}
         schemeColor="#7c3aed" resultCount={1}
         selectedCode="250.00"
-        selectedCrosswalkRows={[{
-          sourceScheme: 'icd9',
+        conversionGroups={[{
           targetScheme: 'icd10',
-          sourceCode: '250.00',
-          targetCode: 'E11.9',
-          targetName: 'Type 2 diabetes mellitus without complications',
-          cardinality: '1:1',
-          sourceLabel: 'ICD-9-CM',
           targetLabel: 'ICD-10-CM',
-          mappingSource: 'CMS GEM',
+          conversions: [{
+            sourceScheme: 'icd9',
+            targetScheme: 'icd10',
+            sourceCode: '250.00',
+            targetCode: 'E11.9',
+            targetName: 'Type 2 diabetes mellitus without complications',
+            isCommon: true,
+            cardinality: '1:1',
+            mappingSource: 'CMS GEM',
+            relation: 'crosswalk',
+          }],
+          commonConversions: [{
+            sourceScheme: 'icd9',
+            targetScheme: 'icd10',
+            sourceCode: '250.00',
+            targetCode: 'E11.9',
+            targetName: 'Type 2 diabetes mellitus without complications',
+            isCommon: true,
+            cardinality: '1:1',
+            mappingSource: 'CMS GEM',
+            relation: 'crosswalk',
+          }],
+          hiddenCount: 0,
         }]}
-        crosswalkScheme="icd9" />
+        onOpenConversion={onOpenConversion} />
     );
 
-    expect(getByText('ICD family translation')).toBeTruthy();
-    expect(getByText('ICD-9-CM -> ICD-10-CM · CMS GEM')).toBeTruthy();
+    expect(getByText('Related codes in other systems')).toBeTruthy();
     expect(getByText('E11.9')).toBeTruthy();
     expect(getByText('Type 2 diabetes mellitus without complications')).toBeTruthy();
+    fireEvent.press(getByText('E11.9'));
+    expect(onOpenConversion).toHaveBeenCalledWith('icd10', 'E11.9');
   });
 });

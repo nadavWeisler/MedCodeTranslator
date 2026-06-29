@@ -65,26 +65,26 @@ describe('getCrosswalkFromIcd9', () => {
     mockGetAllAsync.mockReset();
   });
 
-  it('queries icd9_to_icd10_gem table with the given ICD-9 code', async () => {
+  it('queries icd9_to_icd10_gem table with ICD-9 lookup variants', async () => {
     const fakeRows = [
       { icd9_code: '250.00', icd10_code: 'E11.9', cardinality: '1:1',
         is_one_to_one: 1, is_one_to_many: 0, is_many_to_one: 0 },
     ];
     mockGetAllAsync.mockResolvedValue(fakeRows);
 
-    const result = await getCrosswalkFromIcd9('250.00');
+    const result = await getCrosswalkFromIcd9('25000');
     expect(result).toEqual(fakeRows);
     expect(mockGetAllAsync).toHaveBeenCalledWith(
       expect.stringContaining('icd9_to_icd10_gem'),
-      ['250.00']
+      expect.arrayContaining(['25000', '250.00'])
     );
   });
 
-  it('filters by icd9_code column', async () => {
+  it('filters by icd9_code column with IN clause', async () => {
     mockGetAllAsync.mockResolvedValue([]);
     await getCrosswalkFromIcd9('401.9');
     const sql = mockGetAllAsync.mock.calls.at(-1)?.[0] as string;
-    expect(sql).toContain('WHERE icd9_code = ?');
+    expect(sql).toContain('WHERE gem.icd9_code IN');
   });
 
   it('returns empty array when no mapping exists', async () => {

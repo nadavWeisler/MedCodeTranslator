@@ -41,5 +41,12 @@
   "recent_searches_title": "חיפושים אחרונים",
   "example_searches_title": "נסה לחפש",
   "recent_search_chip_a11y": "חיפוש אחרון",
-  "example_search_chip_a11y": "חיפוש לדוגמה"
+  "example_search_chip_a11y": "חיפוש לדוגמה",
+  "conversions_title": "קודים קשורים במערכות אחרות",
+  "conversions_subtitle": "מיפויים עבור {{code}}",
+  "conversions_loading": "טוען קודים קשורים…",
+  "conversions_count": "{{count}} מיפוי(ים)",
+  "conversions_show_more": "הצג עוד {{count}}",
+  "conversions_show_less": "הצג פחות",
+  "conversion_open_a11y": "פתח קוד {{code}} במערכת הקידוד שלו"
 }

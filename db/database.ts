@@ -1,6 +1,7 @@
 import * as SQLite from 'expo-sqlite';
 // Crosswalk is small (~12 KB) — static import is fine
 import crosswalkData from '../data/vocabularies/icd9_to_icd10_gem.json';
+import schemeMappingsData from '../data/vocabularies/common_scheme_mappings.json';
 import type { SchemeKey } from '@medcode/core';
 
 // Re-export so existing callers that import SchemeKey from here keep working
@@ -9,7 +10,7 @@ export type { SchemeKey } from '@medcode/core';
 const DB_NAME = 'medcodes.db';
 // Bumped to 6: switches from eager seedAll() to per-scheme lazy seeding.
 // On upgrade the seeded_* flags are cleared so each scheme re-seeds on first access.
-const SCHEMA_VERSION = 6;
+const SCHEMA_VERSION = 7;
 
 // In-memory cache: avoids a meta-table query on every getAllEntries() call
 const seededSchemes = new Set<SchemeKey>();
@@ -119,6 +120,15 @@ export async function initDB(): Promise<void> {
       is_many_to_one INTEGER NOT NULL DEFAULT 0,
       PRIMARY KEY (icd9_code, icd10_code)
     );
+    CREATE TABLE IF NOT EXISTS scheme_mappings (
+      source_scheme TEXT NOT NULL,
+      target_scheme TEXT NOT NULL,
+      source_code TEXT NOT NULL,
+      target_code TEXT NOT NULL,
+      is_common INTEGER NOT NULL DEFAULT 1,
+      mapping_source TEXT NOT NULL,
+      PRIMARY KEY (source_scheme, target_scheme, source_code, target_code)
+    );
   `);
 
   const stored = await db.getFirstAsync<{ value: string }>(
@@ -134,8 +144,9 @@ export async function initDB(): Promise<void> {
       ['schema_version', String(SCHEMA_VERSION)]
     );
     seededSchemes.clear();
-    // Crosswalk is small — seed eagerly so ICD-9→ICD-10 lookups work immediately
+    // Crosswalk and curated mappings are small — seed eagerly for conversion lookups
     await seedCrosswalk(crosswalkData as CrosswalkEntry[]);
+    await seedSchemeMappings(schemeMappingsData as SchemeMappingEntry[]);
   }
 }
 
@@ -148,6 +159,15 @@ type CrosswalkEntry = {
   is_many_to_one: boolean;
 };
 
+type SchemeMappingEntry = {
+  source_scheme: SchemeKey;
+  target_scheme: SchemeKey;
+  source_code: string;
+  target_code: string;
+  is_common: boolean;
+  mapping_source: string;
+};
+
 async function seedTable(table: string, data: RawEntry[]): Promise<void> {
   if (!db) return;
   // Explicit BEGIN/COMMIT avoids withTransactionAsync nesting issues on web SQLite
@@ -158,6 +178,33 @@ async function seedTable(table: string, data: RawEntry[]): Promise<void> {
       await db.runAsync(
         `INSERT OR REPLACE INTO ${table} (code, name_en, name_he) VALUES (?, ?, ?)`,
         [item.code, item.name_en, item.name_he ?? null]
+      );
+    }
+    await db.runAsync('COMMIT');
+  } catch (e) {
+    await db.runAsync('ROLLBACK').catch(() => {});
+    throw e;
+  }
+}
+
+async function seedSchemeMappings(data: SchemeMappingEntry[]): Promise<void> {
+  if (!db) return;
+  await db.runAsync('BEGIN');
+  try {
+    await db.runAsync('DELETE FROM scheme_mappings');
+    for (const item of data) {
+      await db.runAsync(
+        `INSERT OR REPLACE INTO scheme_mappings
+           (source_scheme, target_scheme, source_code, target_code, is_common, mapping_source)
+         VALUES (?, ?, ?, ?, ?, ?)`,
+        [
+          item.source_scheme,
+          item.target_scheme,
+          item.source_code,
+          item.target_code,
+          item.is_common ? 1 : 0,
+          item.mapping_source,
+        ]
       );
     }
     await db.runAsync('COMMIT');
@@ -196,7 +243,7 @@ async function seedCrosswalk(data: CrosswalkEntry[]): Promise<void> {
 
 /** Lazily seed a scheme on first access. Serialised via seedingQueue to prevent
  *  concurrent transactions (SQLite only allows one write transaction at a time). */
-async function ensureSchemeSeeded(scheme: SchemeKey): Promise<void> {
+export async function ensureSchemeSeeded(scheme: SchemeKey): Promise<void> {
   if (seededSchemes.has(scheme)) return;
   // Chain onto the queue — waits for any in-progress seeding to finish first
   seedingQueue = seedingQueue.then(async () => {

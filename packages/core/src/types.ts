@@ -50,6 +50,21 @@ export type MatchMethod =
   | 'fuzzy'       // Fuse.js approximate match
   | 'alias';      // matched via synonym/abbreviation table
 
+/** A cross-scheme code mapping shown in the conversions panel. */
+export type CodeConversion = {
+  sourceScheme: SchemeKey;
+  targetScheme: SchemeKey;
+  sourceCode: string;
+  targetCode: string;
+  targetName: string | null;
+  /** Preferred mappings shown before "Show more". */
+  isCommon: boolean;
+  /** Mapping cardinality when applicable (e.g. "1:1", "1:many"). */
+  cardinality?: string;
+  mappingSource: string;
+  relation: 'crosswalk' | 'mapping' | 'hierarchy';
+};
+
 /** A search result with provenance metadata for transparent ranking. */
 export type ScoredEntry = CodeEntry & {
   /** Normalised relevance score in [0, 1]; higher is better. */

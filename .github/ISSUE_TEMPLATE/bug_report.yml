@@ -63,14 +63,41 @@ body:
       description: Select the scheme if the issue is tied to medical-code lookup behavior.
       options:
         - Not applicable
+        - ATC-1
+        - ATC-2
+        - ATC-3
+        - ATC-4
         - ATC-5
         - ICD-10
         - ICD-9-CM
         - ICD-11
         - LOINC
         - CPT-4
+        - HCPCS
+        - CVX
     validations:
       required: true
+  - type: input
+    id: search-query
+    attributes:
+      label: Search query
+      description: Exact text typed in the search box (if applicable).
+      placeholder: diabetes / E11.9 / metformin
+  - type: input
+    id: expected-code
+    attributes:
+      label: Expected code(s)
+      description: Code(s) you expected in the top results.
+      placeholder: E11.9
+  - type: textarea
+    id: actual-results
+    attributes:
+      label: Top 3 actual results
+      description: Paste the top result codes and names shown (helps triage search vs data bugs).
+      placeholder: |
+        1. E11.65 — Type 2 diabetes with hyperglycemia
+        2. E11.9 — Type 2 diabetes without complications
+        3. E10.9 — Type 1 diabetes without complications
   - type: textarea
     id: expected
     attributes:

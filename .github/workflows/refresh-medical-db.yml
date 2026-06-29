@@ -46,6 +46,15 @@ jobs:
             cat build/medical-db/update-report.md >> "$GITHUB_STEP_SUMMARY"
           fi
 
+      - name: Triage hint on failure
+        if: failure()
+        run: |
+          echo "::error::Dataset refresh failed — see docs/dataset-refresh-triage.md"
+          {
+            echo "## Refresh failed"
+            echo "Follow the triage runbook: [docs/dataset-refresh-triage.md](../blob/dev/docs/dataset-refresh-triage.md)"
+          } >> "$GITHUB_STEP_SUMMARY"
+
       - name: Validate crosswalk integrity
         if: success()
         run: |

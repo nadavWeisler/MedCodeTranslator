@@ -28,12 +28,18 @@ body:
     attributes:
       label: Dataset or scheme
       options:
+        - ATC-1
+        - ATC-2
+        - ATC-3
+        - ATC-4
         - ATC-5
         - ICD-10
         - ICD-9-CM
         - ICD-11
         - LOINC
         - CPT-4
+        - HCPCS
+        - CVX
         - Crosswalk / shared data
         - Refresh workflow output
     validations:

@@ -1,8 +1,8 @@
 # search-quality-benchmarker
 
 Runs a curated set of clinically representative queries against each coding scheme using
-Fuse.js (the same configuration as the app) and a SQLite LIKE equivalent, then measures
-precision@1 and precision@5 per scheme.
+the same layered retrieval pipeline as the app (exact → prefix → substring → fuzzy → alias)
+and a SQLite LIKE equivalent, then measures precision@1 and precision@5 per scheme.
 
 ## What it measures
 
@@ -11,7 +11,7 @@ precision@1 and precision@5 per scheme.
 | **Precision@1** | The top result matches an expected code |
 | **Precision@5** | An expected code appears in the top 5 results |
 
-Both Fuse.js fuzzy search and SQLite LIKE are measured independently so you can see
+Both layered retrieval and SQLite LIKE are measured independently so you can see
 which layer introduces any quality degradation.
 
 ## Running locally
@@ -40,7 +40,7 @@ writes a summary table to the GitHub Actions job summary.
 
 ## Benchmark fixtures
 
-Fixtures live in `agents/search-benchmarker/benchmarks/{scheme}.json`. Each fixture is:
+Fixtures live in `data/benchmarks/{scheme}.json`. Each fixture is:
 
 ```json
 {
@@ -70,5 +70,5 @@ Thresholds can be set in `agents/agents-config.json` or via environment variable
 
 | Variable | Default | Description |
 |---|---|---|
-| `BENCHMARK_P1_THRESHOLD` | `0.70` | Minimum precision@1 (Fuse.js) |
-| `BENCHMARK_P5_THRESHOLD` | `0.85` | Minimum precision@5 (Fuse.js) |
+| `BENCHMARK_P1_THRESHOLD` | `0.70` | Minimum precision@1 (layered retrieval) |
+| `BENCHMARK_P5_THRESHOLD` | `0.85` | Minimum precision@5 (layered retrieval) |

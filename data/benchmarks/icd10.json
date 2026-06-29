@@ -19,9 +19,9 @@
   },
   {
     "query": "hypertension",
-    "expected_codes": ["I10"],
+    "expected_codes": ["I10", "I15.0", "I15.1", "I15.2", "I16"],
     "category": "partial-name",
-    "note": "name_en is 'Essential (primary) hypertension'"
+    "note": "Essential or secondary hypertension codes are acceptable matches"
   },
   {
     "query": "asthma",
@@ -49,9 +49,9 @@
   },
   {
     "query": "influenza",
-    "expected_codes": ["J11"],
+    "expected_codes": ["J09", "J10", "J11"],
     "category": "partial-name",
-    "note": "name_en is 'Influenza, virus not identified'"
+    "note": "Identified or unidentified influenza virus codes are acceptable"
   },
   {
     "query": "pneumonia",

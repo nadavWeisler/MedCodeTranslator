@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Upstream source sentinel for MedCodeTranslator.
 
-Probes all dataset source URLs listed in assets/data/source-metadata.json, plus
+Probes all dataset source URLs listed in data/vocabularies/source-metadata.json, plus
 CMS ICD-10-CM and HCPCS annual file URLs for surrounding years. Reports availability
 and detects when new CMS annual files are published before the weekly refresh runs.
 
@@ -25,7 +25,7 @@ import urllib.request
 from typing import TypedDict
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent.parent
-DEFAULT_ASSETS_DIR = ROOT / "assets" / "data"
+DEFAULT_ASSETS_DIR = ROOT / "data" / "vocabularies"
 DEFAULT_REPORT_DIR = ROOT / "build" / "upstream-sentinel"
 
 

@@ -4,13 +4,13 @@ on:
   pull_request:
     branches: [master, dev]
     paths:
-      - 'assets/data/**'
+      - 'data/vocabularies/**'
       - 'app/services/fuzzySearch.ts'
       - 'db/queries.ts'
   push:
     branches: [master, dev]
     paths:
-      - 'assets/data/**'
+      - 'data/vocabularies/**'
       - 'app/services/fuzzySearch.ts'
       - 'db/queries.ts'
   workflow_dispatch:

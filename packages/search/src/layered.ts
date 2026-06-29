@@ -13,6 +13,7 @@
 import type { CodeEntry, ScoredEntry } from '@medcode/core';
 import { exactMatch, prefixMatch, substringMatch } from './exact';
 import { fuzzyMatch } from './fuzzy';
+import { aliasMatch, type AliasMap } from './alias';
 
 export interface LayeredSearchOptions {
   /** Maximum number of results to return (default: 20). */
@@ -21,6 +22,8 @@ export interface LayeredSearchOptions {
   minScore?: number;
   /** Whether to include fuzzy results (default: true). */
   fuzzy?: boolean;
+  /** Optional alias map (lowercase key → canonical term). */
+  aliases?: AliasMap;
 }
 
 /**
@@ -38,7 +41,7 @@ export function layeredSearch(
   scheme: string,
   opts: LayeredSearchOptions = {}
 ): ScoredEntry[] {
-  const { limit = 20, minScore = 0, fuzzy = true } = opts;
+  const { limit = 20, minScore = 0, fuzzy = true, aliases } = opts;
   const q = query.trim();
   if (!q) return [];
 
@@ -47,6 +50,7 @@ export function layeredSearch(
     prefixMatch(entries, q, limit),
     substringMatch(entries, q, limit * 3),
     ...(fuzzy ? [fuzzyMatch(q, scheme, limit)] : []),
+    aliasMatch(entries, q, scheme, aliases, limit, fuzzy),
   ];
 
   // Merge: keep the highest score per code across all layers

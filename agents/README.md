@@ -27,8 +27,8 @@ python agents/upstream-sentinel/sentinel.py
 # Crosswalk validator — run after a local refresh
 npm run refresh:data
 python agents/crosswalk-validator/validate_crosswalk.py \
-  --icd9-json assets/data/icd9.json \
-  --icd10-json assets/data/icd10.json \
+  --icd9-json data/vocabularies/icd9.json \
+  --icd10-json data/vocabularies/icd10.json \
   --crosswalk-json build/medical-db/icd9_to_icd10_gem.json
 
 # PHI guard — scan uncommitted changes
@@ -54,7 +54,7 @@ npm run benchmark
 ## Agent descriptions
 
 ### `upstream-sentinel`
-Probes all upstream source URLs from `assets/data/source-metadata.json` plus CMS
+Probes all upstream source URLs from `data/vocabularies/source-metadata.json` plus CMS
 ICD-10-CM and HCPCS annual file URLs for surrounding years. Reports availability and
 detects when new annual files are published ahead of the weekly refresh run.
 Optionally creates a GitHub Issue when a source becomes unreachable.

@@ -20,8 +20,8 @@ python agents/crosswalk-validator/validate_crosswalk.py
 
 # With explicit paths
 python agents/crosswalk-validator/validate_crosswalk.py \
-  --icd9-json assets/data/icd9.json \
-  --icd10-json assets/data/icd10.json \
+  --icd9-json data/vocabularies/icd9.json \
+  --icd10-json data/vocabularies/icd10.json \
   --crosswalk-json build/medical-db/icd9_to_icd10_gem.json
 
 # Skip gracefully if the crosswalk file is absent (e.g., validate-only mode)

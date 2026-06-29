@@ -87,6 +87,32 @@ def normalize_label(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip()
 
 
+def dedupe_padded_label(value: str) -> str:
+    """Remove CMS tabular-order padding artifacts (duplicated short descriptions)."""
+    raw = value.strip()
+    if not raw:
+        return raw
+
+    # Fixed-width CMS files often repeat the label after 2+ spaces.
+    padded_parts = [normalize_label(part) for part in re.split(r"\s{2,}", raw) if part.strip()]
+    if len(padded_parts) >= 2 and padded_parts[0].lower() == padded_parts[-1].lower():
+        return padded_parts[0]
+
+    normalized = normalize_label(raw)
+    words = normalized.split(" ")
+    if len(words) >= 2 and len(words) % 2 == 0:
+        mid = len(words) // 2
+        first_half = " ".join(words[:mid])
+        second_half = " ".join(words[mid:])
+        if first_half.lower() == second_half.lower():
+            return first_half
+    return normalized
+
+
+def normalize_icd10_name(value: str) -> str:
+    return dedupe_padded_label(value)
+
+
 def load_csv_records(raw: bytes) -> list[dict[str, str]]:
     text = raw.decode("utf-8-sig", errors="replace")
     sample = text[:4096]
@@ -219,7 +245,7 @@ def parse_icd10_codes_zip(raw: bytes) -> list[dict[str, str]]:
         if not code_raw or not desc:
             continue
         code = code_raw[:3] + ("." + code_raw[3:] if len(code_raw) > 3 else "")
-        entries.append({"code": code, "name_en": normalize_label(desc)})
+        entries.append({"code": code, "name_en": normalize_icd10_name(desc)})
     return unique_sorted(entries)
 
 

@@ -3,7 +3,7 @@
  * fetch-data.js
  *
  * Downloads real ATC5 and ICD-10 data from public sources and
- * writes them to assets/data/atc5.json and assets/data/icd10.json.
+ * writes them to data/vocabularies/atc5.json and data/vocabularies/icd10.json.
  *
  * Usage:
  *   node scripts/fetch-data.js

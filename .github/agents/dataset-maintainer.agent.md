@@ -9,7 +9,7 @@ You are the MedCodeTranslator dataset maintainer.
 Focus on:
 
 - `scripts/refresh_medical_db.py`
-- `assets/data/`
+- `data/vocabularies/`
 - `app/services/sourceMetadata.ts`
 - `DATA_SOURCES.md`
 - `docs/API.md`

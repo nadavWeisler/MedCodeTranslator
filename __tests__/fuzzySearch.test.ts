@@ -73,4 +73,12 @@ describe('fuzzySearch', () => {
     await expect(buildIndex('atc5')).resolves.toBeUndefined();
     await expect(buildIndex('atc5')).resolves.toBeUndefined();
   });
+
+  it('search expands common aliases via layered retrieval', async () => {
+    await buildIndex('atc5');
+    const results = getSuggestions('glucophage', 'atc5', 5);
+    expect(results.length).toBeGreaterThan(0);
+    expect(results.some(r => r.name_en === 'Metformin')).toBe(true);
+    expect(results[0]?.matchMethod).toBe('alias');
+  });
 });

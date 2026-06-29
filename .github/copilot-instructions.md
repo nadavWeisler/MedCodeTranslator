@@ -9,7 +9,7 @@
 
 - `app/` contains screens and UI components.
 - `db/` contains SQLite schema, seeding, and lookup queries.
-- `assets/data/` contains bundled terminology datasets.
+- `data/vocabularies/` contains bundled terminology datasets.
 - `scripts/refresh_medical_db.py` refreshes and validates medical datasets.
 - `app/services/` contains fuzzy search, source metadata, and UI helpers.
 - `.github/workflows/` contains CI, deploy, accessibility, and data refresh workflows.

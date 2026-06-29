@@ -33,7 +33,7 @@ BENCHMARK_P1_THRESHOLD=0.80 BENCHMARK_P5_THRESHOLD=0.90 node agents/search-bench
 ## CI integration
 
 `.github/workflows/search-quality.yml` runs the benchmark on any PR or push that
-touches `assets/data/**`, `app/services/fuzzySearch.ts`, or `db/queries.ts`.
+touches `data/vocabularies/**`, `app/services/fuzzySearch.ts`, or `db/queries.ts`.
 
 The workflow uploads `build/search-quality/benchmark-report.json` as an artifact and
 writes a summary table to the GitHub Actions job summary.

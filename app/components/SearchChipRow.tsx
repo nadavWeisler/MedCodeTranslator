@@ -4,9 +4,8 @@ import {
   Text,
   StyleSheet,
   TouchableOpacity,
-  ScrollView,
 } from 'react-native';
-import { spacing } from '../constants/spacing';
+import { colors, radii } from '../constants/theme';
 
 type Props = {
   title: string;
@@ -38,7 +37,7 @@ export default function SearchChipRow({
             key={query}
             style={[
               styles.chip,
-              { borderColor: `${schemeColor}40`, backgroundColor: `${schemeColor}10` },
+              { borderColor: `${schemeColor}35`, backgroundColor: colors.surface },
             ]}
             onPress={() => onSelect(query)}
             accessibilityRole="button"
@@ -58,10 +57,10 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   sectionTitle: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '700',
-    color: '#64748b',
-    letterSpacing: 0.2,
+    color: colors.textMuted,
+    letterSpacing: 0.4,
     textTransform: 'uppercase',
   },
   chipRow: {
@@ -74,14 +73,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row-reverse',
   },
   chip: {
-    borderRadius: 999,
+    borderRadius: radii.md,
     borderWidth: 1,
     paddingHorizontal: 12,
-    paddingVertical: 7,
+    paddingVertical: 8,
   },
   chipText: {
     fontSize: 13,
-    fontWeight: '700',
+    fontWeight: '600',
   },
   textLeft: {
     textAlign: 'left',

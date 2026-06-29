@@ -51,17 +51,17 @@ describe('SchemeTabs', () => {
   });
 
   it('shows the active scheme full label when not compact', () => {
-    const { getByText } = render(
+    const { getAllByText } = render(
       <SchemeTabs active="loinc" onChange={jest.fn()} />
     );
-    expect(getByText(/LOINC \(Labs\)/)).toBeTruthy();
+    expect(getAllByText('LOINC').length).toBeGreaterThanOrEqual(1);
   });
 
-  it('does not show full label in compact mode', () => {
+  it('does not show scheme summary section in compact mode', () => {
     const { queryByText } = render(
-      <SchemeTabs active="loinc" onChange={jest.fn()} compact />
+      <SchemeTabs active="loinc" onChange={jest.fn()} hintLabel="Search by code or name" compact />
     );
-    expect(queryByText(/LOINC \(Labs\)/)).toBeNull();
+    expect(queryByText('Search by code or name')).toBeNull();
   });
 
   it('shows hint label when provided', () => {

@@ -5,8 +5,8 @@ import type { ScoredEntry } from '@medcode/core';
 
 const t = (key: string, opts?: Record<string, unknown>): string => {
   const map: Record<string, string> = {
-    empty_state_title: 'Search medical codes',
-    empty_state_body: 'Type a code or name above',
+    empty_state_title: 'Begin your code lookup',
+    empty_state_body: 'Enter a diagnosis code, medication name, lab test, or procedure term.',
     no_results: 'No results found',
     did_you_mean: 'Did you mean?',
     results_count: `${opts?.count ?? 0} results`,
@@ -44,8 +44,8 @@ describe('CodeList', () => {
         exampleSearches={['metformin', 'aspirin']}
         onQuickSearch={jest.fn()} />
     );
-    expect(getByText('Search medical codes')).toBeTruthy();
-    expect(getByText('Type a code or name above')).toBeTruthy();
+    expect(getByText('Begin your code lookup')).toBeTruthy();
+    expect(getByText('Enter a diagnosis code, medication name, lab test, or procedure term.')).toBeTruthy();
     expect(getByText('Try searching')).toBeTruthy();
     expect(getByText('metformin')).toBeTruthy();
   });

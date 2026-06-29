@@ -5,9 +5,9 @@ import { getAssetUrl, getSiteUrl } from '../config/webDeployment';
 
 const SITE_URL = getSiteUrl();
 const IMAGE_URL = `${SITE_URL}social-preview.png`;
-const SITE_TITLE = 'MedCodeTranslator — Medical Code Lookup Prototype';
+const SITE_TITLE = 'MedCode Clinical — Clinical Coding Reference';
 const SITE_DESCRIPTION =
-  'Fast medical terminology and code lookup for research and clinical workflows.';
+  'Authoritative offline lookup across ICD, ATC, LOINC, CPT, and related clinical coding systems.';
 
 export default function Root({ children }: PropsWithChildren) {
   return (

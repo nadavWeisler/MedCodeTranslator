@@ -4,9 +4,10 @@ import type { ScoredEntry } from '@medcode/core';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
 import { isRTL } from '../services/rtl';
 import { spacing } from '../constants/spacing';
+import { colors, radii, typography } from '../constants/theme';
 import HighlightedText from './HighlightedText';
 
-const MONOSPACE_FONT = Platform.OS === 'web' ? 'monospace' : undefined;
+const MONO = typography.monoFamily;
 
 const MATCH_METHOD_KEYS: Record<string, string> = {
   exact: 'match_exact',
@@ -51,8 +52,11 @@ export default function CodeCard({
     <TouchableOpacity
       style={[
         styles.card,
-        { borderLeftColor: schemeColor },
-        isSelected && { borderColor: schemeColor + '55', backgroundColor: schemeColor + '05' },
+        isSelected && {
+          borderColor: `${schemeColor}66`,
+          backgroundColor: `${schemeColor}08`,
+          borderLeftColor: schemeColor,
+        },
       ]}
       onPress={onPress ? () => onPress(entry) : undefined}
       activeOpacity={0.85}
@@ -62,8 +66,8 @@ export default function CodeCard({
       accessibilityState={onPress ? { selected: isSelected } : undefined}
     >
       <View style={styles.row}>
-        <View style={[styles.codeBadge, { backgroundColor: schemeColor + '18' }]}>
-          <Text style={[styles.codeText, { color: schemeColor, fontFamily: MONOSPACE_FONT }]}>
+        <View style={[styles.codeBadge, { backgroundColor: `${schemeColor}14`, borderColor: `${schemeColor}28` }]}>
+          <Text style={[styles.codeText, { color: schemeColor, fontFamily: MONO }]}>
             {entry.code}
           </Text>
         </View>
@@ -82,7 +86,7 @@ export default function CodeCard({
           ) : null}
         </View>
         <View style={styles.scoreMeta}>
-          <Text style={[styles.methodBadge, { color: schemeColor, borderColor: schemeColor + '40', backgroundColor: schemeColor + '10' }]}>
+          <Text style={[styles.methodBadge, { color: schemeColor, borderColor: `${schemeColor}35`, backgroundColor: `${schemeColor}0D` }]}>
             {matchLabel}
           </Text>
           <Text style={styles.scoreText}>{scorePercent}%</Text>
@@ -113,13 +117,14 @@ export default function CodeCard({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
-    borderRadius: 14,
+    backgroundColor: colors.surface,
+    borderRadius: radii.lg,
     padding: 14,
     marginBottom: 8,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: colors.borderLight,
     borderLeftWidth: 3,
+    borderLeftColor: colors.border,
   },
   row: {
     flexDirection: 'row',
@@ -127,16 +132,17 @@ const styles = StyleSheet.create({
     gap: 12,
   },
   codeBadge: {
-    borderRadius: 12,
+    borderRadius: radii.md,
+    borderWidth: 1,
     paddingHorizontal: spacing.md,
     paddingVertical: 6,
-    minWidth: 80,
+    minWidth: 76,
     alignItems: 'center',
   },
   codeText: {
     fontSize: 12,
-    fontWeight: '800',
-    letterSpacing: 0.6,
+    fontWeight: '700',
+    letterSpacing: 0.4,
   },
   nameCol: {
     flex: 1,
@@ -148,35 +154,35 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   methodBadge: {
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: '700',
-    letterSpacing: 0.3,
+    letterSpacing: 0.4,
     borderWidth: 1,
-    borderRadius: 6,
+    borderRadius: 5,
     paddingHorizontal: 6,
     paddingVertical: 2,
     textTransform: 'uppercase',
   },
   scoreText: {
     fontSize: 10,
-    color: '#94a3b8',
+    color: colors.textMuted,
     fontWeight: '600',
   },
   name: {
-    fontSize: 16,
-    lineHeight: 23,
-    color: '#102a3f',
-    fontWeight: '700',
+    fontSize: 15,
+    lineHeight: 22,
+    color: colors.textPrimary,
+    fontWeight: '600',
   },
   englishOnlyChip: {
     alignSelf: 'flex-start',
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: '700',
-    color: '#92400e',
-    backgroundColor: '#fef3c7',
-    borderColor: '#fcd34d',
+    color: colors.demo,
+    backgroundColor: colors.demoBg,
+    borderColor: colors.demoBorder,
     borderWidth: 1,
-    borderRadius: 6,
+    borderRadius: 5,
     paddingHorizontal: 6,
     paddingVertical: 2,
     overflow: 'hidden',
@@ -185,9 +191,10 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end',
   },
   altName: {
-    fontSize: 13,
-    color: '#708495',
+    fontSize: 12,
+    color: colors.textMuted,
     marginTop: 10,
+    fontWeight: '500',
   },
   altNameLtr: {
     marginLeft: 4,
@@ -198,7 +205,7 @@ const styles = StyleSheet.create({
   metadata: {
     marginTop: 10,
     borderTopWidth: 1,
-    borderTopColor: '#e2e8f0',
+    borderTopColor: colors.borderLight,
     paddingTop: 10,
     gap: 8,
   },
@@ -206,12 +213,14 @@ const styles = StyleSheet.create({
     gap: 2,
   },
   metadataLabel: {
-    fontSize: 12,
+    fontSize: 11,
     fontWeight: '700',
+    letterSpacing: 0.2,
+    textTransform: 'uppercase',
   },
   metadataValue: {
     fontSize: 13,
-    color: '#334155',
+    color: colors.textSecondary,
     lineHeight: 18,
   },
 });

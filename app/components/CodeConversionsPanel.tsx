@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Platform, ActivityIndicator } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
 import type { SchemeKey } from '@medcode/core';
 import { SCHEMES } from './SchemeTabs';
 import type { ConversionGroup } from '../services/conversionConfig';
 import { spacing } from '../constants/spacing';
+import { colors, radii, typography } from '../constants/theme';
 
-const MONOSPACE_FONT = Platform.OS === 'web' ? 'monospace' : undefined;
+const MONO = typography.monoFamily;
 
 type Props = {
   groups: ConversionGroup[];
@@ -41,7 +42,7 @@ function ConversionRow({
       accessibilityLabel={t('conversion_open_a11y', { code: targetCode })}
     >
       <View style={styles.rowCodes}>
-        <Text style={[styles.rowCode, { color: targetColor, fontFamily: MONOSPACE_FONT }]}>
+        <Text style={[styles.rowCode, { color: targetColor, fontFamily: MONO }]}>
           {targetCode}
         </Text>
         {cardinality && cardinality !== '1:1' ? (
@@ -70,7 +71,7 @@ export default function CodeConversionsPanel({
 
   if (loading) {
     return (
-      <View style={[styles.panel, { borderColor: `${schemeColor}30` }]}>
+      <View style={[styles.panel, { borderColor: `${schemeColor}35` }]}>
         <ActivityIndicator size="small" color={schemeColor} />
         <Text style={styles.loadingText}>{t('conversions_loading')}</Text>
       </View>
@@ -89,9 +90,9 @@ export default function CodeConversionsPanel({
   };
 
   return (
-    <View style={[styles.panel, { borderColor: `${schemeColor}30` }]}>
+    <View style={[styles.panel, { borderColor: `${schemeColor}35` }]}>
       <View style={styles.header}>
-        <Text style={[styles.title, { color: schemeColor }]}>{t('conversions_title')}</Text>
+        <Text style={[styles.title, { color: colors.navy }]}>{t('conversions_title')}</Text>
         <Text style={styles.subtitle}>
           {t('conversions_subtitle', { code: sourceCode })}
         </Text>
@@ -154,35 +155,35 @@ export default function CodeConversionsPanel({
 
 const styles = StyleSheet.create({
   panel: {
-    borderRadius: 14,
+    borderRadius: radii.lg,
     borderWidth: 1,
-    backgroundColor: '#f8fafc',
+    backgroundColor: colors.surfaceRaised,
     padding: spacing.md,
     gap: 12,
   },
   header: {
-    gap: 2,
+    gap: 3,
   },
   title: {
     fontSize: 11,
     fontWeight: '700',
-    letterSpacing: 0.3,
+    letterSpacing: 0.5,
     textTransform: 'uppercase',
   },
   subtitle: {
     fontSize: 12,
-    color: '#64748b',
-    fontWeight: '600',
+    color: colors.textMuted,
+    fontWeight: '500',
   },
   loadingText: {
     fontSize: 12,
-    color: '#64748b',
-    fontWeight: '600',
+    color: colors.textMuted,
+    fontWeight: '500',
   },
   group: {
     gap: 8,
     borderTopWidth: 1,
-    borderTopColor: '#e2e8f0',
+    borderTopColor: colors.borderLight,
     paddingTop: 10,
   },
   groupHeader: {
@@ -193,18 +194,18 @@ const styles = StyleSheet.create({
   },
   groupLabel: {
     fontSize: 13,
-    fontWeight: '800',
+    fontWeight: '700',
   },
   groupCount: {
     fontSize: 11,
-    color: '#94a3b8',
-    fontWeight: '700',
+    color: colors.textMuted,
+    fontWeight: '600',
   },
   row: {
-    backgroundColor: '#ffffff',
-    borderRadius: 10,
+    backgroundColor: colors.surface,
+    borderRadius: radii.md,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: colors.borderLight,
     paddingHorizontal: 12,
     paddingVertical: 10,
     gap: 4,
@@ -217,10 +218,10 @@ const styles = StyleSheet.create({
   rowCode: {
     fontSize: 13,
     fontWeight: '700',
-    letterSpacing: 0.4,
+    letterSpacing: 0.3,
   },
   cardinality: {
-    fontSize: 10,
+    fontSize: 9,
     fontWeight: '600',
     borderWidth: 1,
     borderRadius: 4,
@@ -230,12 +231,13 @@ const styles = StyleSheet.create({
   rowName: {
     fontSize: 12,
     lineHeight: 17,
-    color: '#475569',
+    color: colors.textSecondary,
+    fontWeight: '500',
   },
   rowSource: {
     fontSize: 10,
-    color: '#94a3b8',
-    fontWeight: '600',
+    color: colors.textMuted,
+    fontWeight: '500',
   },
   moreButton: {
     alignSelf: 'flex-start',

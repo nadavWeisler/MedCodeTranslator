@@ -100,6 +100,7 @@ export default function CodeList({
                 lang={lang}
                 schemeColor={schemeColor}
                 onPress={onFuzzySelect ?? (() => {})}
+                t={t}
               />
             ))}
           </View>
@@ -132,6 +133,7 @@ export default function CodeList({
             entry={item}
             lang={lang}
             schemeColor={schemeColor}
+            t={t}
             onPress={onEntrySelect}
             isSelected={item.code === selectedCode}
             metadataRows={item.code === selectedCode ? selectedMetadataRows : []}

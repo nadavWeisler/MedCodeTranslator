@@ -3,7 +3,7 @@
   "hero_badge": "Clinical coding workspace",
   "hero_subtitle": "Search medications, diagnoses, labs, and procedures across multiple clinical coding systems.",
   "hero_stat_systems": "coding systems",
-  "hero_stat_bilingual": "bilingual interface",
+  "hero_stat_bilingual": "9 UI languages",
   "hero_stat_offline": "offline-ready data",
   "hero_highlight_label": "Current focus",
   "hero_highlight_body": "Switch coding systems and keep the same streamlined lookup flow.",
@@ -28,5 +28,14 @@
   "loading": "Loading…",
   "code": "Code",
   "name": "Name",
-  "language": "Language"
+  "language": "Language",
+  "coverage_demo": "Demo · {{countFormatted}} codes",
+  "coverage_full": "Full · {{countFormatted}} codes",
+  "coverage_updated": "Updated {{date}}",
+  "terminology_english_only": "English only",
+  "match_exact": "exact",
+  "match_prefix": "prefix",
+  "match_substring": "match",
+  "match_fuzzy": "fuzzy",
+  "match_alias": "alias"
 }

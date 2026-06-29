@@ -4,27 +4,28 @@ import type { ScoredEntry } from '@medcode/core';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
 import type { CrosswalkDisplayRow } from '../services/useCrosswalk';
 import { isRTL } from '../services/rtl';
-import { spacing, radius } from '../constants/spacing';
+import { spacing } from '../constants/spacing';
+import HighlightedText from './HighlightedText';
 
 const MONOSPACE_FONT = Platform.OS === 'web' ? 'monospace' : undefined;
 
-const METHOD_LABEL: Record<string, string> = {
-  exact: 'exact',
-  prefix: 'prefix',
-  substring: 'match',
-  fuzzy: 'fuzzy',
-  alias: 'alias',
+const MATCH_METHOD_KEYS: Record<string, string> = {
+  exact: 'match_exact',
+  prefix: 'match_prefix',
+  substring: 'match_substring',
+  fuzzy: 'match_fuzzy',
+  alias: 'match_alias',
 };
 
 type Props = {
   entry: ScoredEntry;
   lang: string;
   schemeColor: string;
+  t: (key: string, options?: Record<string, unknown>) => string;
   isSelected?: boolean;
   onPress?: (entry: ScoredEntry) => void;
   metadataRows?: MetadataRow[];
   crosswalkRows?: CrosswalkDisplayRow[];
-  /** 'icd9' or 'icd10' to label crosswalk direction; undefined = no crosswalk */
   crosswalkScheme?: 'icd9' | 'icd10';
 };
 
@@ -32,18 +33,24 @@ export default function CodeCard({
   entry,
   lang,
   schemeColor,
+  t,
   isSelected = false,
   onPress,
   metadataRows = [],
   crosswalkRows = [],
   crosswalkScheme,
 }: Props) {
-  const primaryName = lang === 'he' && entry.name_he ? entry.name_he : entry.name_en;
-  const secondaryName = lang === 'he' && entry.name_he ? entry.name_en : null;
+  const rtl = isRTL(lang);
+  const textAlign = rtl ? 'right' : 'left';
+  const showHebrewPrimary = lang === 'he' && !!entry.name_he;
+  const primaryName = showHebrewPrimary ? entry.name_he! : entry.name_en;
+  const primaryHighlights = !showHebrewPrimary ? entry.highlights : undefined;
+  const secondaryName = showHebrewPrimary ? entry.name_en : null;
+  const showEnglishOnlyChip = lang !== 'en' && !entry.name_he;
   const showMetadata = isSelected && metadataRows.length > 0;
   const showCrosswalk = isSelected && crosswalkRows.length > 0;
-  const textAlign = isRTL(lang) ? 'right' : 'left';
-  const matchLabel = METHOD_LABEL[entry.matchMethod] ?? entry.matchMethod;
+  const matchKey = MATCH_METHOD_KEYS[entry.matchMethod] ?? 'match_substring';
+  const matchLabel = t(matchKey);
   const scorePercent = Math.round(entry.score * 100);
 
   const crosswalkDirection = crosswalkRows[0]
@@ -74,7 +81,20 @@ export default function CodeCard({
             {entry.code}
           </Text>
         </View>
-        <Text style={[styles.name, { textAlign }]} numberOfLines={2}>{primaryName}</Text>
+        <View style={styles.nameCol}>
+          <HighlightedText
+            text={primaryName}
+            highlights={primaryHighlights}
+            style={styles.name}
+            textAlign={textAlign}
+            numberOfLines={2}
+          />
+          {showEnglishOnlyChip ? (
+            <Text style={[styles.englishOnlyChip, rtl ? styles.englishOnlyChipRtl : null]}>
+              {t('terminology_english_only')}
+            </Text>
+          ) : null}
+        </View>
         <View style={styles.scoreMeta}>
           <Text style={[styles.methodBadge, { color: schemeColor, borderColor: schemeColor + '40', backgroundColor: schemeColor + '10' }]}>
             {matchLabel}
@@ -82,9 +102,15 @@ export default function CodeCard({
           <Text style={styles.scoreText}>{scorePercent}%</Text>
         </View>
       </View>
-      {secondaryName && (
-        <Text style={[styles.altName, { textAlign }]} numberOfLines={1}>{secondaryName}</Text>
-      )}
+      {secondaryName ? (
+        <HighlightedText
+          text={secondaryName}
+          highlights={entry.highlights}
+          style={[styles.altName, rtl ? styles.altNameRtl : styles.altNameLtr]}
+          textAlign={textAlign}
+          numberOfLines={1}
+        />
+      ) : null}
       {showMetadata && (
         <View style={styles.metadata}>
           {metadataRows.map(item => (
@@ -151,6 +177,10 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     letterSpacing: 0.6,
   },
+  nameCol: {
+    flex: 1,
+    gap: 4,
+  },
   scoreMeta: {
     alignItems: 'flex-end',
     gap: 3,
@@ -172,17 +202,37 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   name: {
-    flex: 1,
     fontSize: 16,
     lineHeight: 23,
     color: '#102a3f',
     fontWeight: '700',
   },
+  englishOnlyChip: {
+    alignSelf: 'flex-start',
+    fontSize: 10,
+    fontWeight: '700',
+    color: '#92400e',
+    backgroundColor: '#fef3c7',
+    borderColor: '#fcd34d',
+    borderWidth: 1,
+    borderRadius: 6,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    overflow: 'hidden',
+  },
+  englishOnlyChipRtl: {
+    alignSelf: 'flex-end',
+  },
   altName: {
     fontSize: 13,
     color: '#708495',
     marginTop: 10,
+  },
+  altNameLtr: {
     marginLeft: 4,
+  },
+  altNameRtl: {
+    marginRight: 4,
   },
   metadata: {
     marginTop: 10,

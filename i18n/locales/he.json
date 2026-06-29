@@ -3,7 +3,7 @@
   "hero_badge": "מרחב עבודה לקידוד קליני",
   "hero_subtitle": "חיפוש תרופות, אבחנות, בדיקות ופרוצדורות במגוון מערכות קידוד קליניות.",
   "hero_stat_systems": "מערכות קידוד",
-  "hero_stat_bilingual": "ממשק דו־לשוני",
+  "hero_stat_bilingual": "9 שפות ממשק",
   "hero_stat_offline": "נתונים זמינים אופליין",
   "hero_highlight_label": "פוקוס נוכחי",
   "hero_highlight_body": "מעבר מהיר בין מערכות קידוד תוך שמירה על חוויית חיפוש עקבית ופשוטה.",
@@ -28,5 +28,14 @@
   "loading": "טוען…",
   "code": "קוד",
   "name": "שם",
-  "language": "שפה"
+  "language": "שפה",
+  "coverage_demo": "דמו · {{countFormatted}} קודים",
+  "coverage_full": "מלא · {{countFormatted}} קודים",
+  "coverage_updated": "עודכן {{date}}",
+  "terminology_english_only": "אנגלית בלבד",
+  "match_exact": "מדויק",
+  "match_prefix": "קידומת",
+  "match_substring": "התאמה",
+  "match_fuzzy": "משוער",
+  "match_alias": "כינוי"
 }

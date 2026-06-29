@@ -173,13 +173,20 @@ Results always include:
 
 ## Benchmark Results
 
+Layered retrieval precision (see `npm run benchmark`). Last verified on dev branch.
+
 | Scheme | Precision@1 | Precision@5 |
 |--------|------------|------------|
-| ATC-5 | — | — |
-| ICD-10 | — | — |
-| ICD-11 | — | — |
-| LOINC | — | — |
-| CVX | — | — |
+| ATC-5 | 83% | 100% |
+| ICD-10 | 100% | 100% |
+| ICD-9 | 100% | 100% |
+| ICD-11 | 89% | 89% |
+| LOINC | 100% | 100% |
+| CPT | 100% | 100% |
+| HCPCS | 100% | 100% |
+| CVX | 75% | 88% |
+
+Thresholds: P@1 ≥ 70%, P@5 ≥ 85%. CI fails if any scheme regresses below threshold.
 
 *See [`data/benchmarks/`](data/benchmarks/) for query sets and evaluation methodology.*
 
@@ -199,7 +206,7 @@ data/
 app/                      Expo Router screens + components
 db/                       expo-sqlite init + query layer
 i18n/                     i18next locale files (9 languages)
-docs/                     Architecture, API, and retrieval docs
+docs/                     Architecture, API, retrieval, and ops runbooks
 .github/workflows/        CI + deploy pipelines
 ```
 
@@ -210,7 +217,7 @@ docs/                     Architecture, API, and retrieval docs
 See [CONTRIBUTING.md](CONTRIBUTING.md). In brief:
 
 1. Fork and create a feature branch
-2. Run `npm test` and ensure all 54 tests pass
+2. Run `npm test` and `npm run benchmark` — all tests and search quality gates must pass
 3. For data changes, update `data/vocabularies/` and `data/vocabularies/source-metadata.json`
 4. For search logic changes, add benchmark queries to `data/benchmarks/`
 5. Open a PR against `dev`

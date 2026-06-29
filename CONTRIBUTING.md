@@ -72,6 +72,11 @@ Use the titles below when opening the first batch of focused issues. Keep each i
 
 ## Triage Workflow
 
+Operational runbooks:
+
+- Dataset refresh failures → [`docs/dataset-refresh-triage.md`](docs/dataset-refresh-triage.md)
+- Mobile builds (EAS) → [`docs/mobile-release.md`](docs/mobile-release.md)
+
 After the first batch of issues is opened:
 
 1. remove duplicates

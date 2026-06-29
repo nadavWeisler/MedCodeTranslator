@@ -11,7 +11,7 @@ or on-demand to automate a specific engineering workflow.
 | `upstream-sentinel` | `agents/upstream-sentinel/` | Daily CI schedule | Probes all upstream dataset URLs; alerts before the weekly refresh breaks silently |
 | `crosswalk-validator` | `agents/crosswalk-validator/` | CI gate inside `refresh-medical-db` | Validates ICD-9→ICD-10 crosswalk referential integrity after every dataset rebuild |
 | `phi-guard` | `agents/phi-guard/` | CI gate on every PR touching `app/`, `db/`, `scripts/` | Scans PR diffs for PHI fields, SAFE_SCOPE violations, and external query transmission |
-| `search-quality-benchmarker` | `agents/search-benchmarker/` | CI on dataset/fuzzy changes | Benchmarks Fuse.js and SQLite search precision per scheme |
+| `search-quality-benchmarker` | `agents/search-benchmarker/` | CI on dataset/search changes | Benchmarks layered retrieval precision per scheme |
 
 ## Shared configuration
 
@@ -49,7 +49,16 @@ npm run benchmark
 | Upstream sentinel | `.github/workflows/upstream-sentinel.yml` | Daily at 06:00 UTC |
 | Crosswalk validator | integrated into `.github/workflows/refresh-medical-db.yml` | Weekly + on-demand |
 | PHI guard | `.github/workflows/phi-guard.yml` | Every PR to `master`/`main` touching code |
-| Search quality | `.github/workflows/search-quality.yml` | PR/push touching datasets or Fuse.js config |
+| Search quality | `.github/workflows/search-quality.yml` | PR/push touching datasets or search config |
+| Main CI | `.github/workflows/ci.yml` | Every PR — includes `validate:data` + `npm run benchmark` |
+
+## Dataset refresh triage
+
+When the weekly refresh workflow fails, follow [`docs/dataset-refresh-triage.md`](../docs/dataset-refresh-triage.md).
+
+## Mobile releases
+
+See [`docs/mobile-release.md`](../docs/mobile-release.md) for EAS Build setup (iOS TestFlight / Android internal).
 
 ## Agent descriptions
 
@@ -73,6 +82,5 @@ exit 1 and block the PR. Warnings are informational. Pattern definitions live in
 
 ### `search-quality-benchmarker`
 Runs a curated benchmark suite of clinically representative queries against each coding
-scheme using Fuse.js (with the same configuration as the app) and a SQLite LIKE
-equivalent. Measures precision@1 and precision@5. Exits 1 if any scheme falls below
-the configured threshold.
+scheme using the same layered retrieval pipeline as the app. Measures precision@1 and
+precision@5. Exits 1 if any scheme falls below the configured threshold.

@@ -39,6 +39,14 @@ jobs:
             echo "MEDCODE_BASE_URL=$PROD_BASE_URL" >> "$GITHUB_ENV"
           fi
 
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Validate bundled datasets
+        run: npm run validate:data
+
       - name: Type check
         run: npx tsc --noEmit
 
@@ -50,7 +58,6 @@ jobs:
 
       - name: Run search benchmarks
         run: npm run benchmark
-        continue-on-error: true   # don't fail CI — surface report as artifact
 
       - name: Upload benchmark report
         if: always()

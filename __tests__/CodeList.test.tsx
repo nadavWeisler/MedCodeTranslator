@@ -13,6 +13,8 @@ const t = (key: string, opts?: Record<string, unknown>): string => {
     results_title_active: 'Results',
     match_exact: 'exact',
     terminology_english_only: 'English only',
+    recent_searches_title: 'Recent searches',
+    example_searches_title: 'Try searching',
   };
   return map[key] ?? key;
 };
@@ -34,10 +36,28 @@ describe('CodeList', () => {
   it('shows empty state when query is empty', () => {
     const { getByText } = render(
       <CodeList entries={[]} query="" lang="en" t={t}
-        schemeColor="#2563eb" resultCount={0} />
+        schemeColor="#2563eb" resultCount={0}
+        exampleSearches={['metformin', 'aspirin']}
+        onQuickSearch={jest.fn()} />
     );
     expect(getByText('Search medical codes')).toBeTruthy();
     expect(getByText('Type a code or name above')).toBeTruthy();
+    expect(getByText('Try searching')).toBeTruthy();
+    expect(getByText('metformin')).toBeTruthy();
+  });
+
+  it('shows recent searches and calls onQuickSearch when a chip is pressed', () => {
+    const onQuickSearch = jest.fn();
+    const { getByText } = render(
+      <CodeList entries={[]} query="" lang="en" t={t}
+        schemeColor="#2563eb" resultCount={0}
+        recentSearches={['diabetes', 'hypertension']}
+        exampleSearches={['E11.9']}
+        onQuickSearch={onQuickSearch} />
+    );
+    expect(getByText('Recent searches')).toBeTruthy();
+    fireEvent.press(getByText('diabetes'));
+    expect(onQuickSearch).toHaveBeenCalledWith('diabetes');
   });
 
   it('shows no-results state when query set but no entries', () => {

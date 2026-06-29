@@ -26,6 +26,7 @@ import { useCrosswalk } from './services/useCrosswalk';
 import i18n from '../i18n';
 import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel, getCoverageI18n, isDemoCoverage, getSchemeSourceMetadata } from './services/sourceMetadata';
 import { spacing, radius } from './constants/spacing';
+import { getSearchExamples } from './constants/searchExamples';
 
 type Language = 'en' | 'he' | 'es' | 'fr' | 'de' | 'ar' | 'pt' | 'zh' | 'ru';
 const LANGUAGES: { code: Language; label: string; name: string }[] = [
@@ -213,6 +214,10 @@ export default function HomeScreen() {
     const name = lang === 'he' && item.name_he ? item.name_he : item.name_en;
     setQuery(name);
     selectEntry(item);
+  };
+
+  const handleQuickSearch = (q: string) => {
+    setQuery(q);
   };
 
   const handleLanguageChange = (l: Language) => {
@@ -411,6 +416,9 @@ export default function HomeScreen() {
                   selectedMetadataRows={metadataRows}
                   selectedCrosswalkRows={crosswalkRows}
                   crosswalkScheme={crosswalkScheme}
+                  recentSearches={recentSearches}
+                  exampleSearches={getSearchExamples(scheme)}
+                  onQuickSearch={handleQuickSearch}
                 />
               )}
             </View>

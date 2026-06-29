@@ -1,7 +1,8 @@
 import React from 'react';
-import { Platform, SectionList, Text, StyleSheet, View } from 'react-native';
+import { Platform, SectionList, Text, StyleSheet, View, ScrollView } from 'react-native';
 import CodeCard from './CodeCard';
 import SuggestionItem from './SuggestionItem';
+import SearchChipRow from './SearchChipRow';
 import type { ScoredEntry } from '@medcode/core';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
 import type { CrosswalkDisplayRow } from '../services/useCrosswalk';
@@ -24,6 +25,9 @@ type Props = {
   selectedMetadataRows?: MetadataRow[];
   selectedCrosswalkRows?: CrosswalkDisplayRow[];
   crosswalkScheme?: 'icd9' | 'icd10';
+  recentSearches?: string[];
+  exampleSearches?: string[];
+  onQuickSearch?: (query: string) => void;
 };
 
 type ResultSection = {
@@ -65,21 +69,54 @@ export default function CodeList({
   selectedMetadataRows = [],
   selectedCrosswalkRows = [],
   crosswalkScheme,
+  recentSearches = [],
+  exampleSearches = [],
+  onQuickSearch,
 }: Props) {
   const isRTL = checkRTL(lang);
   const sections = groupEntries(entries);
 
   if (!query.trim()) {
+    const hasQuickActions = recentSearches.length > 0 || exampleSearches.length > 0;
+
     return (
-      <View style={styles.stateCard}>
-        <Text style={styles.stateIcon}>🩺</Text>
-        <Text style={[styles.stateTitle, isRTL ? styles.textRight : styles.textLeft]}>
-          {t('empty_state_title')}
-        </Text>
-        <Text style={[styles.stateBody, isRTL ? styles.textRight : styles.textLeft]}>
-          {t('empty_state_body')}
-        </Text>
-      </View>
+      <ScrollView
+        style={styles.idleScroll}
+        contentContainerStyle={styles.idleContent}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.stateCard}>
+          <Text style={styles.stateIcon}>🩺</Text>
+          <Text style={[styles.stateTitle, isRTL ? styles.textRight : styles.textLeft]}>
+            {t('empty_state_title')}
+          </Text>
+          <Text style={[styles.stateBody, isRTL ? styles.textRight : styles.textLeft]}>
+            {t('empty_state_body')}
+          </Text>
+
+          {hasQuickActions && onQuickSearch ? (
+            <View style={styles.quickSearchArea}>
+              <SearchChipRow
+                title={t('recent_searches_title')}
+                queries={recentSearches}
+                schemeColor={schemeColor}
+                isRTL={isRTL}
+                onSelect={onQuickSearch}
+                accessibilityLabelPrefix={t('recent_search_chip_a11y')}
+              />
+              <SearchChipRow
+                title={t('example_searches_title')}
+                queries={exampleSearches}
+                schemeColor={schemeColor}
+                isRTL={isRTL}
+                onSelect={onQuickSearch}
+                accessibilityLabelPrefix={t('example_search_chip_a11y')}
+              />
+            </View>
+          ) : null}
+        </View>
+      </ScrollView>
     );
   }
 
@@ -193,15 +230,26 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
   },
   stateCard: {
-    flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
     paddingHorizontal: spacing.xl,
+    paddingVertical: spacing.xl,
     gap: 12,
     borderRadius: 14,
     borderWidth: 1,
     borderColor: '#e5e7eb',
     backgroundColor: '#ffffff',
+  },
+  idleScroll: {
+    flex: 1,
+    minHeight: 0,
+  },
+  idleContent: {
+    flexGrow: 1,
+  },
+  quickSearchArea: {
+    width: '100%',
+    marginTop: 8,
+    gap: 14,
   },
   stateIcon: {
     fontSize: 34,

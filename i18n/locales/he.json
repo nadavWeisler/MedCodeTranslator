@@ -37,5 +37,9 @@
   "match_prefix": "קידומת",
   "match_substring": "התאמה",
   "match_fuzzy": "משוער",
-  "match_alias": "כינוי"
+  "match_alias": "כינוי",
+  "recent_searches_title": "חיפושים אחרונים",
+  "example_searches_title": "נסה לחפש",
+  "recent_search_chip_a11y": "חיפוש אחרון",
+  "example_search_chip_a11y": "חיפוש לדוגמה"
 }

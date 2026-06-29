@@ -37,5 +37,9 @@
   "match_prefix": "prefix",
   "match_substring": "match",
   "match_fuzzy": "fuzzy",
-  "match_alias": "alias"
+  "match_alias": "alias",
+  "recent_searches_title": "Recent searches",
+  "example_searches_title": "Try searching",
+  "recent_search_chip_a11y": "Recent search",
+  "example_search_chip_a11y": "Example search"
 }

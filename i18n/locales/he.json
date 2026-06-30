@@ -1,7 +1,10 @@
 {
-  "app_title": "מתרגם קודים רפואיים",
+  "app_title": "MedCode Clinical",
   "hero_badge": "מרחב עבודה לקידוד קליני",
-  "hero_subtitle": "חיפוש תרופות, אבחנות, בדיקות ופרוצדורות במגוון מערכות קידוד קליניות.",
+  "hero_subtitle": "חיפוש מקצועי בקודים קליניים — ICD, ATC, LOINC, CPT ומערכות קידוד נוספות.",
+  "trust_verified_sources": "מקורות טרמינולוגיה מאומתים",
+  "trust_offline": "עובד ללא חיבור",
+  "trust_no_phi": "ללא אחסון PHI",
   "hero_stat_systems": "מערכות קידוד",
   "hero_stat_bilingual": "9 שפות ממשק",
   "hero_stat_offline": "נתונים זמינים אופליין",

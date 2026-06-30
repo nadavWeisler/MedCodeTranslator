@@ -1,5 +1,5 @@
 import React from 'react';
-import { Platform, SectionList, Text, StyleSheet, View, ScrollView } from 'react-native';
+import { SectionList, Text, StyleSheet, View, ScrollView } from 'react-native';
 import CodeCard from './CodeCard';
 import SuggestionItem from './SuggestionItem';
 import SearchChipRow from './SearchChipRow';
@@ -9,9 +9,11 @@ import type { SchemeKey } from '../../db/database';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
 import type { ConversionGroup } from '../services/conversionConfig';
 import { isRTL as checkRTL } from '../services/rtl';
-import { spacing, radius } from '../constants/spacing';
+import { spacing } from '../constants/spacing';
+import { colors, radii, typography } from '../constants/theme';
+import ClinicalIcon from './ClinicalIcon';
 
-const MONOSPACE_FONT = Platform.OS === 'web' ? 'monospace' : undefined;
+const MONO = typography.monoFamily;
 
 type Props = {
   entries: ScoredEntry[];
@@ -91,7 +93,7 @@ export default function CodeList({
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.stateCard}>
-          <Text style={styles.stateIcon}>🩺</Text>
+          <ClinicalIcon name="codes" size={48} color={schemeColor} />
           <Text style={[styles.stateTitle, isRTL ? styles.textRight : styles.textLeft]}>
             {t('empty_state_title')}
           </Text>
@@ -127,7 +129,7 @@ export default function CodeList({
   if (entries.length === 0) {
     return (
       <View style={styles.stateCard}>
-        <Text style={styles.stateIcon}>🔎</Text>
+        <ClinicalIcon name="search" size={44} color={schemeColor} />
         <Text style={[styles.stateTitle, isRTL ? styles.textRight : styles.textLeft]}>{t('no_results')}</Text>
         {fuzzyMatches.length > 0 && (
           <View style={styles.didYouMean}>
@@ -173,7 +175,7 @@ export default function CodeList({
         renderSectionHeader={({ section }) =>
           section.title ? (
             <View style={styles.groupHeader}>
-              <Text style={[styles.groupTitle, { color: schemeColor, fontFamily: MONOSPACE_FONT }]}>
+              <Text style={[styles.groupTitle, { color: schemeColor, fontFamily: MONO }]}>
                 {section.title}
               </Text>
             </View>
@@ -215,41 +217,41 @@ const styles = StyleSheet.create({
   groupHeader: {
     paddingTop: 4,
     paddingBottom: 6,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.surface,
   },
   groupTitle: {
     alignSelf: 'flex-start',
-    borderRadius: 8,
+    borderRadius: radii.sm,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
-    backgroundColor: '#f8fafc',
+    borderColor: colors.borderLight,
+    backgroundColor: colors.surfaceRaised,
     paddingHorizontal: 9,
     paddingVertical: 4,
-    fontSize: 12,
-    fontWeight: '800',
-    letterSpacing: 0.5,
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 0.4,
   },
   countBadge: {
     alignSelf: 'flex-start',
-    borderRadius: 10,
+    borderRadius: radii.md,
     borderWidth: 1,
     paddingHorizontal: 10,
     paddingVertical: 6,
   },
   countBadgeText: {
-    fontSize: 12,
-    fontWeight: '800',
-    letterSpacing: 0.4,
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 0.3,
   },
   stateCard: {
     alignItems: 'center',
     paddingHorizontal: spacing.xl,
     paddingVertical: spacing.xl,
-    gap: 12,
-    borderRadius: 14,
+    gap: 14,
+    borderRadius: radii.xl,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
-    backgroundColor: '#ffffff',
+    borderColor: colors.borderLight,
+    backgroundColor: colors.surface,
   },
   idleScroll: {
     flex: 1,
@@ -263,39 +265,40 @@ const styles = StyleSheet.create({
     marginTop: 8,
     gap: 14,
   },
-  stateIcon: {
-    fontSize: 34,
-  },
   stateTitle: {
-    fontSize: 20,
-    fontWeight: '800',
-    color: '#113349',
+    fontSize: 18,
+    fontWeight: '700',
+    color: colors.textPrimary,
+    letterSpacing: -0.2,
   },
   stateBody: {
     fontSize: 14,
     lineHeight: 21,
-    color: '#66788a',
+    color: colors.textSecondary,
     textAlign: 'center',
-    maxWidth: 320,
+    maxWidth: 360,
+    fontWeight: '500',
   },
   didYouMean: {
     width: '100%',
     maxWidth: 460,
-    backgroundColor: '#fff',
-    borderRadius: 12,
+    backgroundColor: colors.surface,
+    borderRadius: radii.lg,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: colors.borderLight,
     overflow: 'hidden',
   },
   didYouMeanTitle: {
-    fontSize: 13,
+    fontSize: 12,
     fontWeight: '700',
-    color: '#5f7488',
+    color: colors.textMuted,
+    letterSpacing: 0.2,
+    textTransform: 'uppercase',
     paddingHorizontal: 14,
     paddingVertical: spacing.md,
-    backgroundColor: '#f8fafc',
+    backgroundColor: colors.surfaceRaised,
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
+    borderBottomColor: colors.borderLight,
   },
   textLeft: {
     textAlign: 'left',

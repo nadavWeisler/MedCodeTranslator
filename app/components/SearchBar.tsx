@@ -8,13 +8,15 @@ import {
   Platform,
 } from 'react-native';
 import { isRTL } from '../services/rtl';
-import { spacing, radius } from '../constants/spacing';
+import { spacing } from '../constants/spacing';
+import { colors, radii, shadows } from '../constants/theme';
+import ClinicalIcon from './ClinicalIcon';
 
 type Props = {
   value: string;
   onChangeText: (text: string) => void;
   placeholder?: string;
-  ghostText?: string;            // inline completion hint
+  ghostText?: string;
   schemeColor: string;
   lang: string;
 };
@@ -32,6 +34,7 @@ export default function SearchBar({
   const rtl = isRTL(lang);
 
   const showGhost = focused && !!ghostText && value.length >= 2;
+  const accent = focused ? schemeColor : colors.border;
 
   const handleBlur = () => {
     setFocused(false);
@@ -39,13 +42,19 @@ export default function SearchBar({
 
   return (
     <View style={styles.wrapper}>
-      {/* Input row */}
-      <View style={[styles.container, focused && [styles.containerFocused, { borderColor: schemeColor }]]}>
-        <Text style={styles.icon}>🔍</Text>
+      <View
+        style={[
+          styles.container,
+          focused && styles.containerFocused,
+          { borderColor: accent },
+          focused && shadows.card,
+        ]}
+      >
+        <View style={styles.iconWrap}>
+          <ClinicalIcon name="search" size={18} color={focused ? schemeColor : colors.textMuted} />
+        </View>
 
-        {/* Ghost text sits behind the real input */}
         <View style={styles.inputArea}>
-          {/* Bug fix #4: pointerEvents must be a prop on View, not a style on Text */}
           {showGhost && (
             <View style={styles.ghostContainer} pointerEvents="none">
               <Text style={[styles.ghost, rtl ? styles.textRight : styles.textLeft]} numberOfLines={1}>
@@ -60,7 +69,7 @@ export default function SearchBar({
             value={value}
             onChangeText={onChangeText}
             placeholder={placeholder}
-            placeholderTextColor="#94a3b8"
+            placeholderTextColor={colors.textMuted}
             autoCapitalize="none"
             autoCorrect={false}
             returnKeyType="search"
@@ -77,7 +86,7 @@ export default function SearchBar({
             style={styles.clearBtn}
             accessibilityLabel="Clear search"
           >
-            <Text style={styles.clearIcon}>✕</Text>
+            <Text style={styles.clearIcon}>×</Text>
           </TouchableOpacity>
         )}
       </View>
@@ -92,20 +101,22 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#ffffff',
-    borderRadius: 12,
-    paddingHorizontal: spacing.lg,
-    paddingVertical: Platform.OS === 'ios' ? 14 : spacing.md,
+    backgroundColor: colors.surface,
+    borderRadius: radii.lg,
+    paddingHorizontal: spacing.md,
+    paddingVertical: Platform.OS === 'ios' ? 13 : 11,
     minHeight: 52,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
+    borderColor: colors.border,
   },
   containerFocused: {
     borderWidth: 1.5,
+    backgroundColor: colors.surface,
   },
-  icon: {
-    fontSize: 17,
+  iconWrap: {
     marginRight: 10,
+    width: 22,
+    alignItems: 'center',
   },
   inputArea: {
     flex: 1,
@@ -120,25 +131,30 @@ const styles = StyleSheet.create({
   },
   ghost: {
     fontSize: 16,
-    lineHeight: 20,
-    color: '#9aaabc',
+    lineHeight: 22,
+    color: colors.textMuted,
   },
   input: {
     fontSize: 16,
-    lineHeight: 20,
-    color: '#102a3f',
+    lineHeight: 22,
+    color: colors.textPrimary,
     padding: 0,
     backgroundColor: 'transparent',
   },
   clearBtn: {
-    padding: 6,
-    marginLeft: 6,
-    borderRadius: 999,
-    backgroundColor: '#f1f5f9',
+    width: 28,
+    height: 28,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 4,
+    borderRadius: radii.pill,
+    backgroundColor: colors.surfaceMuted,
   },
   clearIcon: {
-    fontSize: 13,
-    color: '#6f8395',
+    fontSize: 18,
+    lineHeight: 20,
+    color: colors.textMuted,
+    fontWeight: '500',
   },
   textLeft: {
     textAlign: 'left',

@@ -17,6 +17,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import SearchBar from './components/SearchBar';
 import CodeList from './components/CodeList';
 import SchemeTabs, { SCHEMES, getSchemeGroup } from './components/SchemeTabs';
+import BrandMark from './components/BrandMark';
+import TrustBar from './components/TrustBar';
 import { isRTL as checkRTL } from './services/rtl';
 import type { SchemeKey } from '../db/database';
 import { buildIndex, search as layeredSearch, getSuggestions, getDidYouMean, isIndexReady } from './services/fuzzySearch';
@@ -25,7 +27,8 @@ import { useSelectedCodeResult } from './services/useSelectedCodeResult';
 import { useCodeConversions } from './services/useCodeConversions';
 import i18n from '../i18n';
 import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel, getCoverageI18n, isDemoCoverage, getSchemeSourceMetadata } from './services/sourceMetadata';
-import { spacing, radius } from './constants/spacing';
+import { spacing } from './constants/spacing';
+import { colors, radii, shadows, typography } from './constants/theme';
 import { getSearchExamples } from './constants/searchExamples';
 
 type Language = 'en' | 'he' | 'es' | 'fr' | 'de' | 'ar' | 'pt' | 'zh' | 'ru';
@@ -111,21 +114,19 @@ export default function HomeScreen() {
     const previousBodyFontFamily = document.body.style.fontFamily;
     const previousHtmlBackground = document.documentElement.style.backgroundColor;
 
-    document.documentElement.style.backgroundColor = '#f6f7f9';
-    document.body.style.backgroundColor = '#f6f7f9';
+    document.documentElement.style.backgroundColor = colors.pageBg;
+    document.body.style.backgroundColor = colors.pageBg;
 
-    // Load DM Sans from Google Fonts for a professional look
-    const linkId = 'dm-sans-font';
-    if (!document.getElementById(linkId)) {
+    const fontId = 'clinical-fonts';
+    if (!document.getElementById(fontId)) {
       const link = document.createElement('link');
-      link.id = linkId;
+      link.id = fontId;
       link.rel = 'stylesheet';
-      link.href = 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,800;1,9..40,400&display=swap';
+      link.href = 'https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@500;600&display=swap';
       document.head.appendChild(link);
     }
 
-    document.body.style.fontFamily =
-      '"DM Sans", Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+    document.body.style.fontFamily = typography.fontFamily ?? 'system-ui, sans-serif';
 
     return () => {
       document.documentElement.style.backgroundColor = previousHtmlBackground;
@@ -259,15 +260,18 @@ export default function HomeScreen() {
       >
         <View style={[styles.header, isMobile && styles.headerMobile]}>
           <View style={styles.headerCopy}>
-            <Text style={[styles.appTitle, isTablet && styles.appTitleTablet, directionalText]}>
-              {t('app_title')}
-            </Text>
-            <Text
-              style={[styles.appSubtitle, isMobile && styles.appSubtitleMobile, directionalText]}
-              numberOfLines={isMobile ? undefined : 1}
-            >
-              {t('hero_subtitle')}
-            </Text>
+            <BrandMark
+              compact={isMobile}
+              subtitle={t('hero_subtitle')}
+              align={isRTL ? 'right' : 'left'}
+            />
+            <TrustBar
+              items={[
+                t('trust_verified_sources'),
+                t('trust_offline'),
+                t('trust_no_phi'),
+              ]}
+            />
           </View>
 
           <View style={[styles.langPickerWrap, isMobile && styles.langPickerWrapMobile]}>
@@ -275,7 +279,7 @@ export default function HomeScreen() {
               style={[
                 styles.langPicker,
                 isMobile && styles.langPickerMobile,
-                showLanguageDropdown && { borderColor: `${schemeColor}50` },
+                showLanguageDropdown && { borderColor: colors.teal },
               ]}
               onPress={() => setShowLanguageDropdown(prev => !prev)}
               accessibilityLabel={`Select language, ${selectedLanguage.name}`}
@@ -288,7 +292,7 @@ export default function HomeScreen() {
               </Text>
               <Text
                 importantForAccessibility="no"
-                style={[styles.langPickerChevron, showLanguageDropdown && { color: schemeColor }]}
+                style={[styles.langPickerChevron, showLanguageDropdown && { color: colors.teal }]}
               >
                 ▾
               </Text>
@@ -299,7 +303,7 @@ export default function HomeScreen() {
                 style={[
                   styles.langDropdown,
                   isMobile && styles.langDropdownMobile,
-                  { borderColor: `${schemeColor}20` },
+                  { borderColor: colors.borderLight },
                 ]}
               >
                 {LANGUAGES.map(l => (
@@ -307,7 +311,7 @@ export default function HomeScreen() {
                     key={l.code}
                     style={[
                       styles.langOption,
-                      lang === l.code && { backgroundColor: `${schemeColor}12` },
+                      lang === l.code && { backgroundColor: colors.tealLight },
                     ]}
                     onPress={() => handleLanguageChange(l.code)}
                     accessibilityLabel={l.name}
@@ -317,7 +321,7 @@ export default function HomeScreen() {
                     <Text
                       style={[
                         styles.langOptionText,
-                        lang === l.code && { color: schemeColor },
+                        lang === l.code && { color: colors.teal },
                       ]}
                     >
                       <Text importantForAccessibility="no">{l.label} </Text>
@@ -357,8 +361,8 @@ export default function HomeScreen() {
                   <Text style={styles.contextPillMutedText}>{activeSchemeGroup.label}</Text>
                 </View>
                 {(scheme === 'icd9' || scheme === 'icd10') ? (
-                  <View style={[styles.contextPill, { backgroundColor: '#f8fafc', borderColor: '#cbd5e1' }]}>
-                    <Text style={styles.contextPillMutedText}>ICD-9-CM ↔ ICD-10-CM translation</Text>
+                  <View style={styles.contextPillMuted}>
+                    <Text style={styles.contextPillMutedText}>{t('conversions_title')}</Text>
                   </View>
                 ) : null}
                 {schemeCoverage ? (
@@ -366,14 +370,14 @@ export default function HomeScreen() {
                     style={[
                       styles.contextPill,
                       isDemoScheme
-                        ? { backgroundColor: '#fffbeb', borderColor: '#fcd34d' }
-                        : { backgroundColor: '#f0fdf4', borderColor: '#86efac' },
+                        ? { backgroundColor: colors.demoBg, borderColor: colors.demoBorder }
+                        : { backgroundColor: colors.successBg, borderColor: colors.successBorder },
                     ]}
                   >
                     <Text
                       style={[
                         styles.contextPillText,
-                        { color: isDemoScheme ? '#b45309' : '#15803d' },
+                        { color: isDemoScheme ? colors.demo : colors.success },
                       ]}
                     >
                       {t(schemeCoverage.key, {
@@ -433,42 +437,42 @@ export default function HomeScreen() {
 
         {isMobile ? (
           <View style={styles.complianceFooterCompact}>
-            <Text style={styles.complianceFooterCompactLabel} numberOfLines={1}>ⓘ Informational use only</Text>
+            <Text style={styles.complianceFooterCompactLabel} numberOfLines={1}>{t('footer_info_title')}</Text>
             <View style={styles.complianceActionsCompact}>
               <TouchableOpacity onPress={() => router.push('/about')}>
-                <Text style={styles.linkBtnTextCompact}>About</Text>
+                <Text style={styles.linkBtnTextCompact}>{t('footer_about')}</Text>
               </TouchableOpacity>
               <Text style={styles.complianceSep}>·</Text>
               <TouchableOpacity onPress={() => router.push('/legal/terms')}>
-                <Text style={styles.linkBtnTextCompact}>Terms</Text>
+                <Text style={styles.linkBtnTextCompact}>{t('footer_terms')}</Text>
               </TouchableOpacity>
               <Text style={styles.complianceSep}>·</Text>
               <TouchableOpacity onPress={() => router.push('/legal/privacy')}>
-                <Text style={styles.linkBtnTextCompact}>Privacy</Text>
+                <Text style={styles.linkBtnTextCompact}>{t('footer_privacy')}</Text>
               </TouchableOpacity>
             </View>
           </View>
         ) : (
           <View style={styles.complianceFooter}>
-            <Text style={[styles.complianceTitle, directionalText]}>Informational use only</Text>
+            <Text style={[styles.complianceTitle, directionalText]}>{t('footer_info_title')}</Text>
             <Text style={[styles.complianceBody, directionalText]}>
-              MedCodeTranslator is an informational reference tool only and is not intended for diagnosis, treatment decisions, prescribing, or medical advice.
+              {t('footer_info_body')}
             </Text>
             <Text style={[styles.noPhiBody, directionalText]}>
-              Do not enter patient-identifiable or protected health information (PHI) into this application.
+              {t('footer_phi_warning')}
             </Text>
             <Text style={[styles.complianceBody, directionalText]}>
-              Last updated: {formatDateLabel(DATASET_METADATA_GENERATED_AT)}
+              {t('footer_updated', { date: formatDateLabel(DATASET_METADATA_GENERATED_AT) })}
             </Text>
             <View style={styles.complianceActions}>
               <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/about')}>
-                <Text style={styles.linkBtnText}>About & Data Sources</Text>
+                <Text style={styles.linkBtnText}>{t('footer_about')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/legal/terms')}>
-                <Text style={styles.linkBtnText}>Terms</Text>
+                <Text style={styles.linkBtnText}>{t('footer_terms')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/legal/privacy')}>
-                <Text style={styles.linkBtnText}>Privacy</Text>
+                <Text style={styles.linkBtnText}>{t('footer_privacy')}</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -483,20 +487,16 @@ export default function HomeScreen() {
       >
         <View style={styles.modalBackdrop}>
           <View style={styles.modalCard}>
-            <Text style={styles.modalTitle}>Important safety notice</Text>
+            <Text style={styles.modalTitle}>{t('modal_safety_title')}</Text>
+            <Text style={styles.modalBody}>{t('modal_safety_body_1')}</Text>
+            <Text style={styles.modalBody}>{t('modal_safety_body_2')}</Text>
+            <Text style={styles.modalBody}>{t('modal_safety_body_3')}</Text>
+            <Text style={styles.modalWarn}>{t('modal_safety_phi')}</Text>
             <Text style={styles.modalBody}>
-              MedCodeTranslator is an informational reference tool only and is not intended for diagnosis, treatment decisions, prescribing, or medical advice.
+              {t('modal_safety_sources', { count: DATASET_SOURCES.length })}
             </Text>
-            <Text style={styles.modalBody}>
-              Always verify medication information using official clinical systems, licensed medical databases, and institutional procedures.
-            </Text>
-            <Text style={styles.modalBody}>
-              No warranty is provided regarding the accuracy, completeness, or timeliness of the information presented.
-            </Text>
-            <Text style={styles.modalWarn}>Do not enter patient-identifiable or protected health information (PHI).</Text>
-            <Text style={styles.modalBody}>Current source entries: {DATASET_SOURCES.length}</Text>
             <TouchableOpacity style={styles.modalButton} onPress={acknowledgeDisclaimer}>
-              <Text style={styles.modalButtonText}>I understand</Text>
+              <Text style={styles.modalButtonText}>{t('modal_safety_ack')}</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -508,15 +508,15 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#f6f7f9',
+    backgroundColor: colors.pageBg,
   },
   page: {
     flex: 1,
     width: '100%',
-    maxWidth: 960,
+    maxWidth: 1040,
     alignSelf: 'center',
     paddingBottom: 18,
-    gap: 12,
+    gap: 14,
   },
   header: {
     position: 'relative',
@@ -524,35 +524,15 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     justifyContent: 'space-between',
-    gap: 12,
+    gap: 16,
   },
   headerMobile: {
     flexDirection: 'column',
-    gap: 10,
+    gap: 12,
   },
   headerCopy: {
     flex: 1,
-    gap: 6,
-  },
-  appTitle: {
-    fontSize: 20,
-    lineHeight: 24,
-    fontWeight: '800',
-    color: '#0f172a',
-    letterSpacing: -0.3,
-  },
-  appTitleTablet: {
-    fontSize: 26,
-    lineHeight: 30,
-  },
-  appSubtitle: {
-    fontSize: 12,
-    lineHeight: 16,
-    color: '#64748b',
-    maxWidth: 720,
-  },
-  appSubtitleMobile: {
-    maxWidth: '100%',
+    gap: 12,
   },
   langPickerWrap: {
     position: 'relative',
@@ -565,42 +545,39 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    borderRadius: 12,
+    borderRadius: radii.md,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
-    backgroundColor: '#ffffff',
+    borderColor: colors.border,
+    backgroundColor: colors.surface,
     paddingHorizontal: spacing.md,
     paddingVertical: 10,
+    ...shadows.card,
   },
   langPickerMobile: {
     alignSelf: 'flex-start',
   },
   langPickerValue: {
     fontSize: 13,
-    color: '#0f172a',
-    fontWeight: '700',
+    color: colors.textPrimary,
+    fontWeight: '600',
   },
   langPickerChevron: {
     fontSize: 12,
-    color: '#64748b',
-    fontWeight: '800',
+    color: colors.textMuted,
+    fontWeight: '700',
   },
   langDropdown: {
     position: 'absolute',
-    top: 46,             // Bug fix #5: replaced top:'100%' (unsupported string in RN StyleSheet) with measured picker height
+    top: 46,
     right: 0,
     marginTop: 6,
     minWidth: 180,
-    borderRadius: 12,
+    borderRadius: radii.lg,
     borderWidth: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.surface,
     padding: spacing.xs,
-    shadowColor: '#0f172a',
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 6 },
-    elevation: 6,
-    zIndex: 30,          // above everything else in the header
+    ...shadows.dropdown,
+    zIndex: 30,
   },
   langDropdownMobile: {
     left: 0,
@@ -611,31 +588,32 @@ const styles = StyleSheet.create({
   langOption: {
     paddingHorizontal: spacing.md,
     paddingVertical: 10,
-    borderRadius: 10,
+    borderRadius: radii.md,
   },
   langOptionText: {
     fontSize: 13,
-    color: '#334155',
-    fontWeight: '700',
+    color: colors.textSecondary,
+    fontWeight: '600',
   },
   shell: {
     flex: 1,
     zIndex: SHELL_Z_INDEX,
-    backgroundColor: '#ffffff',
-    borderRadius: 14,
+    backgroundColor: colors.surface,
+    borderRadius: radii.xl,
     borderWidth: 1,
-    borderColor: '#e5e7eb',
-    overflow: 'visible',  // Bug fix #3: allow SearchBar dropdown to paint outside the shell border
+    borderColor: colors.borderLight,
+    overflow: 'visible',
+    ...shadows.card,
   },
   shellInner: {
     flex: 1,
-    padding: spacing.md,
-    gap: 12,
-    overflow: 'visible',  // Bug fix #3: propagate overflow:visible so dropdown escapes
+    padding: spacing.lg,
+    gap: 14,
+    overflow: 'visible',
   },
   controlsCol: {
     gap: 12,
-    zIndex: 20,           // Bug fix #3: elevate above resultsCol so SearchBar dropdown paints on top
+    zIndex: 20,
   },
   contextRow: {
     flexDirection: 'row',
@@ -645,28 +623,28 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   contextPill: {
-    borderRadius: 10,
+    borderRadius: radii.md,
     borderWidth: 1,
     paddingHorizontal: 10,
     paddingVertical: 6,
   },
   contextPillText: {
-    fontSize: 12,
-    fontWeight: '800',
-    letterSpacing: 0.4,
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 0.2,
   },
   contextPillMuted: {
-    borderRadius: 10,
+    borderRadius: radii.md,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
-    backgroundColor: '#f8fafc',
+    borderColor: colors.borderLight,
+    backgroundColor: colors.surfaceRaised,
     paddingHorizontal: 10,
     paddingVertical: 6,
   },
   contextPillMutedText: {
-    fontSize: 12,
-    fontWeight: '800',
-    color: '#475569',
+    fontSize: 11,
+    fontWeight: '600',
+    color: colors.textSecondary,
   },
   resultsCol: {
     flex: 1,
@@ -674,14 +652,18 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   resultsTitleWrap: {
-    backgroundColor: '#ffffff',
+    backgroundColor: colors.surface,
     zIndex: 1,
+    borderBottomWidth: 1,
+    borderBottomColor: colors.borderLight,
+    paddingBottom: 8,
   },
   resultsTitleMinimal: {
-    fontSize: 14,
-    fontWeight: '800',
-    letterSpacing: -0.2,
-    color: '#0f172a',
+    fontSize: 12,
+    fontWeight: '700',
+    letterSpacing: 0.4,
+    textTransform: 'uppercase',
+    color: colors.textMuted,
   },
   loadingWrap: {
     flex: 1,
@@ -693,7 +675,7 @@ const styles = StyleSheet.create({
   loadingText: {
     fontSize: 14,
     fontWeight: '500',
-    opacity: 0.75,
+    color: colors.textSecondary,
   },
   textLeft: {
     textAlign: 'left',
@@ -702,20 +684,21 @@ const styles = StyleSheet.create({
     textAlign: 'right',
   },
   complianceFooterCompact: {
-    backgroundColor: '#ffffff',
-    borderColor: '#e5e7eb',
+    backgroundColor: colors.surface,
+    borderColor: colors.borderLight,
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: radii.lg,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
+    ...shadows.card,
   },
   complianceFooterCompactLabel: {
     fontSize: 11,
-    color: '#64748b',
-    fontWeight: '700',
+    color: colors.textMuted,
+    fontWeight: '600',
     flexShrink: 1,
   },
   complianceActionsCompact: {
@@ -725,58 +708,60 @@ const styles = StyleSheet.create({
   },
   complianceSep: {
     fontSize: 11,
-    color: '#94a3b8',
+    color: colors.textMuted,
   },
   linkBtnTextCompact: {
     fontSize: 11,
-    color: '#1d4ed8',
+    color: colors.teal,
     fontWeight: '700',
   },
   complianceFooter: {
-    backgroundColor: '#ffffff',
-    borderColor: '#e5e7eb',
+    backgroundColor: colors.surface,
+    borderColor: colors.borderLight,
     borderWidth: 1,
-    borderRadius: 12,
-    padding: spacing.md,
+    borderRadius: radii.lg,
+    padding: spacing.lg,
     gap: 8,
+    ...shadows.card,
   },
   complianceTitle: {
     fontSize: 13,
-    fontWeight: '800',
-    color: '#0f172a',
+    fontWeight: '700',
+    color: colors.textPrimary,
   },
   complianceBody: {
     fontSize: 12,
-    lineHeight: 17,
-    color: '#334155',
+    lineHeight: 18,
+    color: colors.textSecondary,
   },
   noPhiBody: {
     fontSize: 12,
-    lineHeight: 17,
-    color: '#b91c1c',
-    fontWeight: '700',
+    lineHeight: 18,
+    color: colors.danger,
+    fontWeight: '600',
   },
   complianceActions: {
     flexDirection: 'row',
     gap: 8,
     flexWrap: 'wrap',
+    marginTop: 4,
   },
   linkBtn: {
-    borderRadius: 10,
+    borderRadius: radii.md,
     borderWidth: 1,
-    borderColor: '#bfdbfe',
-    backgroundColor: '#eff6ff',
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    borderColor: colors.tealMuted,
+    backgroundColor: colors.tealLight,
+    paddingHorizontal: 12,
+    paddingVertical: 7,
   },
   linkBtnText: {
     fontSize: 12,
-    color: '#1d4ed8',
+    color: colors.tealDark,
     fontWeight: '700',
   },
   modalBackdrop: {
     flex: 1,
-    backgroundColor: 'rgba(15, 23, 42, 0.52)',
+    backgroundColor: colors.overlay,
     alignItems: 'center',
     justifyContent: 'center',
     padding: spacing.lg,
@@ -784,39 +769,41 @@ const styles = StyleSheet.create({
   modalCard: {
     width: '100%',
     maxWidth: 560,
-    borderRadius: 14,
+    borderRadius: radii.xl,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
-    backgroundColor: '#ffffff',
-    padding: spacing.lg,
+    borderColor: colors.borderLight,
+    backgroundColor: colors.surface,
+    padding: spacing.xl,
     gap: 10,
+    ...shadows.dropdown,
   },
   modalTitle: {
     fontSize: 18,
-    fontWeight: '800',
-    color: '#0f172a',
+    fontWeight: '700',
+    color: colors.navy,
+    letterSpacing: -0.2,
   },
   modalBody: {
     fontSize: 13,
-    lineHeight: 19,
-    color: '#334155',
+    lineHeight: 20,
+    color: colors.textSecondary,
   },
   modalWarn: {
     fontSize: 13,
-    lineHeight: 19,
-    color: '#b91c1c',
-    fontWeight: '700',
+    lineHeight: 20,
+    color: colors.danger,
+    fontWeight: '600',
   },
   modalButton: {
-    marginTop: 4,
-    borderRadius: 10,
-    backgroundColor: '#1d4ed8',
-    paddingHorizontal: 14,
-    paddingVertical: 10,
+    marginTop: 6,
+    borderRadius: radii.md,
+    backgroundColor: colors.teal,
+    paddingHorizontal: 16,
+    paddingVertical: 11,
     alignSelf: 'flex-start',
   },
   modalButtonText: {
-    color: '#ffffff',
+    color: colors.textInverse,
     fontSize: 13,
     fontWeight: '700',
   },

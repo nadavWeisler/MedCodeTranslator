@@ -2,7 +2,10 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import type { ScoredEntry } from '@medcode/core';
 import { isRTL } from '../services/rtl';
+import { colors, radii, typography } from '../constants/theme';
 import HighlightedText from './HighlightedText';
+
+const MONO = typography.monoFamily;
 
 type Props = {
   item: ScoredEntry;
@@ -24,8 +27,8 @@ export default function SuggestionItem({ item, lang, onPress, schemeColor, t }: 
       onPress={() => onPress(item)}
       activeOpacity={0.7}
     >
-      <View style={[styles.codePill, { backgroundColor: schemeColor + '22' }]}>
-        <Text style={[styles.code, { color: schemeColor }]}>{item.code}</Text>
+      <View style={[styles.codePill, { backgroundColor: `${schemeColor}12`, borderColor: `${schemeColor}28` }]}>
+        <Text style={[styles.code, { color: schemeColor, fontFamily: MONO }]}>{item.code}</Text>
       </View>
       <View style={styles.nameCol}>
         <HighlightedText
@@ -51,22 +54,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     gap: 10,
     borderBottomWidth: 1,
-    borderBottomColor: '#e5e7eb',
+    borderBottomColor: colors.borderLight,
   },
   rowRTL: {
     flexDirection: 'row-reverse',
   },
   codePill: {
-    borderRadius: 10,
+    borderRadius: radii.sm,
+    borderWidth: 1,
     paddingHorizontal: 10,
     paddingVertical: 5,
     minWidth: 72,
     alignItems: 'center',
   },
   code: {
-    fontSize: 12,
-    fontWeight: '800',
-    letterSpacing: 0.4,
+    fontSize: 11,
+    fontWeight: '700',
+    letterSpacing: 0.3,
   },
   nameCol: {
     flex: 1,
@@ -74,13 +78,13 @@ const styles = StyleSheet.create({
   },
   name: {
     fontSize: 14,
-    color: '#183247',
-    fontWeight: '600',
+    color: colors.textPrimary,
+    fontWeight: '500',
   },
   englishOnlyChip: {
     alignSelf: 'flex-start',
     fontSize: 9,
     fontWeight: '700',
-    color: '#92400e',
+    color: colors.demo,
   },
 });

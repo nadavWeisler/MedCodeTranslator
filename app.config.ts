@@ -12,7 +12,7 @@ function getBaseUrl() {
 }
 
 const config: ExpoConfig = {
-  name: 'Med Code Translator',
+  name: 'MedCode Clinical',
   slug: 'med-code-translator',
   version: '1.0.0',
   orientation: 'portrait',
@@ -22,7 +22,7 @@ const config: ExpoConfig = {
   splash: {
     image: './assets/splash-icon.png',
     resizeMode: 'contain',
-    backgroundColor: '#ffffff',
+    backgroundColor: '#0C2340',
   },
   ios: {
     supportsTablet: true,
@@ -30,7 +30,7 @@ const config: ExpoConfig = {
   android: {
     adaptiveIcon: {
       foregroundImage: './assets/adaptive-icon.png',
-      backgroundColor: '#ffffff',
+      backgroundColor: '#0C2340',
     },
     edgeToEdgeEnabled: true,
     predictiveBackGestureEnabled: false,
@@ -40,10 +40,10 @@ const config: ExpoConfig = {
     output: 'static',
     bundler: 'metro',
     favicon: './assets/icon.png',
-    name: 'Med Code Translator',
+    name: 'MedCode Clinical',
     shortName: 'MedCode',
     description:
-      'Search medications, diagnoses, labs, and procedures across multiple clinical coding systems.',
+      'Authoritative clinical coding reference across ICD, ATC, LOINC, CPT, and related terminology systems.',
   },
   plugins: ['expo-sqlite', 'expo-router'],
   experiments: {

@@ -3,6 +3,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { useRouter } from 'expo-router';
 import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel } from './services/sourceMetadata';
+import BrandMark from './components/BrandMark';
+import { brand, colors, radii, shadows } from './constants/theme';
 
 export default function AboutScreen() {
   const router = useRouter();
@@ -14,10 +16,11 @@ export default function AboutScreen() {
           <Text style={styles.backBtnText}>← Back</Text>
         </TouchableOpacity>
 
-        <Text style={styles.title}>About, Safety, and Data Sources</Text>
+        <BrandMark subtitle="About, safety, and terminology sources" />
+
         <Text style={styles.body}>
-          MedCodeTranslator is an informational reference tool only. It is not medical advice, prescribing guidance,
-          diagnostic support, or clinical decision support.
+          {brand.fullName} is an informational reference tool for clinicians and coding professionals.
+          It is not medical advice, prescribing guidance, diagnostic support, or clinical decision support.
         </Text>
         <Text style={styles.warning}>Do not enter patient-identifiable or protected health information (PHI).</Text>
 
@@ -43,16 +46,32 @@ export default function AboutScreen() {
 }
 
 const styles = StyleSheet.create({
-  safeArea: { flex: 1, backgroundColor: '#f6f7f9' },
-  page: { padding: 16, gap: 10 },
-  backBtn: { alignSelf: 'flex-start', backgroundColor: '#ffffff', borderColor: '#cbd5e1', borderWidth: 1, borderRadius: 8, paddingHorizontal: 12, paddingVertical: 8 },
-  backBtnText: { color: '#0f172a', fontWeight: '700' },
-  title: { fontSize: 22, fontWeight: '800', color: '#0f172a' },
-  sectionTitle: { fontSize: 16, fontWeight: '800', color: '#0f172a', marginTop: 8 },
-  body: { fontSize: 13, color: '#334155', lineHeight: 19 },
-  warning: { fontSize: 13, color: '#b91c1c', fontWeight: '700' },
-  sourceCard: { backgroundColor: '#ffffff', borderRadius: 12, borderWidth: 1, borderColor: '#e2e8f0', padding: 12, gap: 4 },
-  sourceName: { fontSize: 13, fontWeight: '800', color: '#0f172a' },
-  sourceMeta: { fontSize: 12, color: '#475569' },
-  sourceUrl: { fontSize: 11, color: '#1d4ed8' },
+  safeArea: { flex: 1, backgroundColor: colors.pageBg },
+  page: { padding: 20, gap: 12 },
+  backBtn: {
+    alignSelf: 'flex-start',
+    backgroundColor: colors.surface,
+    borderColor: colors.border,
+    borderWidth: 1,
+    borderRadius: radii.md,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    ...shadows.card,
+  },
+  backBtnText: { color: colors.tealDark, fontWeight: '700', fontSize: 13 },
+  sectionTitle: { fontSize: 15, fontWeight: '700', color: colors.navy, marginTop: 8 },
+  body: { fontSize: 13, color: colors.textSecondary, lineHeight: 20 },
+  warning: { fontSize: 13, color: colors.danger, fontWeight: '600' },
+  sourceCard: {
+    backgroundColor: colors.surface,
+    borderRadius: radii.lg,
+    borderWidth: 1,
+    borderColor: colors.borderLight,
+    padding: 14,
+    gap: 4,
+    ...shadows.card,
+  },
+  sourceName: { fontSize: 13, fontWeight: '700', color: colors.navy },
+  sourceMeta: { fontSize: 12, color: colors.textSecondary },
+  sourceUrl: { fontSize: 11, color: colors.teal },
 });

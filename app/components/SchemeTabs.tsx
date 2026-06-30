@@ -19,6 +19,21 @@ export type SchemeGroupConfig = {
   label: string;
 };
 
+/** Default visible schemes — ICD-10 for diagnoses, ATC-5 for medications. */
+export const PRIMARY_SCHEME_KEYS: SchemeKey[] = ['icd10', 'atc5'];
+
+export function isPrimaryScheme(scheme: SchemeKey): boolean {
+  return PRIMARY_SCHEME_KEYS.includes(scheme);
+}
+
+/** When collapsing the tab list, map non-primary schemes to their primary counterpart. */
+export function collapseToPrimaryScheme(scheme: SchemeKey): SchemeKey {
+  const group = getSchemeGroup(scheme).key;
+  if (group === 'diagnoses') return 'icd10';
+  if (group === 'medications') return 'atc5';
+  return 'icd10';
+}
+
 export const SCHEME_GROUPS: SchemeGroupConfig[] = [
   { key: 'diagnoses', label: 'Diagnoses' },
   { key: 'medications', label: 'Medications' },
@@ -46,11 +61,20 @@ export function getSchemeGroup(scheme: SchemeKey): SchemeGroupConfig {
   return SCHEME_GROUPS.find(group => group.key === schemeConfig.group)!;
 }
 
+function getVisibleSchemes(showAll: boolean): SchemeConfig[] {
+  if (showAll) return SCHEMES;
+  return SCHEMES.filter(scheme => isPrimaryScheme(scheme.key));
+}
+
 type Props = {
   active: SchemeKey;
   onChange: (scheme: SchemeKey) => void;
   hintLabel?: string;
   compact?: boolean;
+  showAll?: boolean;
+  onToggleShowAll?: () => void;
+  showAllLabel?: string;
+  showPrimaryLabel?: string;
 };
 
 function SchemeDot({ color, active }: { color: string; active: boolean }) {
@@ -65,8 +89,49 @@ function SchemeDot({ color, active }: { color: string; active: boolean }) {
   );
 }
 
-export default function SchemeTabs({ active, onChange, hintLabel, compact = false }: Props) {
+function SchemePill({
+  scheme,
+  isActive,
+  onPress,
+}: {
+  scheme: SchemeConfig;
+  isActive: boolean;
+  onPress: () => void;
+}) {
+  return (
+    <TouchableOpacity
+      style={[
+        styles.pill,
+        isActive && {
+          backgroundColor: `${scheme.color}12`,
+          borderColor: `${scheme.color}55`,
+        },
+      ]}
+      onPress={onPress}
+      accessibilityRole="tab"
+      accessibilityState={{ selected: isActive }}
+    >
+      <SchemeDot color={scheme.color} active={isActive} />
+      <Text style={[styles.label, isActive && { color: scheme.color, fontWeight: '700' }]}>
+        {scheme.shortLabel}
+      </Text>
+    </TouchableOpacity>
+  );
+}
+
+export default function SchemeTabs({
+  active,
+  onChange,
+  hintLabel,
+  compact = false,
+  showAll = false,
+  onToggleShowAll,
+  showAllLabel = 'Show all systems',
+  showPrimaryLabel = 'Primary systems only',
+}: Props) {
   const activeScheme = SCHEMES.find(s => s.key === active)!;
+  const visibleSchemes = getVisibleSchemes(showAll);
+  const toggleLabel = showAll ? showPrimaryLabel : showAllLabel;
 
   return (
     <View style={styles.wrapper}>
@@ -76,36 +141,51 @@ export default function SchemeTabs({ active, onChange, hintLabel, compact = fals
         contentContainerStyle={styles.scroll}
         keyboardShouldPersistTaps="handled"
       >
-        {SCHEME_GROUPS.map(group => (
-          <View key={group.key} style={styles.group}>
-            <Text style={styles.groupLabel}>{group.label}</Text>
-            <View style={styles.groupTabs}>
-              {SCHEMES.filter(scheme => scheme.group === group.key).map(scheme => {
-                const isActive = scheme.key === active;
-                return (
-                  <TouchableOpacity
-                    key={scheme.key}
-                    style={[
-                      styles.pill,
-                      isActive && {
-                        backgroundColor: `${scheme.color}12`,
-                        borderColor: `${scheme.color}55`,
-                      },
-                    ]}
-                    onPress={() => onChange(scheme.key)}
-                    accessibilityRole="tab"
-                    accessibilityState={{ selected: isActive }}
-                  >
-                    <SchemeDot color={scheme.color} active={isActive} />
-                    <Text style={[styles.label, isActive && { color: scheme.color, fontWeight: '700' }]}>
-                      {scheme.shortLabel}
-                    </Text>
-                  </TouchableOpacity>
-                );
-              })}
-            </View>
+        {showAll ? (
+          SCHEME_GROUPS.map(group => {
+            const groupSchemes = visibleSchemes.filter(scheme => scheme.group === group.key);
+            if (groupSchemes.length === 0) return null;
+
+            return (
+              <View key={group.key} style={styles.group}>
+                <Text style={styles.groupLabel}>{group.label}</Text>
+                <View style={styles.groupTabs}>
+                  {groupSchemes.map(scheme => (
+                    <SchemePill
+                      key={scheme.key}
+                      scheme={scheme}
+                      isActive={scheme.key === active}
+                      onPress={() => onChange(scheme.key)}
+                    />
+                  ))}
+                </View>
+              </View>
+            );
+          })
+        ) : (
+          <View style={styles.primaryRow}>
+            {visibleSchemes.map(scheme => (
+              <SchemePill
+                key={scheme.key}
+                scheme={scheme}
+                isActive={scheme.key === active}
+                onPress={() => onChange(scheme.key)}
+              />
+            ))}
           </View>
-        ))}
+        )}
+
+        {onToggleShowAll ? (
+          <TouchableOpacity
+            style={[styles.toggleBtn, showAll && styles.toggleBtnActive]}
+            onPress={onToggleShowAll}
+            accessibilityRole="button"
+            accessibilityState={{ expanded: showAll }}
+            accessibilityLabel={toggleLabel}
+          >
+            <Text style={[styles.toggleText, showAll && styles.toggleTextActive]}>{toggleLabel}</Text>
+          </TouchableOpacity>
+        ) : null}
       </ScrollView>
 
       {!compact && (
@@ -130,6 +210,11 @@ const styles = StyleSheet.create({
   scroll: {
     paddingBottom: spacing.xs,
     gap: 12,
+    alignItems: 'center',
+  },
+  primaryRow: {
+    flexDirection: 'row',
+    gap: 6,
   },
   group: {
     gap: 6,
@@ -155,6 +240,28 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
     backgroundColor: colors.surface,
+  },
+  toggleBtn: {
+    alignSelf: 'center',
+    borderRadius: radii.md,
+    borderWidth: 1,
+    borderColor: colors.border,
+    backgroundColor: colors.surfaceRaised,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+  },
+  toggleBtnActive: {
+    borderColor: colors.tealMuted,
+    backgroundColor: colors.tealLight,
+  },
+  toggleText: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: colors.textSecondary,
+  },
+  toggleTextActive: {
+    color: colors.tealDark,
+    fontWeight: '700',
   },
   dot: {
     width: 7,

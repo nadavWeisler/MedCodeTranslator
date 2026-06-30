@@ -16,7 +16,12 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import SearchBar from './components/SearchBar';
 import CodeList from './components/CodeList';
-import SchemeTabs, { SCHEMES, getSchemeGroup } from './components/SchemeTabs';
+import SchemeTabs, {
+  SCHEMES,
+  getSchemeGroup,
+  isPrimaryScheme,
+  collapseToPrimaryScheme,
+} from './components/SchemeTabs';
 import BrandMark from './components/BrandMark';
 import TrustBar from './components/TrustBar';
 import { isRTL as checkRTL } from './services/rtl';
@@ -71,6 +76,7 @@ export default function HomeScreen() {
       ? (initialLangParam as Language)
       : 'en';
 
+  const [showAllSchemes, setShowAllSchemes] = useState(() => !isPrimaryScheme(initialScheme));
   const [scheme, setScheme] = useState<SchemeKey>(initialScheme);
   const [query, setQuery] = useState(firstParam(params.q) ?? '');
   const [results, setResults] = useState<ScoredEntry[]>([]);
@@ -92,6 +98,12 @@ export default function HomeScreen() {
   const { selectedCode, metadataRows, selectEntry } = useSelectedCodeResult(results);
   const { groups: conversionGroups, loading: conversionsLoading } = useCodeConversions(scheme, selectedCode);
   const isRTL = checkRTL(lang);
+
+  useEffect(() => {
+    if (!showAllSchemes && !isPrimaryScheme(scheme)) {
+      setShowAllSchemes(true);
+    }
+  }, [scheme, showAllSchemes]);
 
   useEffect(() => {
     i18n.changeLanguage(lang);
@@ -202,10 +214,27 @@ export default function HomeScreen() {
   }, [query, scheme, lang, runSearch]);
 
   const openConversion = (targetScheme: SchemeKey, targetCode: string) => {
+    if (!isPrimaryScheme(targetScheme)) {
+      setShowAllSchemes(true);
+    }
     setScheme(targetScheme);
     setQuery(targetCode);
     setDidYouMean([]);
     setGhostText(undefined);
+  };
+
+  const toggleShowAllSchemes = () => {
+    setShowAllSchemes(prev => {
+      const next = !prev;
+      if (!next && !isPrimaryScheme(scheme)) {
+        setScheme(collapseToPrimaryScheme(scheme));
+        setQuery('');
+        setResults([]);
+        setDidYouMean([]);
+        setGhostText(undefined);
+      }
+      return next;
+    });
   };
 
   const switchScheme = (s: SchemeKey) => {
@@ -342,6 +371,10 @@ export default function HomeScreen() {
                 onChange={switchScheme}
                 hintLabel={t('search_by_code_or_name')}
                 compact
+                showAll={showAllSchemes}
+                onToggleShowAll={toggleShowAllSchemes}
+                showAllLabel={t('schemes_show_all')}
+                showPrimaryLabel={t('schemes_show_primary')}
               />
 
               <SearchBar

@@ -65,5 +65,7 @@
   "modal_safety_body_3": "No warranty is provided regarding the accuracy, completeness, or timeliness of the information presented.",
   "modal_safety_phi": "Do not enter patient-identifiable or protected health information (PHI).",
   "modal_safety_sources": "Active terminology sources: {{count}}",
-  "modal_safety_ack": "I understand and agree"
+  "modal_safety_ack": "I understand and agree",
+  "schemes_show_all": "Show all systems",
+  "schemes_show_primary": "Primary only"
 }

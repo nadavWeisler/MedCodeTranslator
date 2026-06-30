@@ -51,5 +51,7 @@
   "conversions_count": "{{count}} מיפוי(ים)",
   "conversions_show_more": "הצג עוד {{count}}",
   "conversions_show_less": "הצג פחות",
-  "conversion_open_a11y": "פתח קוד {{code}} במערכת הקידוד שלו"
+  "conversion_open_a11y": "פתח קוד {{code}} במערכת הקידוד שלו",
+  "schemes_show_all": "הצג את כל המערכות",
+  "schemes_show_primary": "מערכות עיקריות בלבד"
 }

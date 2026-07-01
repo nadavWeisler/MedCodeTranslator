@@ -1,5 +1,5 @@
 import React from 'react';
-import { SectionList, Text, StyleSheet, View, ScrollView } from 'react-native';
+import { Text, StyleSheet, View, ScrollView, Platform } from 'react-native';
 import CodeCard from './CodeCard';
 import SuggestionItem from './SuggestionItem';
 import SearchChipRow from './SearchChipRow';
@@ -128,7 +128,13 @@ export default function CodeList({
 
   if (entries.length === 0) {
     return (
-      <View style={styles.stateCard}>
+      <ScrollView
+        style={styles.listView}
+        contentContainerStyle={styles.noResultsContent}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={Platform.OS !== 'web'}
+      >
+        <View style={styles.stateCard}>
         <ClinicalIcon name="search" size={44} color={schemeColor} />
         <Text style={[styles.stateTitle, isRTL ? styles.textRight : styles.textLeft]}>{t('no_results')}</Text>
         {fuzzyMatches.length > 0 && (
@@ -148,55 +154,61 @@ export default function CodeList({
             ))}
           </View>
         )}
-      </View>
+        </View>
+      </ScrollView>
     );
   }
 
   return (
     <View style={styles.resultsContainer}>
       {selectedCode && (conversionGroups.length > 0 || conversionsLoading) && onOpenConversion ? (
-        <CodeConversionsPanel
-          groups={conversionGroups}
-          loading={conversionsLoading}
-          schemeColor={schemeColor}
-          sourceCode={selectedCode}
-          t={t}
-          onOpenConversion={onOpenConversion}
-        />
+        <View style={styles.conversionsWrap}>
+          <CodeConversionsPanel
+            groups={conversionGroups}
+            loading={conversionsLoading}
+            schemeColor={schemeColor}
+            sourceCode={selectedCode}
+            t={t}
+            onOpenConversion={onOpenConversion}
+          />
+        </View>
       ) : null}
       <View style={[styles.countBadge, { backgroundColor: `${schemeColor}14`, borderColor: `${schemeColor}24` }]}>
         <Text style={[styles.countBadgeText, { color: schemeColor }]}>
           {t('results_count', { count: resultCount === 100 ? '100+' : resultCount })}
         </Text>
       </View>
-      <SectionList
-        sections={sections}
-        keyExtractor={item => item.code}
-        renderSectionHeader={({ section }) =>
-          section.title ? (
-            <View style={styles.groupHeader}>
-              <Text style={[styles.groupTitle, { color: schemeColor, fontFamily: MONO }]}>
-                {section.title}
-              </Text>
-            </View>
-          ) : null
-        }
-        renderItem={({ item }) => (
-          <CodeCard
-            entry={item}
-            lang={lang}
-            schemeColor={schemeColor}
-            t={t}
-            onPress={onEntrySelect}
-            isSelected={item.code === selectedCode}
-            metadataRows={item.code === selectedCode ? selectedMetadataRows : []}
-          />
-        )}
-        showsVerticalScrollIndicator={false}
-        keyboardShouldPersistTaps="handled"
-        contentContainerStyle={styles.list}
+      <ScrollView
         style={styles.listView}
-      />
+        contentContainerStyle={styles.list}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={Platform.OS !== 'web'}
+        nestedScrollEnabled
+      >
+        {sections.map(section => (
+          <View key={section.title ?? section.data[0]?.code ?? 'section'}>
+            {section.title ? (
+              <View style={styles.groupHeader}>
+                <Text style={[styles.groupTitle, { color: schemeColor, fontFamily: MONO }]}>
+                  {section.title}
+                </Text>
+              </View>
+            ) : null}
+            {section.data.map(item => (
+              <CodeCard
+                key={item.code}
+                entry={item}
+                lang={lang}
+                schemeColor={schemeColor}
+                t={t}
+                onPress={onEntrySelect}
+                isSelected={item.code === selectedCode}
+                metadataRows={item.code === selectedCode ? selectedMetadataRows : []}
+              />
+            ))}
+          </View>
+        ))}
+      </ScrollView>
     </View>
   );
 }
@@ -207,12 +219,19 @@ const styles = StyleSheet.create({
     minHeight: 0,
     gap: 12,
   },
+  conversionsWrap: {
+    flexShrink: 0,
+  },
   listView: {
     flex: 1,
     minHeight: 0,
   },
   list: {
     paddingBottom: 10,
+  },
+  noResultsContent: {
+    flexGrow: 1,
+    justifyContent: 'center',
   },
   groupHeader: {
     paddingTop: 4,
@@ -232,6 +251,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
   },
   countBadge: {
+    flexShrink: 0,
     alignSelf: 'flex-start',
     borderRadius: radii.md,
     borderWidth: 1,

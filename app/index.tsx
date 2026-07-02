@@ -96,7 +96,11 @@ export default function HomeScreen() {
   const activeSchemeGroup = getSchemeGroup(scheme);
   const selectedLanguage = LANGUAGES.find(l => l.code === lang)!;
   const { selectedCode, metadataRows, selectEntry } = useSelectedCodeResult(results);
-  const { groups: conversionGroups, loading: conversionsLoading } = useCodeConversions(scheme, selectedCode);
+  const { groups: conversionGroups, loading: conversionsLoading } = useCodeConversions(
+    scheme,
+    selectedCode,
+    { primaryOnly: !showAllSchemes }
+  );
   const isRTL = checkRTL(lang);
 
   useEffect(() => {
@@ -127,7 +131,10 @@ export default function HomeScreen() {
     const previousHtmlBackground = document.documentElement.style.backgroundColor;
 
     document.documentElement.style.backgroundColor = colors.pageBg;
+    document.documentElement.style.height = '100%';
     document.body.style.backgroundColor = colors.pageBg;
+    document.body.style.height = '100%';
+    document.body.style.overflow = 'hidden';
 
     const fontId = 'clinical-fonts';
     if (!document.getElementById(fontId)) {
@@ -142,7 +149,10 @@ export default function HomeScreen() {
 
     return () => {
       document.documentElement.style.backgroundColor = previousHtmlBackground;
+      document.documentElement.style.height = '';
       document.body.style.backgroundColor = previousBodyBackground;
+      document.body.style.height = '';
+      document.body.style.overflow = '';
       document.body.style.fontFamily = previousBodyFontFamily;
     };
   }, []);
@@ -545,6 +555,7 @@ const styles = StyleSheet.create({
   },
   page: {
     flex: 1,
+    minHeight: 0,
     width: '100%',
     maxWidth: 1040,
     alignSelf: 'center',
@@ -630,21 +641,23 @@ const styles = StyleSheet.create({
   },
   shell: {
     flex: 1,
+    minHeight: 0,
     zIndex: SHELL_Z_INDEX,
     backgroundColor: colors.surface,
     borderRadius: radii.xl,
     borderWidth: 1,
     borderColor: colors.borderLight,
-    overflow: 'visible',
+    overflow: 'hidden',
     ...shadows.card,
   },
   shellInner: {
     flex: 1,
+    minHeight: 0,
     padding: spacing.lg,
     gap: 14,
-    overflow: 'visible',
   },
   controlsCol: {
+    flexShrink: 0,
     gap: 12,
     zIndex: 20,
   },

@@ -34,6 +34,14 @@ export default function Root({ children }: PropsWithChildren) {
         <link rel="icon" href={getAssetUrl('favicon.ico')} />
         <link rel="apple-touch-icon" href={getAssetUrl('apple-touch-icon.png')} />
         <ScrollViewStyleReset />
+        <style
+          dangerouslySetInnerHTML={{
+            __html: `
+              html, body { height: 100%; margin: 0; }
+              body { overflow: hidden; }
+            `,
+          }}
+        />
       </head>
       <body>{children}</body>
     </html>

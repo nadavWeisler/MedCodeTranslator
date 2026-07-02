@@ -4,11 +4,18 @@ import { brand, colors, radii } from '../constants/theme';
 
 type Props = {
   compact?: boolean;
+  /** Hides the subtitle line — use on mobile toolbars. */
+  hideSubtitle?: boolean;
   subtitle?: string;
   align?: 'left' | 'right';
 };
 
-export default function BrandMark({ compact = false, subtitle, align = 'left' }: Props) {
+export default function BrandMark({
+  compact = false,
+  hideSubtitle = false,
+  subtitle,
+  align = 'left',
+}: Props) {
   const textAlign = align === 'right' ? 'right' : 'left';
 
   return (
@@ -25,7 +32,7 @@ export default function BrandMark({ compact = false, subtitle, align = 'left' }:
           </Text>
         </View>
       </View>
-      {subtitle ? (
+      {subtitle && !hideSubtitle ? (
         <Text style={[styles.subtitle, compact && styles.subtitleCompact, { textAlign }]} numberOfLines={2}>
           {subtitle}
         </Text>

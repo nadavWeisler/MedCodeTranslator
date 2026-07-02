@@ -19,6 +19,7 @@ type Props = {
   ghostText?: string;
   schemeColor: string;
   lang: string;
+  compact?: boolean;
 };
 
 export default function SearchBar({
@@ -28,6 +29,7 @@ export default function SearchBar({
   ghostText,
   schemeColor,
   lang,
+  compact = false,
 }: Props) {
   const [focused, setFocused] = useState(false);
   const inputRef = useRef<TextInput>(null);
@@ -45,6 +47,7 @@ export default function SearchBar({
       <View
         style={[
           styles.container,
+          compact && styles.containerCompact,
           focused && styles.containerFocused,
           { borderColor: accent },
           focused && shadows.card,
@@ -108,6 +111,11 @@ const styles = StyleSheet.create({
     minHeight: 52,
     borderWidth: 1,
     borderColor: colors.border,
+  },
+  containerCompact: {
+    minHeight: 44,
+    paddingVertical: Platform.OS === 'ios' ? 9 : 8,
+    borderRadius: radii.md,
   },
   containerFocused: {
     borderWidth: 1.5,

@@ -33,6 +33,7 @@ type Props = {
   recentSearches?: string[];
   exampleSearches?: string[];
   onQuickSearch?: (query: string) => void;
+  compact?: boolean;
 };
 
 type ResultSection = {
@@ -78,6 +79,7 @@ export default function CodeList({
   recentSearches = [],
   exampleSearches = [],
   onQuickSearch,
+  compact = false,
 }: Props) {
   const isRTL = checkRTL(lang);
   const sections = groupEntries(entries);
@@ -92,14 +94,16 @@ export default function CodeList({
         keyboardShouldPersistTaps="handled"
         showsVerticalScrollIndicator={false}
       >
-        <View style={styles.stateCard}>
-          <ClinicalIcon name="codes" size={48} color={schemeColor} />
-          <Text style={[styles.stateTitle, isRTL ? styles.textRight : styles.textLeft]}>
+        <View style={[styles.stateCard, compact && styles.stateCardCompact]}>
+          <ClinicalIcon name="codes" size={compact ? 32 : 48} color={schemeColor} />
+          <Text style={[styles.stateTitle, compact && styles.stateTitleCompact, isRTL ? styles.textRight : styles.textLeft]}>
             {t('empty_state_title')}
           </Text>
-          <Text style={[styles.stateBody, isRTL ? styles.textRight : styles.textLeft]}>
-            {t('empty_state_body')}
-          </Text>
+          {!compact ? (
+            <Text style={[styles.stateBody, isRTL ? styles.textRight : styles.textLeft]}>
+              {t('empty_state_body')}
+            </Text>
+          ) : null}
 
           {hasQuickActions && onQuickSearch ? (
             <View style={styles.quickSearchArea}>
@@ -273,6 +277,13 @@ const styles = StyleSheet.create({
     borderColor: colors.borderLight,
     backgroundColor: colors.surface,
   },
+  stateCardCompact: {
+    paddingHorizontal: spacing.md,
+    paddingVertical: spacing.lg,
+    gap: 10,
+    borderWidth: 0,
+    backgroundColor: 'transparent',
+  },
   idleScroll: {
     flex: 1,
     minHeight: 0,
@@ -290,6 +301,9 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     color: colors.textPrimary,
     letterSpacing: -0.2,
+  },
+  stateTitleCompact: {
+    fontSize: 15,
   },
   stateBody: {
     fontSize: 14,

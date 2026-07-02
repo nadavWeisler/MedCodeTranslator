@@ -285,97 +285,108 @@ export default function HomeScreen() {
   const schemeCoverage = getCoverageI18n(scheme);
   const schemeSourceMeta = getSchemeSourceMetadata(scheme);
   const isDemoScheme = isDemoCoverage(schemeSourceMeta);
+  const hasActiveSearch = query.trim().length > 0;
+
+  const languagePicker = (
+    <View style={[styles.langPickerWrap, isMobile && styles.langPickerWrapMobile]}>
+      <TouchableOpacity
+        style={[
+          styles.langPicker,
+          isMobile && styles.langPickerMobile,
+          showLanguageDropdown && { borderColor: colors.teal },
+        ]}
+        onPress={() => setShowLanguageDropdown(prev => !prev)}
+        accessibilityLabel={`Select language, ${selectedLanguage.name}`}
+        accessibilityRole="button"
+        accessibilityState={{ expanded: showLanguageDropdown }}
+      >
+        <Text style={[styles.langPickerValue, isMobile && styles.langPickerValueMobile]}>
+          <Text importantForAccessibility="no">{selectedLanguage.label} </Text>
+          {!isMobile ? <Text>{selectedLanguage.name}</Text> : null}
+        </Text>
+        <Text
+          importantForAccessibility="no"
+          style={[styles.langPickerChevron, showLanguageDropdown && { color: colors.teal }]}
+        >
+          ▾
+        </Text>
+      </TouchableOpacity>
+
+      {showLanguageDropdown ? (
+        <View
+          style={[
+            styles.langDropdown,
+            isMobile && styles.langDropdownMobile,
+            isRTL && isMobile && styles.langDropdownMobileRtl,
+            { borderColor: colors.borderLight },
+          ]}
+        >
+          {LANGUAGES.map(l => (
+            <TouchableOpacity
+              key={l.code}
+              style={[
+                styles.langOption,
+                lang === l.code && { backgroundColor: colors.tealLight },
+              ]}
+              onPress={() => handleLanguageChange(l.code)}
+              accessibilityLabel={l.name}
+              accessibilityRole="button"
+              accessibilityState={{ selected: lang === l.code }}
+            >
+              <Text
+                style={[
+                  styles.langOptionText,
+                  lang === l.code && { color: colors.teal },
+                ]}
+              >
+                <Text importantForAccessibility="no">{l.label} </Text>
+                <Text>{l.name}</Text>
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      ) : null}
+    </View>
+  );
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View
         style={[
           styles.page,
+          isMobile && styles.pageMobile,
           {
-            paddingHorizontal: isTablet ? spacing.xl : spacing.lg,
-            paddingTop: Platform.OS === 'web' ? (isTablet ? 28 : 18) : spacing.md,
+            paddingHorizontal: isTablet ? spacing.xl : spacing.md,
+            paddingTop: Platform.OS === 'web' ? (isTablet ? 28 : 10) : spacing.sm,
           },
         ]}
       >
-        <View style={[styles.header, isMobile && styles.headerMobile]}>
-          <View style={styles.headerCopy}>
-            <BrandMark
-              compact={isMobile}
-              subtitle={t('hero_subtitle')}
-              align={isRTL ? 'right' : 'left'}
-            />
-            <TrustBar
-              items={[
-                t('trust_verified_sources'),
-                t('trust_offline'),
-                t('trust_no_phi'),
-              ]}
-            />
+        {isMobile ? (
+          <View style={[styles.headerMobile, isRTL && styles.headerMobileRtl]}>
+            <View style={styles.headerBrandSlot}>
+              <BrandMark compact hideSubtitle align={isRTL ? 'right' : 'left'} />
+            </View>
+            {languagePicker}
           </View>
-
-          <View style={[styles.langPickerWrap, isMobile && styles.langPickerWrapMobile]}>
-            <TouchableOpacity
-              style={[
-                styles.langPicker,
-                isMobile && styles.langPickerMobile,
-                showLanguageDropdown && { borderColor: colors.teal },
-              ]}
-              onPress={() => setShowLanguageDropdown(prev => !prev)}
-              accessibilityLabel={`Select language, ${selectedLanguage.name}`}
-              accessibilityRole="button"
-              accessibilityState={{ expanded: showLanguageDropdown }}
-            >
-              <Text style={styles.langPickerValue}>
-                <Text importantForAccessibility="no">{selectedLanguage.label} </Text>
-                <Text>{selectedLanguage.name}</Text>
-              </Text>
-              <Text
-                importantForAccessibility="no"
-                style={[styles.langPickerChevron, showLanguageDropdown && { color: colors.teal }]}
-              >
-                ▾
-              </Text>
-            </TouchableOpacity>
-
-            {showLanguageDropdown ? (
-              <View
-                style={[
-                  styles.langDropdown,
-                  isMobile && styles.langDropdownMobile,
-                  { borderColor: colors.borderLight },
+        ) : (
+          <View style={styles.header}>
+            <View style={styles.headerCopy}>
+              <BrandMark subtitle={t('hero_subtitle')} align={isRTL ? 'right' : 'left'} />
+              <TrustBar
+                items={[
+                  t('trust_verified_sources'),
+                  t('trust_offline'),
+                  t('trust_no_phi'),
                 ]}
-              >
-                {LANGUAGES.map(l => (
-                  <TouchableOpacity
-                    key={l.code}
-                    style={[
-                      styles.langOption,
-                      lang === l.code && { backgroundColor: colors.tealLight },
-                    ]}
-                    onPress={() => handleLanguageChange(l.code)}
-                    accessibilityLabel={l.name}
-                    accessibilityRole="button"
-                    accessibilityState={{ selected: lang === l.code }}
-                  >
-                    <Text
-                      style={[
-                        styles.langOptionText,
-                        lang === l.code && { color: colors.teal },
-                      ]}
-                    >
-                      <Text importantForAccessibility="no">{l.label} </Text>
-                      <Text>{l.name}</Text>
-                    </Text>
-                  </TouchableOpacity>
-                ))}
-              </View>
-            ) : null}
+              />
+            </View>
+            {languagePicker}
           </View>
-        </View>
+        )}
 
-        <View style={styles.shell}>
-          <View style={styles.shellInner}>
-            <View style={styles.controlsCol}>
+        <View style={[styles.shell, isMobile && styles.shellMobile]}>
+          <View style={[styles.shellInner, isMobile && styles.shellInnerMobile]}>
+            <View style={[styles.controlsCol, isMobile && styles.controlsColMobile]}>
               <SchemeTabs
                 active={scheme}
                 onChange={switchScheme}
@@ -394,19 +405,24 @@ export default function HomeScreen() {
                 ghostText={ghostText}
                 schemeColor={schemeColor}
                 lang={lang}
+                compact={isMobile}
               />
 
-              <View style={styles.contextRow}>
-                <View style={[styles.contextPill, { backgroundColor: `${schemeColor}10`, borderColor: `${schemeColor}30` }]}>
-                  <Text style={[styles.contextPillText, { color: schemeColor }]}>{activeScheme.shortLabel}</Text>
-                </View>
-                <View style={styles.contextPillMuted}>
-                  <Text style={styles.contextPillMutedText}>{activeSchemeGroup.label}</Text>
-                </View>
-                {(scheme === 'icd9' || scheme === 'icd10') ? (
-                  <View style={styles.contextPillMuted}>
-                    <Text style={styles.contextPillMutedText}>{t('conversions_title')}</Text>
-                  </View>
+              <View style={[styles.contextRow, isMobile && styles.contextRowMobile]}>
+                {!isMobile ? (
+                  <>
+                    <View style={[styles.contextPill, { backgroundColor: `${schemeColor}10`, borderColor: `${schemeColor}30` }]}>
+                      <Text style={[styles.contextPillText, { color: schemeColor }]}>{activeScheme.shortLabel}</Text>
+                    </View>
+                    <View style={styles.contextPillMuted}>
+                      <Text style={styles.contextPillMutedText}>{activeSchemeGroup.label}</Text>
+                    </View>
+                    {(scheme === 'icd9' || scheme === 'icd10') ? (
+                      <View style={styles.contextPillMuted}>
+                        <Text style={styles.contextPillMutedText}>{t('conversions_title')}</Text>
+                      </View>
+                    ) : null}
+                  </>
                 ) : null}
                 {schemeCoverage ? (
                   <View
@@ -430,7 +446,7 @@ export default function HomeScreen() {
                     </Text>
                   </View>
                 ) : null}
-                {schemeCoverage?.updated ? (
+                {!isMobile && schemeCoverage?.updated ? (
                   <View style={styles.contextPillMuted}>
                     <Text style={styles.contextPillMutedText}>
                       {t('coverage_updated', { date: schemeCoverage.updated })}
@@ -440,12 +456,14 @@ export default function HomeScreen() {
               </View>
             </View>
 
-            <View style={styles.resultsCol}>
-              <View style={styles.resultsTitleWrap}>
-                <Text style={styles.resultsTitleMinimal}>
-                  {t(query.trim() ? 'results_title_active' : 'results_title_idle')}
-                </Text>
-              </View>
+            <View style={[styles.resultsCol, isMobile && styles.resultsColMobile]}>
+              {!isMobile ? (
+                <View style={styles.resultsTitleWrap}>
+                  <Text style={styles.resultsTitleMinimal}>
+                    {t(query.trim() ? 'results_title_active' : 'results_title_idle')}
+                  </Text>
+                </View>
+              ) : null}
               {isSchemeLoading ? (
                 <View style={styles.loadingWrap}>
                   <ActivityIndicator size="large" color={schemeColor} />
@@ -472,13 +490,14 @@ export default function HomeScreen() {
                   recentSearches={recentSearches}
                   exampleSearches={getSearchExamples(scheme)}
                   onQuickSearch={handleQuickSearch}
+                  compact={isMobile}
                 />
               )}
             </View>
           </View>
         </View>
 
-        {isMobile ? (
+        {isMobile && !hasActiveSearch ? (
           <View style={styles.complianceFooterCompact}>
             <Text style={styles.complianceFooterCompactLabel} numberOfLines={1}>{t('footer_info_title')}</Text>
             <View style={styles.complianceActionsCompact}>
@@ -562,6 +581,10 @@ const styles = StyleSheet.create({
     paddingBottom: 18,
     gap: 14,
   },
+  pageMobile: {
+    gap: 8,
+    paddingBottom: 8,
+  },
   header: {
     position: 'relative',
     zIndex: HEADER_Z_INDEX,
@@ -571,8 +594,19 @@ const styles = StyleSheet.create({
     gap: 16,
   },
   headerMobile: {
-    flexDirection: 'column',
-    gap: 12,
+    position: 'relative',
+    zIndex: HEADER_Z_INDEX,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+  },
+  headerMobileRtl: {
+    flexDirection: 'row-reverse',
+  },
+  headerBrandSlot: {
+    flex: 1,
+    minWidth: 0,
   },
   headerCopy: {
     flex: 1,
@@ -582,7 +616,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   langPickerWrapMobile: {
-    alignSelf: 'stretch',
+    flexShrink: 0,
   },
   langPicker: {
     minWidth: 148,
@@ -598,12 +632,19 @@ const styles = StyleSheet.create({
     ...shadows.card,
   },
   langPickerMobile: {
-    alignSelf: 'flex-start',
+    minWidth: 0,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    gap: 4,
   },
   langPickerValue: {
     fontSize: 13,
     color: colors.textPrimary,
     fontWeight: '600',
+  },
+  langPickerValueMobile: {
+    fontSize: 16,
+    lineHeight: 18,
   },
   langPickerChevron: {
     fontSize: 12,
@@ -624,10 +665,14 @@ const styles = StyleSheet.create({
     zIndex: 30,
   },
   langDropdownMobile: {
-    left: 0,
     right: 0,
-    minWidth: 0,
+    left: undefined,
+    minWidth: 180,
     padding: spacing.sm,
+  },
+  langDropdownMobileRtl: {
+    right: undefined,
+    left: 0,
   },
   langOption: {
     paddingHorizontal: spacing.md,
@@ -650,16 +695,26 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     ...shadows.card,
   },
+  shellMobile: {
+    borderRadius: radii.lg,
+  },
   shellInner: {
     flex: 1,
     minHeight: 0,
     padding: spacing.lg,
     gap: 14,
   },
+  shellInnerMobile: {
+    padding: spacing.md,
+    gap: 8,
+  },
   controlsCol: {
     flexShrink: 0,
     gap: 12,
     zIndex: 20,
+  },
+  controlsColMobile: {
+    gap: 8,
   },
   contextRow: {
     flexDirection: 'row',
@@ -667,6 +722,9 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     flexWrap: 'wrap',
     gap: 8,
+  },
+  contextRowMobile: {
+    gap: 6,
   },
   contextPill: {
     borderRadius: radii.md,
@@ -696,6 +754,9 @@ const styles = StyleSheet.create({
     flex: 1,
     minHeight: 0,
     gap: 10,
+  },
+  resultsColMobile: {
+    gap: 0,
   },
   resultsTitleWrap: {
     backgroundColor: colors.surface,

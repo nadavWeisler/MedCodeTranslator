@@ -1,5 +1,36 @@
 # API and Integration Notes
 
+## TypeScript packages
+
+Install the retrieval engine for use in Node.js or browser bundlers:
+
+```bash
+npm install @medcode/core @medcode/search
+```
+
+```typescript
+import { layeredSearch } from '@medcode/search';
+import type { ScoredEntry } from '@medcode/core';
+
+const results: ScoredEntry[] = layeredSearch(entries, 'diabetes', 'icd10', { limit: 10 });
+```
+
+Build the packages from the monorepo root:
+
+```bash
+npm run build:packages
+```
+
+Publishing uses the workspace `prepublishOnly` scripts and is intended for release tags.
+
+## Python client
+
+```bash
+pip install medcodetranslator
+```
+
+See [`packages/python-client/README.md`](../packages/python-client/README.md).
+
 ## Intended Scope
 MedCodeTranslator is an informational terminology lookup utility for research and administrative workflows.
 

@@ -34,6 +34,9 @@ type Props = {
   exampleSearches?: string[];
   onQuickSearch?: (query: string) => void;
   compact?: boolean;
+  onCopyLink?: () => void;
+  onCopyCode?: () => void;
+  shareNotice?: string | null;
 };
 
 type ResultSection = {
@@ -80,6 +83,9 @@ export default function CodeList({
   exampleSearches = [],
   onQuickSearch,
   compact = false,
+  onCopyLink,
+  onCopyCode,
+  shareNotice = null,
 }: Props) {
   const isRTL = checkRTL(lang);
   const sections = groupEntries(entries);
@@ -208,6 +214,9 @@ export default function CodeList({
                 onPress={onEntrySelect}
                 isSelected={item.code === selectedCode}
                 metadataRows={item.code === selectedCode ? selectedMetadataRows : []}
+                onCopyLink={item.code === selectedCode ? onCopyLink : undefined}
+                onCopyCode={item.code === selectedCode ? onCopyCode : undefined}
+                shareNotice={item.code === selectedCode ? shareNotice : null}
               />
             ))}
           </View>

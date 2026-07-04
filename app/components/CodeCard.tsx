@@ -25,6 +25,9 @@ type Props = {
   isSelected?: boolean;
   onPress?: (entry: ScoredEntry) => void;
   metadataRows?: MetadataRow[];
+  onCopyLink?: () => void;
+  onCopyCode?: () => void;
+  shareNotice?: string | null;
 };
 
 export default function CodeCard({
@@ -35,6 +38,9 @@ export default function CodeCard({
   isSelected = false,
   onPress,
   metadataRows = [],
+  onCopyLink,
+  onCopyCode,
+  shareNotice = null,
 }: Props) {
   const rtl = isRTL(lang);
   const textAlign = rtl ? 'right' : 'left';
@@ -44,6 +50,7 @@ export default function CodeCard({
   const secondaryName = showHebrewPrimary ? entry.name_en : null;
   const showEnglishOnlyChip = lang !== 'en' && !entry.name_he;
   const showMetadata = isSelected && metadataRows.length > 0;
+  const showShareActions = isSelected && (onCopyLink || onCopyCode);
   const matchKey = MATCH_METHOD_KEYS[entry.matchMethod] ?? 'match_substring';
   const matchLabel = t(matchKey);
   const scorePercent = Math.round(entry.score * 100);
@@ -109,6 +116,31 @@ export default function CodeCard({
               <Text style={styles.metadataValue}>{item.value}</Text>
             </View>
           ))}
+        </View>
+      )}
+      {showShareActions && (
+        <View style={styles.shareRow}>
+          {onCopyLink ? (
+            <TouchableOpacity
+              style={[styles.shareBtn, { borderColor: `${schemeColor}35` }]}
+              onPress={onCopyLink}
+              accessibilityRole="button"
+              accessibilityLabel={t('share_copy_link_a11y')}
+            >
+              <Text style={[styles.shareBtnText, { color: schemeColor }]}>{t('share_copy_link')}</Text>
+            </TouchableOpacity>
+          ) : null}
+          {onCopyCode ? (
+            <TouchableOpacity
+              style={[styles.shareBtn, { borderColor: `${schemeColor}35` }]}
+              onPress={onCopyCode}
+              accessibilityRole="button"
+              accessibilityLabel={t('share_copy_code_a11y')}
+            >
+              <Text style={[styles.shareBtnText, { color: schemeColor }]}>{t('share_copy_code')}</Text>
+            </TouchableOpacity>
+          ) : null}
+          {shareNotice ? <Text style={styles.shareNotice}>{shareNotice}</Text> : null}
         </View>
       )}
     </TouchableOpacity>
@@ -222,5 +254,31 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.textSecondary,
     lineHeight: 18,
+  },
+  shareRow: {
+    marginTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: colors.borderLight,
+    paddingTop: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: 8,
+  },
+  shareBtn: {
+    borderRadius: radii.md,
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    backgroundColor: colors.surfaceRaised,
+  },
+  shareBtnText: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  shareNotice: {
+    fontSize: 12,
+    color: colors.textMuted,
+    fontWeight: '600',
   },
 });

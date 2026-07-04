@@ -35,6 +35,7 @@ import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel, getCov
 import { spacing } from './constants/spacing';
 import { colors, radii, shadows, typography } from './constants/theme';
 import { getSearchExamples } from './constants/searchExamples';
+import { buildShareUrl, copyToClipboard, formatCodeDescription } from './services/share';
 
 type Language = 'en' | 'he' | 'es' | 'fr' | 'de' | 'ar' | 'pt' | 'zh' | 'ru';
 const LANGUAGES: { code: Language; label: string; name: string }[] = [
@@ -62,7 +63,7 @@ function firstParam(v: string | string[] | undefined): string | undefined {
 export default function HomeScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const params = useLocalSearchParams<{ q?: string | string[]; scheme?: string | string[]; lang?: string | string[] }>();
+  const params = useLocalSearchParams<{ q?: string | string[]; scheme?: string | string[]; lang?: string | string[]; code?: string | string[] }>();
 
   const initialSchemeParam = firstParam(params.scheme);
   const initialScheme: SchemeKey =
@@ -79,6 +80,8 @@ export default function HomeScreen() {
   const [showAllSchemes, setShowAllSchemes] = useState(() => !isPrimaryScheme(initialScheme));
   const [scheme, setScheme] = useState<SchemeKey>(initialScheme);
   const [query, setQuery] = useState(firstParam(params.q) ?? '');
+  const preferredCode = firstParam(params.code) ?? null;
+  const [shareNotice, setShareNotice] = useState<string | null>(null);
   const [results, setResults] = useState<ScoredEntry[]>([]);
   const [didYouMean, setDidYouMean] = useState<ScoredEntry[]>([]);
   const [ghostText, setGhostText] = useState<string | undefined>();
@@ -91,11 +94,13 @@ export default function HomeScreen() {
   const isTablet = width >= 768;
   const isMobile = !isTablet;
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const shareNoticeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const urlSyncTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeScheme = SCHEMES.find(s => s.key === scheme)!;
   const activeSchemeGroup = getSchemeGroup(scheme);
   const selectedLanguage = LANGUAGES.find(l => l.code === lang)!;
-  const { selectedCode, metadataRows, selectEntry } = useSelectedCodeResult(results);
+  const { selectedCode, metadataRows, selectEntry } = useSelectedCodeResult(results, preferredCode);
   const { groups: conversionGroups, loading: conversionsLoading } = useCodeConversions(
     scheme,
     selectedCode,
@@ -222,6 +227,60 @@ export default function HomeScreen() {
     searchTimer.current = setTimeout(() => runSearch(query, scheme, lang), 200);
     return () => { if (searchTimer.current) clearTimeout(searchTimer.current); };
   }, [query, scheme, lang, runSearch]);
+
+  useEffect(() => {
+    if (urlSyncTimer.current) clearTimeout(urlSyncTimer.current);
+    urlSyncTimer.current = setTimeout(() => {
+      const nextParams: Record<string, string> = {
+        scheme,
+        lang,
+      };
+      if (query.trim()) nextParams.q = query.trim();
+      if (selectedCode) nextParams.code = selectedCode;
+
+      router.setParams(nextParams);
+    }, 250);
+
+    return () => {
+      if (urlSyncTimer.current) clearTimeout(urlSyncTimer.current);
+    };
+  }, [query, scheme, lang, selectedCode, router]);
+
+  const showShareNotice = useCallback((message: string) => {
+    setShareNotice(message);
+    if (shareNoticeTimer.current) clearTimeout(shareNoticeTimer.current);
+    shareNoticeTimer.current = setTimeout(() => setShareNotice(null), 2000);
+  }, []);
+
+  const handleCopyLink = useCallback(async () => {
+    const selectedEntry = results.find(item => item.code === selectedCode);
+    if (!selectedEntry) return;
+
+    try {
+      const url = buildShareUrl({
+        scheme,
+        lang,
+        query: query.trim() || undefined,
+        code: selectedEntry.code,
+      });
+      await copyToClipboard(url);
+      showShareNotice(t('share_link_copied'));
+    } catch (error) {
+      console.warn('Failed to copy share link', error);
+    }
+  }, [results, selectedCode, scheme, lang, query, showShareNotice, t]);
+
+  const handleCopyCode = useCallback(async () => {
+    const selectedEntry = results.find(item => item.code === selectedCode);
+    if (!selectedEntry) return;
+
+    try {
+      await copyToClipboard(formatCodeDescription(selectedEntry, lang));
+      showShareNotice(t('share_code_copied'));
+    } catch (error) {
+      console.warn('Failed to copy code description', error);
+    }
+  }, [results, selectedCode, lang, showShareNotice, t]);
 
   const openConversion = (targetScheme: SchemeKey, targetCode: string) => {
     if (!isPrimaryScheme(targetScheme)) {
@@ -491,6 +550,9 @@ export default function HomeScreen() {
                   exampleSearches={getSearchExamples(scheme)}
                   onQuickSearch={handleQuickSearch}
                   compact={isMobile}
+                  onCopyLink={selectedCode ? handleCopyLink : undefined}
+                  onCopyCode={selectedCode ? handleCopyCode : undefined}
+                  shareNotice={shareNotice}
                 />
               )}
             </View>

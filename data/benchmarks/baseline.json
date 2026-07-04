@@ -1,0 +1,18 @@
+{
+  "generated_at": "2026-06-27T16:19:46.826Z",
+  "thresholds": {
+    "precision_at_1": 0.7,
+    "precision_at_5": 0.85
+  },
+  "summary": [
+    { "scheme": "atc5", "fixture_count": 12, "fuse_p1": 0.83, "fuse_p5": 0.92, "pass": true },
+    { "scheme": "icd10", "fixture_count": 13, "fuse_p1": 0.77, "fuse_p5": 0.85, "pass": false },
+    { "scheme": "icd9", "fixture_count": 8, "fuse_p1": 0.0, "fuse_p5": 0.0, "pass": false },
+    { "scheme": "icd11", "fixture_count": 9, "fuse_p1": 0.89, "fuse_p5": 0.89, "pass": true },
+    { "scheme": "loinc", "fixture_count": 10, "fuse_p1": 0.70, "fuse_p5": 1.0, "pass": true },
+    { "scheme": "cpt", "fixture_count": 8, "fuse_p1": 1.0, "fuse_p5": 1.0, "pass": true },
+    { "scheme": "hcpcs", "fixture_count": 7, "fuse_p1": 0.43, "fuse_p5": 0.71, "pass": false },
+    { "scheme": "cvx", "fixture_count": 8, "fuse_p1": 0.88, "fuse_p5": 0.88, "pass": true }
+  ],
+  "note": "Fuse.js precision@1 and precision@5. Regenerate with: npm run benchmark"
+}

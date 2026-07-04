@@ -81,8 +81,8 @@ function dedupeRows(rows: MetadataRow[]): MetadataRow[] {
   return unique;
 }
 
-export function useSelectedCodeResult(results: CodeEntry[]) {
-  const [selectedCode, setSelectedCode] = useState<string | null>(null);
+export function useSelectedCodeResult(results: CodeEntry[], preferredCode?: string | null) {
+  const [selectedCode, setSelectedCode] = useState<string | null>(preferredCode ?? null);
 
   useEffect(() => {
     if (results.length === 0) {
@@ -90,10 +90,15 @@ export function useSelectedCodeResult(results: CodeEntry[]) {
       return;
     }
 
+    if (preferredCode && results.some(item => item.code === preferredCode)) {
+      setSelectedCode(preferredCode);
+      return;
+    }
+
     if (!selectedCode || !results.some(item => item.code === selectedCode)) {
       setSelectedCode(results[0].code);
     }
-  }, [results, selectedCode]);
+  }, [results, selectedCode, preferredCode]);
 
   const selectedEntry = useMemo(
     () => results.find(item => item.code === selectedCode) ?? null,

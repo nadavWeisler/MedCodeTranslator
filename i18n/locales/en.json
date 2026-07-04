@@ -67,5 +67,11 @@
   "modal_safety_sources": "Active terminology sources: {{count}}",
   "modal_safety_ack": "I understand and agree",
   "schemes_show_all": "Show all systems",
-  "schemes_show_primary": "Primary only"
+  "schemes_show_primary": "Primary only",
+  "share_copy_link": "Copy link",
+  "share_copy_code": "Copy code",
+  "share_link_copied": "Link copied",
+  "share_code_copied": "Code copied",
+  "share_copy_link_a11y": "Copy shareable link for this result",
+  "share_copy_code_a11y": "Copy code and description"
 }

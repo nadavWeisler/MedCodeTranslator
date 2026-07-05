@@ -21,7 +21,10 @@ Build the packages from the monorepo root:
 npm run build:packages
 ```
 
-Publishing uses the workspace `prepublishOnly` scripts and is intended for release tags.
+Publishing uses `.github/workflows/publish-packages.yml` on GitHub Release events.
+
+- **npm:** add repository secret `NPM_TOKEN` with publish access for `@medcode/core` and `@medcode/search`.
+- **PyPI:** configure [trusted publishing](https://docs.pypi.org/trusted-publishers/) for the `pypi` GitHub environment used by the workflow.
 
 ## Python client
 

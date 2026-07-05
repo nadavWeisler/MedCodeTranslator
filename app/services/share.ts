@@ -8,6 +8,7 @@ export type ShareParams = {
   lang: string;
   query?: string;
   code?: string;
+  mode?: string;
 };
 
 function trimTrailingSlash(value: string): string {
@@ -24,6 +25,9 @@ export function buildShareUrl(params: ShareParams): string {
   searchParams.set('lang', params.lang);
   if (params.code?.trim()) {
     searchParams.set('code', params.code.trim());
+  }
+  if (params.mode?.trim()) {
+    searchParams.set('mode', params.mode.trim());
   }
 
   const queryString = searchParams.toString();

@@ -75,6 +75,10 @@ type Props = {
   onToggleShowAll?: () => void;
   showAllLabel?: string;
   showPrimaryLabel?: string;
+  crossSchemeActive?: boolean;
+  onCrossSchemeSelect?: () => void;
+  crossSchemeLabel?: string;
+  crossSchemeHint?: string;
 };
 
 function SchemeDot({ color, active }: { color: string; active: boolean }) {
@@ -128,10 +132,37 @@ export default function SchemeTabs({
   onToggleShowAll,
   showAllLabel = 'Show all systems',
   showPrimaryLabel = 'Primary systems only',
+  crossSchemeActive = false,
+  onCrossSchemeSelect,
+  crossSchemeLabel = 'All systems',
+  crossSchemeHint,
 }: Props) {
   const activeScheme = SCHEMES.find(s => s.key === active)!;
   const visibleSchemes = getVisibleSchemes(showAll);
   const toggleLabel = showAll ? showPrimaryLabel : showAllLabel;
+  const summaryTitle = crossSchemeActive ? crossSchemeLabel : activeScheme.label;
+  const summaryColor = crossSchemeActive ? colors.teal : activeScheme.color;
+  const summaryHint = crossSchemeActive ? crossSchemeHint : hintLabel;
+
+  const crossSchemePill = onCrossSchemeSelect ? (
+    <TouchableOpacity
+      style={[
+        styles.pill,
+        styles.crossSchemePill,
+        crossSchemeActive && {
+          backgroundColor: `${colors.teal}12`,
+          borderColor: `${colors.teal}55`,
+        },
+      ]}
+      onPress={onCrossSchemeSelect}
+      accessibilityRole="tab"
+      accessibilityState={{ selected: crossSchemeActive }}
+    >
+      <Text style={[styles.label, crossSchemeActive && { color: colors.teal, fontWeight: '700' }]}>
+        {crossSchemeLabel}
+      </Text>
+    </TouchableOpacity>
+  ) : null;
 
   return (
     <View style={styles.wrapper}>
@@ -141,6 +172,11 @@ export default function SchemeTabs({
         contentContainerStyle={styles.scroll}
         keyboardShouldPersistTaps="handled"
       >
+        {showAll ? (
+          <View style={styles.group}>
+            {crossSchemePill}
+          </View>
+        ) : null}
         {showAll ? (
           SCHEME_GROUPS.map(group => {
             const groupSchemes = visibleSchemes.filter(scheme => scheme.group === group.key);
@@ -164,6 +200,7 @@ export default function SchemeTabs({
           })
         ) : (
           <View style={styles.primaryRow}>
+            {crossSchemePill}
             {visibleSchemes.map(scheme => (
               <SchemePill
                 key={scheme.key}
@@ -189,14 +226,14 @@ export default function SchemeTabs({
       </ScrollView>
 
       {!compact && (
-        <View style={[styles.schemeSummary, { borderColor: `${activeScheme.color}30` }]}>
+        <View style={[styles.schemeSummary, { borderColor: `${summaryColor}30` }]}>
           <View style={styles.summaryRow}>
-            <SchemeDot color={activeScheme.color} active />
-            <Text style={[styles.schemeTitle, { color: activeScheme.color }]}>
-              {activeScheme.label}
+            <SchemeDot color={summaryColor} active />
+            <Text style={[styles.schemeTitle, { color: summaryColor }]}>
+              {summaryTitle}
             </Text>
           </View>
-          {!!hintLabel && <Text style={styles.searchHint}>{hintLabel}</Text>}
+          {!!summaryHint && <Text style={styles.searchHint}>{summaryHint}</Text>}
         </View>
       )}
     </View>
@@ -240,6 +277,9 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
     backgroundColor: colors.surface,
+  },
+  crossSchemePill: {
+    marginRight: 2,
   },
   toggleBtn: {
     alignSelf: 'center',

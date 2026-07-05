@@ -4,28 +4,29 @@ import CodeCard from './CodeCard';
 import SuggestionItem from './SuggestionItem';
 import SearchChipRow from './SearchChipRow';
 import CodeConversionsPanel from './CodeConversionsPanel';
-import type { ScoredEntry } from '@medcode/core';
-import type { SchemeKey } from '../../db/database';
+import type { CrossSchemeScoredEntry, SchemeKey } from '@medcode/core';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
 import type { ConversionGroup } from '../services/conversionConfig';
 import { isRTL as checkRTL } from '../services/rtl';
 import { spacing } from '../constants/spacing';
-import { colors, radii, typography } from '../constants/theme';
+import { colors, radii, schemeColors, typography } from '../constants/theme';
 import ClinicalIcon from './ClinicalIcon';
+import { SCHEMES } from './SchemeTabs';
+import { getEntrySelectionKey } from '../services/useSelectedCodeResult';
 
 const MONO = typography.monoFamily;
 
 type Props = {
-  entries: ScoredEntry[];
+  entries: CrossSchemeScoredEntry[];
   query: string;
   lang: string;
   t: (key: string, options?: Record<string, unknown>) => string;
-  fuzzyMatches?: ScoredEntry[];
-  onFuzzySelect?: (item: ScoredEntry) => void;
+  fuzzyMatches?: CrossSchemeScoredEntry[];
+  onFuzzySelect?: (item: CrossSchemeScoredEntry) => void;
   schemeColor: string;
   resultCount: number;
-  onEntrySelect?: (entry: ScoredEntry) => void;
-  selectedCode?: string | null;
+  onEntrySelect?: (entry: CrossSchemeScoredEntry) => void;
+  selectedKey?: string | null;
   selectedMetadataRows?: MetadataRow[];
   conversionGroups?: ConversionGroup[];
   conversionsLoading?: boolean;
@@ -37,19 +38,32 @@ type Props = {
   onCopyLink?: () => void;
   onCopyCode?: () => void;
   shareNotice?: string | null;
+  crossSchemeMode?: boolean;
 };
+
+function getSchemeColor(entry: CrossSchemeScoredEntry, fallback: string): string {
+  if (!entry.scheme) return fallback;
+  return SCHEMES.find(item => item.key === entry.scheme)?.color ?? fallback;
+}
 
 type ResultSection = {
   title: string | null;
-  data: ScoredEntry[];
+  data: CrossSchemeScoredEntry[];
 };
 
 function getCodeGroup(code: string): string {
   return code.split('.')[0] || code;
 }
 
-function groupEntries(entries: ScoredEntry[]): ResultSection[] {
-  const grouped = new Map<string, ScoredEntry[]>();
+function groupEntries(entries: CrossSchemeScoredEntry[], crossSchemeMode: boolean): ResultSection[] {
+  if (crossSchemeMode) {
+    return entries.map(entry => ({
+      title: null,
+      data: [entry],
+    }));
+  }
+
+  const grouped = new Map<string, CrossSchemeScoredEntry[]>();
 
   for (const entry of entries) {
     const group = getCodeGroup(entry.code);
@@ -74,7 +88,7 @@ export default function CodeList({
   schemeColor,
   resultCount,
   onEntrySelect,
-  selectedCode,
+  selectedKey,
   selectedMetadataRows = [],
   conversionGroups = [],
   conversionsLoading = false,
@@ -86,9 +100,10 @@ export default function CodeList({
   onCopyLink,
   onCopyCode,
   shareNotice = null,
+  crossSchemeMode = false,
 }: Props) {
   const isRTL = checkRTL(lang);
-  const sections = groupEntries(entries);
+  const sections = groupEntries(entries, crossSchemeMode);
 
   if (!query.trim()) {
     const hasQuickActions = recentSearches.length > 0 || exampleSearches.length > 0;
@@ -171,13 +186,13 @@ export default function CodeList({
 
   return (
     <View style={styles.resultsContainer}>
-      {selectedCode && (conversionGroups.length > 0 || conversionsLoading) && onOpenConversion ? (
+      {selectedKey && !crossSchemeMode && (conversionGroups.length > 0 || conversionsLoading) && onOpenConversion ? (
         <View style={styles.conversionsWrap}>
           <CodeConversionsPanel
             groups={conversionGroups}
             loading={conversionsLoading}
             schemeColor={schemeColor}
-            sourceCode={selectedCode}
+            sourceCode={selectedKey.split(':').pop() ?? selectedKey}
             t={t}
             onOpenConversion={onOpenConversion}
           />
@@ -204,21 +219,26 @@ export default function CodeList({
                 </Text>
               </View>
             ) : null}
-            {section.data.map(item => (
+            {section.data.map(item => {
+              const itemKey = getEntrySelectionKey(item);
+              const itemColor = getSchemeColor(item, schemeColor);
+              const isSelected = itemKey === selectedKey;
+              return (
               <CodeCard
-                key={item.code}
+                key={itemKey}
                 entry={item}
                 lang={lang}
-                schemeColor={schemeColor}
+                schemeColor={itemColor}
                 t={t}
                 onPress={onEntrySelect}
-                isSelected={item.code === selectedCode}
-                metadataRows={item.code === selectedCode ? selectedMetadataRows : []}
-                onCopyLink={item.code === selectedCode ? onCopyLink : undefined}
-                onCopyCode={item.code === selectedCode ? onCopyCode : undefined}
-                shareNotice={item.code === selectedCode ? shareNotice : null}
+                isSelected={isSelected}
+                metadataRows={isSelected ? selectedMetadataRows : []}
+                onCopyLink={isSelected ? onCopyLink : undefined}
+                onCopyCode={isSelected ? onCopyCode : undefined}
+                shareNotice={isSelected ? shareNotice : null}
               />
-            ))}
+            );
+            })}
           </View>
         ))}
       </ScrollView>

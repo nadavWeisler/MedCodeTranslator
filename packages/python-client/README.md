@@ -5,13 +5,13 @@ A minimal Python client for querying MedCodeTranslator vocabulary data.
 ## Installation
 
 ```bash
-pip install medcodetranslator  # coming soon
+pip install medcodetranslator
 ```
 
-Until published, install from source:
+From source:
 
 ```bash
-pip install -e .
+pip install -e packages/python-client
 ```
 
 ## Usage
@@ -21,18 +21,17 @@ from medcodetranslator import MedCodeTranslator
 
 client = MedCodeTranslator(data_dir="../../data/vocabularies")
 
-# Exact / substring search
-results = client.search("atc5", "aspirin")
-for r in results:
-    print(r.code, r.name_en, r.score, r.match_method)
+results = client.search("icd10", "diabetes")
+for result in results:
+    print(result.code, result.name_en, result.score, result.match_method)
 
-# Fuzzy search
-results = client.search("icd10", "diabets", fuzzy=True)
-
-# All schemes
-print(client.schemes)  # ['atc5', 'icd10', 'icd9', ...]
+cross_results = client.search_all("glucose", limit=10)
+for result in cross_results:
+    print(result.scheme, result.code, result.name_en)
 ```
 
-## Status
+Point `data_dir` at the monorepo `data/vocabularies` directory (or your own export) for full scheme coverage.
 
-🚧 Work in progress. See `/packages/python-client/medcodetranslator/` for implementation.
+## Publishing
+
+Release tags trigger `.github/workflows/publish-packages.yml`, which publishes to PyPI using trusted publishing.

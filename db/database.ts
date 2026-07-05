@@ -10,7 +10,7 @@ export type { SchemeKey } from '@medcode/core';
 const DB_NAME = 'medcodes.db';
 // Bumped to 6: switches from eager seedAll() to per-scheme lazy seeding.
 // On upgrade the seeded_* flags are cleared so each scheme re-seeds on first access.
-const SCHEMA_VERSION = 7;
+const SCHEMA_VERSION = 8;
 
 // In-memory cache: avoids a meta-table query on every getAllEntries() call
 const seededSchemes = new Set<SchemeKey>();

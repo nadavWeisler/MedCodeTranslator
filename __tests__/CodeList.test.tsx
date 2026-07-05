@@ -160,7 +160,7 @@ describe('CodeList', () => {
     const { getByText } = render(
       <CodeList entries={[S('250.00', 'Diabetes mellitus without complication')]} query="250.00" lang="en" t={t}
         schemeColor="#7c3aed" resultCount={1}
-        selectedCode="250.00"
+        selectedKey="250.00"
         conversionGroups={[{
           targetScheme: 'icd10',
           targetLabel: 'ICD-10-CM',

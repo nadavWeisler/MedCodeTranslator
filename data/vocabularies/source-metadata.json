@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-05-30T14:40:52+00:00",
+  "generated_at_utc": "2026-07-05T05:57:19+00:00",
   "imported_by": "scripts/fetch_public_vocabularies.py",
   "sources": [
     {
@@ -60,7 +60,7 @@
       "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
       "record_count": 5579,
       "license_text": "WHOCC public terms; verify latest redistribution/commercial terms.",
-      "attribution_text": "ATC/DDD data © WHOCC."
+      "attribution_text": "ATC/DDD data \u00a9 WHOCC."
     },
     {
       "dataset": "icd10",
@@ -102,13 +102,14 @@
       "dataset": "loinc",
       "provider": "Regenstrief Institute (LOINC)",
       "url": "https://loinc.org/",
-      "dataset_version": "Demo subset",
-      "source_revision": "Curated repository sample",
-      "last_updated_utc": "2026-05-30T14:40:52+00:00",
-      "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
-      "record_count": 70,
-      "license_text": "LOINC/Regenstrief license terms apply.",
-      "attribution_text": "LOINC source context: Regenstrief Institute."
+      "dataset_version": "LOINC Top 2000+ common panel (US)",
+      "source_revision": "Regenstrief LOINC Top 2000+ via OHDSI StudyProtocolSandbox US CSV; imported top 600 ranked observations",
+      "last_updated_utc": "2026-07-05T05:57:19+00:00",
+      "retrieved_at_utc": "2026-07-05T05:57:19+00:00",
+      "record_count": 600,
+      "license_text": "LOINC/Regenstrief license terms apply. Subset derived from the public Top 2000+ common lab observations list.",
+      "attribution_text": "LOINC\u00ae (https://loinc.org) \u2014 Regenstrief Institute. Common panel subset per LOINC Top 2000+ US list.",
+      "coverage": "partial"
     },
     {
       "dataset": "cpt",

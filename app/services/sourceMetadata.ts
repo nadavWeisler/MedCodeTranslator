@@ -10,6 +10,7 @@ export type SourceMetadataEntry = {
   last_updated_utc?: string;
   retrieved_at_utc?: string;
   record_count?: number;
+  coverage?: 'full' | 'partial' | 'demo';
   license_text?: string;
   attribution_text?: string;
 };
@@ -44,6 +45,8 @@ export function getSchemeSourceMetadata(scheme: SchemeKey): SourceMetadataEntry 
 /** True when the bundled dataset is a curated demo/sample rather than a full distribution. */
 export function isDemoCoverage(meta: SourceMetadataEntry | undefined): boolean {
   if (!meta) return false;
+  if (meta.coverage === 'demo') return true;
+  if (meta.coverage === 'partial' || meta.coverage === 'full') return false;
   const version = (meta.dataset_version ?? '').toLowerCase();
   const revision = (meta.source_revision ?? '').toLowerCase();
   return (
@@ -54,8 +57,17 @@ export function isDemoCoverage(meta: SourceMetadataEntry | undefined): boolean {
   );
 }
 
+export function isPartialCoverage(meta: SourceMetadataEntry | undefined): boolean {
+  if (!meta) return false;
+  if (meta.coverage === 'partial') return true;
+  if (meta.coverage === 'demo' || meta.coverage === 'full') return false;
+  const version = (meta.dataset_version ?? '').toLowerCase();
+  const revision = (meta.source_revision ?? '').toLowerCase();
+  return version.includes('partial') || revision.includes('subset') || revision.includes('panel');
+}
+
 export type CoverageI18n = {
-  key: 'coverage_demo' | 'coverage_full';
+  key: 'coverage_demo' | 'coverage_partial' | 'coverage_full';
   count: number;
   updated?: string;
 };
@@ -63,8 +75,13 @@ export type CoverageI18n = {
 export function getCoverageI18n(scheme: SchemeKey): CoverageI18n | null {
   const meta = getSchemeSourceMetadata(scheme);
   if (!meta?.record_count) return null;
+  const key = isDemoCoverage(meta)
+    ? 'coverage_demo'
+    : isPartialCoverage(meta)
+      ? 'coverage_partial'
+      : 'coverage_full';
   return {
-    key: isDemoCoverage(meta) ? 'coverage_demo' : 'coverage_full',
+    key,
     count: meta.record_count,
     updated: formatDateLabel(meta.last_updated_utc ?? meta.retrieved_at_utc),
   };

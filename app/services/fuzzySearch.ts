@@ -7,7 +7,8 @@
  */
 import { getAllEntries } from '../../db/database';
 import type { SchemeKey } from '../../db/database';
-import type { CodeEntry, ScoredEntry } from '@medcode/core';
+import type { CodeEntry, CrossSchemeScoredEntry, ScoredEntry } from '@medcode/core';
+import { CROSS_SCHEME_KEYS } from '@medcode/core';
 import {
   buildAliasMap,
   buildFuseIndex,
@@ -69,4 +70,46 @@ export function clearIndex(scheme: SchemeKey): void {
 
 export function isIndexReady(scheme: SchemeKey): boolean {
   return entryCache.has(scheme);
+}
+
+export function getCrossSchemeKeys(): readonly SchemeKey[] {
+  return CROSS_SCHEME_KEYS;
+}
+
+/** Build in-memory indexes for all cross-scheme search targets. */
+export async function buildCrossSchemeIndexes(): Promise<void> {
+  await Promise.all(CROSS_SCHEME_KEYS.map(scheme => buildIndex(scheme)));
+}
+
+export function isCrossSchemeReady(): boolean {
+  return CROSS_SCHEME_KEYS.every(scheme => entryCache.has(scheme));
+}
+
+/**
+ * Search across representative schemes and merge with round-robin fairness.
+ * Each scheme contributes up to perSchemeLimit hits before interleaving.
+ */
+export function crossSchemeSearch(query: string, limit = 30): CrossSchemeScoredEntry[] {
+  const perSchemeLimit = Math.max(3, Math.ceil(limit / CROSS_SCHEME_KEYS.length));
+  const buckets = CROSS_SCHEME_KEYS.map(scheme =>
+    search(query, scheme, perSchemeLimit).map(result => ({ ...result, scheme }))
+  );
+
+  const merged: CrossSchemeScoredEntry[] = [];
+  const indices = new Array(buckets.length).fill(0);
+
+  while (merged.length < limit) {
+    let added = false;
+    for (let i = 0; i < buckets.length; i += 1) {
+      const next = buckets[i][indices[i]];
+      if (!next) continue;
+      merged.push(next);
+      indices[i] += 1;
+      added = true;
+      if (merged.length >= limit) break;
+    }
+    if (!added) break;
+  }
+
+  return merged;
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
-import type { ScoredEntry } from '@medcode/core';
+import type { CrossSchemeScoredEntry, SchemeKey } from '@medcode/core';
+import { SCHEMES } from './SchemeTabs';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
 import { isRTL } from '../services/rtl';
 import { spacing } from '../constants/spacing';
@@ -18,12 +19,12 @@ const MATCH_METHOD_KEYS: Record<string, string> = {
 };
 
 type Props = {
-  entry: ScoredEntry;
+  entry: CrossSchemeScoredEntry;
   lang: string;
   schemeColor: string;
   t: (key: string, options?: Record<string, unknown>) => string;
   isSelected?: boolean;
-  onPress?: (entry: ScoredEntry) => void;
+  onPress?: (entry: CrossSchemeScoredEntry) => void;
   metadataRows?: MetadataRow[];
   onCopyLink?: () => void;
   onCopyCode?: () => void;
@@ -51,6 +52,9 @@ export default function CodeCard({
   const showEnglishOnlyChip = lang !== 'en' && !entry.name_he;
   const showMetadata = isSelected && metadataRows.length > 0;
   const showShareActions = isSelected && (onCopyLink || onCopyCode);
+  const schemeLabel = entry.scheme
+    ? SCHEMES.find(item => item.key === entry.scheme)?.shortLabel ?? entry.scheme.toUpperCase()
+    : null;
   const matchKey = MATCH_METHOD_KEYS[entry.matchMethod] ?? 'match_substring';
   const matchLabel = t(matchKey);
   const scorePercent = Math.round(entry.score * 100);
@@ -77,6 +81,9 @@ export default function CodeCard({
           <Text style={[styles.codeText, { color: schemeColor, fontFamily: MONO }]}>
             {entry.code}
           </Text>
+          {schemeLabel ? (
+            <Text style={[styles.schemeBadgeText, { color: schemeColor }]}>{schemeLabel}</Text>
+          ) : null}
         </View>
         <View style={styles.nameCol}>
           <HighlightedText
@@ -175,6 +182,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
     letterSpacing: 0.4,
+  },
+  schemeBadgeText: {
+    marginTop: 2,
+    fontSize: 9,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
   },
   nameCol: {
     flex: 1,

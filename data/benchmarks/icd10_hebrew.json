@@ -1,0 +1,50 @@
+[
+  {
+    "query": "סוכרת",
+    "expected_codes": ["E11", "E10", "E08"],
+    "category": "hebrew-partial-name",
+    "note": "Hebrew query for diabetes mellitus family"
+  },
+  {
+    "query": "יתר לחץ דם",
+    "expected_codes": ["I10"],
+    "category": "hebrew-partial-name",
+    "note": "Hebrew query for essential hypertension"
+  },
+  {
+    "query": "אסתמה",
+    "expected_codes": ["J45"],
+    "category": "hebrew-exact-name",
+    "note": "Hebrew query for asthma"
+  },
+  {
+    "query": "מיגרנה",
+    "expected_codes": ["G43"],
+    "category": "hebrew-exact-name",
+    "note": "Hebrew query for migraine"
+  },
+  {
+    "query": "שפעת",
+    "expected_codes": ["J09", "J10", "J11"],
+    "category": "hebrew-partial-name",
+    "note": "Hebrew query for influenza"
+  },
+  {
+    "query": "דלקת ריאות",
+    "expected_codes": ["J12", "J18"],
+    "category": "hebrew-partial-name",
+    "note": "Hebrew query for pneumonia"
+  },
+  {
+    "query": "שבץ",
+    "expected_codes": ["I63", "I64"],
+    "category": "hebrew-partial-name",
+    "note": "Hebrew shorthand for stroke"
+  },
+  {
+    "query": "אנמיה",
+    "expected_codes": ["D50"],
+    "category": "hebrew-partial-name",
+    "note": "Hebrew query for anemia"
+  }
+]

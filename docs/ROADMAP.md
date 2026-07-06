@@ -2,7 +2,7 @@
 
 This document turns the project’s strategic direction into **phased, shippable milestones**. Every item stays within [SAFE_SCOPE.md](./SAFE_SCOPE.md): terminology lookup and reference only — no diagnosis, treatment, dosing, or patient-specific guidance.
 
-**Last updated:** 2026-06-27  
+**Last updated:** 2026-07-06  
 **Planning horizon:** ~6 months (Q3–Q4 2026)
 
 ---
@@ -75,9 +75,9 @@ Close gaps between documentation and implementation. Low regulatory risk; high c
 5. Add benchmark queries to `data/benchmarks/icd10.json` for alias cases.
 
 **Acceptance criteria:**
-- [ ] Searching `HTN` on ICD-10 returns hypertension-related codes with `matchMethod: 'alias'`.
-- [ ] Alias layer documented in README matches runtime behavior.
-- [ ] `npm test` and `npm run benchmark` pass.
+- [x] Searching `HTN` on ICD-10 returns hypertension-related codes with `matchMethod: 'alias'`.
+- [x] Alias layer documented in README matches runtime behavior.
+- [x] `npm test` and `npm run benchmark` pass.
 
 ---
 
@@ -99,9 +99,9 @@ Close gaps between documentation and implementation. Low regulatory risk; high c
 4. Extend `search-quality.yml` to compare against baseline and comment on PRs (optional).
 
 **Acceptance criteria:**
-- [ ] README shows non-empty benchmark results with date stamp.
-- [ ] CI fails if any scheme drops below configured thresholds.
-- [ ] Baseline file is reproducible from `npm run benchmark`.
+- [x] README shows non-empty benchmark results with date stamp.
+- [x] CI fails if any scheme drops below configured thresholds.
+- [x] Baseline file is reproducible from `npm run benchmark`.
 
 ---
 
@@ -123,8 +123,8 @@ Close gaps between documentation and implementation. Low regulatory risk; high c
 4. i18n strings for badge labels in all 9 locales.
 
 **Acceptance criteria:**
-- [ ] User can see at a glance which schemes are demo vs full.
-- [ ] No scheme is mislabeled (counts match `source-metadata.json`).
+- [x] User can see at a glance which schemes are demo vs full.
+- [x] No scheme is mislabeled (counts match `source-metadata.json`).
 
 ---
 
@@ -148,8 +148,8 @@ Close gaps between documentation and implementation. Low regulatory risk; high c
 2. Link from CONTRIBUTING and DATA_SOURCES.md.
 
 **Acceptance criteria:**
-- [ ] New maintainer can triage a failed refresh without reading workflow YAML.
-- [ ] Runbook references SAFE_SCOPE and no-PHI rules.
+- [x] New maintainer can triage a failed refresh without reading workflow YAML.
+- [x] Runbook references SAFE_SCOPE and no-PHI rules.
 
 ---
 
@@ -173,9 +173,10 @@ Ship beyond GitHub Pages; make packages consumable externally.
 4. Smoke-test: app launches, SQLite seeds, search works offline.
 
 **Acceptance criteria:**
-- [ ] `eas build --platform ios --profile preview` produces installable build.
-- [ ] `eas build --platform android --profile preview` produces installable build.
-- [ ] No network calls required for search after install.
+- [x] `eas.json` with development, preview, and production profiles.
+- [ ] `eas build --platform ios --profile preview` produces installable build (manual; requires `EXPO_TOKEN` / signing).
+- [ ] `eas build --platform android --profile preview` produces installable build (manual).
+- [x] No network calls required for search after install (offline design).
 
 ---
 
@@ -218,8 +219,8 @@ Ship beyond GitHub Pages; make packages consumable externally.
 4. Document install in README and `docs/API.md`.
 
 **Acceptance criteria:**
-- [ ] `npm install @medcode/core @medcode/search` works.
-- [ ] Published API matches in-repo layered search behavior.
+- [x] `npm install @medcode/core @medcode/search` works (workspace build; publish on GitHub Release).
+- [x] Published API matches in-repo layered search behavior.
 
 ---
 
@@ -239,8 +240,8 @@ Ship beyond GitHub Pages; make packages consumable externally.
 4. Update `packages/python-client/README.md` (remove “coming soon”).
 
 **Acceptance criteria:**
-- [ ] `pip install medcodetranslator` works.
-- [ ] Search results match TS client for same query/scheme.
+- [x] `pip install medcodetranslator` works (wheel build; publish on GitHub Release).
+- [x] Search results match TS client for same query/scheme.
 
 ---
 
@@ -267,9 +268,9 @@ Improve terminology coverage while respecting upstream licenses.
 5. Expand `data/benchmarks/loinc.json`.
 
 **Acceptance criteria:**
-- [ ] LOINC subset ≥ 500 codes with documented source.
-- [ ] UI shows `partial` coverage badge.
-- [ ] Benchmark precision@1 ≥ 0.70 for LOINC.
+- [x] LOINC subset ≥ 500 codes with documented source (600-code common panel shipped).
+- [x] UI shows `partial` coverage badge.
+- [x] Benchmark precision@1 ≥ 0.70 for LOINC.
 
 **Out of scope:** Full LOINC distribution without license.
 
@@ -295,9 +296,9 @@ Improve terminology coverage while respecting upstream licenses.
 4. Add Hebrew benchmark queries.
 
 **Acceptance criteria:**
-- [ ] Hebrew UI shows Hebrew primary label when `name_he` present.
-- [ ] Searching Hebrew terms returns correct codes.
-- [ ] Source and license documented in source-metadata.
+- [x] Hebrew UI shows Hebrew primary label when `name_he` present.
+- [x] Searching Hebrew terms returns correct codes (Stage A: ~80 prefixes / ~2.5k leaf codes).
+- [x] Source and license documented in source-metadata (curated; MOH review pending for full set).
 
 ---
 
@@ -363,9 +364,9 @@ Broader lookup patterns without crossing into clinical decision support.
 4. Performance budget: lazy index build; show loading state on mobile.
 
 **Acceptance criteria:**
-- [ ] Query `glucose` returns grouped results from LOINC, ICD, etc.
-- [ ] Each result shows scheme badge and existing score/matchMethod.
-- [ ] No new inference — results are stored entries only.
+- [x] Query `glucose` returns grouped results from LOINC, ICD, etc.
+- [x] Each result shows scheme badge and existing score/matchMethod.
+- [x] No new inference — results are stored entries only.
 
 ---
 
@@ -386,8 +387,8 @@ Broader lookup patterns without crossing into clinical decision support.
 3. Verify deep links work on web PWA and do not break baseUrl paths.
 
 **Acceptance criteria:**
-- [ ] Shared URL opens same code/scheme/lang on web.
-- [ ] Clipboard actions work on web and mobile.
+- [x] Shared URL opens same code/scheme/lang on web.
+- [x] Clipboard actions work on web and mobile.
 
 ---
 

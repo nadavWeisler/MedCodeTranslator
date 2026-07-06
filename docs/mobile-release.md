@@ -70,14 +70,13 @@ eas submit --platform android --profile production
 Copy for listings lives in [`store-listing.md`](../store-listing.md) and
 [`docs/APP_STORE_DESCRIPTION.md`](APP_STORE_DESCRIPTION.md).
 
-## CI integration (optional next step)
+## CI integration
 
-A future `.github/workflows/eas-build.yml` can trigger `preview` builds on tagged
-releases. Required GitHub secrets:
+`.github/workflows/eas-build.yml` triggers EAS `preview` builds on GitHub Release publish or manual `workflow_dispatch`. Required GitHub secret:
 
 - `EXPO_TOKEN` — Expo access token with build permissions
 
-Until CI is wired, builds are manual via the commands above.
+Until `EXPO_TOKEN` is configured, builds remain manual via the commands above.
 
 ## Verification checklist
 

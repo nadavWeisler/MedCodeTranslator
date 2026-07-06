@@ -1,0 +1,82 @@
+code,name_he,source_note
+A00,כולרה,curated-stage-a-high-frequency
+A01,טיפוס וטיפוס פראטיפוס,curated-stage-a-high-frequency
+A09,"דיארה וגסטרואנטריטיס חשודים כזיהומיים",curated-stage-a-high-frequency
+B34.9,זיהום ויראלי לא מוגדר,curated-stage-a-high-frequency
+C50,סרטן השד,curated-stage-a-high-frequency
+C61,סרטן הערמונית,curated-stage-a-high-frequency
+C78,משניות נוופלסטיות של איברי הנשימה והמעיים,curated-stage-a-high-frequency
+D50,אנמיה מחוסר ברזל,curated-stage-a-high-frequency
+E03.9,תת פעילות בלוטת התריס ללא תסמינים,curated-stage-a-high-frequency
+E11,סוכרת סוג 2,curated-stage-a-high-frequency
+E11.9,סוכרת סוג 2 ללא סיבוכים,curated-stage-a-high-frequency
+E10,סוכרת סוג 1,curated-stage-a-high-frequency
+E10.9,סוכרת סוג 1 ללא סיבוכים,curated-stage-a-high-frequency
+E78.5,היפרליפידמיה לא מוגדרת,curated-stage-a-high-frequency
+E66.9,השמנה לא מוגדרת,curated-stage-a-high-frequency
+F32,אפיזודה דיכאונית,curated-stage-a-high-frequency
+F41.9,הפרעת חרדה לא מוגדרת,curated-stage-a-high-frequency
+G20,מחלת פרקינסון,curated-stage-a-high-frequency
+G43,מיגרנה,curated-stage-a-high-frequency
+G44,סוגי כאב ראש אחרים,curated-stage-a-high-frequency
+G47,הפרעות שינה,curated-stage-a-high-frequency
+G93.1,נפיחות מוח אנוקסית,curated-stage-a-high-frequency
+H10,דלקת לובנית,curated-stage-a-high-frequency
+H25,קטרקט זקנה,curated-stage-a-high-frequency
+H40,גלאוקומה,curated-stage-a-high-frequency
+H66,דלקת אוזן תיכונה,curated-stage-a-high-frequency
+I10,יתר לחץ דם (ראשוני),curated-stage-a-high-frequency
+I20,אנגינה פקטוריס,curated-stage-a-high-frequency
+I21,אוטם שריר הלב,curated-stage-a-high-frequency
+I25,מחלת לב איסכמית כרונית,curated-stage-a-high-frequency
+I48,פרפור עליות,curated-stage-a-high-frequency
+I50,אי ספיקת לב,curated-stage-a-high-frequency
+I63,שבץ מוחי איסכמי,curated-stage-a-high-frequency
+I64,שבץ מוחי לא מוגדר,curated-stage-a-high-frequency
+I73,מחלת כלי דם פריפרית,curated-stage-a-high-frequency
+I80,דלקת ורידים,curated-stage-a-high-frequency
+I83,דליות,curated-stage-a-high-frequency
+J00,הצטננות,curated-stage-a-high-frequency
+J06,זיהום חודשי עליון אקוטי,curated-stage-a-high-frequency
+J09,שפעת חריפה עקב וירוס שפעת מזוהה,curated-stage-a-high-frequency
+J10,שפעת עקב וירוס שפעת אחר,curated-stage-a-high-frequency
+J11,שפעת לא מוגדרת,curated-stage-a-high-frequency
+J12,דלקת ריאות ויראלית,curated-stage-a-high-frequency
+J18,דלקת ריאות לא מוגדרת,curated-stage-a-high-frequency
+J20,ברונכיטיס אקוטי,curated-stage-a-high-frequency
+J44,מחלת ריאות חסימתית כרונית,curated-stage-a-high-frequency
+J45,אסתמה,curated-stage-a-high-frequency
+J96,כשל נשימתי לא מוגדר,curated-stage-a-high-frequency
+K21,מחלת ריפלוקס,curated-stage-a-high-frequency
+K29,דלקת קיבה ותריסריון,curated-stage-a-high-frequency
+K35,דלקת התוספתן,curated-stage-a-high-frequency
+K40,בקע מפשעתי,curated-stage-a-high-frequency
+K52,גסטרואנטריטיס וקוליטיס לא זיהומיים,curated-stage-a-high-frequency
+K59,הפרעות תפקוד מעיים אחרות,curated-stage-a-high-frequency
+K80,אבנים בדרכי המרה,curated-stage-a-high-frequency
+L20,אטופיק דרמטיטיס,curated-stage-a-high-frequency
+L30,דרמטיטיס אחר,curated-stage-a-high-frequency
+M17,אוסטאוארתריטיס של ברך,curated-stage-a-high-frequency
+M19,אוסטאוארתריטיס אחר,curated-stage-a-high-frequency
+M25,הפרעות מפרקים אחרות,curated-stage-a-high-frequency
+M54,כאבי גב,curated-stage-a-high-frequency
+M79,הפרעות רקמות רכות אחרות,curated-stage-a-high-frequency
+N18,מחלת כליות כרונית,curated-stage-a-high-frequency
+N20,אבנים בכליה,curated-stage-a-high-frequency
+N39,הפרעות בדרכי השתן אחרות,curated-stage-a-high-frequency
+N40,הגדלה שפירה של הערמונית,curated-stage-a-high-frequency
+R05,שיעול,curated-stage-a-high-frequency
+R06,הפרעות נשימה,curated-stage-a-high-frequency
+R10,כאב בטן ואגן,curated-stage-a-high-frequency
+R11,בחילה והקאות,curated-stage-a-high-frequency
+R50,חום לא מוגדר,curated-stage-a-high-frequency
+R51,כאב ראש,curated-stage-a-high-frequency
+R53,חולשה ועייפות,curated-stage-a-high-frequency
+S06,פגיעת ראש תוך גולגולתית,curated-stage-a-high-frequency
+T14,פגיעה לא מוגדרת,curated-stage-a-high-frequency
+Z00,בדיקה כללית ומעקב,curated-stage-a-high-frequency
+Z23,צורך בחיסון,curated-stage-a-high-frequency
+Z34,מעקב הריון רגיל,curated-stage-a-high-frequency
+Z51,טיפול אחר,curated-stage-a-high-frequency
+Z87,היסטוריה רפואית אישית,curated-stage-a-high-frequency
+Z96,נוכחות שתלים ושתלים,curated-stage-a-high-frequency

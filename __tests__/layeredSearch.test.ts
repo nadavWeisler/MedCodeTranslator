@@ -3,6 +3,7 @@ import {
   layeredSearch,
   resolveAlias,
   aliasMatch,
+  prefixMatch,
 } from '@medcode/search';
 import type { CodeEntry } from '@medcode/core';
 import { buildFuseIndex } from '@medcode/search';
@@ -62,7 +63,6 @@ describe('Hebrew name_he matching', () => {
   ];
 
   it('prefixMatch matches Hebrew labels', () => {
-    const { prefixMatch } = require('@medcode/search');
     const results = prefixMatch(HEBREW_ENTRIES, 'יתר לחץ', 5);
     expect(results.some(r => r.code === 'I10')).toBe(true);
     expect(results[0]?.matchMethod).toBe('prefix');

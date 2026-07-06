@@ -55,6 +55,24 @@ describe('alias expansion', () => {
   });
 });
 
+describe('Hebrew name_he matching', () => {
+  const HEBREW_ENTRIES: CodeEntry[] = [
+    { code: 'I10', name_en: 'Essential (primary) hypertension', name_he: 'יתר לחץ דם (ראשוני)' },
+    { code: 'J45', name_en: 'Asthma', name_he: 'אסתמה' },
+  ];
+
+  it('prefixMatch matches Hebrew labels', () => {
+    const { prefixMatch } = require('@medcode/search');
+    const results = prefixMatch(HEBREW_ENTRIES, 'יתר לחץ', 5);
+    expect(results.some(r => r.code === 'I10')).toBe(true);
+    expect(results[0]?.matchMethod).toBe('prefix');
+  });
+
+  it('layeredSearch returns Hebrew substring hits', () => {
+    const results = layeredSearch(HEBREW_ENTRIES, 'אסתמה', 'icd10', { limit: 5 });
+    expect(results.some(r => r.code === 'J45')).toBe(true);
+  });
+});
 describe('dedupe_padded_label (python parity via refresh script contract)', () => {
   // Document expected ICD-10 label shape after normalization.
   it('sample ICD-10 entry should not contain duplicated label text', () => {

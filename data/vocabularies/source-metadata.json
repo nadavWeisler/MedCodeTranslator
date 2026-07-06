@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-07-05T05:57:19+00:00",
+  "generated_at_utc": "2026-07-06T05:07:27+00:00",
   "imported_by": "scripts/fetch_public_vocabularies.py",
   "sources": [
     {
@@ -60,7 +60,7 @@
       "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
       "record_count": 5579,
       "license_text": "WHOCC public terms; verify latest redistribution/commercial terms.",
-      "attribution_text": "ATC/DDD data \u00a9 WHOCC."
+      "attribution_text": "ATC/DDD data © WHOCC."
     },
     {
       "dataset": "icd10",
@@ -72,7 +72,11 @@
       "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
       "record_count": 74260,
       "license_text": "CMS/U.S. government source terms for ICD-10-CM.",
-      "attribution_text": "ICD-10-CM source: CMS."
+      "attribution_text": "ICD-10-CM source: CMS.",
+      "hebrew_labels_stage": "A",
+      "hebrew_label_count": 2476,
+      "hebrew_label_note": "Stage A curated high-frequency Hebrew labels applied by ICD-10 prefix; not an official MOH distribution.",
+      "hebrew_label_prefix_count": 80
     },
     {
       "dataset": "icd9",
@@ -108,7 +112,7 @@
       "retrieved_at_utc": "2026-07-05T05:57:19+00:00",
       "record_count": 600,
       "license_text": "LOINC/Regenstrief license terms apply. Subset derived from the public Top 2000+ common lab observations list.",
-      "attribution_text": "LOINC\u00ae (https://loinc.org) \u2014 Regenstrief Institute. Common panel subset per LOINC Top 2000+ US list.",
+      "attribution_text": "LOINC® (https://loinc.org) — Regenstrief Institute. Common panel subset per LOINC Top 2000+ US list.",
       "coverage": "partial"
     },
     {

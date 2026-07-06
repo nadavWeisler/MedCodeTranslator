@@ -22,11 +22,11 @@ export function exactMatch(entries: CodeEntry[], query: string): ScoredEntry[] {
       ...e,
       score: 1.0,
       matchMethod: 'exact' as const,
-      highlights: buildHighlights(e.name_en, q),
+      highlights: buildHighlights(pickHighlightField(e, q), q),
     }));
 }
 
-/** Starts-with match on code or name_en. Score = 0.9. */
+/** Starts-with match on code, name_en, or name_he. Score = 0.9. */
 export function prefixMatch(
   entries: CodeEntry[],
   query: string,
@@ -38,15 +38,24 @@ export function prefixMatch(
     .filter(
       e =>
         e.code.toLowerCase().startsWith(q) ||
-        e.name_en.toLowerCase().startsWith(q)
+        e.name_en.toLowerCase().startsWith(q) ||
+        (e.name_he && e.name_he.toLowerCase().startsWith(q))
     )
     .slice(0, limit)
     .map(e => ({
       ...e,
       score: 0.9,
       matchMethod: 'prefix' as const,
-      highlights: buildHighlights(e.name_en, q),
+      highlights: buildHighlights(pickHighlightField(e, q), q),
     }));
+}
+
+function pickHighlightField(entry: CodeEntry, query: string): string {
+  const q = query.trim().toLowerCase();
+  if (entry.name_he && entry.name_he.toLowerCase().includes(q)) {
+    return entry.name_he;
+  }
+  return entry.name_en;
 }
 
 /** Substring match (SQL LIKE equivalent). Score = 0.7. */
@@ -69,7 +78,7 @@ export function substringMatch(
       ...e,
       score: codeBoost(e.code, q, 0.7),
       matchMethod: 'substring' as const,
-      highlights: buildHighlights(e.name_en, q),
+      highlights: buildHighlights(pickHighlightField(e, q), q),
     }));
 }
 

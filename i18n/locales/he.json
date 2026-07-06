@@ -33,6 +33,7 @@
   "name": "שם",
   "language": "שפה",
   "coverage_demo": "דמו · {{countFormatted}} קודים",
+  "coverage_partial": "מאגר חלקי · {{countFormatted}} קודים",
   "coverage_full": "מלא · {{countFormatted}} קודים",
   "coverage_updated": "עודכן {{date}}",
   "terminology_english_only": "אנגלית בלבד",
@@ -53,5 +54,13 @@
   "conversions_show_less": "הצג פחות",
   "conversion_open_a11y": "פתח קוד {{code}} במערכת הקידוד שלו",
   "schemes_show_all": "הצג את כל המערכות",
-  "schemes_show_primary": "מערכות עיקריות בלבד"
+  "schemes_show_primary": "מערכות עיקריות בלבד",
+  "schemes_search_all": "כל המערכות",
+  "schemes_search_all_hint": "חיפוש משולב ב-ICD-10, ATC-5, LOINC, HCPCS ו-CVX",
+  "share_copy_link": "העתק קישור",
+  "share_copy_code": "העתק קוד",
+  "share_link_copied": "הקישור הועתק",
+  "share_code_copied": "הקוד הועתק",
+  "share_copy_link_a11y": "העתק קישור לשיתוף לתוצאה זו",
+  "share_copy_code_a11y": "העתק קוד ותיאור"
 }

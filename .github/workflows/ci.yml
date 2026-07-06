@@ -50,6 +50,14 @@ jobs:
       - name: Type check
         run: npx tsc --noEmit
 
+      - name: Build publishable packages
+        run: npm run build:packages
+
+      - name: Verify npm package manifests
+        run: |
+          npm publish --dry-run --workspace @medcode/core
+          npm publish --dry-run --workspace @medcode/search
+
       - name: Run tests
         run: npm test -- --no-coverage --ci
 

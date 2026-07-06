@@ -78,3 +78,11 @@ export type ScoredEntry = CodeEntry & {
    */
   highlights?: [number, number][];
 };
+
+/** Search result tagged with its originating coding scheme (cross-scheme mode). */
+export type CrossSchemeScoredEntry = ScoredEntry & {
+  scheme?: SchemeKey;
+};
+
+/** Representative schemes searched in unified cross-scheme mode. */
+export const CROSS_SCHEME_KEYS: SchemeKey[] = ['icd10', 'atc5', 'loinc', 'hcpcs', 'cvx'];

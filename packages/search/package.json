@@ -1,0 +1,28 @@
+{
+  "name": "@medcode/search",
+  "version": "0.1.0",
+  "description": "Layered biomedical terminology retrieval engine for MedCodeTranslator",
+  "license": "MIT",
+  "author": "MedCodeTranslator Contributors",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nadavWeisler/MedCodeTranslator.git",
+    "directory": "packages/search"
+  },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@medcode/core": "0.1.0",
+    "fuse.js": "^7.3.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

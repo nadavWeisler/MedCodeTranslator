@@ -1,11 +1,17 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import type { CodeEntry, CodeMetadataValue } from '@medcode/core';
+import type { CodeEntry, CodeMetadataValue, SchemeKey } from '@medcode/core';
 
 export type MetadataRow = {
   key: string;
   label: string;
   value: string;
 };
+
+export type SelectableEntry = CodeEntry & { scheme?: SchemeKey };
+
+export function getEntrySelectionKey(entry: Pick<SelectableEntry, 'code' | 'scheme'>): string {
+  return entry.scheme ? `${entry.scheme}:${entry.code}` : entry.code;
+}
 
 function humanizeLabel(keyPath: string): string {
   const raw = keyPath.split('.').pop() ?? keyPath;
@@ -81,23 +87,40 @@ function dedupeRows(rows: MetadataRow[]): MetadataRow[] {
   return unique;
 }
 
-export function useSelectedCodeResult(results: CodeEntry[]) {
-  const [selectedCode, setSelectedCode] = useState<string | null>(null);
+type PreferredSelection = {
+  scheme?: string | null;
+  code?: string | null;
+};
+
+export function useSelectedCodeResult(results: SelectableEntry[], preferred?: PreferredSelection) {
+  const preferredKey =
+    preferred?.code?.trim()
+      ? preferred.scheme?.trim()
+        ? `${preferred.scheme}:${preferred.code}`
+        : preferred.code
+      : null;
+
+  const [selectedKey, setSelectedKey] = useState<string | null>(preferredKey);
 
   useEffect(() => {
     if (results.length === 0) {
-      setSelectedCode(null);
+      setSelectedKey(null);
       return;
     }
 
-    if (!selectedCode || !results.some(item => item.code === selectedCode)) {
-      setSelectedCode(results[0].code);
+    if (preferredKey && results.some(item => getEntrySelectionKey(item) === preferredKey)) {
+      setSelectedKey(preferredKey);
+      return;
     }
-  }, [results, selectedCode]);
+
+    if (!selectedKey || !results.some(item => getEntrySelectionKey(item) === selectedKey)) {
+      setSelectedKey(getEntrySelectionKey(results[0]));
+    }
+  }, [results, selectedKey, preferredKey]);
 
   const selectedEntry = useMemo(
-    () => results.find(item => item.code === selectedCode) ?? null,
-    [results, selectedCode]
+    () => results.find(item => getEntrySelectionKey(item) === selectedKey) ?? null,
+    [results, selectedKey]
   );
 
   const metadataRows = useMemo(
@@ -105,12 +128,15 @@ export function useSelectedCodeResult(results: CodeEntry[]) {
     [selectedEntry]
   );
 
-  const selectEntry = useCallback((entry: CodeEntry) => {
-    setSelectedCode(entry.code);
+  const selectEntry = useCallback((entry: SelectableEntry) => {
+    setSelectedKey(getEntrySelectionKey(entry));
   }, []);
 
   return {
-    selectedCode,
+    selectedKey,
+    selectedCode: selectedEntry?.code ?? null,
+    selectedScheme: selectedEntry?.scheme ?? null,
+    selectedEntry,
     metadataRows,
     selectEntry,
   };

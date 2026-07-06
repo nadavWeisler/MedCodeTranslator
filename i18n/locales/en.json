@@ -33,6 +33,7 @@
   "name": "Name",
   "language": "Language",
   "coverage_demo": "Sample dataset · {{countFormatted}} codes",
+  "coverage_partial": "Partial dataset · {{countFormatted}} codes",
   "coverage_full": "Full dataset · {{countFormatted}} codes",
   "coverage_updated": "Updated {{date}}",
   "terminology_english_only": "English only",
@@ -67,5 +68,13 @@
   "modal_safety_sources": "Active terminology sources: {{count}}",
   "modal_safety_ack": "I understand and agree",
   "schemes_show_all": "Show all systems",
-  "schemes_show_primary": "Primary only"
+  "schemes_show_primary": "Primary only",
+  "schemes_search_all": "All systems",
+  "schemes_search_all_hint": "Search ICD-10, ATC-5, LOINC, HCPCS, and CVX together",
+  "share_copy_link": "Copy link",
+  "share_copy_code": "Copy code",
+  "share_link_copied": "Link copied",
+  "share_code_copied": "Code copied",
+  "share_copy_link_a11y": "Copy shareable link for this result",
+  "share_copy_code_a11y": "Copy code and description"
 }

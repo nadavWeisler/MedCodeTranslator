@@ -26,15 +26,16 @@ import BrandMark from './components/BrandMark';
 import TrustBar from './components/TrustBar';
 import { isRTL as checkRTL } from './services/rtl';
 import type { SchemeKey } from '../db/database';
-import { buildIndex, search as layeredSearch, getSuggestions, getDidYouMean, isIndexReady } from './services/fuzzySearch';
-import type { ScoredEntry } from '@medcode/core';
-import { useSelectedCodeResult } from './services/useSelectedCodeResult';
+import { buildIndex, search as layeredSearch, getSuggestions, getDidYouMean, isIndexReady, crossSchemeSearch, buildCrossSchemeIndexes, isCrossSchemeReady } from './services/fuzzySearch';
+import type { CrossSchemeScoredEntry } from '@medcode/core';
+import { useSelectedCodeResult, getEntrySelectionKey } from './services/useSelectedCodeResult';
 import { useCodeConversions } from './services/useCodeConversions';
 import i18n from '../i18n';
 import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel, getCoverageI18n, isDemoCoverage, getSchemeSourceMetadata } from './services/sourceMetadata';
 import { spacing } from './constants/spacing';
 import { colors, radii, shadows, typography } from './constants/theme';
 import { getSearchExamples } from './constants/searchExamples';
+import { buildShareUrl, copyToClipboard, formatCodeDescription } from './services/share';
 
 type Language = 'en' | 'he' | 'es' | 'fr' | 'de' | 'ar' | 'pt' | 'zh' | 'ru';
 const LANGUAGES: { code: Language; label: string; name: string }[] = [
@@ -62,7 +63,7 @@ function firstParam(v: string | string[] | undefined): string | undefined {
 export default function HomeScreen() {
   const { t } = useTranslation();
   const router = useRouter();
-  const params = useLocalSearchParams<{ q?: string | string[]; scheme?: string | string[]; lang?: string | string[] }>();
+  const params = useLocalSearchParams<{ q?: string | string[]; scheme?: string | string[]; lang?: string | string[]; code?: string | string[]; mode?: string | string[] }>();
 
   const initialSchemeParam = firstParam(params.scheme);
   const initialScheme: SchemeKey =
@@ -77,28 +78,42 @@ export default function HomeScreen() {
       : 'en';
 
   const [showAllSchemes, setShowAllSchemes] = useState(() => !isPrimaryScheme(initialScheme));
+  const [crossSchemeMode, setCrossSchemeMode] = useState(() => firstParam(params.mode) === 'all');
   const [scheme, setScheme] = useState<SchemeKey>(initialScheme);
   const [query, setQuery] = useState(firstParam(params.q) ?? '');
-  const [results, setResults] = useState<ScoredEntry[]>([]);
-  const [didYouMean, setDidYouMean] = useState<ScoredEntry[]>([]);
+  const preferredCode = firstParam(params.code) ?? null;
+  const preferredScheme =
+    preferredCode && initialSchemeParam && SCHEMES.some(s => s.key === initialSchemeParam)
+      ? (initialSchemeParam as SchemeKey)
+      : null;
+  const [shareNotice, setShareNotice] = useState<string | null>(null);
+  const [results, setResults] = useState<CrossSchemeScoredEntry[]>([]);
+  const [didYouMean, setDidYouMean] = useState<CrossSchemeScoredEntry[]>([]);
   const [ghostText, setGhostText] = useState<string | undefined>();
   const [lang, setLang] = useState<Language>(initialLang);
   const [showLanguageDropdown, setShowLanguageDropdown] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
-  const [isSchemeLoading, setIsSchemeLoading] = useState(() => !isIndexReady(initialScheme));
+  const [isSchemeLoading, setIsSchemeLoading] = useState(() =>
+    crossSchemeMode ? !isCrossSchemeReady() : !isIndexReady(initialScheme)
+  );
   const { width } = useWindowDimensions();
   const isTablet = width >= 768;
   const isMobile = !isTablet;
   const searchTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const shareNoticeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const urlSyncTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const activeScheme = SCHEMES.find(s => s.key === scheme)!;
   const activeSchemeGroup = getSchemeGroup(scheme);
   const selectedLanguage = LANGUAGES.find(l => l.code === lang)!;
-  const { selectedCode, metadataRows, selectEntry } = useSelectedCodeResult(results);
+  const { selectedKey, selectedCode, selectedScheme, selectedEntry, metadataRows, selectEntry } = useSelectedCodeResult(
+    results,
+    { scheme: preferredScheme, code: preferredCode }
+  );
   const { groups: conversionGroups, loading: conversionsLoading } = useCodeConversions(
-    scheme,
-    selectedCode,
+    selectedScheme ?? scheme,
+    crossSchemeMode ? null : selectedCode,
     { primaryOnly: !showAllSchemes }
   );
   const isRTL = checkRTL(lang);
@@ -159,6 +174,18 @@ export default function HomeScreen() {
 
   // Build fuse index when scheme changes; track loading for UX indicator
   useEffect(() => {
+    if (crossSchemeMode) {
+      if (isCrossSchemeReady()) {
+        setIsSchemeLoading(false);
+        return;
+      }
+      setIsSchemeLoading(true);
+      buildCrossSchemeIndexes()
+        .catch(console.error)
+        .finally(() => setIsSchemeLoading(false));
+      return;
+    }
+
     if (isIndexReady(scheme)) {
       setIsSchemeLoading(false);
       return;
@@ -167,18 +194,38 @@ export default function HomeScreen() {
     buildIndex(scheme)
       .catch(console.error)
       .finally(() => setIsSchemeLoading(false));
-  }, [scheme]);
+  }, [scheme, crossSchemeMode]);
 
   // Run search + autocomplete on query change
   const runSearch = useCallback(
-    async (q: string, s: SchemeKey, l: Language) => {
-      // Ensure index is ready (no-op if already built)
+    async (q: string, s: SchemeKey, l: Language, allSchemes: boolean) => {
+      if (allSchemes) {
+        await buildCrossSchemeIndexes().catch(console.error);
+        setGhostText(undefined);
+
+        if (!q.trim()) {
+          setResults([]);
+          setDidYouMean([]);
+          return;
+        }
+
+        const data = crossSchemeSearch(q, 30);
+        setResults(data);
+        setDidYouMean([]);
+
+        if (q.trim().length >= 2) {
+          setRecentSearches(prev => {
+            const next = [q.trim(), ...prev.filter(r => r !== q.trim())].slice(0, MAX_RECENT_SEARCHES);
+            AsyncStorage.setItem(RECENT_SEARCHES_KEY, JSON.stringify(next)).catch(() => {});
+            return next;
+          });
+        }
+        return;
+      }
+
       await buildIndex(s).catch(console.error);
 
-      // Autocomplete suggestions (for ghost text hint)
       const suggestions_ = getSuggestions(q, s, 5);
-
-      // Ghost text: top suggestion that starts with current query
       const ghost = suggestions_.find(e => {
         const name = l === 'he' && e.name_he ? e.name_he : e.name_en;
         return name.toLowerCase().startsWith(q.toLowerCase()) && name !== q;
@@ -195,16 +242,13 @@ export default function HomeScreen() {
         return;
       }
 
-      // Layered retrieval: exact → prefix → substring → fuzzy
-      const data = layeredSearch(q, s, 20);
+      const data = layeredSearch(q, s, 20).map(result => ({ ...result, scheme: s }));
       setResults(data);
 
-      // "Did you mean" only when layered search returns nothing
       if (data.length === 0) {
-        setDidYouMean(getDidYouMean(q, s, 3));
+        setDidYouMean(getDidYouMean(q, s, 3).map(result => ({ ...result, scheme: s })));
       } else {
         setDidYouMean([]);
-        // Persist non-empty query to recent searches
         if (q.trim().length >= 2) {
           setRecentSearches(prev => {
             const next = [q.trim(), ...prev.filter(r => r !== q.trim())].slice(0, MAX_RECENT_SEARCHES);
@@ -219,11 +263,69 @@ export default function HomeScreen() {
 
   useEffect(() => {
     if (searchTimer.current) clearTimeout(searchTimer.current);
-    searchTimer.current = setTimeout(() => runSearch(query, scheme, lang), 200);
+    searchTimer.current = setTimeout(() => runSearch(query, scheme, lang, crossSchemeMode), 200);
     return () => { if (searchTimer.current) clearTimeout(searchTimer.current); };
-  }, [query, scheme, lang, runSearch]);
+  }, [query, scheme, lang, crossSchemeMode, runSearch]);
+
+  useEffect(() => {
+    if (urlSyncTimer.current) clearTimeout(urlSyncTimer.current);
+    urlSyncTimer.current = setTimeout(() => {
+      const nextParams: Record<string, string> = {
+        lang,
+      };
+      if (!crossSchemeMode) nextParams.scheme = scheme;
+      if (crossSchemeMode) nextParams.mode = 'all';
+      if (query.trim()) nextParams.q = query.trim();
+      if (selectedCode) {
+        nextParams.code = selectedCode;
+        if (selectedScheme) nextParams.scheme = selectedScheme;
+      }
+
+      router.setParams(nextParams);
+    }, 250);
+
+    return () => {
+      if (urlSyncTimer.current) clearTimeout(urlSyncTimer.current);
+    };
+  }, [query, scheme, lang, crossSchemeMode, selectedCode, selectedScheme, router]);
+
+  const showShareNotice = useCallback((message: string) => {
+    setShareNotice(message);
+    if (shareNoticeTimer.current) clearTimeout(shareNoticeTimer.current);
+    shareNoticeTimer.current = setTimeout(() => setShareNotice(null), 2000);
+  }, []);
+
+  const handleCopyLink = useCallback(async () => {
+    if (!selectedEntry) return;
+
+    try {
+      const url = buildShareUrl({
+        scheme: selectedScheme ?? scheme,
+        lang,
+        query: query.trim() || undefined,
+        code: selectedEntry.code,
+        mode: crossSchemeMode ? 'all' : undefined,
+      });
+      await copyToClipboard(url);
+      showShareNotice(t('share_link_copied'));
+    } catch (error) {
+      console.warn('Failed to copy share link', error);
+    }
+  }, [selectedEntry, selectedScheme, scheme, lang, query, crossSchemeMode, showShareNotice, t]);
+
+  const handleCopyCode = useCallback(async () => {
+    if (!selectedEntry) return;
+
+    try {
+      await copyToClipboard(formatCodeDescription(selectedEntry, lang));
+      showShareNotice(t('share_code_copied'));
+    } catch (error) {
+      console.warn('Failed to copy code description', error);
+    }
+  }, [selectedEntry, lang, showShareNotice, t]);
 
   const openConversion = (targetScheme: SchemeKey, targetCode: string) => {
+    setCrossSchemeMode(false);
     if (!isPrimaryScheme(targetScheme)) {
       setShowAllSchemes(true);
     }
@@ -248,6 +350,7 @@ export default function HomeScreen() {
   };
 
   const switchScheme = (s: SchemeKey) => {
+    setCrossSchemeMode(false);
     setScheme(s);
     setQuery('');
     setResults([]);
@@ -255,7 +358,15 @@ export default function HomeScreen() {
     setGhostText(undefined);
   };
 
-  const handleSuggestionSelect = (item: ScoredEntry) => {
+  const enableCrossSchemeMode = () => {
+    setCrossSchemeMode(true);
+    setQuery('');
+    setResults([]);
+    setDidYouMean([]);
+    setGhostText(undefined);
+  };
+
+  const handleSuggestionSelect = (item: CrossSchemeScoredEntry) => {
     const name = lang === 'he' && item.name_he ? item.name_he : item.name_en;
     setQuery(name);
     selectEntry(item);
@@ -280,7 +391,8 @@ export default function HomeScreen() {
     }
   };
 
-  const schemeColor = activeScheme.color;
+  const schemeColor = crossSchemeMode ? colors.teal : activeScheme.color;
+  const searchSchemeLabel = crossSchemeMode ? t('schemes_search_all') : activeScheme.shortLabel;
   const directionalText = isRTL ? styles.textRight : styles.textLeft;
   const schemeCoverage = getCoverageI18n(scheme);
   const schemeSourceMeta = getSchemeSourceMetadata(scheme);
@@ -390,18 +502,22 @@ export default function HomeScreen() {
               <SchemeTabs
                 active={scheme}
                 onChange={switchScheme}
-                hintLabel={t('search_by_code_or_name')}
+                hintLabel={crossSchemeMode ? t('schemes_search_all_hint') : t('search_by_code_or_name')}
                 compact
                 showAll={showAllSchemes}
                 onToggleShowAll={toggleShowAllSchemes}
                 showAllLabel={t('schemes_show_all')}
                 showPrimaryLabel={t('schemes_show_primary')}
+                crossSchemeActive={crossSchemeMode}
+                onCrossSchemeSelect={enableCrossSchemeMode}
+                crossSchemeLabel={t('schemes_search_all')}
+                crossSchemeHint={t('schemes_search_all_hint')}
               />
 
               <SearchBar
                 value={query}
                 onChangeText={setQuery}
-                placeholder={t('search_placeholder_generic', { schemeLabel: activeScheme.shortLabel })}
+                placeholder={t('search_placeholder_generic', { schemeLabel: searchSchemeLabel })}
                 ghostText={ghostText}
                 schemeColor={schemeColor}
                 lang={lang}
@@ -412,19 +528,25 @@ export default function HomeScreen() {
                 {!isMobile ? (
                   <>
                     <View style={[styles.contextPill, { backgroundColor: `${schemeColor}10`, borderColor: `${schemeColor}30` }]}>
-                      <Text style={[styles.contextPillText, { color: schemeColor }]}>{activeScheme.shortLabel}</Text>
+                      <Text style={[styles.contextPillText, { color: schemeColor }]}>
+                        {crossSchemeMode ? t('schemes_search_all') : activeScheme.shortLabel}
+                      </Text>
                     </View>
-                    <View style={styles.contextPillMuted}>
-                      <Text style={styles.contextPillMutedText}>{activeSchemeGroup.label}</Text>
-                    </View>
-                    {(scheme === 'icd9' || scheme === 'icd10') ? (
-                      <View style={styles.contextPillMuted}>
-                        <Text style={styles.contextPillMutedText}>{t('conversions_title')}</Text>
-                      </View>
+                    {!crossSchemeMode ? (
+                      <>
+                        <View style={styles.contextPillMuted}>
+                          <Text style={styles.contextPillMutedText}>{activeSchemeGroup.label}</Text>
+                        </View>
+                        {(scheme === 'icd9' || scheme === 'icd10') ? (
+                          <View style={styles.contextPillMuted}>
+                            <Text style={styles.contextPillMutedText}>{t('conversions_title')}</Text>
+                          </View>
+                        ) : null}
+                      </>
                     ) : null}
                   </>
                 ) : null}
-                {schemeCoverage ? (
+                {!crossSchemeMode && schemeCoverage ? (
                   <View
                     style={[
                       styles.contextPill,
@@ -446,7 +568,7 @@ export default function HomeScreen() {
                     </Text>
                   </View>
                 ) : null}
-                {!isMobile && schemeCoverage?.updated ? (
+                {!crossSchemeMode && !isMobile && schemeCoverage?.updated ? (
                   <View style={styles.contextPillMuted}>
                     <Text style={styles.contextPillMutedText}>
                       {t('coverage_updated', { date: schemeCoverage.updated })}
@@ -468,7 +590,7 @@ export default function HomeScreen() {
                 <View style={styles.loadingWrap}>
                   <ActivityIndicator size="large" color={schemeColor} />
                   <Text style={[styles.loadingText, { color: schemeColor }]}>
-                    Loading {activeScheme.label}…
+                    {crossSchemeMode ? t('loading') : `Loading ${activeScheme.label}…`}
                   </Text>
                 </View>
               ) : (
@@ -482,15 +604,19 @@ export default function HomeScreen() {
                   schemeColor={schemeColor}
                   resultCount={results.length}
                   onEntrySelect={selectEntry}
-                  selectedCode={selectedCode}
+                  selectedKey={selectedKey}
                   selectedMetadataRows={metadataRows}
-                  conversionGroups={conversionGroups}
-                  conversionsLoading={conversionsLoading}
-                  onOpenConversion={openConversion}
+                  conversionGroups={crossSchemeMode ? [] : conversionGroups}
+                  conversionsLoading={crossSchemeMode ? false : conversionsLoading}
+                  onOpenConversion={crossSchemeMode ? undefined : openConversion}
                   recentSearches={recentSearches}
-                  exampleSearches={getSearchExamples(scheme)}
+                  exampleSearches={crossSchemeMode ? [] : getSearchExamples(scheme)}
                   onQuickSearch={handleQuickSearch}
                   compact={isMobile}
+                  crossSchemeMode={crossSchemeMode}
+                  onCopyLink={selectedEntry ? handleCopyLink : undefined}
+                  onCopyCode={selectedEntry ? handleCopyCode : undefined}
+                  shareNotice={shareNotice}
                 />
               )}
             </View>

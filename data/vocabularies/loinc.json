@@ -1,72 +1,3002 @@
 [
-  { "code": "718-7", "name_en": "Hemoglobin [Mass/volume] in Blood", "name_he": "המוגלובין בדם" },
-  { "code": "4544-3", "name_en": "Hematocrit [Volume Fraction] of Blood", "name_he": "המטוקריט" },
-  { "code": "789-8", "name_en": "Erythrocytes [#/volume] in Blood by Automated count (RBC)", "name_he": "ספירת כדוריות דם אדומות (RBC)" },
-  { "code": "6690-2", "name_en": "Leukocytes [#/volume] in Blood by Automated count (WBC)", "name_he": "ספירת כדוריות דם לבנות (WBC)" },
-  { "code": "777-3", "name_en": "Platelets [#/volume] in Blood by Automated count", "name_he": "טסיות דם" },
-  { "code": "26464-8", "name_en": "Leukocytes [#/volume] in Blood", "name_he": "לויקוציטים בדם" },
-  { "code": "713-8", "name_en": "Erythrocytes [#/volume] in Blood by Manual count", "name_he": "אריתרוציטים ספירה ידנית" },
-  { "code": "736-9", "name_en": "MCV [Entitic volume] by Automated count (Mean corpuscular volume)", "name_he": "MCV - נפח ממוצע כדורית" },
-  { "code": "785-6", "name_en": "MCH [Entitic mass] by Automated count", "name_he": "MCH" },
-  { "code": "786-4", "name_en": "MCHC [Mass/volume] by Automated count", "name_he": "MCHC" },
-  { "code": "2823-3", "name_en": "Potassium [Moles/volume] in Serum or Plasma", "name_he": "אשלגן (K) בסרום" },
-  { "code": "2951-2", "name_en": "Sodium [Moles/volume] in Serum or Plasma", "name_he": "נתרן (Na) בסרום" },
-  { "code": "2075-0", "name_en": "Chloride [Moles/volume] in Serum or Plasma", "name_he": "כלוריד (Cl)" },
-  { "code": "2028-9", "name_en": "Carbon dioxide [Moles/volume] in Serum or Plasma (Bicarbonate)", "name_he": "ביקרבונט" },
-  { "code": "3094-0", "name_en": "Urea nitrogen [Mass/volume] in Serum or Plasma (BUN)", "name_he": "אוריאה BUN" },
-  { "code": "2160-0", "name_en": "Creatinine [Mass/volume] in Serum or Plasma", "name_he": "קראטינין בסרום" },
-  { "code": "33914-3", "name_en": "eGFR (estimated Glomerular Filtration Rate)", "name_he": "קצב סינון גלומרולרי (eGFR)" },
-  { "code": "2345-7", "name_en": "Glucose [Mass/volume] in Serum or Plasma (Blood glucose)", "name_he": "גלוקוז (סוכר) בסרום" },
-  { "code": "17856-6", "name_en": "Hemoglobin A1c/Hemoglobin.total in Blood (HbA1c)", "name_he": "המוגלובין מסוכר (HbA1c)" },
-  { "code": "2885-2", "name_en": "Protein [Mass/volume] in Serum or Plasma (Total protein)", "name_he": "חלבון כולל בסרום" },
-  { "code": "1751-7", "name_en": "Albumin [Mass/volume] in Serum or Plasma", "name_he": "אלבומין" },
-  { "code": "1975-2", "name_en": "Bilirubin.total [Mass/volume] in Serum or Plasma", "name_he": "בילירובין כולל" },
-  { "code": "1742-6", "name_en": "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma (ALT/SGPT)", "name_he": "ALT / SGPT" },
-  { "code": "1920-8", "name_en": "Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma (AST/SGOT)", "name_he": "AST / SGOT" },
-  { "code": "6768-6", "name_en": "Alkaline phosphatase [Enzymatic activity/volume] in Serum or Plasma (ALP)", "name_he": "פוספטאז אלקליין (ALP)" },
-  { "code": "2324-2", "name_en": "Gamma glutamyl transferase [Enzymatic activity/volume] in Serum or Plasma (GGT)", "name_he": "GGT (גמא-GT)" },
-  { "code": "13457-7", "name_en": "Cholesterol in LDL [Mass/volume] in Serum or Plasma by calculation (LDL)", "name_he": "כולסטרול LDL" },
-  { "code": "2085-9", "name_en": "Cholesterol in HDL [Mass/volume] in Serum or Plasma (HDL)", "name_he": "כולסטרול HDL" },
-  { "code": "2093-3", "name_en": "Cholesterol [Mass/volume] in Serum or Plasma (Total cholesterol)", "name_he": "כולסטרול כולל" },
-  { "code": "2571-8", "name_en": "Triglyceride [Mass/volume] in Serum or Plasma", "name_he": "טריגליצרידים" },
-  { "code": "2157-6", "name_en": "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma (CK/CPK)", "name_he": "קראטין קינאז (CK/CPK)" },
-  { "code": "10839-9", "name_en": "Troponin I.cardiac [Mass/volume] in Serum or Plasma", "name_he": "טרופונין I לבבי" },
-  { "code": "33762-6", "name_en": "NT-proBNP [Mass/volume] in Serum or Plasma (BNP)", "name_he": "NT-proBNP (BNP)" },
-  { "code": "1988-5", "name_en": "C reactive protein [Mass/volume] in Serum or Plasma (CRP)", "name_he": "CRP" },
-  { "code": "4537-7", "name_en": "Erythrocyte sedimentation rate (ESR)", "name_he": "שקיעת דם (ESR)" },
-  { "code": "2484-4", "name_en": "Iron [Mass/volume] in Serum or Plasma", "name_he": "ברזל בסרום" },
-  { "code": "2132-9", "name_en": "Ferritin [Mass/volume] in Serum or Plasma", "name_he": "פריטין" },
-  { "code": "10501-5", "name_en": "Vitamin B12 [Mass/volume] in Serum or Plasma", "name_he": "ויטמין B12" },
-  { "code": "2132-9", "name_en": "Ferritin [Mass/volume] in Serum or Plasma", "name_he": "פריטין" },
-  { "code": "14635-7", "name_en": "Folate [Mass/volume] in Serum or Plasma (Folic acid)", "name_he": "חומצה פולית" },
-  { "code": "14920-3", "name_en": "Thyrotropin [Units/volume] in Serum or Plasma (TSH)", "name_he": "TSH" },
-  { "code": "3024-7", "name_en": "Thyroxine (T4) [Mass/volume] in Serum or Plasma", "name_he": "T4 (תירוקסין)" },
-  { "code": "3051-0", "name_en": "Triiodothyronine (T3) [Mass/volume] in Serum or Plasma", "name_he": "T3" },
-  { "code": "2143-6", "name_en": "Cortisol [Mass/volume] in Serum or Plasma", "name_he": "קורטיזול" },
-  { "code": "2857-1", "name_en": "Prostate specific antigen [Mass/volume] in Serum or Plasma (PSA)", "name_he": "PSA" },
-  { "code": "1988-5", "name_en": "C reactive protein [Mass/volume] (CRP high sensitivity)", "name_he": "CRP רגישות גבוהה" },
-  { "code": "5778-6", "name_en": "pH of Urine by Test strip", "name_he": "pH שתן" },
-  { "code": "5794-3", "name_en": "Glucose [Presence] in Urine by Test strip", "name_he": "גלוקוז בשתן" },
-  { "code": "5804-0", "name_en": "Protein [Mass/volume] in Urine by Test strip", "name_he": "חלבון בשתן" },
-  { "code": "5769-5", "name_en": "Bacteria [Presence] in Urine by Test strip", "name_he": "חיידקים בשתן" },
-  { "code": "5781-0", "name_en": "Leukocytes [Presence] in Urine by Test strip", "name_he": "לויקוציטים בשתן" },
-  { "code": "2888-6", "name_en": "Protein [Mass/volume] in 24-hour Urine", "name_he": "חלבון בשתן 24 שעות" },
-  { "code": "14959-1", "name_en": "Microalbumin [Mass/volume] in 24 hour Urine", "name_he": "מיקרואלבומין בשתן" },
-  { "code": "10834-0", "name_en": "Glomerular filtration rate/1.73 sq M predicted (CKD-EPI formula)", "name_he": "eGFR (CKD-EPI)" },
-  { "code": "55277-8", "name_en": "HIV status", "name_he": "סטטוס HIV" },
-  { "code": "32209-9", "name_en": "Hepatitis B surface antigen [Presence] in Serum (HBsAg)", "name_he": "HBsAg - אנטיגן שטח B" },
-  { "code": "16128-1", "name_en": "Hepatitis C virus Ab [Presence] in Serum (Anti-HCV)", "name_he": "Anti-HCV נוגדן כנד C" },
-  { "code": "5895-9", "name_en": "Prothrombin time (PT) in Platelet poor plasma", "name_he": "זמן פרוטרומבין (PT)" },
-  { "code": "14979-9", "name_en": "aPTT in Platelet poor plasma by Coagulation assay", "name_he": "aPTT" },
-  { "code": "6301-6", "name_en": "INR in Platelet poor plasma by Coagulation assay", "name_he": "INR" },
-  { "code": "2947-0", "name_en": "Sodium [Moles/volume] in Blood", "name_he": "נתרן בדם" },
-  { "code": "6298-4", "name_en": "Potassium [Moles/volume] in Blood", "name_he": "אשלגן בדם" },
-  { "code": "1986-9", "name_en": "Calcium [Mass/volume] in Serum or Plasma", "name_he": "סידן בסרום" },
-  { "code": "2601-3", "name_en": "Magnesium [Mass/volume] in Serum or Plasma", "name_he": "מגנזיום בסרום" },
-  { "code": "2777-1", "name_en": "Phosphate [Mass/volume] in Serum or Plasma", "name_he": "פוספט בסרום" },
-  { "code": "14646-4", "name_en": "Cholesterol [Mass/volume] in Serum or Plasma (Non-fasting)", "name_he": "כולסטרול (לא בצום)" },
-  { "code": "1834-1", "name_en": "AFP [Mass/volume] in Serum or Plasma (alpha-fetoprotein)", "name_he": "AFP (אלפא-פטופרוטאין)" },
-  { "code": "19153-6", "name_en": "CA 125 [Units/volume] in Serum or Plasma", "name_he": "CA 125" },
-  { "code": "2857-1", "name_en": "PSA [Mass/volume] in Serum or Plasma", "name_he": "PSA (אנטיגן ספציפי לערמונית)" },
-  { "code": "10334-1", "name_en": "CEA [Mass/volume] in Serum or Plasma (Carcinoembryonic antigen)", "name_he": "CEA" }
+  {
+    "code": "2160-0",
+    "name_en": "Creatinine [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "718-7",
+    "name_en": "Hemoglobin [Mass/volume] in Blood",
+    "name_he": "\u05d4\u05de\u05d5\u05d2\u05dc\u05d5\u05d1\u05d9\u05df \u05d1\u05d3\u05dd"
+  },
+  {
+    "code": "2823-3",
+    "name_en": "Potassium [Moles/volume] in Serum or Plasma",
+    "name_he": "\u05d0\u05e9\u05dc\u05d2\u05df (K) \u05d1\u05e1\u05e8\u05d5\u05dd"
+  },
+  {
+    "code": "2345-7",
+    "name_en": "Glucose [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2951-2",
+    "name_en": "Sodium [Moles/volume] in Serum or Plasma",
+    "name_he": "\u05e0\u05ea\u05e8\u05df (Na) \u05d1\u05e1\u05e8\u05d5\u05dd"
+  },
+  {
+    "code": "3094-0",
+    "name_en": "Urea nitrogen [Mass/volume] in Serum or Plasma",
+    "name_he": "\u05d0\u05d5\u05e8\u05d9\u05d0\u05d4 BUN"
+  },
+  {
+    "code": "2028-9",
+    "name_en": "Carbon dioxide, total [Moles/volume] in Serum or Plasma",
+    "name_he": "\u05d1\u05d9\u05e7\u05e8\u05d1\u05d5\u05e0\u05d8"
+  },
+  {
+    "code": "2075-0",
+    "name_en": "Chloride [Moles/volume] in Serum or Plasma",
+    "name_he": "\u05db\u05dc\u05d5\u05e8\u05d9\u05d3 (Cl)"
+  },
+  {
+    "code": "789-8",
+    "name_en": "Erythrocytes [#/volume] in Blood by Automated count",
+    "name_he": "\u05e1\u05e4\u05d9\u05e8\u05ea \u05db\u05d3\u05d5\u05e8\u05d9\u05d5\u05ea \u05d3\u05dd \u05d0\u05d3\u05d5\u05de\u05d5\u05ea (RBC)"
+  },
+  {
+    "code": "786-4",
+    "name_en": "Erythrocyte mean corpuscular hemoglobin concentration [Mass/volume] by Automated count",
+    "name_he": "MCHC"
+  },
+  {
+    "code": "785-6",
+    "name_en": "Erythrocyte mean corpuscular hemoglobin [Entitic mass] by Automated count",
+    "name_he": "MCH"
+  },
+  {
+    "code": "17861-6",
+    "name_en": "Calcium [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2339-0",
+    "name_en": "Glucose [Mass/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "4544-3",
+    "name_en": "Hematocrit [Volume Fraction] of Blood by Automated count",
+    "name_he": "\u05d4\u05de\u05d8\u05d5\u05e7\u05e8\u05d9\u05d8"
+  },
+  {
+    "code": "6690-2",
+    "name_en": "Leukocytes[#/volume] in Blood by Automated count",
+    "name_he": "\u05e1\u05e4\u05d9\u05e8\u05ea \u05db\u05d3\u05d5\u05e8\u05d9\u05d5\u05ea \u05d3\u05dd \u05dc\u05d1\u05e0\u05d5\u05ea (WBC)"
+  },
+  {
+    "code": "1742-6",
+    "name_en": "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma",
+    "name_he": "ALT / SGPT"
+  },
+  {
+    "code": "787-2",
+    "name_en": "Erythrocyte mean corpuscular volume [Entitic volume] by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "777-3",
+    "name_en": "Platelets [#/volume] in Blood by Automated count",
+    "name_he": "\u05d8\u05e1\u05d9\u05d5\u05ea \u05d3\u05dd"
+  },
+  {
+    "code": "1920-8",
+    "name_en": "Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma",
+    "name_he": "AST / SGOT"
+  },
+  {
+    "code": "1751-7",
+    "name_en": "Albumin [Mass/volume] in Serum or Plasma",
+    "name_he": "\u05d0\u05dc\u05d1\u05d5\u05de\u05d9\u05df"
+  },
+  {
+    "code": "1975-2",
+    "name_en": "Bilirubin.total [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2885-2",
+    "name_en": "Protein [Mass/volume] in Serum or Plasma",
+    "name_he": "\u05d7\u05dc\u05d1\u05d5\u05df \u05db\u05d5\u05dc\u05dc \u05d1\u05e1\u05e8\u05d5\u05dd"
+  },
+  {
+    "code": "6768-6",
+    "name_en": "Alkaline phosphatase [Enzymatic activity/volume] in Serum or Plasma",
+    "name_he": "\u05e4\u05d5\u05e1\u05e4\u05d8\u05d0\u05d6 \u05d0\u05dc\u05e7\u05dc\u05d9\u05d9\u05df (ALP)"
+  },
+  {
+    "code": "788-0",
+    "name_en": "Erythrocyte distribution width [Ratio] by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "770-8",
+    "name_en": "Neutrophils/100 leukocytes in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "33914-3",
+    "name_en": "Glomerular filtration rate/1.73 sq M.predicted by Creatinine-based formula (MDRD)",
+    "name_he": "\u05e7\u05e6\u05d1 \u05e1\u05d9\u05e0\u05d5\u05df \u05d2\u05dc\u05d5\u05de\u05e8\u05d5\u05dc\u05e8\u05d9 (eGFR)"
+  },
+  {
+    "code": "704-7",
+    "name_en": "Basophils [#/volume] in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "20570-8",
+    "name_en": "Hematocrit [Volume Fraction] of Blood",
+    "name_he": null
+  },
+  {
+    "code": "48642-3",
+    "name_en": "Glomerular filtration rate/1.73 sq M predicted among non-blacks by Creatinine-based formula (MDRD)",
+    "name_he": null
+  },
+  {
+    "code": "48643-1",
+    "name_en": "Glomerular filtration rate/1.73 sq M predicted among blacks by Creatinine-based formula (MDRD)",
+    "name_he": null
+  },
+  {
+    "code": "26515-7",
+    "name_en": "Platelets [#/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "2093-3",
+    "name_en": "Cholesterol [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "26464-8",
+    "name_en": "Leukocytes [#/volume] in Blood",
+    "name_he": "\u05dc\u05d5\u05d9\u05e7\u05d5\u05e6\u05d9\u05d8\u05d9\u05dd \u05d1\u05d3\u05dd"
+  },
+  {
+    "code": "30428-7",
+    "name_en": "Erythrocyte mean corpuscular volume [Entitic volume]",
+    "name_he": null
+  },
+  {
+    "code": "731-0",
+    "name_en": "Lymphocytes [#/volume] in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "2571-8",
+    "name_en": "Triglyceride [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "10466-1",
+    "name_en": "Anion gap 3 in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2085-9",
+    "name_en": "Cholesterol in HDL [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "6463-4",
+    "name_en": "Bacteria identified in Unspecified specimen by Culture",
+    "name_he": null
+  },
+  {
+    "code": "26485-3",
+    "name_en": "Monocytes/100 leukocytes in Blood",
+    "name_he": null
+  },
+  {
+    "code": "736-9",
+    "name_en": "Lymphocytes/100 leukocytes in Blood by Automated count",
+    "name_he": "MCV - \u05e0\u05e4\u05d7 \u05de\u05de\u05d5\u05e6\u05e2 \u05db\u05d3\u05d5\u05e8\u05d9\u05ea"
+  },
+  {
+    "code": "706-2",
+    "name_en": "Basophils/100 leukocytes in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "713-8",
+    "name_en": "Eosinophils/100 leukocytes in Blood by Automated count",
+    "name_he": "\u05d0\u05e8\u05d9\u05ea\u05e8\u05d5\u05e6\u05d9\u05d8\u05d9\u05dd \u05e1\u05e4\u05d9\u05e8\u05d4 \u05d9\u05d3\u05e0\u05d9\u05ea"
+  },
+  {
+    "code": "5905-5",
+    "name_en": "Monocytes/100 leukocytes in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "26478-8",
+    "name_en": "Lymphocytes/100 leukocytes in Blood",
+    "name_he": null
+  },
+  {
+    "code": "751-8",
+    "name_en": "Neutrophils [#/volume] in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "5902-2",
+    "name_en": "Prothrombin time (PT) in Platelet poor plasma by Coagulation assay",
+    "name_he": null
+  },
+  {
+    "code": "33069-6",
+    "name_en": "Fetal Neck.soft tissue Translucency width US",
+    "name_he": null
+  },
+  {
+    "code": "26450-7",
+    "name_en": "Eosinophils/100 leukocytes in Blood",
+    "name_he": null
+  },
+  {
+    "code": "711-2",
+    "name_en": "Eosinophils [#/volume] in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "22637-3",
+    "name_en": "Pathology report final diagnosis",
+    "name_he": null
+  },
+  {
+    "code": "742-7",
+    "name_en": "Monocytes [#/volume] in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "6301-6",
+    "name_en": "INR in Platelet poor plasma by Coagulation assay",
+    "name_he": "INR"
+  },
+  {
+    "code": "30180-4",
+    "name_en": "Basophils/100 leukocytes in Blood",
+    "name_he": null
+  },
+  {
+    "code": "3097-3",
+    "name_en": "Urea nitrogen/Creatinine [Mass ratio] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "5802-4",
+    "name_en": "Nitrite [Presence] in Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "26499-4",
+    "name_en": "Neutrophils [#/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "5778-6",
+    "name_en": "Color of Urine",
+    "name_he": "pH \u05e9\u05ea\u05df"
+  },
+  {
+    "code": "5803-2",
+    "name_en": "pH of Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "1759-0",
+    "name_en": "Albumin/Globulin [Mass ratio] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "26484-6",
+    "name_en": "Monocytes [#/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "10834-0",
+    "name_en": "Globulin [Mass/volume] in Serum by calculation",
+    "name_he": "eGFR (CKD-EPI)"
+  },
+  {
+    "code": "13457-7",
+    "name_en": "Cholesterol in LDL [Mass/volume] in Serum or Plasma by calculation",
+    "name_he": null
+  },
+  {
+    "code": "5770-3",
+    "name_en": "Bilirubin [Presence] in Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "5799-2",
+    "name_en": "Leukocyte esterase [Presence] in Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "5767-9",
+    "name_en": "Appearance of Urine",
+    "name_he": null
+  },
+  {
+    "code": "26449-9",
+    "name_en": "Eosinophils [#/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "13458-5",
+    "name_en": "Cholesterol in VLDL [Mass/volume] in Serum or Plasma by calculation",
+    "name_he": null
+  },
+  {
+    "code": "2777-1",
+    "name_en": "Phosphate [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "26474-7",
+    "name_en": "Lymphocytes [#/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "5811-5",
+    "name_en": "Specific gravity of Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "5794-3",
+    "name_en": "Hemoglobin [Presence] in Urine by Test strip",
+    "name_he": "\u05d2\u05dc\u05d5\u05e7\u05d5\u05d6 \u05d1\u05e9\u05ea\u05df"
+  },
+  {
+    "code": "5792-7",
+    "name_en": "Glucose [Mass/volume] in Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "5804-0",
+    "name_en": "Protein [Mass/volume] in Urine by Test strip",
+    "name_he": "\u05d7\u05dc\u05d1\u05d5\u05df \u05d1\u05e9\u05ea\u05df"
+  },
+  {
+    "code": "11579-0",
+    "name_en": "Thyrotropin [Units/volume] in Serum or Plasma by Detection limit <= 0.05 mIU/L",
+    "name_he": null
+  },
+  {
+    "code": "26511-6",
+    "name_en": "Neutrophils/100 leukocytes in Blood",
+    "name_he": null
+  },
+  {
+    "code": "3173-2",
+    "name_en": "Activated partial thromboplastin time (aPTT) in Blood by Coagulation assay",
+    "name_he": null
+  },
+  {
+    "code": "2601-3",
+    "name_en": "Magnesium [Moles/volume] in Serum or Plasma",
+    "name_he": "\u05de\u05d2\u05e0\u05d6\u05d9\u05d5\u05dd \u05d1\u05e1\u05e8\u05d5\u05dd"
+  },
+  {
+    "code": "5821-4",
+    "name_en": "Leukocytes [#/area] in Urine sediment by Microscopy high power field",
+    "name_he": null
+  },
+  {
+    "code": "5797-6",
+    "name_en": "Ketones [Mass/volume] in Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "4548-4",
+    "name_en": "Hemoglobin A1c/Hemoglobin.total in Blood",
+    "name_he": null
+  },
+  {
+    "code": "1968-7",
+    "name_en": "Bilirubin.direct [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2336-6",
+    "name_en": "Globulin [Mass/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "11555-0",
+    "name_en": "Base excess in Blood",
+    "name_he": null
+  },
+  {
+    "code": "47527-7",
+    "name_en": "Cytology report of Cervical or vaginal smear or scraping Cyto stain.thin prep",
+    "name_he": null
+  },
+  {
+    "code": "11557-6",
+    "name_en": "Carbon dioxide [Partial pressure] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "11556-8",
+    "name_en": "Oxygen [Partial pressure] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "22636-5",
+    "name_en": "Pathology report relevant history",
+    "name_he": null
+  },
+  {
+    "code": "5769-5",
+    "name_en": "Bacteria [#/area] in Urine sediment by Microscopy high power field",
+    "name_he": "\u05d7\u05d9\u05d9\u05d3\u05e7\u05d9\u05dd \u05d1\u05e9\u05ea\u05df"
+  },
+  {
+    "code": "2157-6",
+    "name_en": "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma",
+    "name_he": "\u05e7\u05e8\u05d0\u05d8\u05d9\u05df \u05e7\u05d9\u05e0\u05d0\u05d6 (CK/CPK)"
+  },
+  {
+    "code": "9830-1",
+    "name_en": "Cholesterol.total/Cholesterol in HDL [Mass ratio] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2089-1",
+    "name_en": "Cholesterol in LDL [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "630-4",
+    "name_en": "Bacteria identified in Urine by Culture",
+    "name_he": null
+  },
+  {
+    "code": "19123-9",
+    "name_en": "Magnesium [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2713-6",
+    "name_en": "Oxygen saturation.calculated from oxygen partial pressure in Blood",
+    "name_he": null
+  },
+  {
+    "code": "22638-1",
+    "name_en": "Pathology report comments",
+    "name_he": null
+  },
+  {
+    "code": "11558-4",
+    "name_en": "pH of Blood",
+    "name_he": null
+  },
+  {
+    "code": "22639-9",
+    "name_en": "Pathology report supplemental reports",
+    "name_he": null
+  },
+  {
+    "code": "20454-5",
+    "name_en": "Protein [Presence] in Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "13945-1",
+    "name_en": "Erythrocytes [#/area] in Urine sediment by Microscopy high power field",
+    "name_he": null
+  },
+  {
+    "code": "738-5",
+    "name_en": "Macrocytes [Presence] in Blood by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "2514-8",
+    "name_en": "Ketones [Presence] in Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "741-9",
+    "name_en": "Microcytes [Presence] in Blood by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "19146-0",
+    "name_en": "Reference lab test results",
+    "name_he": null
+  },
+  {
+    "code": "3016-3",
+    "name_en": "Thyrotropin [Units/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "6298-4",
+    "name_en": "Potassium [Moles/volume] in Blood",
+    "name_he": "\u05d0\u05e9\u05dc\u05d2\u05df \u05d1\u05d3\u05dd"
+  },
+  {
+    "code": "3107-0",
+    "name_en": "Urobilinogen [Mass/volume] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "19764-0",
+    "name_en": "Statement of adequacy [interpretation] of Cervical or vaginal smear or scraping by Cyto stain",
+    "name_he": null
+  },
+  {
+    "code": "19767-3",
+    "name_en": "Cytologist who read Cyto stain of Cervical or vaginal smear or scraping",
+    "name_he": null
+  },
+  {
+    "code": "19763-2",
+    "name_en": "Specimen source [Identifier] in Cervical or vaginal smear or scraping by Cyto stain",
+    "name_he": null
+  },
+  {
+    "code": "13969-1",
+    "name_en": "Creatine kinase.MB [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "18314-5",
+    "name_en": "Morphology [interpretation] in Blood Narrative",
+    "name_he": null
+  },
+  {
+    "code": "10839-9",
+    "name_en": "Troponin I.cardiac [Mass/volume] in Serum or Plasma",
+    "name_he": "\u05d8\u05e8\u05d5\u05e4\u05d5\u05e0\u05d9\u05df I \u05dc\u05d1\u05d1\u05d9"
+  },
+  {
+    "code": "19773-1",
+    "name_en": "Recommended follow-up [Identifier] in Cervical or vaginal smear or scraping by Cyto stain",
+    "name_he": null
+  },
+  {
+    "code": "19769-9",
+    "name_en": "Pathologist who read Cyto stain of Cervical or vaginal smear or scraping",
+    "name_he": null
+  },
+  {
+    "code": "2349-9",
+    "name_en": "Glucose [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "20405-7",
+    "name_en": "Urobilinogen [Mass/volume] in Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "33037-3",
+    "name_en": "Anion gap in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "728-6",
+    "name_en": "Hypochromia [Presence] in Blood by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "1959-6",
+    "name_en": "Bicarbonate [Moles/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "26444-0",
+    "name_en": "Basophils [#/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "2965-2",
+    "name_en": "Specific gravity of Urine",
+    "name_he": null
+  },
+  {
+    "code": "23658-8",
+    "name_en": "Other Antibiotic [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "2857-1",
+    "name_en": "Prostate specific Ag [Mass/volume] in Serum or Plasma",
+    "name_he": "PSA (\u05d0\u05e0\u05d8\u05d9\u05d2\u05df \u05e1\u05e4\u05e6\u05d9\u05e4\u05d9 \u05dc\u05e2\u05e8\u05de\u05d5\u05e0\u05d9\u05ea)"
+  },
+  {
+    "code": "1971-1",
+    "name_en": "Bilirubin.indirect [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "20409-9",
+    "name_en": "Erythrocytes [#/volume] in Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "1989-3",
+    "name_en": "Calcidiol [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "8247-9",
+    "name_en": "Mucus [Presence] in Urine sediment by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "2947-0",
+    "name_en": "Sodium [Moles/volume] in Blood",
+    "name_he": "\u05e0\u05ea\u05e8\u05df \u05d1\u05d3\u05dd"
+  },
+  {
+    "code": "1994-3",
+    "name_en": "Calcium.ionized [Moles/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "600-7",
+    "name_en": "Bacteria identified in Blood by Culture",
+    "name_he": null
+  },
+  {
+    "code": "6742-1",
+    "name_en": "Erythrocyte morphology finding [Identifier] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "3024-7",
+    "name_en": "Thyroxine (T4) free [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "5818-0",
+    "name_en": "Urobilinogen [Presence] in Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "11054-4",
+    "name_en": "Cholesterol in LDL/Cholesterol in HDL [Mass ratio] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "764-1",
+    "name_en": "Neutrophils.band form/100 leukocytes in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "4537-7",
+    "name_en": "Erythrocyte sedimentation rate by Westergren method",
+    "name_he": "\u05e9\u05e7\u05d9\u05e2\u05ea \u05d3\u05dd (ESR)"
+  },
+  {
+    "code": "8310-5",
+    "name_en": "Body temperature",
+    "name_he": null
+  },
+  {
+    "code": "3040-3",
+    "name_en": "Lipase [Enzymatic activity/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2498-4",
+    "name_en": "Iron [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "9317-9",
+    "name_en": "Platelets [Presence] in Blood by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "3084-1",
+    "name_en": "Urate [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "20565-8",
+    "name_en": "Carbon dioxide, total [Moles/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "925-8",
+    "name_en": "Blood product disposition [Type]",
+    "name_he": null
+  },
+  {
+    "code": "3026-2",
+    "name_en": "Thyroxine (T4) [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "13317-3",
+    "name_en": "Methicillin resistant Staphylococcus aureus [Presence] in Unspecified specimen by Organism specific culture",
+    "name_he": null
+  },
+  {
+    "code": "14979-9",
+    "name_en": "Activated partial thromboplastin time (aPTT) in Platelet poor plasma by Coagulation assay",
+    "name_he": "aPTT"
+  },
+  {
+    "code": "11277-1",
+    "name_en": "Epithelial cells.squamous [#/area] in Urine sediment by Microscopy high power field",
+    "name_he": null
+  },
+  {
+    "code": "32623-1",
+    "name_en": "Platelet mean volume [Entitic volume] in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "2132-9",
+    "name_en": "Cobalamin (Vitamin B12) [Mass/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "20453-7",
+    "name_en": "Epithelial cells [Presence] in Urine sediment by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "1798-8",
+    "name_en": "Amylase [Enzymatic activity/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2276-4",
+    "name_en": "Ferritin [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "1988-5",
+    "name_en": "C reactive protein [Mass/volume] in Serum or Plasma",
+    "name_he": "CRP \u05e8\u05d2\u05d9\u05e9\u05d5\u05ea \u05d2\u05d1\u05d5\u05d4\u05d4"
+  },
+  {
+    "code": "5808-1",
+    "name_en": "Erythrocytes [#/volume] in Urine sediment by Microscopy high power field",
+    "name_he": null
+  },
+  {
+    "code": "2532-0",
+    "name_en": "Lactate dehydrogenase [Enzymatic activity/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2500-7",
+    "name_en": "Iron binding capacity [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "5782-8",
+    "name_en": "Crystals [type] in Urine sediment by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "21000-5",
+    "name_en": "Erythrocyte distribution width [Entitic volume] by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "2753-2",
+    "name_en": "pH of Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2161-8",
+    "name_en": "Creatinine [Mass/volume] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "20408-1",
+    "name_en": "Leukocytes [#/volume] in Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "27045-4",
+    "name_en": "Microscopic exam [interpretation] of Urine by Cytology",
+    "name_he": null
+  },
+  {
+    "code": "31100-1",
+    "name_en": "Hematocrit [Volume Fraction] of Blood by Impedance",
+    "name_he": null
+  },
+  {
+    "code": "11580-8",
+    "name_en": "Thyrotropin [Units/volume] in Serum or Plasma by Detection limit <= 0.005 mIU/L",
+    "name_he": null
+  },
+  {
+    "code": "5787-7",
+    "name_en": "Epithelial cells [#/area] in Urine sediment by Microscopy high power field",
+    "name_he": null
+  },
+  {
+    "code": "735-1",
+    "name_en": "Lymphocytes Variant/100 leukocytes in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "934-0",
+    "name_en": "Blood product unit ID [#]",
+    "name_he": null
+  },
+  {
+    "code": "882-1",
+    "name_en": "ABO & Rh group [Type] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "19161-9",
+    "name_en": "Urobilinogen [Units/volume] in Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "1978-6",
+    "name_en": "Bilirubin [Mass/volume] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "30167-1",
+    "name_en": "Human papilloma virus 16+18+31+33+35+39+45+51+52+56+58+59+68 DNA [Presence] in Cervix by Probe & signal amplification method",
+    "name_he": null
+  },
+  {
+    "code": "20507-0",
+    "name_en": "Reagin Ab [Presence] in Serum by RPR",
+    "name_he": null
+  },
+  {
+    "code": "3151-8",
+    "name_en": "Inhaled oxygen flow rate",
+    "name_he": null
+  },
+  {
+    "code": "14957-5",
+    "name_en": "Microalbumin [Mass/volume] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "58448-2",
+    "name_en": "Microalbumin ug/min [Mass/time] in 24 hour Urine",
+    "name_he": null
+  },
+  {
+    "code": "26508-2",
+    "name_en": "Neutrophils.band form/100 leukocytes in Blood",
+    "name_he": null
+  },
+  {
+    "code": "24111-7",
+    "name_en": "Neisseria gonorrhoeae DNA [Presence] in Unspecified specimen by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "11279-7",
+    "name_en": "Urine sediment comments by Light microscopy Narrative",
+    "name_he": null
+  },
+  {
+    "code": "21613-5",
+    "name_en": "Chlamydia trachomatis DNA [Presence] in Unspecified specimen by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "2284-8",
+    "name_en": "Folate [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "1995-0",
+    "name_en": "Calcium.ionized [Moles/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "11282-1",
+    "name_en": "Cells Counted Total [#] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "2106-3",
+    "name_en": "Choriogonadotropin (Pregnancy test) [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "933-2",
+    "name_en": "Blood product type",
+    "name_he": null
+  },
+  {
+    "code": "737-7",
+    "name_en": "Lymphocytes/100 leukocytes in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "2744-1",
+    "name_en": "pH of Arterial blood",
+    "name_he": null
+  },
+  {
+    "code": "30313-1",
+    "name_en": "Hemoglobin [Mass/volume] in Arterial blood",
+    "name_he": null
+  },
+  {
+    "code": "10378-8",
+    "name_en": "Polychromasia [Presence] in Blood by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "2324-2",
+    "name_en": "Gamma glutamyl transferase [Enzymatic activity/volume] in Serum or Plasma",
+    "name_he": "GGT (\u05d2\u05de\u05d0-GT)"
+  },
+  {
+    "code": "25162-9",
+    "name_en": "Hyaline casts [Presence] in Urine sediment by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "2502-3",
+    "name_en": "Iron saturation [Mass Fraction] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2703-7",
+    "name_en": "Oxygen [Partial pressure] in Arterial blood",
+    "name_he": null
+  },
+  {
+    "code": "664-3",
+    "name_en": "Microscopic observation [Identifier] in Unspecified specimen by Gram stain",
+    "name_he": null
+  },
+  {
+    "code": "3879-4",
+    "name_en": "Opiates [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "3390-2",
+    "name_en": "Benzodiazepines [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "27353-2",
+    "name_en": "Glucose mean value [Mass/volume] in Blood Estimated from glycated hemoglobin",
+    "name_he": null
+  },
+  {
+    "code": "890-4",
+    "name_en": "Blood group antibody screen [Presence] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "26507-4",
+    "name_en": "Neutrophils.band form [#/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "3050-2",
+    "name_en": "Triiodothyronine resin uptake (T3RU) in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "30405-5",
+    "name_en": "Leukocytes [#/volume] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "48345-3",
+    "name_en": "HIV 1+O+2 Ab [Presence] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2986-8",
+    "name_en": "Testosterone [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "30934-4",
+    "name_en": "Natriuretic peptide B [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2019-8",
+    "name_en": "Carbon dioxide [Partial pressure] in Arterial blood",
+    "name_he": null
+  },
+  {
+    "code": "34714-6",
+    "name_en": "INR in Blood by Coagulation assay",
+    "name_he": null
+  },
+  {
+    "code": "3377-9",
+    "name_en": "Barbiturates [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "8061-4",
+    "name_en": "Nuclear Ab [Presence] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "11529-5",
+    "name_en": "Surgical pathology study",
+    "name_he": null
+  },
+  {
+    "code": "5196-1",
+    "name_en": "Hepatitis B virus surface Ag [Presence] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "49136-5",
+    "name_en": "Creatine kinase.MB/Creatine kinase.total [Ratio] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "14959-1",
+    "name_en": "Microalbumin/Creatinine [Mass ratio] in Urine",
+    "name_he": "\u05de\u05d9\u05e7\u05e8\u05d5\u05d0\u05dc\u05d1\u05d5\u05de\u05d9\u05df \u05d1\u05e9\u05ea\u05df"
+  },
+  {
+    "code": "48346-1",
+    "name_en": "HIV 1+O+2 Ab [Units/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "3349-8",
+    "name_en": "Amphetamines [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "17856-6",
+    "name_en": "Hemoglobin A1c/Hemoglobin.total in Blood by HPLC",
+    "name_he": "\u05d4\u05de\u05d5\u05d2\u05dc\u05d5\u05d1\u05d9\u05df \u05de\u05e1\u05d5\u05db\u05e8 (HbA1c)"
+  },
+  {
+    "code": "11253-2",
+    "name_en": "Tacrolimus [Mass/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "33903-6",
+    "name_en": "Ketones [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "883-9",
+    "name_en": "ABO group [Type] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "2091-7",
+    "name_en": "Cholesterol in VLDL [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2458-8",
+    "name_en": "IgA [Mass/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "2501-5",
+    "name_en": "Iron binding capacity.unsaturated [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "32215-6",
+    "name_en": "Thyroxine (T4) free index in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "3053-6",
+    "name_en": "Triiodothyronine (T3) [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "18282-4",
+    "name_en": "Cannabinoids [Presence] in Urine by Screen method",
+    "name_he": null
+  },
+  {
+    "code": "744-3",
+    "name_en": "Monocytes/100 leukocytes in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "5195-3",
+    "name_en": "Hepatitis B virus surface Ag [Presence] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "1003-3",
+    "name_en": "Indirect antiglobulin test.complement specific reagent [Presence] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "769-0",
+    "name_en": "Neutrophils.segmented/100 leukocytes in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "714-6",
+    "name_en": "Eosinophils/100 leukocytes in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "15067-2",
+    "name_en": "Follitropin [Units/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2243-4",
+    "name_en": "Estradiol (E2) [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "53927-0",
+    "name_en": "Neisseria gonorrhoeae rRNA [Presence] in Urethra by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "60256-5",
+    "name_en": "Neisseria gonorrhoeae rRNA [Presence] in Urine by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "702-1",
+    "name_en": "Anisocytosis [Presence] in Blood by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "707-0",
+    "name_en": "Basophils/100 leukocytes in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "19145-2",
+    "name_en": "Reference lab test name",
+    "name_he": null
+  },
+  {
+    "code": "29265-6",
+    "name_en": "Calcium [Moles/volume] corrected for albumin in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "5796-8",
+    "name_en": "Hyaline casts [#/area] in Urine sediment by Microscopy low power field",
+    "name_he": null
+  },
+  {
+    "code": "5198-7",
+    "name_en": "Hepatitis C virus Ab [Units/volume] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "2731-8",
+    "name_en": "Parathyrin.intact [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2465-3",
+    "name_en": "IgG [Mass/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "53925-4",
+    "name_en": "Chlamydia trachomatis rRNA [Presence] in Urethra by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "774-0",
+    "name_en": "Ovalocytes [Presence] in Blood by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "12454-5",
+    "name_en": "Urate crystals amorphous [Presence] in Urine sediment by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "30341-2",
+    "name_en": "Erythrocyte sedimentation rate",
+    "name_he": null
+  },
+  {
+    "code": "798-9",
+    "name_en": "Erythrocytes [#/volume] in Urine by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "1250-0",
+    "name_en": "Major crossmatch [interpretation]",
+    "name_he": null
+  },
+  {
+    "code": "22634-0",
+    "name_en": "Pathology report gross observation",
+    "name_he": null
+  },
+  {
+    "code": "18262-6",
+    "name_en": "Cholesterol in LDL [Mass/volume] in Serum or Plasma by Direct assay",
+    "name_he": null
+  },
+  {
+    "code": "56598-6",
+    "name_en": "Epstein Barr virus early IgM Ab [Units/volume] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "11572-5",
+    "name_en": "Rheumatoid factor [Units/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "19080-1",
+    "name_en": "Choriogonadotropin [Units/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "18998-5",
+    "name_en": "Trimethoprim+Sulfamethoxazole [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "43304-5",
+    "name_en": "Chlamydia trachomatis rRNA [Presence] in Unspecified specimen by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "10331-7",
+    "name_en": "Rh [Type] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "43305-2",
+    "name_en": "Neisseria gonorrhoeae rRNA [Presence] in Unspecified specimen by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "10701-1",
+    "name_en": "Ova+Parasites identified in Stool by Concentration",
+    "name_he": null
+  },
+  {
+    "code": "13362-9",
+    "name_en": "Collection duration of Urine",
+    "name_he": null
+  },
+  {
+    "code": "11125-2",
+    "name_en": "Platelet morphology finding [Identifier] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "15180-3",
+    "name_en": "Hypochromia [Presence] in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "12258-0",
+    "name_en": "Epithelial cells.squamous [Presence] in Urine sediment by Microscopy high power field",
+    "name_he": null
+  },
+  {
+    "code": "22633-2",
+    "name_en": "Pathology report site of origin",
+    "name_he": null
+  },
+  {
+    "code": "2472-9",
+    "name_en": "IgM [Mass/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "31208-2",
+    "name_en": "Specimen source [Identifier] of Unspecified specimen",
+    "name_he": null
+  },
+  {
+    "code": "18928-2",
+    "name_en": "Gentamicin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "5671-3",
+    "name_en": "Lead [Mass/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "3255-7",
+    "name_en": "Fibrinogen [Mass/volume] in Platelet poor plasma by Coagulation assay",
+    "name_he": null
+  },
+  {
+    "code": "3184-9",
+    "name_en": "Activated clotting time in Blood by Coagulation assay",
+    "name_he": null
+  },
+  {
+    "code": "19139-5",
+    "name_en": "Pathologist name",
+    "name_he": null
+  },
+  {
+    "code": "6462-6",
+    "name_en": "Bacteria identified in Wound by Culture",
+    "name_he": null
+  },
+  {
+    "code": "10501-5",
+    "name_en": "Lutropin [Units/volume] in Serum or Plasma",
+    "name_he": "\u05d5\u05d9\u05d8\u05de\u05d9\u05df B12"
+  },
+  {
+    "code": "19244-3",
+    "name_en": "Character of Urine",
+    "name_he": null
+  },
+  {
+    "code": "19659-2",
+    "name_en": "Phencyclidine [Presence] in Urine by Screen method",
+    "name_he": null
+  },
+  {
+    "code": "3051-0",
+    "name_en": "Triiodothyronine (T3) Free [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "624-7",
+    "name_en": "Bacteria identified in Sputum by Respiratory culture",
+    "name_he": null
+  },
+  {
+    "code": "634-6",
+    "name_en": "Bacteria identified in Unspecified specimen by Aerobe culture",
+    "name_he": null
+  },
+  {
+    "code": "50387-0",
+    "name_en": "Chlamydia trachomatis rRNA [Presence] in Cervix by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "50388-8",
+    "name_en": "Neisseria gonorrhoeae rRNA [Presence] in Cervix by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "35691-5",
+    "name_en": "XXX microorganism DNA [Presence] in Unspecified specimen by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "51656-7",
+    "name_en": "Hepatitis C virus Ab Signal/Cutoff [Ratio] in Body fluid",
+    "name_he": null
+  },
+  {
+    "code": "4679-7",
+    "name_en": "Reticulocytes/100 erythrocytes in Blood",
+    "name_he": null
+  },
+  {
+    "code": "22635-7",
+    "name_en": "Pathology report microscopic observation Other stain",
+    "name_he": null
+  },
+  {
+    "code": "38483-4",
+    "name_en": "Creatinine [Mass/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "15150-6",
+    "name_en": "Anisocytosis [Presence] in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "14338-8",
+    "name_en": "Prealbumin [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "15198-5",
+    "name_en": "Macrocytes [Presence] in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "33051-4",
+    "name_en": "Erythrocytes [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "6299-2",
+    "name_en": "Urea nitrogen [Mass/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "43396-1",
+    "name_en": "Cholesterol non HDL [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2842-3",
+    "name_en": "Prolactin [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "6598-7",
+    "name_en": "Troponin T.cardiac [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2888-6",
+    "name_en": "Protein [Mass/volume] in Urine",
+    "name_he": "\u05d7\u05dc\u05d1\u05d5\u05df \u05d1\u05e9\u05ea\u05df 24 \u05e9\u05e2\u05d5\u05ea"
+  },
+  {
+    "code": "3393-6",
+    "name_en": "Benzoylecgonine [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "9842-6",
+    "name_en": "Casts [#/area] in Urine sediment by Microscopy low power field",
+    "name_he": null
+  },
+  {
+    "code": "2069-3",
+    "name_en": "Chloride [Moles/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "5334-8",
+    "name_en": "Rubella virus IgG Ab [Units/volume] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "20569-0",
+    "name_en": "Creatine kinase.MB/Creatine kinase.total in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "42931-6",
+    "name_en": "Chlamydia trachomatis rRNA [Presence] in Urine by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "15199-3",
+    "name_en": "Microcytes [Presence] in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "20629-2",
+    "name_en": "Levofloxacin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "3397-7",
+    "name_en": "Cocaine [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "779-9",
+    "name_en": "Poikilocytosis [Presence] in Blood by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "35591-7",
+    "name_en": "Creatinine renal clearance predicted by Cockcroft-Gault formula",
+    "name_he": null
+  },
+  {
+    "code": "32356-8",
+    "name_en": "Yeast [Presence] in Urine sediment by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "18878-9",
+    "name_en": "Cefazolin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "740-1",
+    "name_en": "Metamyelocytes/100 leukocytes in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "12851-2",
+    "name_en": "Protein Fractions [interpretation] in Serum or Plasma by Electrophoresis",
+    "name_he": null
+  },
+  {
+    "code": "31147-2",
+    "name_en": "Reagin Ab [Titer] in Serum by RPR",
+    "name_he": null
+  },
+  {
+    "code": "25428-4",
+    "name_en": "Glucose [Presence] in Urine by Test strip",
+    "name_he": null
+  },
+  {
+    "code": "1960-4",
+    "name_en": "Bicarbonate [Moles/volume] in Arterial blood",
+    "name_he": null
+  },
+  {
+    "code": "2111-3",
+    "name_en": "Choriogonadotropin.beta subunit [Moles/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2039-6",
+    "name_en": "Carcinoembryonic Ag [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2862-1",
+    "name_en": "Albumin [Mass/volume] in Serum or Plasma by Electrophoresis",
+    "name_he": null
+  },
+  {
+    "code": "2871-2",
+    "name_en": "Beta globulin [Mass/volume] in Serum or Plasma by Electrophoresis",
+    "name_he": null
+  },
+  {
+    "code": "2865-4",
+    "name_en": "Alpha 1 globulin [Mass/volume] in Serum or Plasma by Electrophoresis",
+    "name_he": null
+  },
+  {
+    "code": "2868-8",
+    "name_en": "Alpha 2 globulin [Mass/volume] in Serum or Plasma by Electrophoresis",
+    "name_he": null
+  },
+  {
+    "code": "18906-8",
+    "name_en": "Ciprofloxacin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "2839-9",
+    "name_en": "Progesterone [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "13950-1",
+    "name_en": "Hepatitis A virus IgM Ab [Presence] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "28541-1",
+    "name_en": "Metamyelocytes/100 leukocytes in Blood",
+    "name_he": null
+  },
+  {
+    "code": "3936-2",
+    "name_en": "Phencyclidine [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "48159-8",
+    "name_en": "Hepatitis C virus Ab Signal/Cutoff [Ratio] in Serum or Plasma by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "2874-6",
+    "name_en": "Gamma globulin [Mass/volume] in Serum or Plasma by Electrophoresis",
+    "name_he": null
+  },
+  {
+    "code": "31201-7",
+    "name_en": "HIV 1+2 Ab [Presence] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "2991-8",
+    "name_en": "Testosterone Free [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "58413-6",
+    "name_en": "Nucleated erythrocytes/100 leukocytes [Ratio] in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "36903-3",
+    "name_en": "Chlamydia trachomatis+Neisseria gonorrhoeae DNA [Identifier] in Unspecified specimen by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "580-1",
+    "name_en": "Fungus identified in Unspecified specimen by Culture",
+    "name_he": null
+  },
+  {
+    "code": "2692-2",
+    "name_en": "Osmolality of Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "18865-6",
+    "name_en": "Ampicillin+Sulbactam [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "18864-9",
+    "name_en": "Ampicillin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "1558-6",
+    "name_en": "Fasting glucose [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "635-3",
+    "name_en": "Bacteria identified in Unspecified specimen by Anaerobe culture",
+    "name_he": null
+  },
+  {
+    "code": "547-0",
+    "name_en": "Streptococcus.beta-hemolytic [Presence] in Unspecified specimen by Organism specific culture",
+    "name_he": null
+  },
+  {
+    "code": "5194-6",
+    "name_en": "Hepatitis B virus surface Ab [Units/volume] in Serum by Radioimmunoassay (RIA)",
+    "name_he": null
+  },
+  {
+    "code": "18955-5",
+    "name_en": "Nitrofurantoin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "18481-2",
+    "name_en": "Streptococcus pyogenes Ag [Presence] in Throat",
+    "name_he": null
+  },
+  {
+    "code": "1504-0",
+    "name_en": "Glucose [Mass/volume] in Serum or Plasma --1 hour post 50 g glucose PO",
+    "name_he": null
+  },
+  {
+    "code": "12235-8",
+    "name_en": "Microscopic observation [Identifier] in Urine sediment by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "7791-7",
+    "name_en": "Dacrocytes [Presence] in Blood by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "2143-6",
+    "name_en": "Cortisol [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "46744-9",
+    "name_en": "Organic acidemias newborn screen interpretation",
+    "name_he": null
+  },
+  {
+    "code": "14611-8",
+    "name_en": "Nuclear Ab pattern [interpretation] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "8099-4",
+    "name_en": "Thyroperoxidase Ab [Units/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "5048-4",
+    "name_en": "Nuclear Ab [Titer] in Serum by Immunofluorescence",
+    "name_he": null
+  },
+  {
+    "code": "2524-7",
+    "name_en": "Lactate [Moles/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "763-3",
+    "name_en": "Neutrophils.band form [#/volume] in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "30522-7",
+    "name_en": "C reactive protein [Mass/volume] in Serum or Plasma by High sensitivity method",
+    "name_he": null
+  },
+  {
+    "code": "11156-7",
+    "name_en": "Leukocyte morphology finding [Identifier] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "19000-9",
+    "name_en": "Vancomycin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "2335-8",
+    "name_en": "Hemoglobin.gastrointestinal [Presence] in Stool",
+    "name_he": null
+  },
+  {
+    "code": "6824-7",
+    "name_en": "Color of Body fluid",
+    "name_he": null
+  },
+  {
+    "code": "24113-3",
+    "name_en": "Hepatitis B virus core IgM Ab [Presence] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "14578-9",
+    "name_en": "ABO group [Type] in Blood from Blood product unit",
+    "name_he": null
+  },
+  {
+    "code": "14907-0",
+    "name_en": "Rh [Type] in Blood from Blood product unit",
+    "name_he": null
+  },
+  {
+    "code": "3968-5",
+    "name_en": "Phenytoin [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "10535-3",
+    "name_en": "Digoxin [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "13965-9",
+    "name_en": "Homocysteine [Moles/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "35674-1",
+    "name_en": "Creatinine [Mass/volume] in unspecified time Urine",
+    "name_he": null
+  },
+  {
+    "code": "18893-8",
+    "name_en": "Ceftazidime [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "18970-4",
+    "name_en": "Piperacillin+Tazobactam [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "54218-3",
+    "name_en": "CD3+CD4+ (T4 helper) cells/CD3+CD8+ (T8 suppressor cells) cells [# Ratio] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "800-3",
+    "name_en": "Schistocytes [Presence] in Blood by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "21198-7",
+    "name_en": "Choriogonadotropin.beta subunit [Units/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "5643-2",
+    "name_en": "Ethanol [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "22763-7",
+    "name_en": "Ammonia [Mass/volume] in Plasma",
+    "name_he": null
+  },
+  {
+    "code": "16362-6",
+    "name_en": "Ammonia [Moles/volume] in Plasma",
+    "name_he": null
+  },
+  {
+    "code": "3426-4",
+    "name_en": "Tetrahydrocannabinol [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "26487-9",
+    "name_en": "Monocytes/100 leukocytes in Body fluid",
+    "name_he": null
+  },
+  {
+    "code": "11031-2",
+    "name_en": "Lymphocytes/100 leukocytes in Body fluid",
+    "name_he": null
+  },
+  {
+    "code": "749-2",
+    "name_en": "Myelocytes/100 leukocytes in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "18932-4",
+    "name_en": "Imipenem [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "18943-1",
+    "name_en": "Meropenem [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "32673-6",
+    "name_en": "Creatine kinase.MB [Enzymatic activity/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "22322-2",
+    "name_en": "Hepatitis B virus surface Ab [Presence] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "13655-6",
+    "name_en": "Leukocytes [Presence] in Stool by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "8123-2",
+    "name_en": "CD3+CD4+ (T4 helper) cells/100 cells in Blood",
+    "name_he": null
+  },
+  {
+    "code": "26498-6",
+    "name_en": "Myelocytes/100 leukocytes in Blood",
+    "name_he": null
+  },
+  {
+    "code": "19162-7",
+    "name_en": "Varicella zoster virus IgG Ab [Presence] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "18879-7",
+    "name_en": "Cefepime [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "5783-6",
+    "name_en": "Unidentified crystals [Presence] in Urine sediment by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "4092-3",
+    "name_en": "Vancomycin [Mass/volume] in Serum or Plasma --trough",
+    "name_he": null
+  },
+  {
+    "code": "8124-0",
+    "name_en": "CD3 cells/100 cells in Blood",
+    "name_he": null
+  },
+  {
+    "code": "31017-7",
+    "name_en": "Tissue transglutaminase IgA Ab [Units/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "3150-0",
+    "name_en": "Inhaled oxygen concentration (FIO2)",
+    "name_he": null
+  },
+  {
+    "code": "1834-1",
+    "name_en": "Alpha-1-Fetoprotein [Mass/volume] in Serum or Plasma",
+    "name_he": "AFP (\u05d0\u05dc\u05e4\u05d0-\u05e4\u05d8\u05d5\u05e4\u05e8\u05d5\u05d8\u05d0\u05d9\u05df)"
+  },
+  {
+    "code": "3167-4",
+    "name_en": "Volume of 24 hour Urine",
+    "name_he": null
+  },
+  {
+    "code": "18895-3",
+    "name_en": "Ceftriaxone [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "1925-7",
+    "name_en": "Base excess in Arterial blood",
+    "name_he": null
+  },
+  {
+    "code": "1990-1",
+    "name_en": "Cholecalciferol (Vit D3) [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2236-8",
+    "name_en": "Calciferol (Vit D2) [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "20448-7",
+    "name_en": "Insulin [Units/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "18993-6",
+    "name_en": "Tetracycline [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "17790-7",
+    "name_en": "Leukocytes Left Shift [Presence] in Blood by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "13955-0",
+    "name_en": "Hepatitis C virus Ab [Presence] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "18996-9",
+    "name_en": "Tobramycin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "8101-8",
+    "name_en": "CD3+CD8+ (T8 suppressor cells) cells/100 cells in Blood",
+    "name_he": null
+  },
+  {
+    "code": "13451-0",
+    "name_en": "Creatinine dialysis fluid clearance",
+    "name_he": null
+  },
+  {
+    "code": "1305-2",
+    "name_en": "D Ag [Presence] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "5130-0",
+    "name_en": "DNA double strand Ab [Units/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "46737-3",
+    "name_en": "Galactosemias newborn screen interpretation",
+    "name_he": null
+  },
+  {
+    "code": "3298-7",
+    "name_en": "Acetaminophen [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "14895-7",
+    "name_en": "Protein Fractions [interpretation] in Serum or Plasma by Immunofixation",
+    "name_he": null
+  },
+  {
+    "code": "18886-2",
+    "name_en": "Cefotaxime [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "46733-2",
+    "name_en": "Amino acidemias newborn screen interpretation",
+    "name_he": null
+  },
+  {
+    "code": "35492-8",
+    "name_en": "Methicillin resistant Staphylococcus aureus (MRSA) DNA [Presence] by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "46736-5",
+    "name_en": "Fatty acid oxidation defects newborn screen interpretation",
+    "name_he": null
+  },
+  {
+    "code": "4086-5",
+    "name_en": "Valproate [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "38478-4",
+    "name_en": "Biotinidase [Presence] in Dried blood spot",
+    "name_he": null
+  },
+  {
+    "code": "34148-7",
+    "name_en": "Borrelia burgdorferi IgG+IgM Ab [Units/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "18969-6",
+    "name_en": "Piperacillin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "2955-3",
+    "name_en": "Sodium [Moles/volume] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "10381-2",
+    "name_en": "Target cells [Presence] in Blood by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "18860-7",
+    "name_en": "Amikacin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "12238-2",
+    "name_en": "Neutrophils/100 leukocytes in Body fluid by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "8098-6",
+    "name_en": "Thyroglobulin Ab [Units/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "3773-9",
+    "name_en": "Methadone [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "26452-3",
+    "name_en": "Eosinophils/100 leukocytes in Body fluid",
+    "name_he": null
+  },
+  {
+    "code": "18961-3",
+    "name_en": "Oxacillin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "10352-3",
+    "name_en": "Bacteria identified in Genital specimen by Aerobe culture",
+    "name_he": null
+  },
+  {
+    "code": "4073-3",
+    "name_en": "Tricyclic antidepressants [Presence] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "1006-6",
+    "name_en": "Direct antiglobulin test.IgG specific reagent [interpretation] on Red Blood Cells",
+    "name_he": null
+  },
+  {
+    "code": "31160-5",
+    "name_en": "Polymorphonuclear cells/100 leukocytes in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "7790-9",
+    "name_en": "Burr cells [Presence] in Blood by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "543-9",
+    "name_en": "Mycobacterium sp identified in Unspecified specimen by Organism specific culture",
+    "name_he": null
+  },
+  {
+    "code": "20564-1",
+    "name_en": "Oxygen saturation in Blood",
+    "name_he": null
+  },
+  {
+    "code": "8122-4",
+    "name_en": "CD3 cells [#/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "21667-1",
+    "name_en": "F5 gene mutations found [Identifier] in Blood or Tissue by Molecular genetics method Nominal",
+    "name_he": null
+  },
+  {
+    "code": "584-3",
+    "name_en": "Streptococcus agalactiae [Presence] in Vaginal fluid by Organism specific culture",
+    "name_he": null
+  },
+  {
+    "code": "10334-1",
+    "name_en": "Cancer Ag 125 [Units/volume] in Serum or Plasma",
+    "name_he": "CEA"
+  },
+  {
+    "code": "34713-8",
+    "name_en": "Clostridium difficile toxin A+B [Presence] in Stool",
+    "name_he": null
+  },
+  {
+    "code": "26510-8",
+    "name_en": "Neutrophils.band form/100 leukocytes in Body fluid",
+    "name_he": null
+  },
+  {
+    "code": "8246-1",
+    "name_en": "Amorphous sediment [Presence] in Urine sediment by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "18919-1",
+    "name_en": "Erythromycin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "26455-6",
+    "name_en": "Erythrocytes [#/volume] in Body fluid",
+    "name_he": null
+  },
+  {
+    "code": "4485-9",
+    "name_en": "Complement C3 [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "4498-2",
+    "name_en": "Complement C4 [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "57845-0",
+    "name_en": "Leukocytes [#/volume] in Body fluid by Automated count",
+    "name_he": null
+  },
+  {
+    "code": "5176-3",
+    "name_en": "Helicobacter pylori IgG Ab [Units/volume] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "16128-1",
+    "name_en": "Hepatitis C virus Ab [Presence] in Serum",
+    "name_he": "Anti-HCV \u05e0\u05d5\u05d2\u05d3\u05df \u05db\u05e0\u05d3 C"
+  },
+  {
+    "code": "14135-8",
+    "name_en": "CD3+CD8+ (T8 suppressor cells) cells [#/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "7918-6",
+    "name_en": "HIV 1+2 Ab [Presence] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "19312-8",
+    "name_en": "Tricyclic antidepressants [Presence] in Urine by Screen method",
+    "name_he": null
+  },
+  {
+    "code": "18908-4",
+    "name_en": "Clindamycin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "2162-6",
+    "name_en": "Creatinine [Mass/time] in 24 hour Urine",
+    "name_he": null
+  },
+  {
+    "code": "13518-6",
+    "name_en": "Lymphocytes Variant/100 leukocytes in Body fluid by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "12179-8",
+    "name_en": "Basophils/100 leukocytes in Body fluid by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "6864-3",
+    "name_en": "Hemoglobin S [Presence] in Blood by Solubility test",
+    "name_he": null
+  },
+  {
+    "code": "49563-0",
+    "name_en": "Troponin I.cardiac [Mass/volume] in Serum or Plasma by Detection limit = 0.01 ng/mL",
+    "name_he": null
+  },
+  {
+    "code": "33255-1",
+    "name_en": "Cell Fractions/Differential [interpretation] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "2708-6",
+    "name_en": "Oxygen saturation in Arterial blood",
+    "name_he": null
+  },
+  {
+    "code": "5209-2",
+    "name_en": "Herpes simplex virus 2 IgG Ab [Units/volume] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "18964-7",
+    "name_en": "Penicillin [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "18868-0",
+    "name_en": "Aztreonam [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "1863-0",
+    "name_en": "Anion gap 4 in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "29574-1",
+    "name_en": "Thyrotropin [Presence] in Dried blood spot",
+    "name_he": null
+  },
+  {
+    "code": "19994-3",
+    "name_en": "Oxygen/Inspired gas setting [Volume Fraction] Ventilator",
+    "name_he": null
+  },
+  {
+    "code": "32854-2",
+    "name_en": "17-Hydroxyprogesterone [Presence] in Dried blood spot",
+    "name_he": null
+  },
+  {
+    "code": "29571-7",
+    "name_en": "Phenylalanine [Presence] in Dried blood spot",
+    "name_he": null
+  },
+  {
+    "code": "21654-9",
+    "name_en": "CFTR gene mutations found [Identifier] in Blood or Tissue by Molecular genetics method Nominal",
+    "name_he": null
+  },
+  {
+    "code": "38486-7",
+    "name_en": "Homocystine [Presence] in Dried blood spot",
+    "name_he": null
+  },
+  {
+    "code": "38479-2",
+    "name_en": "Branched chain keto-acid dehydrogenase complex [Presence] in Dried blood spot",
+    "name_he": null
+  },
+  {
+    "code": "46779-5",
+    "name_en": "Medium/Short chain acyl-CoA dehydrogenase deficiency newborn screen interpretation",
+    "name_he": null
+  },
+  {
+    "code": "4024-6",
+    "name_en": "Salicylates [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "2095-8",
+    "name_en": "Cholesterol in HDL/Cholesterol.total [Mass ratio] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "19113-0",
+    "name_en": "IgE [Units/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "12232-5",
+    "name_en": "Measles virus Ag [Presence] in Unspecified specimen by Immunofluorescence",
+    "name_he": null
+  },
+  {
+    "code": "2191-5",
+    "name_en": "Dehydroepiandrosterone sulfate (DHEA-S) [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "625-4",
+    "name_en": "Bacteria identified in Stool by Culture",
+    "name_he": null
+  },
+  {
+    "code": "24475-6",
+    "name_en": "F2 gene p.G20210A [Presence] in Blood or Tissue by Molecular genetics method",
+    "name_he": null
+  },
+  {
+    "code": "30318-0",
+    "name_en": "Base deficit in Blood",
+    "name_he": null
+  },
+  {
+    "code": "743-5",
+    "name_en": "Monocytes [#/volume] in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "5569-9",
+    "name_en": "Acetone [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "3520-4",
+    "name_en": "Cyclosporine [Mass/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "32693-4",
+    "name_en": "Lactate [Moles/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "48065-7",
+    "name_en": "Fibrin D-dimer FEU [Mass/volume] in Platelet poor plasma",
+    "name_he": null
+  },
+  {
+    "code": "2110-5",
+    "name_en": "Choriogonadotropin.beta subunit (pregnancy test) [Presence] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "13952-7",
+    "name_en": "Hepatitis B virus core Ab [Presence] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "610-6",
+    "name_en": "Bacteria identified in Body fluid by Aerobe culture",
+    "name_he": null
+  },
+  {
+    "code": "5403-1",
+    "name_en": "Varicella zoster virus IgG Ab [Units/volume] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "803-7",
+    "name_en": "Toxic granules [Presence] in Blood by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "33358-3",
+    "name_en": "Protein.monoclonal [Mass/volume] in Serum or Plasma by Electrophoresis",
+    "name_he": null
+  },
+  {
+    "code": "65633-0",
+    "name_en": "Hepatitis B virus surface Ag [Presence] in Serum by Confirmatory method",
+    "name_he": null
+  },
+  {
+    "code": "10524-7",
+    "name_en": "Microscopic observation [Identifier] in Cervix by Cyto stain",
+    "name_he": null
+  },
+  {
+    "code": "29247-4",
+    "name_en": "Sirolimus [Mass/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "739-3",
+    "name_en": "Metamyelocytes [#/volume] in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "2889-4",
+    "name_en": "Protein [Mass/time] in 24 hour Urine",
+    "name_he": null
+  },
+  {
+    "code": "18887-0",
+    "name_en": "Cefotetan [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "10335-8",
+    "name_en": "Color of Cerebral spinal fluid",
+    "name_he": null
+  },
+  {
+    "code": "2505-6",
+    "name_en": "Iron/Iron binding capacity.total [Mass ratio] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "30089-7",
+    "name_en": "Transitional cells [#/area] in Urine sediment by Microscopy high power field",
+    "name_he": null
+  },
+  {
+    "code": "20761-3",
+    "name_en": "Clostridium difficile [Presence] in Stool by Agglutination",
+    "name_he": null
+  },
+  {
+    "code": "2828-2",
+    "name_en": "Potassium [Moles/volume] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "29891-9",
+    "name_en": "Helicobacter pylori [Presence] in Stomach by urea breath test",
+    "name_he": null
+  },
+  {
+    "code": "19107-2",
+    "name_en": "Histoplasma capsulatum Ag [Units/volume] in Serum by Radioimmunoassay (RIA)",
+    "name_he": null
+  },
+  {
+    "code": "2639-3",
+    "name_en": "Myoglobin [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "5028-6",
+    "name_en": "Neisseria gonorrhoeae rRNA [Presence] in Unspecified specimen by DNA probe",
+    "name_he": null
+  },
+  {
+    "code": "1922-4",
+    "name_en": "Base deficit in Arterial blood",
+    "name_he": null
+  },
+  {
+    "code": "48058-2",
+    "name_en": "Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "35365-6",
+    "name_en": "Vitamin D+Metabolites [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "772-4",
+    "name_en": "Nucleated erythrocytes [#/volume] in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "806-0",
+    "name_en": "Leukocytes [#/volume] in Cerebral spinal fluid by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "1649-3",
+    "name_en": "Calcitriol [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "3181-5",
+    "name_en": "Cardiolipin IgG Ab [Units/volume] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "3182-3",
+    "name_en": "Cardiolipin IgM Ab [Units/volume] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "4546-8",
+    "name_en": "Hemoglobin A/Hemoglobin.total in Blood",
+    "name_he": null
+  },
+  {
+    "code": "49541-6",
+    "name_en": "Fasting status [Presence] - Reported",
+    "name_he": null
+  },
+  {
+    "code": "4576-5",
+    "name_en": "Hemoglobin F/Hemoglobin.total in Blood",
+    "name_he": null
+  },
+  {
+    "code": "2890-2",
+    "name_en": "Protein/Creatinine [Mass ratio] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "33935-8",
+    "name_en": "Cyclic citrullinated peptide IgG Ab [Units/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "16935-9",
+    "name_en": "Hepatitis B virus surface Ab [Units/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "5193-8",
+    "name_en": "Hepatitis B virus surface Ab [Units/volume] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "20399-2",
+    "name_en": "Nuclear Ab pattern.nucleolar [Titer] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "25145-4",
+    "name_en": "Bacteria [Presence] in Urine sediment by Light microscopy",
+    "name_he": null
+  },
+  {
+    "code": "24467-3",
+    "name_en": "CD3+CD4+ (T4 helper) cells [#/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "33762-6",
+    "name_en": "Natriuretic peptide.B prohormone [Mass/volume] in Serum or Plasma",
+    "name_he": "NT-proBNP (BNP)"
+  },
+  {
+    "code": "48066-5",
+    "name_en": "Fibrin D-dimer DDU [Mass/volume] in Platelet poor plasma",
+    "name_he": null
+  },
+  {
+    "code": "4625-0",
+    "name_en": "Hemoglobin S/Hemoglobin.total in Blood",
+    "name_he": null
+  },
+  {
+    "code": "2746-6",
+    "name_en": "pH of Venous blood",
+    "name_he": null
+  },
+  {
+    "code": "3376-1",
+    "name_en": "Barbiturates [Presence] in Serum, Plasma or Blood",
+    "name_he": null
+  },
+  {
+    "code": "546-2",
+    "name_en": "Streptococcus.beta-hemolytic [Presence] in Throat by Organism specific culture",
+    "name_he": null
+  },
+  {
+    "code": "21484-1",
+    "name_en": "Mother's race",
+    "name_he": null
+  },
+  {
+    "code": "2021-4",
+    "name_en": "Carbon dioxide [Partial pressure] in Venous blood",
+    "name_he": null
+  },
+  {
+    "code": "30446-9",
+    "name_en": "Myelocytes [#/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "748-4",
+    "name_en": "Myelocytes [#/volume] in Blood by Manual count",
+    "name_he": null
+  },
+  {
+    "code": "17898-8",
+    "name_en": "Bacteria identified in Throat by Aerobe culture",
+    "name_he": null
+  },
+  {
+    "code": "673-4",
+    "name_en": "Microscopic observation [Identifier] in Unspecified specimen by Ova & Parasite Preparation",
+    "name_he": null
+  },
+  {
+    "code": "5064-1",
+    "name_en": "Borrelia burgdorferi IgM Ab [Units/volume] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "32998-7",
+    "name_en": "Tissue transglutaminase IgG Ab [Units/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "56537-4",
+    "name_en": "Tissue transglutaminase IgG Ab [Units/volume] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "11011-4",
+    "name_en": "Hepatitis C virus RNA [Units/volume] (viral load) in Serum or Plasma by Probe & target amplification method",
+    "name_he": null
+  },
+  {
+    "code": "12841-3",
+    "name_en": "Prostate Specific Ag Free/Prostate specific Ag.total in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "11006-4",
+    "name_en": "Borrelia burgdorferi Ab [Presence] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "2880-3",
+    "name_en": "Protein [Mass/volume] in Cerebral spinal fluid",
+    "name_he": null
+  },
+  {
+    "code": "33944-0",
+    "name_en": "Immunoglobulin light chains.lambda.free [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "3389-4",
+    "name_en": "Benzodiazepines [Presence] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "5206-8",
+    "name_en": "Herpes simplex virus 1 IgG Ab [Units/volume] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "19066-0",
+    "name_en": "Blood bank comment",
+    "name_he": null
+  },
+  {
+    "code": "48803-1",
+    "name_en": "Neural tube defect risk in Fetus",
+    "name_he": null
+  },
+  {
+    "code": "4563-3",
+    "name_en": "Hemoglobin C/Hemoglobin.total in Blood",
+    "name_he": null
+  },
+  {
+    "code": "49049-0",
+    "name_en": "Collection time of Unspecified specimen",
+    "name_he": null
+  },
+  {
+    "code": "13503-8",
+    "name_en": "Borrelia burgdorferi Ab.IgM band pattern [interpretation] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "14725-6",
+    "name_en": "[Type] of Body fluid",
+    "name_he": null
+  },
+  {
+    "code": "21299-3",
+    "name_en": "Gestational age method",
+    "name_he": null
+  },
+  {
+    "code": "4545-0",
+    "name_en": "Hematocrit [Volume Fraction] of Blood by Centrifugation",
+    "name_he": null
+  },
+  {
+    "code": "46765-4",
+    "name_en": "Sickle cell anemia newborn screen interpretation",
+    "name_he": null
+  },
+  {
+    "code": "10362-2",
+    "name_en": "Endomysium IgA Ab [Presence] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "49048-2",
+    "name_en": "Protein feed time",
+    "name_he": null
+  },
+  {
+    "code": "18862-3",
+    "name_en": "Amoxicillin+Clavulanate [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "2342-4",
+    "name_en": "Glucose [Mass/volume] in Cerebral spinal fluid",
+    "name_he": null
+  },
+  {
+    "code": "18965-4",
+    "name_en": "Penicillin G [Susceptibility]",
+    "name_he": null
+  },
+  {
+    "code": "9587-7",
+    "name_en": "Borrelia burgdorferi 41kD IgM Ab [Presence] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "18390-5",
+    "name_en": "Opiates [Presence] in Urine by Confirmatory method",
+    "name_he": null
+  },
+  {
+    "code": "10886-0",
+    "name_en": "Prostate Specific Ag Free [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "14196-0",
+    "name_en": "Reticulocytes [#/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "2695-5",
+    "name_en": "Osmolality of Urine",
+    "name_he": null
+  },
+  {
+    "code": "42481-2",
+    "name_en": "Human papilloma virus 6+11+42+43+44 DNA [Presence] in Cervix by Probe & signal amplification method",
+    "name_he": null
+  },
+  {
+    "code": "13951-9",
+    "name_en": "Hepatitis A virus Ab [Presence] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "13502-0",
+    "name_en": "Borrelia burgdorferi Ab.IgG band pattern [interpretation] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "11090-8",
+    "name_en": "Smith extractable nuclear Ab [Units/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "606-4",
+    "name_en": "Bacteria identified in Cerebral spinal fluid by Culture",
+    "name_he": null
+  },
+  {
+    "code": "6561-5",
+    "name_en": "Treponema pallidum IgG Ab [Presence] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "47238-1",
+    "name_en": "Treponema pallidum IgG Ab [Presence] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "18185-9",
+    "name_en": "Gestational age",
+    "name_he": null
+  },
+  {
+    "code": "9597-6",
+    "name_en": "Borrelia burgdorferi 93kD IgG Ab [Presence] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "31418-7",
+    "name_en": "Heterophile Ab [Presence] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "17792-3",
+    "name_en": "Sjogrens syndrome-A extractable nuclear Ab [Units/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "11004-9",
+    "name_en": "Tricyclic antidepressants [Presence] in Urine",
+    "name_he": null
+  },
+  {
+    "code": "17791-5",
+    "name_en": "Sjogrens syndrome-B extractable nuclear Ab [Units/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "9593-5",
+    "name_en": "Borrelia burgdorferi 41kD IgG Ab [Presence] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "9590-1",
+    "name_en": "Borrelia burgdorferi 28kD IgG Ab [Presence] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "9594-3",
+    "name_en": "Borrelia burgdorferi 45kD IgG Ab [Presence] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "9589-3",
+    "name_en": "Borrelia burgdorferi 23kD IgG Ab [Presence] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "9591-9",
+    "name_en": "Borrelia burgdorferi 30kD IgG Ab [Presence] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "9592-7",
+    "name_en": "Borrelia burgdorferi 39kD IgG Ab [Presence] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "9599-2",
+    "name_en": "Borrelia burgdorferi 39kD IgM Ab [Presence] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "9598-4",
+    "name_en": "Borrelia burgdorferi 23kD IgM Ab [Presence] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "9595-0",
+    "name_en": "Borrelia burgdorferi 58kD IgG Ab [Presence] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "9596-8",
+    "name_en": "Borrelia burgdorferi 66kD IgG Ab [Presence] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "47000-5",
+    "name_en": "Candida sp rRNA [Presence] in Vaginal fluid by DNA probe",
+    "name_he": null
+  },
+  {
+    "code": "9588-5",
+    "name_en": "Borrelia burgdorferi 18kD IgG Ab [Presence] in Serum by Immunoblot (IB)",
+    "name_he": null
+  },
+  {
+    "code": "44357-2",
+    "name_en": "Galactomannan Ag [Units/volume] in Serum or Plasma by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "6410-5",
+    "name_en": "Gardnerella vaginalis rRNA [Presence] in Genital specimen by DNA probe",
+    "name_he": null
+  },
+  {
+    "code": "6568-0",
+    "name_en": "Trichomonas vaginalis rRNA [Presence] in Genital specimen by DNA probe",
+    "name_he": null
+  },
+  {
+    "code": "14564-9",
+    "name_en": "Hemoglobin.gastrointestinal [Presence] in Stool --2nd specimen",
+    "name_he": null
+  },
+  {
+    "code": "2164-2",
+    "name_en": "Creatinine renal clearance in 24 hour Urine",
+    "name_he": null
+  },
+  {
+    "code": "43371-4",
+    "name_en": "Salmonella sp/Shigella sp identified in Stool by Organism specific culture",
+    "name_he": null
+  },
+  {
+    "code": "6331-3",
+    "name_en": "Campylobacter sp identified in Stool by Organism specific culture",
+    "name_he": null
+  },
+  {
+    "code": "21262-1",
+    "name_en": "Escherichia coli shiga-like [Presence] in Stool by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "29374-6",
+    "name_en": "Ribonucleoprotein extractable nuclear Ab [Units/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "9335-1",
+    "name_en": "Appearance of Body fluid",
+    "name_he": null
+  },
+  {
+    "code": "19157-7",
+    "name_en": "Tube number of Cerebral spinal fluid",
+    "name_he": null
+  },
+  {
+    "code": "29463-7",
+    "name_en": "Body weight",
+    "name_he": null
+  },
+  {
+    "code": "36916-5",
+    "name_en": "Immunoglobulin light chains.kappa.free [Mass/volume] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "15189-4",
+    "name_en": "Immunoglobulin light chains.kappa/Immunoglobulin light chains.lambda [Mass ratio] in Serum",
+    "name_he": null
+  },
+  {
+    "code": "4542-7",
+    "name_en": "Haptoglobin [Mass/volume] in Serum or Plasma",
+    "name_he": null
+  },
+  {
+    "code": "5640-8",
+    "name_en": "Ethanol [Mass/volume] in Blood",
+    "name_he": null
+  },
+  {
+    "code": "19993-5",
+    "name_en": "Oxygen/Inspired gas Inhaled gas by Gas dilution.rebreath",
+    "name_he": null
+  },
+  {
+    "code": "6420-4",
+    "name_en": "Helicobacter pylori IgA Ab [Units/volume] in Serum by Immunoassay",
+    "name_he": null
+  },
+  {
+    "code": "14565-6",
+    "name_en": "Hemoglobin.gastrointestinal [Presence] in Stool --3rd specimen",
+    "name_he": null
+  }
 ]

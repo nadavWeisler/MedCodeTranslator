@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
-import type { ScoredEntry } from '@medcode/core';
+import type { CrossSchemeScoredEntry, SchemeKey } from '@medcode/core';
+import { SCHEMES } from './SchemeTabs';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
 import { isRTL } from '../services/rtl';
 import { spacing } from '../constants/spacing';
@@ -18,13 +19,16 @@ const MATCH_METHOD_KEYS: Record<string, string> = {
 };
 
 type Props = {
-  entry: ScoredEntry;
+  entry: CrossSchemeScoredEntry;
   lang: string;
   schemeColor: string;
   t: (key: string, options?: Record<string, unknown>) => string;
   isSelected?: boolean;
-  onPress?: (entry: ScoredEntry) => void;
+  onPress?: (entry: CrossSchemeScoredEntry) => void;
   metadataRows?: MetadataRow[];
+  onCopyLink?: () => void;
+  onCopyCode?: () => void;
+  shareNotice?: string | null;
 };
 
 export default function CodeCard({
@@ -35,6 +39,9 @@ export default function CodeCard({
   isSelected = false,
   onPress,
   metadataRows = [],
+  onCopyLink,
+  onCopyCode,
+  shareNotice = null,
 }: Props) {
   const rtl = isRTL(lang);
   const textAlign = rtl ? 'right' : 'left';
@@ -44,6 +51,10 @@ export default function CodeCard({
   const secondaryName = showHebrewPrimary ? entry.name_en : null;
   const showEnglishOnlyChip = lang !== 'en' && !entry.name_he;
   const showMetadata = isSelected && metadataRows.length > 0;
+  const showShareActions = isSelected && (onCopyLink || onCopyCode);
+  const schemeLabel = entry.scheme
+    ? SCHEMES.find(item => item.key === entry.scheme)?.shortLabel ?? entry.scheme.toUpperCase()
+    : null;
   const matchKey = MATCH_METHOD_KEYS[entry.matchMethod] ?? 'match_substring';
   const matchLabel = t(matchKey);
   const scorePercent = Math.round(entry.score * 100);
@@ -70,6 +81,9 @@ export default function CodeCard({
           <Text style={[styles.codeText, { color: schemeColor, fontFamily: MONO }]}>
             {entry.code}
           </Text>
+          {schemeLabel ? (
+            <Text style={[styles.schemeBadgeText, { color: schemeColor }]}>{schemeLabel}</Text>
+          ) : null}
         </View>
         <View style={styles.nameCol}>
           <HighlightedText
@@ -111,6 +125,31 @@ export default function CodeCard({
           ))}
         </View>
       )}
+      {showShareActions && (
+        <View style={styles.shareRow}>
+          {onCopyLink ? (
+            <TouchableOpacity
+              style={[styles.shareBtn, { borderColor: `${schemeColor}35` }]}
+              onPress={onCopyLink}
+              accessibilityRole="button"
+              accessibilityLabel={t('share_copy_link_a11y')}
+            >
+              <Text style={[styles.shareBtnText, { color: schemeColor }]}>{t('share_copy_link')}</Text>
+            </TouchableOpacity>
+          ) : null}
+          {onCopyCode ? (
+            <TouchableOpacity
+              style={[styles.shareBtn, { borderColor: `${schemeColor}35` }]}
+              onPress={onCopyCode}
+              accessibilityRole="button"
+              accessibilityLabel={t('share_copy_code_a11y')}
+            >
+              <Text style={[styles.shareBtnText, { color: schemeColor }]}>{t('share_copy_code')}</Text>
+            </TouchableOpacity>
+          ) : null}
+          {shareNotice ? <Text style={styles.shareNotice}>{shareNotice}</Text> : null}
+        </View>
+      )}
     </TouchableOpacity>
   );
 }
@@ -143,6 +182,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: '700',
     letterSpacing: 0.4,
+  },
+  schemeBadgeText: {
+    marginTop: 2,
+    fontSize: 9,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+    textTransform: 'uppercase',
   },
   nameCol: {
     flex: 1,
@@ -222,5 +268,31 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: colors.textSecondary,
     lineHeight: 18,
+  },
+  shareRow: {
+    marginTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: colors.borderLight,
+    paddingTop: 10,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: 8,
+  },
+  shareBtn: {
+    borderRadius: radii.md,
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    backgroundColor: colors.surfaceRaised,
+  },
+  shareBtnText: {
+    fontSize: 12,
+    fontWeight: '600',
+  },
+  shareNotice: {
+    fontSize: 12,
+    color: colors.textMuted,
+    fontWeight: '600',
   },
 });

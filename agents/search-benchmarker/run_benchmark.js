@@ -234,13 +234,14 @@ function codeMatchesExpected(schemeName, code, expectedCode) {
   return false;
 }
 
-function runScheme(schemeName) {
+function runScheme(schemeName, options = {}) {
+  const benchmarkFile = options.benchmarkFile || `${schemeName}.json`;
   const dataPath = path.join(ASSETS_DIR, `${schemeName}.json`);
   if (!fs.existsSync(dataPath)) {
     return { scheme: schemeName, skipped: true, reason: `Dataset not found: ${dataPath}` };
   }
 
-  const benchmarkPath = path.join(BENCHMARK_DIR, `${schemeName}.json`);
+  const benchmarkPath = path.join(BENCHMARK_DIR, benchmarkFile);
   if (!fs.existsSync(benchmarkPath)) {
     return { scheme: schemeName, skipped: true, reason: `Benchmarks not found: ${benchmarkPath}` };
   }
@@ -304,7 +305,7 @@ function runScheme(schemeName) {
 
   const n = benchmarks.length;
   return {
-    scheme: schemeName,
+    scheme: options.reportScheme || schemeName,
     skipped: false,
     fixture_count: n,
     layered: {
@@ -322,6 +323,13 @@ function runScheme(schemeName) {
 // ── Main ──────────────────────────────────────────────────────────────────────
 
 const SCHEMES = ['atc5', 'icd10', 'icd9', 'icd11', 'loinc', 'cpt', 'hcpcs', 'cvx'];
+const EXTRA_BENCHMARKS = [
+  {
+    scheme: 'icd10',
+    reportScheme: 'icd10_he',
+    benchmarkFile: 'icd10_hebrew.json',
+  },
+];
 const P1_THRESHOLD = parseFloat(process.env.BENCHMARK_P1_THRESHOLD || '0.70');
 const P5_THRESHOLD = parseFloat(process.env.BENCHMARK_P5_THRESHOLD || '0.85');
 
@@ -365,6 +373,34 @@ for (const scheme of SCHEMES) {
       `       ⚠ Layered P@5 ${(layered.precision_at_5 * 100).toFixed(0)}% is below threshold ${(P5_THRESHOLD * 100).toFixed(0)}%`
     );
   }
+
+  if (!p1Pass || !p5Pass) anyFailure = true;
+}
+
+for (const extra of EXTRA_BENCHMARKS) {
+  const result = runScheme(extra.scheme, {
+    benchmarkFile: extra.benchmarkFile,
+    reportScheme: extra.reportScheme,
+  });
+  results.push(result);
+
+  if (result.skipped) {
+    console.log(`  [SKIP] ${extra.reportScheme.toUpperCase()}: ${result.reason}`);
+    continue;
+  }
+
+  const { layered, sqlite, fixture_count } = result;
+  const p1Pass = layered.precision_at_1 >= P1_THRESHOLD;
+  const p5Pass = layered.precision_at_5 >= P5_THRESHOLD;
+  const icon = p1Pass && p5Pass ? '✓' : '✗';
+
+  console.log(`  [${icon}] ${extra.reportScheme.toUpperCase()} (${fixture_count} fixtures)`);
+  console.log(
+    `       Layered: P@1 = ${(layered.precision_at_1 * 100).toFixed(0)}%  P@5 = ${(layered.precision_at_5 * 100).toFixed(0)}%`
+  );
+  console.log(
+    `       SQLite:  P@1 = ${(sqlite.precision_at_1 * 100).toFixed(0)}%  P@5 = ${(sqlite.precision_at_5 * 100).toFixed(0)}%`
+  );
 
   if (!p1Pass || !p5Pass) anyFailure = true;
 }

@@ -1,72 +1,53 @@
-# Scientific paper manuscripts — MedCode Clinical
+# Scientific manuscript — MedCode Clinical
 
-Three peer-review-ready manuscript drafts derived from the MedCodeTranslator project. Each uses formal IMRaD structure, structured abstracts, numbered tables, and reference lists appropriate for biomedical informatics journals.
+## Primary submission
 
-## Manuscripts
+**[`04-unified-manuscript.md`](./04-unified-manuscript.md)** — single integrated paper combining platform design, corpus description, and benchmark evaluation.
 
-| # | Title (short) | Type | Primary venue options |
-|---|---------------|------|---------------------|
-| 1 | Offline multi-vocabulary retrieval **platform** | Systems / original research | *JAMIA Open*, *J Biomed Inform*, *BMC Med Inform Decis Mak* |
-| 2 | Multi-standard terminology **corpus** | Data descriptor | *Scientific Data*, *Database*, *GigaScience* |
-| 3 | Layered vs lexical retrieval **evaluation** | Methods / evaluation | *JAMIA Open*, *Int J Med Inform*, AMIA Symposium |
+| Field | Value |
+|-------|-------|
+| **Title** | MedCode Clinical: An Offline, Explainable Multi-Vocabulary Terminology Retrieval Platform and Benchmark Evaluation |
+| **Type** | Original research (systems + evaluation) |
+| **Target** | *JAMIA Open* (primary) |
+| **Alternates** | *BMC Medical Informatics and Decision Making*, *Journal of Biomedical Informatics*, AMIA Symposium |
 
-## Files
+## Archive
 
-- [`01-software-platform.md`](./01-software-platform.md) — Platform design, architecture, safe scope, benchmark summary
-- [`02-data-resource.md`](./02-data-resource.md) — Corpus curation, licensing, provenance, reproduction
-- [`03-evaluation-methods.md`](./03-evaluation-methods.md) — Controlled benchmark study (layered vs SQLite)
+Earlier split drafts (superseded by the unified manuscript) live in [`archive/`](./archive/):
 
-## Before submission checklist
+- `01-software-platform.md` — platform-only angle
+- `02-data-resource.md` — data descriptor angle
+- `03-evaluation-methods.md` — evaluation-only angle
 
-### All papers
-- [ ] Complete author list, affiliations, ORCID
-- [ ] Institutional legal review for safe-scope / non-SaMD claims
-- [ ] Confirm vocabulary licenses permit any journal-required supplementary data deposit
-- [ ] Assign Zenodo DOI for dataset snapshot cited in Paper 2
+Reuse these for supplementary sections or a future *Scientific Data* descriptor if the corpus is published separately with a Zenodo DOI.
 
-### Paper 1 (platform)
-- [ ] High-resolution architecture figure
-- [ ] Screenshots (mobile EN, Hebrew RTL, web cross-scheme)
-- [ ] Latency profiling (P95 ms) on reference Android device
-
-### Paper 2 (data)
-- [ ] Table 1 with exact record counts from release tag
-- [ ] Zenodo upload of `data/vocabularies/` snapshot (respecting upstream terms)
-- [ ] LOINC / WHO / CMS attribution statements per publisher template
-
-### Paper 3 (evaluation)
-- [ ] Clinician reviewer credentials for gold-standard fixtures
-- [ ] Integrate `icd10_hebrew.json` into automated benchmark runner
-- [ ] Optional: bootstrap 95% CIs if fixture set expanded to n ≥ 100
-
-## Submission strategy
-
-1. **Paper 2** (*Scientific Data*) — establishes citable dataset; submit first if you need a DOI for the other papers to reference.
-2. **Paper 3** (evaluation) — strongest empirical contribution; pair with AMIA abstract deadline.
-3. **Paper 1** (platform) — comprehensive overview; can merge with Paper 3 if a journal requests single submission.
-
-Papers 1 and 3 overlap in benchmark tables but serve different angles (implementation vs evaluation); journals may ask to cross-reference or merge—adjust before dual submission.
-
-## Converting to journal format
-
-These Markdown drafts are source manuscripts. For submission:
-
-- **JAMIA / Oxford journals:** export to Word via Pandoc with journal stylesheet
-- **Scientific Data:** use Nature LaTeX template (`wlscirep` or `nature` class)
-- **AMIA:** follow proceedings page limit (typically 10 pages including figures)
+## Reproduce benchmark numbers in the paper
 
 ```bash
-# Example Pandoc export (install pandoc locally)
-pandoc docs/papers/01-software-platform.md -o medcode-platform.docx
+npm ci
+npm run import:icd10-he    # Hebrew labels required for icd10_he row
+npm run benchmark          # 82 fixtures: 74 English + 8 Hebrew
 ```
 
-## Empirical results source
+Results: `build/search-quality/benchmark-report.json`
 
-Benchmark numbers cited in all three papers come from:
+## Submission checklist
+
+- [ ] Author list, affiliations, ORCID
+- [ ] Figures 1–5 (architecture, pipeline, P@1 chart, cross-scheme screenshot, Hebrew UI)
+- [ ] Clinician reviewer credentials for benchmark gold standards
+- [ ] Institutional legal review (safe-scope / non-SaMD claims)
+- [ ] Confirm upstream licenses allow supplementary data deposit
+- [ ] Export to journal template:
 
 ```bash
-npm run benchmark
-# → build/search-quality/benchmark-report.json
+pandoc docs/papers/04-unified-manuscript.md -o medcode-clinical-manuscript.docx
 ```
 
-Last run incorporated in drafts: **2026-07-06** (layered P@1 mean 0.95 vs SQLite 0.71).
+## Future spin-offs (optional, after unified paper)
+
+| When | Possible follow-up |
+|------|-------------------|
+| Zenodo `dataset-YYYY.MM` tag | *Scientific Data* descriptor (use `archive/02-data-resource.md`) |
+| Coder validation study (n≥50) | Short communication on coding accuracy |
+| P95 latency + FTS5 study | Performance-focused workshop paper |

@@ -1,116 +1,97 @@
-# A License-Aware, Multi-Vocabulary Biomedical Terminology Bundle for Offline Clinical Coding Reference
+# A License-Aware, Multi-Standard Biomedical Terminology Corpus for Offline Mobile Retrieval: Resource Description and Curation Protocol
 
-**Working title**  
-**Authors:** [TBD]  
-**Target venue:** *Scientific Data* (Nature) — Data Descriptor, or *Database* (Oxford)  
-**Draft date:** 2026-07-06
+**Manuscript type:** Data Descriptor  
+**Target journals:** *Scientific Data* (Nature Portfolio); *Database: The Journal of Biological Databases and Curation*; *GigaScience*  
+**Draft version:** 1.0 (2026-07-06)  
+**Authors:** [Author 1], [Author 2], …  
+**Affiliations:** [Department, Institution, City, Country]  
+**Corresponding author:** [email]
 
 ---
 
 ## Abstract
 
-Open biomedical applications require terminology datasets that are **redistributable**, **attributed**, and **operationally refreshable**. We describe a curated multi-vocabulary bundle supporting twelve coding schemes—ATC hierarchy (levels 1–5), ICD-10-CM, ICD-9-CM, ICD-11 (demo), LOINC (partial common panel), CPT (demo), HCPCS Level II, and CVX—packaged for offline use in the MedCodeTranslator reference application. Each dataset is accompanied by structured provenance in `source-metadata.json`, including provider, URL, license text, record counts, coverage class (`full`, `partial`, or `demo`), and refresh timestamps. Public schemes are updated through an automated weekly pipeline; restricted schemes (SNOMED CT, full CPT, full LOINC) are explicitly excluded pending license review. We document refresh mechanics, crosswalk validation (ICD-9↔ICD-10 GEM), Hebrew label staging for high-frequency ICD-10 codes, and quality gates that block merges on validation failure. The bundle enables reproducible research snapshots via versioned release tags and supports citation of immutable dataset states. This descriptor is intended for informaticians building offline coding tools, teaching materials, and benchmark corpora—not for clinical decision support.
-
-**Keywords:** biomedical terminology; data curation; ICD-10; LOINC; ATC; licensing; reproducibility
+Open biomedical applications require terminologies that are **redistributable**, **versioned**, and **honest about coverage limits**. We present a curated corpus supporting twelve coding schemes used in diagnosis, laboratory reporting, procedures, supplies, and immunization documentation. The resource bundles 105,000+ terminology entries derived from U.S. government releases (ICD-10-CM, ICD-9-CM, HCPCS, CVX), WHO ATC hierarchy snapshots, and intentionally limited subsets of LOINC, ICD-11, and CPT-like procedures where full redistribution is license-restricted. Each dataset includes structured provenance metadata: authority, retrieval URL, license text, record count, coverage class (`full`, `partial`, `demo`), and UTC refresh timestamp. We describe automated weekly refresh for public sources, crosswalk validation for ICD-9→ICD-10 GEM mappings, Stage-A Hebrew label overlay for high-frequency ICD-10-CM codes, and quality gates blocking publication on validation failure. The corpus powers the MedCode Clinical open-source retrieval application and is reproducible via documented scripts. Restricted terminologies (SNOMED CT, official AMA CPT, full LOINC) are explicitly excluded pending license review. This descriptor enables researchers to cite immutable dataset snapshots and teaches license-first curation for mobile offline health informatics resources.
 
 ---
 
-## 1. Background
+## Background & Summary
 
-### 1.1 Problem
+### Scientific need
 
-Terminology consumers face three coupled challenges:
+Secondary use of electronic health data, informatics pedagogy, and low-resource clinical settings all benefit from portable terminology bundles. However, assembling multi-authority vocabularies is error-prone: licenses conflict, record counts drift, and demo subsets are easily mistaken for complete standards. Few published datasets document **operational refresh** together with **coverage transparency** for consumer-mobile redistribution.
 
-1. **License heterogeneity** — U.S. government ICD/HCPCS/CVX releases differ from WHO, Regenstrief LOINC, and proprietary CPT terms.
-2. **Operational drift** — Annual ICD-10-CM updates and ATC alterations invalidate silent bundles.
-3. **Transparency** — Applications often ship opaque subsets without coverage labels, misleading users about completeness.
+### Resource overview
 
-### 1.2 Design principles
+The MedCode Translator vocabulary corpus (`data/vocabularies/`) integrates:
 
-| Principle | Implementation |
-|-----------|----------------|
-| License-first | `DATA_SOURCES.md` matrix; no SNOMED/full CPT without review |
-| Coverage honesty | `coverage` field + UI badges |
-| Provenance by default | `source-metadata.json` per dataset |
-| Refresh automation | GitHub Actions weekly refresh + sentinel |
-| Preserve community labels | `merge_name_he` on refresh for Hebrew overlays |
+| Dataset | Authority | Records | Coverage | Refresh mode |
+|---------|-----------|---------|----------|--------------|
+| ATC levels 1–5 | WHOCC / ChEMBL-derived | 14 – 5,579 | full | automated weekly |
+| ICD-10-CM | CMS | 74,260 | full | automated weekly |
+| ICD-9-CM | NBER/CMS | 14,567 | full | automated weekly |
+| HCPCS Level II | CMS | 8,724 | full | automated weekly |
+| CVX | CDC | 289 | full | automated weekly |
+| LOINC common panel | Regenstrief (subset) | 600 | partial | scripted import |
+| ICD-11 | WHO | 64 | demo | manual |
+| CPT-like procedures | curated sample | 64 | demo | manual |
+| ICD-9→ICD-10 GEM | CMS/NBER | 8,000+ pairs | full | automated weekly |
+
+*Exact counts: see `source-metadata.json` at release tag.*
+
+### Key design decisions
+
+1. **No restricted content by default** — SNOMED CT, RxNorm full dumps, and official CPT are not bundled.
+2. **Coverage labels** — UI and metadata distinguish `full` vs `partial` vs `demo`.
+3. **Label preservation on refresh** — Hebrew overlays survive ICD-10-CM re-ingest via merge logic.
+4. **Crosswalk integrity** — GEM pairs validated against parent code sets.
 
 ---
 
-## 2. Dataset inventory
+## Methods
 
-### 2.1 Summary table
+### Acquisition workflow
 
-| Dataset | Records (approx.) | Coverage | Authority | Refresh |
-|---------|-------------------|----------|-----------|---------|
-| ATC-1 … ATC-5 | 14 – 5,579 | full | WHOCC / ChEMBL-derived | weekly |
-| ICD-10-CM | 74,260 | full | CMS | weekly |
-| ICD-9-CM | 14,567 | full | NBER/CMS | weekly |
-| ICD-11 | 64 | demo | WHO | manual |
-| LOINC | 600 | partial | Regenstrief (Top 2000+ subset) | scripted import |
-| CPT-like | 64 | demo | curated sample | manual |
-| HCPCS | 8,724 | full | CMS | weekly |
-| CVX | 289 | full | CDC | weekly |
-| ICD-9→ICD-10 GEM | pairs | full | CMS/NBER | weekly |
-
-*Populate exact counts from latest `source-metadata.json` before submission.*
-
-### 2.2 File layout
+**Figure 1** (planned): Data pipeline from upstream authorities to bundled JSON and SQLite artifacts.
 
 ```
-data/vocabularies/
-  atc1.json … atc5.json
-  icd10.json, icd9.json, icd11.json
-  loinc.json, cpt.json, hcpcs.json, cvx.json
-  icd9_to_icd10_gem.json
-  source-metadata.json
-data/aliases/common.json
-data/benchmarks/*.json
+Upstream (CMS, CDC, NBER, WHOCC)
+        │
+        ▼
+scripts/refresh_medical_db.py
+  · download · parse · validate · merge_name_he
+        │
+        ├── data/vocabularies/*.json  (app bundle)
+        └── build/medical-db/*        (CI artifacts + reports)
 ```
 
-Each vocabulary entry follows `{ code, name_en, name_he? }`.
+**Automated refresh** (`.github/workflows/refresh-medical-db.yml`): scheduled weekly; opens PR with diff summary on success.
 
----
+**Sentinel monitoring** (`upstream-sentinel.yml`): hashes upstream URLs; alerts maintainers on change.
 
-## 3. Methods
+### ICD-10-CM ingestion
 
-### 3.1 Acquisition pipelines
+CMS FY2026 tabular order ZIP parsed to `{ code, name_en }` entries. Label deduplication removes padded duplicate phrases in long descriptions. Optional `--icd10-year` targets specific fiscal releases.
 
-**Automated public refresh** (`scripts/refresh_medical_db.py`):
+### LOINC partial panel
 
-- Downloads CMS ICD-10-CM ZIP (FY year configurable)
-- Parses tabular order files; deduplicates padded labels
-- Fetches NBER ICD-9, HCPCS, CVX, ATC alterations
-- Validates hierarchy, crosswalk referential integrity
-- Writes SQLite artifact mirror under `build/medical-db/`
+`scripts/import_loinc_common_panel.py` ingests top-ranked observation codes from OHDSI-mirrored Regenstrief Top 2000+ US CSV (`loinc_top2000_common_us.csv`), default limit 600. Existing Hebrew labels preserved on re-import.
 
-**Curated imports:**
+### Hebrew ICD-10 Stage A
 
-- LOINC: `scripts/import_loinc_common_panel.py` from OHDSI-mirrored Top 2000+ CSV (600 observation codes)
-- Hebrew ICD-10 Stage A: `scripts/import_icd10_hebrew_labels.py` from `icd10_hebrew_stage_a.csv` (prefix propagation to leaf codes)
+Israeli Ministry of Health official Hebrew ICD-10-CM requires separate license review. Stage A supplies 80 curated category-level Hebrew strings (`icd10_hebrew_stage_a.csv`) propagated to all leaf codes sharing ICD prefix (~2,476 codes). Metadata flags `hebrew_labels_stage: A` and explicit non-MOH disclaimer.
 
-### 3.2 Crosswalk validation
+### Crosswalk: ICD-9→ICD-10 GEM
 
-ICD-9→ICD-10 GEM entries carry cardinality flags (`one-to-one`, `one-to-many`, `many-to-one`). Validator ensures both code sets exist in bundled vocabularies and flags orphan mappings for triage (`docs/DATASET_OPERATIONS.md`).
+General Equivalence Mappings stored with cardinality:
 
-### 3.3 Hebrew label strategy
+- `is_one_to_one`
+- `is_one_to_many`
+- `is_many_to_one`
 
-Full official Hebrew ICD-10-CM from the Israeli Ministry of Health requires separate license review. Stage A applies curated category-level Hebrew strings to all matching ICD-10-CM leaf codes by prefix, enabling Hebrew search for high-frequency conditions while documenting non-authoritative status in metadata.
+Validator rejects orphan mappings where either code absent from vocabulary snapshot.
 
-### 3.4 Quality assurance
-
-| Gate | Trigger |
-|------|---------|
-| `validate:data` | Minimum record counts, schema checks |
-| Crosswalk validator | Referential integrity |
-| `npm run benchmark` | Search regression vs baselines |
-| Upstream sentinel | Upstream URL/hash change alerts |
-
----
-
-## 4. Data records
-
-### 4.1 Example ICD-10-CM record
+### Record schema
 
 ```json
 {
@@ -120,116 +101,147 @@ Full official Hebrew ICD-10-CM from the Israeli Ministry of Health requires sepa
 }
 ```
 
-### 4.2 Example source-metadata entry
+### Metadata schema (`source-metadata.json`)
+
+Per-dataset fields: `provider`, `url`, `dataset_version`, `source_revision`, `last_updated_utc`, `record_count`, `license_text`, `attribution_text`, optional `coverage`, optional Hebrew overlay fields.
+
+### Quality assurance gates
+
+| Gate | Command / workflow | Failure action |
+|------|-------------------|----------------|
+| Structural validation | `npm run validate:data` | block merge |
+| Crosswalk integrity | embedded in refresh script | log to `validation-errors.json` |
+| Search regression | `npm run benchmark` | CI fail |
+| PHI pattern scan | `phi-guard.yml` | block merge |
+
+### Versioning and citation
+
+Recommended citation tag: `dataset-YYYY.MM` on successful refresh merge (planned). `generated_at_utc` in metadata provides interim freshness indicator.
+
+---
+
+## Data Records
+
+### Example records
+
+**ICD-10-CM**
+
+```json
+{ "code": "I10", "name_en": "Essential (primary) hypertension", "name_he": "יתר לחץ דם (ראשוני)" }
+```
+
+**LOINC**
+
+```json
+{ "code": "2345-7", "name_en": "Glucose [Mass/volume] in Serum or Plasma", "name_he": "גלוקוז בדם" }
+```
+
+**GEM crosswalk**
 
 ```json
 {
-  "dataset": "loinc",
-  "provider": "Regenstrief Institute",
-  "record_count": 600,
-  "coverage": "partial",
-  "license_text": "LOINC license/terms apply",
-  "dataset_version": "LOINC Top 2000+ common panel (600 codes)"
+  "icd9_code": "250.00",
+  "icd10_code": "E11.9",
+  "cardinality": "one-to-one",
+  "is_one_to_one": true,
+  "is_one_to_many": false,
+  "is_many_to_one": false
 }
 ```
 
-### 4.3 Versioning
+### File inventory
 
-Git tag format `dataset-YYYY.MM` (planned) marks immutable snapshots post-successful refresh merge. Application About screen displays `generated_at_utc` from metadata.
-
----
-
-## 5. Technical validation
-
-1. **Structural:** JSON schema consistency; SQLite seed round-trip
-2. **Referential:** Crosswalk codes resolve in parent vocabularies
-3. **Search:** Benchmark precision thresholds per scheme
-4. **Manual:** Maintainer triage runbook for failed weekly refresh
-
-Report validation error logs from `build/medical-db/validation-errors.json` in supplementary material.
+| Path | Description |
+|------|-------------|
+| `data/vocabularies/icd10.json` | Full ICD-10-CM snapshot |
+| `data/vocabularies/loinc.json` | 600-code common panel |
+| `data/vocabularies/icd9_to_icd10_gem.json` | Crosswalk |
+| `data/vocabularies/source-metadata.json` | Provenance manifest |
+| `data/aliases/common.json` | Abbreviation aliases for search |
+| `data/benchmarks/*.json` | Evaluation query fixtures |
 
 ---
 
-## 6. Usage notes
+## Technical Validation
 
-### 6.1 Intended use
+### Structural validation
 
-- Offline terminology lookup in education and coding practice
-- Benchmark corpus for retrieval research
-- Seed data for institutional forks with their own license reviews
+Refresh script enforces minimum record thresholds (e.g., ICD-10-CM > 50,000 codes post-parse). Hierarchy validator checks ICD parent code roots where enabled.
 
-### 6.2 Prohibited use
+### Crosswalk validation
 
-- Representing demo subsets as complete WHO/AMA distributions
-- Clinical decision support without separate regulatory assessment
-- Redistribution of derived datasets outside source license terms
+All GEM `icd9_code` and `icd10_code` values must resolve in respective vocabularies. Cardinality flags must be internally consistent.
 
-### 6.3 Reproduction
+### Search-facing validation
+
+Benchmark suite (74 queries) ensures corpus supports clinically representative retrieval tasks. Layered search P@1 ≥ 0.70 per scheme on 2026-07-06 run (see companion evaluation manuscript).
+
+### Known limitations
+
+- LOINC 600-code panel ≠ complete Regenstrief distribution.
+- CPT demo ≠ AMA CPT; cannot support billing compliance claims.
+- ICD-11 demo (64 codes) illustrative only.
+- Hebrew labels curated, not authoritative government release.
+
+---
+
+## Usage Notes
+
+### Intended uses
+
+- Offline terminology reference in MedCode Clinical application
+- Benchmark corpora for retrieval research
+- Teaching data stewardship in biomedical informatics courses
+- Seed corpus for institutional forks after independent license review
+
+### Prohibited uses
+
+- Representing demo/partial sets as complete licensed standards
+- Clinical decision support without regulatory assessment
+- Redistribution violating upstream license terms (especially LOINC, WHO, AMA)
+
+### Reproduction steps
 
 ```bash
+git clone https://github.com/nadavWeisler/MedCodeTranslator.git
+cd MedCodeTranslator
 npm ci
-npm run refresh:data      # full refresh (requires network)
-npm run validate:data     # validation only
+npm run refresh:data          # network required
 npm run import:loinc
 npm run import:icd10-he
+npm run validate:data
 npm run benchmark
 ```
 
 ---
 
-## 7. Limitations
+## Code Availability
 
-- LOINC 600-code panel is not clinically exhaustive.
-- CPT demo is not AMA CPT; cannot substitute for licensed procedure coding.
-- ICD-11 demo (64 codes) is illustrative only.
-- Hebrew labels are curated, not MOH-official.
-- RxNorm, NDC, SNOMED CT deferred pending licensing spikes.
+| Component | Location |
+|-----------|----------|
+| Refresh orchestrator | `scripts/refresh_medical_db.py` |
+| Public fetch utilities | `scripts/fetch_public_vocabularies.py` |
+| LOINC import | `scripts/import_loinc_common_panel.py` |
+| Hebrew overlay | `scripts/import_icd10_hebrew_labels.py` |
+| CI workflows | `.github/workflows/refresh-medical-db.yml` |
 
----
-
-## 8. Data availability
-
-| Resource | Access |
-|----------|--------|
-| GitHub repository | Public, MIT license (code); data governed per source |
-| Live metadata | `data/vocabularies/source-metadata.json` |
-| Refresh artifacts | `build/medical-db/` on CI runners |
-| Documentation | `DATA_SOURCES.md`, `docs/DATASET_OPERATIONS.md` |
-
-No persistent public download DOI yet—assign Zenodo DOI on tagged dataset release before journal submission.
+MIT license applies to code; data governed by upstream terms summarized in `DATA_SOURCES.md`.
 
 ---
 
-## 9. Code availability
+## Data Availability
 
-Refresh and import scripts: `scripts/` directory. CI workflows: `.github/workflows/refresh-medical-db.yml`, `upstream-sentinel.yml`.
-
----
-
-## 10. Conclusion
-
-This bundle shows how multi-authority terminology can be packaged responsibly for offline open-source tools: explicit coverage labels, automated refresh for public sources, and hard exclusions for license-restricted vocabularies. The descriptor supports reproducible informatics research and teaches data stewardship patterns applicable beyond this single application.
+| Access | URL / identifier |
+|--------|------------------|
+| Git repository | https://github.com/nadavWeisler/MedCodeTranslator |
+| Metadata manifest | `data/vocabularies/source-metadata.json` |
+| Zenodo DOI | [TBD — assign on `dataset-2026.07` tag] |
 
 ---
 
-## References (starter set)
+## Author contributions
 
-1. CMS. ICD-10-CM Official Guidelines and Files.
-2. Regenstrief Institute. LOINC Users' Guide and License.
-3. WHO. ICD-11 Reference Guide and Licensing FAQ.
-4. AMA. CPT Intellectual Property Policy.
-5. CDC. CVX Code Set.
-6. Choi S, et al. *Scientific Data* data descriptor guidelines. Nature Portfolio.
-
----
-
-## Author contributions template
-
-- **Conceptualization:** …
-- **Data curation:** …
-- **Software:** …
-- **Writing – original draft:** …
-- **Writing – review & editing:** …
+[TBD — CRediT: conceptualization, data curation, software, validation, writing]
 
 ## Competing interests
 
@@ -237,4 +249,25 @@ None declared.
 
 ## Ethics
 
-Not applicable (no human subjects data).
+Not applicable; no human subjects data.
+
+---
+
+## References
+
+1. Regenstrief Institute. LOINC License and Terms of Use. 2024.  
+2. Centers for Medicare & Medicaid Services. ICD-10-CM Files. 2025.  
+3. World Health Organization. ICD-11 Reference Guide. 2024.  
+4. American Medical Association. CPT Intellectual Property Policy. 2024.  
+5. CDC National Center for Immunization and Respiratory Diseases. CVX Code Set. 2024.  
+6. Choi S, et al. Data Descriptor guidelines. *Sci Data.* 2023.  
+7. Wilkinson MD, et al. The FAIR Guiding Principles for scientific data management and stewardship. *Sci Data.* 2016;3:160018.  
+
+---
+
+## Figure legends
+
+**Figure 1.** Vocabulary curation pipeline with validation gates.  
+**Figure 2.** Coverage class distribution across twelve schemes (pie chart).  
+**Table 1.** Full provenance matrix (dataset × authority × license × count).  
+**Table 2.** Crosswalk cardinality summary statistics.  

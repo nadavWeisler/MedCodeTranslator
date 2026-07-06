@@ -22,7 +22,7 @@ describe('buildShareUrl', () => {
     expect(url).toContain('lang=en');
     expect(url).toContain('q=diabetes');
     expect(url).toContain('code=E11');
-    expect(url).toContain('/MedCodeTranslator');
+    expect(url).toContain('/MedCodeTranslator/app');
   });
 
   it('omits empty query and code parameters', () => {

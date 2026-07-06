@@ -5,9 +5,9 @@ import { getAssetUrl, getSiteUrl } from '../config/webDeployment';
 
 const SITE_URL = getSiteUrl();
 const IMAGE_URL = `${SITE_URL}social-preview.png`;
-const SITE_TITLE = 'MedCode Clinical — Clinical Coding Reference';
+const SITE_TITLE = 'MedCode Clinical — Offline Clinical Terminology Reference';
 const SITE_DESCRIPTION =
-  'Authoritative offline lookup across ICD, ATC, LOINC, CPT, and related clinical coding systems.';
+  'Open-source, offline-capable lookup across ICD-10, ATC, LOINC, HCPCS, and related coding systems with explainable search and published benchmarks.';
 
 export default function Root({ children }: PropsWithChildren) {
   return (
@@ -33,12 +33,22 @@ export default function Root({ children }: PropsWithChildren) {
 
         <link rel="icon" href={getAssetUrl('favicon.ico')} />
         <link rel="apple-touch-icon" href={getAssetUrl('apple-touch-icon.png')} />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+          rel="stylesheet"
+        />
         <ScrollViewStyleReset />
         <style
           dangerouslySetInnerHTML={{
             __html: `
-              html, body { height: 100%; margin: 0; }
-              body { overflow: hidden; }
+              html, body, #root { height: 100%; margin: 0; }
+              body {
+                overflow: auto;
+                background: #EEF2F6;
+                font-family: "IBM Plex Sans", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+              }
             `,
           }}
         />

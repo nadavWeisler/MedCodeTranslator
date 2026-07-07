@@ -1,4 +1,5 @@
 import { buildShareUrl, formatCodeDescription } from '../app/services/share';
+import { getBaseUrl } from '../config/webDeployment';
 
 describe('buildShareUrl', () => {
   const originalWindow = globalThis.window;
@@ -22,7 +23,7 @@ describe('buildShareUrl', () => {
     expect(url).toContain('lang=en');
     expect(url).toContain('q=diabetes');
     expect(url).toContain('code=E11');
-    expect(url).toContain('/MedCodeTranslator');
+    expect(url).toContain(`${getBaseUrl()}/app`);
   });
 
   it('omits empty query and code parameters', () => {
@@ -33,6 +34,7 @@ describe('buildShareUrl', () => {
 
     expect(url).toContain('scheme=atc5');
     expect(url).toContain('lang=he');
+    expect(url).toContain(`${getBaseUrl()}/app`);
     expect(url).not.toContain('q=');
     expect(url).not.toContain('code=');
   });

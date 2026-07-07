@@ -32,12 +32,13 @@ export function buildShareUrl(params: ShareParams): string {
 
   const queryString = searchParams.toString();
   const basePath = trimTrailingSlash(getBaseUrl());
+  const appPath = `${basePath}/app`;
   const origin =
     Platform.OS === 'web' && typeof window !== 'undefined'
       ? trimTrailingSlash(window.location.origin)
       : trimTrailingSlash(getSiteOrigin());
 
-  return `${origin}${basePath}/${queryString ? `?${queryString}` : ''}`;
+  return `${origin}${appPath}${queryString ? `?${queryString}` : ''}`;
 }
 
 /** Format a code and its primary label for clipboard copy. */

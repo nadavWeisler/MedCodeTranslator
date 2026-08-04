@@ -5,9 +5,9 @@ import { getAssetUrl, getSiteUrl } from '../config/webDeployment';
 
 const SITE_URL = getSiteUrl();
 const IMAGE_URL = `${SITE_URL}social-preview.png`;
-const SITE_TITLE = 'MedCode Clinical — Offline Clinical Terminology Reference';
+const SITE_TITLE = 'MedCode Clinical — Open-Source Clinical Terminology Lookup';
 const SITE_DESCRIPTION =
-  'Open-source, offline-capable lookup across ICD-10, ATC, LOINC, HCPCS, and related coding systems with explainable search and published benchmarks.';
+  'MIT-licensed, offline-capable lookup across ICD-10, ATC, LOINC, HCPCS, and related coding systems — with explainable search and reproducible benchmarks.';
 
 export default function Root({ children }: PropsWithChildren) {
   return (

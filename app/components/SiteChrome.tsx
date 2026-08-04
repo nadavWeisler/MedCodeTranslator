@@ -6,25 +6,31 @@ import BrandMark from './BrandMark';
 import { brand, colors, radii, shadows, typography } from '../constants/theme';
 import { DATASET_METADATA_GENERATED_AT, formatDateLabel } from '../services/sourceMetadata';
 
+const GITHUB_URL = 'https://github.com/nadavWeisler/MedCodeTranslator';
+
 type Props = {
   children: React.ReactNode;
   maxWidth?: number;
 };
 
-type NavKey = 'home' | 'app' | 'research' | 'about';
+type NavKey = 'home' | 'app' | 'about';
 
 const NAV: { key: NavKey; href: string; labelKey: string }[] = [
   { key: 'home', href: '/', labelKey: 'site_nav_home' },
   { key: 'app', href: '/app', labelKey: 'site_nav_app' },
-  { key: 'research', href: '/research', labelKey: 'site_nav_research' },
   { key: 'about', href: '/about', labelKey: 'site_nav_about' },
 ];
 
 function activeNav(pathname: string): NavKey {
   if (pathname.startsWith('/app')) return 'app';
-  if (pathname.startsWith('/research')) return 'research';
   if (pathname.startsWith('/about')) return 'about';
   return 'home';
+}
+
+function openGithub() {
+  if (Platform.OS === 'web' && typeof window !== 'undefined') {
+    window.open(GITHUB_URL, '_blank', 'noopener,noreferrer');
+  }
 }
 
 export default function SiteChrome({ children, maxWidth = 1080 }: Props) {
@@ -74,9 +80,11 @@ export default function SiteChrome({ children, maxWidth = 1080 }: Props) {
             <TouchableOpacity onPress={() => router.push('/app')}>
               <Text style={styles.footerLink}>{t('site_cta_launch')}</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => router.push('/research')}>
-              <Text style={styles.footerLink}>{t('site_nav_research')}</Text>
-            </TouchableOpacity>
+            {Platform.OS === 'web' ? (
+              <TouchableOpacity onPress={openGithub}>
+                <Text style={styles.footerLink}>{t('site_cta_github')}</Text>
+              </TouchableOpacity>
+            ) : null}
             <TouchableOpacity onPress={() => router.push('/about')}>
               <Text style={styles.footerLink}>{t('site_nav_about')}</Text>
             </TouchableOpacity>

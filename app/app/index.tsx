@@ -656,9 +656,6 @@ export default function HomeScreen() {
               <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/')}>
                 <Text style={styles.linkBtnText}>{t('site_nav_home')}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/research')}>
-                <Text style={styles.linkBtnText}>{t('site_nav_research')}</Text>
-              </TouchableOpacity>
               <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/about')}>
                 <Text style={styles.linkBtnText}>{t('footer_about')}</Text>
               </TouchableOpacity>

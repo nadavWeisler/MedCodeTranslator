@@ -495,7 +495,7 @@ Integrations and long-term maintainability.
 3. App displays bundled dataset tag in About screen.
 
 **Acceptance criteria:**
-- [ ] Researchers can cite `dataset-2026.08` with immutable vocabulary snapshot.
+- [ ] Dataset tag `dataset-YYYY.MM` is published with an immutable vocabulary snapshot.
 - [ ] App About shows current dataset version.
 
 ---

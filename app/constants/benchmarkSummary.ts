@@ -1,4 +1,4 @@
-/** Public benchmark summary for marketing / research pages (layered vs SQLite). */
+/** Public benchmark summary for marketing pages (layered vs SQLite). */
 export type BenchmarkRow = {
   scheme: string;
   label: string;

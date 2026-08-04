@@ -35,7 +35,7 @@ pip install medcodetranslator
 See [`packages/python-client/README.md`](../packages/python-client/README.md).
 
 ## Intended Scope
-MedCodeTranslator is an informational terminology lookup utility for research and administrative workflows.
+MedCodeTranslator is an informational terminology lookup utility for administrative and educational workflows.
 
 ## No PHI Rule
 Do **not** send patient-identifiable information or PHI in requests, query parameters, logs, or payloads.

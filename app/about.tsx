@@ -1,16 +1,22 @@
 import React from 'react';
+import { Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useRouter } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import Head from 'expo-router/head';
 import { DATASET_METADATA_GENERATED_AT, DATASET_SOURCES, formatDateLabel } from './services/sourceMetadata';
 import SiteChrome from './components/SiteChrome';
 import { colors, radii, shadows } from './constants/theme';
 
+const GITHUB_URL = 'https://github.com/nadavWeisler/MedCodeTranslator';
+
+function openGithub() {
+  if (Platform.OS === 'web' && typeof window !== 'undefined') {
+    window.open(GITHUB_URL, '_blank', 'noopener,noreferrer');
+  }
+}
+
 export default function AboutScreen() {
   const { t } = useTranslation();
-  const router = useRouter();
 
   return (
     <SafeAreaView style={styles.safeArea}>
@@ -25,9 +31,11 @@ export default function AboutScreen() {
           <Text style={styles.body}>{t('about_body')}</Text>
           <Text style={styles.warning}>{t('footer_phi_warning')}</Text>
 
-          <TouchableOpacity style={styles.researchLink} onPress={() => router.push('/research')}>
-            <Text style={styles.researchLinkText}>{t('about_research_link')} →</Text>
-          </TouchableOpacity>
+          {Platform.OS === 'web' ? (
+            <TouchableOpacity style={styles.githubLink} onPress={openGithub}>
+              <Text style={styles.githubLinkText}>{t('about_github_link')} →</Text>
+            </TouchableOpacity>
+          ) : null}
 
           <Text style={styles.sectionTitle}>{t('about_dataset_heading')}</Text>
           <Text style={styles.body}>{t('footer_updated', { date: formatDateLabel(DATASET_METADATA_GENERATED_AT) })}</Text>
@@ -62,7 +70,7 @@ const styles = StyleSheet.create({
   sectionTitle: { fontSize: 15, fontWeight: '700', color: colors.navy, marginTop: 8 },
   body: { fontSize: 13, color: colors.textSecondary, lineHeight: 20 },
   warning: { fontSize: 13, color: colors.danger, fontWeight: '600' },
-  researchLink: {
+  githubLink: {
     alignSelf: 'flex-start',
     backgroundColor: colors.tealLight,
     borderRadius: radii.md,
@@ -70,7 +78,7 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     marginTop: 4,
   },
-  researchLinkText: { fontSize: 13, fontWeight: '700', color: colors.tealDark },
+  githubLinkText: { fontSize: 13, fontWeight: '700', color: colors.tealDark },
   sourceCard: {
     backgroundColor: colors.surface,
     borderRadius: radii.lg,

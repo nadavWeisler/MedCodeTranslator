@@ -37,6 +37,12 @@ function firstParam(v: string | string[] | undefined): string | undefined {
   return Array.isArray(v) ? v[0] : v;
 }
 
+function openGithub() {
+  if (Platform.OS === 'web' && typeof window !== 'undefined') {
+    window.open(GITHUB_URL, '_blank', 'noopener,noreferrer');
+  }
+}
+
 export default function LandingPage() {
   const { t } = useTranslation();
   const router = useRouter();
@@ -73,10 +79,10 @@ export default function LandingPage() {
   return (
     <SafeAreaView style={styles.safeArea}>
       <Head>
-        <title>MedCode Clinical — Offline Clinical Terminology Reference</title>
+        <title>MedCode Clinical — Open-Source Clinical Terminology Lookup</title>
         <meta
           name="description"
-          content="Open-source, offline-capable lookup across ICD-10, ATC, LOINC, HCPCS, and related coding systems with explainable search and published benchmarks."
+          content="MIT-licensed, offline-capable lookup across ICD-10, ATC, LOINC, HCPCS, and related coding systems — with explainable search and reproducible benchmarks."
         />
       </Head>
       <SiteChrome>
@@ -100,9 +106,11 @@ export default function LandingPage() {
                   <TouchableOpacity style={styles.ctaPrimary} onPress={() => router.push('/app')}>
                     <Text style={styles.ctaPrimaryText}>{t('site_cta_launch')}</Text>
                   </TouchableOpacity>
-                  <TouchableOpacity style={styles.ctaSecondary} onPress={() => router.push('/research')}>
-                    <Text style={styles.ctaSecondaryText}>{t('site_cta_research')}</Text>
-                  </TouchableOpacity>
+                  {Platform.OS === 'web' ? (
+                    <TouchableOpacity style={styles.ctaSecondary} onPress={openGithub}>
+                      <Text style={styles.ctaSecondaryText}>{t('site_cta_github')}</Text>
+                    </TouchableOpacity>
+                  ) : null}
                 </View>
               </View>
 
@@ -139,25 +147,18 @@ export default function LandingPage() {
           </View>
 
           <View style={styles.section}>
-            <View style={styles.researchTeaser}>
-              <Text style={styles.researchTitle}>{t('site_research_teaser_title')}</Text>
-              <Text style={styles.researchBody}>{t('site_research_teaser_body')}</Text>
+            <View style={styles.ossTeaser}>
+              <Text style={styles.ossTitle}>{t('site_oss_teaser_title')}</Text>
+              <Text style={styles.ossBody}>{t('site_oss_teaser_body')}</Text>
               <View style={styles.ctaRow}>
-                <TouchableOpacity style={styles.ctaSecondary} onPress={() => router.push('/research')}>
-                  <Text style={styles.ctaSecondaryText}>{t('site_cta_read_paper')}</Text>
-                </TouchableOpacity>
                 {Platform.OS === 'web' ? (
-                  <TouchableOpacity
-                    style={styles.ctaGhost}
-                    onPress={() => {
-                      if (typeof window !== 'undefined') {
-                        window.open(GITHUB_URL, '_blank', 'noopener,noreferrer');
-                      }
-                    }}
-                  >
-                    <Text style={styles.ctaGhostText}>{t('site_cta_github')}</Text>
+                  <TouchableOpacity style={styles.ctaSecondaryOnDark} onPress={openGithub}>
+                    <Text style={styles.ctaSecondaryOnDarkText}>{t('site_cta_github')}</Text>
                   </TouchableOpacity>
                 ) : null}
+                <TouchableOpacity style={styles.ctaGhost} onPress={() => router.push('/about')}>
+                  <Text style={styles.ctaGhostText}>{t('site_cta_learn_more')}</Text>
+                </TouchableOpacity>
               </View>
             </View>
           </View>
@@ -251,12 +252,23 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontWeight: '700',
   },
+  ctaSecondaryOnDark: {
+    backgroundColor: colors.surface,
+    borderRadius: radii.md,
+    paddingHorizontal: 20,
+    paddingVertical: 14,
+  },
+  ctaSecondaryOnDarkText: {
+    color: colors.navy,
+    fontSize: 15,
+    fontWeight: '700',
+  },
   ctaGhost: {
     paddingHorizontal: 12,
     paddingVertical: 14,
   },
   ctaGhostText: {
-    color: colors.textSecondary,
+    color: 'rgba(255,255,255,0.85)',
     fontSize: 14,
     fontWeight: '600',
   },
@@ -349,18 +361,18 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     color: colors.textSecondary,
   },
-  researchTeaser: {
+  ossTeaser: {
     backgroundColor: colors.navy,
     borderRadius: radii.xl,
     padding: 24,
     gap: 12,
   },
-  researchTitle: {
+  ossTitle: {
     fontSize: 20,
     fontWeight: '700',
     color: colors.textInverse,
   },
-  researchBody: {
+  ossBody: {
     fontSize: 14,
     lineHeight: 22,
     color: 'rgba(255,255,255,0.82)',

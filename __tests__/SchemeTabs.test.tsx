@@ -19,7 +19,7 @@ describe('SchemeTabs', () => {
     expect(queryByText('ICD-9')).toBeNull();
   });
 
-  it('renders all 12 scheme tabs when showAll is true', () => {
+  it('renders all scheme tabs when showAll is true', () => {
     const { getAllByRole } = render(
       <SchemeTabs active="atc5" onChange={jest.fn()} showAll onToggleShowAll={jest.fn()} />
     );
@@ -28,12 +28,14 @@ describe('SchemeTabs', () => {
   });
 
   it('renders the short labels of all schemes when expanded', () => {
-    const { getByText } = render(
+    const { getByText, queryByText } = render(
       <SchemeTabs active="atc5" onChange={jest.fn()} showAll onToggleShowAll={jest.fn()} />
     );
     for (const scheme of SCHEMES) {
       expect(getByText(scheme.shortLabel)).toBeTruthy();
     }
+    expect(queryByText('CPT')).toBeNull();
+    expect(SCHEMES.map(scheme => scheme.key)).not.toContain('cpt');
   });
 
   it('marks the active tab as selected', () => {

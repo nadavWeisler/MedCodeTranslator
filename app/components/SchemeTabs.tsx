@@ -52,7 +52,6 @@ export const SCHEMES: SchemeConfig[] = [
   { key: 'atc5',  label: 'ATC Level 5',    shortLabel: 'ATC-5',  color: schemeColors.atc5,  group: 'medications' },
   { key: 'cvx',   label: 'CVX Vaccines',   shortLabel: 'CVX',    color: schemeColors.cvx,   group: 'medications' },
   { key: 'loinc', label: 'LOINC',          shortLabel: 'LOINC',  color: schemeColors.loinc, group: 'labs' },
-  { key: 'cpt',   label: 'CPT-4',          shortLabel: 'CPT',    color: schemeColors.cpt,   group: 'procedures' },
   { key: 'hcpcs', label: 'HCPCS Level II', shortLabel: 'HCPCS',  color: schemeColors.hcpcs, group: 'procedures' },
 ];
 

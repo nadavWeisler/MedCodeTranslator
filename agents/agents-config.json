@@ -23,7 +23,7 @@
   "search_benchmarker": {
     "benchmark_dir": "agents/search-benchmarker/benchmarks",
     "results_dir": "build/search-quality",
-    "schemes": ["atc5", "icd10", "icd9", "icd11", "loinc", "cpt", "hcpcs", "cvx"],
+    "schemes": ["atc5", "icd10", "icd9", "icd11", "loinc", "hcpcs", "cvx"],
     "precision_at_1_threshold": 0.70,
     "precision_at_5_threshold": 0.85
   }

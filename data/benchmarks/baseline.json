@@ -10,7 +10,6 @@
     { "scheme": "icd9", "fixture_count": 8, "fuse_p1": 0.0, "fuse_p5": 0.0, "pass": false },
     { "scheme": "icd11", "fixture_count": 9, "fuse_p1": 0.89, "fuse_p5": 0.89, "pass": true },
     { "scheme": "loinc", "fixture_count": 10, "fuse_p1": 0.70, "fuse_p5": 1.0, "pass": true },
-    { "scheme": "cpt", "fixture_count": 8, "fuse_p1": 1.0, "fuse_p5": 1.0, "pass": true },
     { "scheme": "hcpcs", "fixture_count": 7, "fuse_p1": 0.43, "fuse_p5": 0.71, "pass": false },
     { "scheme": "cvx", "fixture_count": 8, "fuse_p1": 0.88, "fuse_p5": 0.88, "pass": true }
   ],

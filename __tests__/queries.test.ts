@@ -36,7 +36,7 @@ describe('searchByScheme', () => {
 
   it('queries the correct table for each scheme', async () => {
     mockGetAllAsync.mockResolvedValue([]);
-    const schemes = ['atc5', 'icd10', 'icd9', 'icd11', 'loinc', 'cpt', 'hcpcs', 'cvx'] as const;
+    const schemes = ['atc5', 'icd10', 'icd9', 'icd11', 'loinc', 'hcpcs', 'cvx'] as const;
     for (const scheme of schemes) {
       await searchByScheme(scheme, 'test');
       const callArg = mockGetAllAsync.mock.calls.at(-1)?.[0] as string;

@@ -15,13 +15,12 @@ export type SchemeKey =
   | 'icd9'
   | 'icd11'
   | 'loinc'
-  | 'cpt'
   | 'hcpcs'
   | 'cvx';
 
 export const SCHEME_KEYS: SchemeKey[] = [
   'atc1', 'atc2', 'atc3', 'atc4', 'atc5',
-  'icd10', 'icd9', 'icd11', 'loinc', 'cpt', 'hcpcs', 'cvx',
+  'icd10', 'icd9', 'icd11', 'loinc', 'hcpcs', 'cvx',
 ];
 
 /** A single terminology entry as stored in the database. */

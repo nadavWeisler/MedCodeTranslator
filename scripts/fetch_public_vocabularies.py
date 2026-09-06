@@ -376,13 +376,6 @@ def main() -> int:
             record_count=read_vocabulary_count('loinc'),
         ),
         updated_entry(
-            existing_sources.get('cpt'),
-            dataset='cpt',
-            last_updated_utc=now,
-            retrieved_at_utc=now,
-            record_count=read_vocabulary_count('cpt'),
-        ),
-        updated_entry(
             existing_sources.get('hcpcs'),
             dataset='hcpcs',
             url=hcpcs_url,

@@ -7,7 +7,7 @@ const SITE_URL = getSiteUrl();
 const IMAGE_URL = `${SITE_URL}social-preview.png`;
 const SITE_TITLE = 'MedCode Clinical — Open-Source Clinical Terminology Lookup';
 const SITE_DESCRIPTION =
-  'MIT-licensed, offline-capable lookup across ICD-10, ATC, LOINC, HCPCS, and related coding systems — with explainable search and reproducible benchmarks.';
+  'MIT-licensed, offline multi-vocabulary search across ICD-10, ATC, LOINC (subset), HCPCS, and related coding systems — with a visible score and match method on every result.';
 
 export default function Root({ children }: PropsWithChildren) {
   return (

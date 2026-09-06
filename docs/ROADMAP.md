@@ -11,7 +11,7 @@ This document turns the project’s strategic direction into **phased, shippable
 
 | Goal | Success metric |
 |------|----------------|
-| **Trustworthy search** | Published benchmark baselines; CI fails on regression |
+| **Trustworthy search** | Held-out IR harness (MRR / nDCG / P@k vs FTS5); fixture smoke still gates CI |
 | **Complete enough data** | Full schemes labeled; partial schemes clearly badged |
 | **Reach users everywhere** | PWA + TestFlight + Play internal track |
 | **Developer adoption** | `@medcode/*` on npm; `medcodetranslator` on PyPI |
@@ -102,6 +102,24 @@ Close gaps between documentation and implementation. Low regulatory risk; high c
 - [x] README shows non-empty benchmark results with date stamp.
 - [x] CI fails if any scheme drops below configured thresholds.
 - [x] Baseline file is reproducible from `npm run benchmark`.
+
+---
+
+### 1.5 Held-out IR evidence (not fixture theater)
+
+| Field | Value |
+|-------|-------|
+| **Priority** | P2 |
+| **Labels** | `type: ci`, `area: search` |
+| **Depends on** | 1.2 |
+
+**Problem:** Fixture `expected_codes` and demo chips are not a held-out IR evaluation.
+
+**Acceptance criteria:**
+- [x] Protocol-generated held-out set excludes `data/benchmarks/` and UI examples.
+- [x] Harness reports MRR, nDCG@k, and true P@k.
+- [x] Bake-off vs SQLite FTS5 on the same pinned vocabs, no extra licenses.
+- [x] README numbers are copied from `data/eval/heldout-report.json`.
 
 ---
 

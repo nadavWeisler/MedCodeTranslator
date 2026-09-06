@@ -50,7 +50,8 @@ MedCodeTranslator is an **offline-capable, open-source search app** over bundled
 - **Multilingual UI** — English, Hebrew (RTL), Spanish, French, Portuguese, Russian, Chinese, German, Arabic
 - **Cross-platform** — iOS, Android, Web (PWA via GitHub Pages)
 - **Reusable packages** — `packages/search/` (TypeScript) + `packages/python-client/` (Python)
-- **Fixture regression gate** — `npm run benchmark` checks hand-written queries; it is not a held-out IR evaluation
+- **Held-out IR harness** — `npm run eval:heldout` reports MRR / nDCG / P@k vs SQLite FTS5 on a protocol-generated query set
+- **Fixture regression gate** — `npm run benchmark` is a CI smoke check on hand-written queries; it is not the published IR evaluation
 
 ---
 
@@ -176,9 +177,37 @@ Results always include:
 
 ---
 
-## Fixture regression (not a published IR eval)
+## Held-out IR evaluation
 
-`npm run benchmark` runs **hand-written** queries in [`data/benchmarks/`](data/benchmarks/) as a CI regression gate (default thresholds P@1 ≥ 70%, P@5 ≥ 85%). Those fixtures are not a held-out information-retrieval evaluation and should not be read as near-perfect retrieval quality.
+Published retrieval numbers come from `npm run eval:heldout` and the committed snapshot in [`data/eval/heldout-report.json`](data/eval/heldout-report.json). Protocol: [`data/eval/PROTOCOL.md`](data/eval/PROTOCOL.md).
+
+This is **known-item lexical retrieval** on 198 queries generated from official labels/codes of rows that do **not** appear in the UI demo chips or the fixture `expected_codes` sets. Vocabularies are pinned to `data/vocabularies/source-metadata.json` (`generated_at_utc`: `2026-07-06T05:07:27+00:00`). Relevance is the source code (plus exact-name duplicates). It is not a clinician study.
+
+The external baseline is **SQLite FTS5** (`unicode61`, BM25 `rank`) over the same pinned JSON files. Athena and UTS/UMLS are not used: Athena is a hosted service and UTS needs an NLM license. FTS5 runs in CI with no extra secrets.
+
+| System | MRR | nDCG@5 | nDCG@10 | P@1 | P@5 | Success@5 |
+|--------|----:|-------:|--------:|----:|----:|----------:|
+| layered (this repo) | 0.9975 | 0.9981 | 0.9981 | 0.9949 | 0.2071 | 1.0000 |
+| SQLite FTS5 | 0.6869 | 0.6869 | 0.6869 | 0.6869 | 0.1434 | 0.6869 |
+
+P@k is true precision (`|relevant ∩ top-k| / k`). With typically one relevant code, P@5 cannot exceed 0.20. Success@5 is the hit rate (any relevant code in the top 5) — that is what the old fixture gate labeled "P@5".
+
+The bake-off is the typo slice. Exact official labels and exact codes are a tie; FTS5 has no fuzzy layer:
+
+| Query type | n | layered MRR | FTS5 MRR |
+|------------|--:|------------:|---------:|
+| official_label | 66 | 1.0000 | 1.0000 |
+| exact_code | 66 | 1.0000 | 1.0000 |
+| label_typo | 66 | 0.9924 | 0.0606 |
+
+```bash
+npm run eval:heldout            # score the committed held-out set
+npm run eval:heldout:generate   # regenerate queries after a vocab pin change
+```
+
+### Fixture regression (not the published eval)
+
+`npm run benchmark` still runs **hand-written** queries in [`data/benchmarks/`](data/benchmarks/) as a CI smoke gate (default thresholds: fixture Success@1 ≥ 70%, Success@5 ≥ 85%). Those `expected_codes` fixtures are not a held-out IR evaluation. Do not quote them as retrieval quality.
 
 ---
 
@@ -191,7 +220,8 @@ packages/
   python-client/          Python client (medcodetranslator package)
 data/
   vocabularies/           JSON vocabulary files (one per scheme)
-  benchmarks/             Hand-written fixture query sets per scheme
+  eval/                   Held-out IR query set + committed harness report
+  benchmarks/             Hand-written fixture query sets (CI smoke only)
   aliases/common.json     Abbreviation / brand-name alias table
 app/                      Expo Router screens + components
 db/                       expo-sqlite init + query layer
@@ -207,9 +237,9 @@ docs/                     Architecture, API, retrieval, and ops runbooks
 See [CONTRIBUTING.md](CONTRIBUTING.md). In brief:
 
 1. Fork and create a feature branch
-2. Run `npm test` and `npm run benchmark` — tests and fixture gates must pass
-3. For data changes, update `data/vocabularies/` and `data/vocabularies/source-metadata.json`
-4. For search logic changes, add fixture queries to `data/benchmarks/`
+2. Run `npm test`, `npm run benchmark`, and `npm run eval:heldout` — tests, fixture smoke, and the IR harness must pass
+3. For data changes, update `data/vocabularies/` and `data/vocabularies/source-metadata.json`, then regenerate the held-out set
+4. For search logic changes, re-run `npm run eval:heldout` and update the committed report if numbers change. Do not treat fixture `expected_codes` as the evaluation story
 5. Open a PR against `dev`
 
 **Scope constraint:** This project is a retrieval and reference tool. PRs that add diagnosis generation, clinical recommendations, or LLM inference will not be merged. See [docs/SAFE_SCOPE.md](docs/SAFE_SCOPE.md).

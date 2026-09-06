@@ -1,15 +1,18 @@
 # search-quality-benchmarker
 
-Runs a curated set of clinically representative queries against each coding scheme using
-the same layered retrieval pipeline as the app (exact → prefix → substring → fuzzy → alias)
-and a SQLite LIKE equivalent, then measures precision@1 and precision@5 per scheme.
+CI **fixture smoke** for hand-written queries in `data/benchmarks/`. This is not the
+published IR evaluation. For MRR / nDCG / P@k on the held-out set, use
+`npm run eval:heldout` and [`data/eval/PROTOCOL.md`](../../data/eval/PROTOCOL.md).
+
+The metrics below are Success@k (any listed `expected_codes` in the top k), historically
+labeled precision@k.
 
 ## What it measures
 
 | Metric | Description |
 |---|---|
-| **Precision@1** | The top result matches an expected code |
-| **Precision@5** | An expected code appears in the top 5 results |
+| **Success@1** (labeled P@1) | The top result matches an expected code |
+| **Success@5** (labeled P@5) | An expected code appears in the top 5 results |
 
 Both layered retrieval and SQLite LIKE are measured independently so you can see
 which layer introduces any quality degradation.

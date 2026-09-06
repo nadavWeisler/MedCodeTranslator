@@ -64,13 +64,19 @@ jobs:
       - name: Build web
         run: npm run build:web
 
-      - name: Run search benchmarks
+      - name: Run search fixture smoke
         run: npm run benchmark
 
-      - name: Upload benchmark report
+      - name: Run held-out IR evaluation
+        run: npm run eval:heldout
+
+      - name: Upload search quality reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: search-quality-report
-          path: build/search-quality/benchmark-report.json
+          path: |
+            build/search-quality/benchmark-report.json
+            build/eval/heldout-report.json
+            data/eval/heldout-report.json
           if-no-files-found: ignore

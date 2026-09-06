@@ -11,7 +11,7 @@ or on-demand to automate a specific engineering workflow.
 | `upstream-sentinel` | `agents/upstream-sentinel/` | Daily CI schedule | Probes all upstream dataset URLs; alerts before the weekly refresh breaks silently |
 | `crosswalk-validator` | `agents/crosswalk-validator/` | CI gate inside `refresh-medical-db` | Validates ICD-9→ICD-10 crosswalk referential integrity after every dataset rebuild |
 | `phi-guard` | `agents/phi-guard/` | CI gate on every PR touching `app/`, `db/`, `scripts/` | Scans PR diffs for PHI fields, SAFE_SCOPE violations, and external query transmission |
-| `search-quality-benchmarker` | `agents/search-benchmarker/` | CI on dataset/search changes | Benchmarks layered retrieval precision per scheme |
+| `search-quality-benchmarker` | `agents/search-benchmarker/` | CI on dataset/search changes | Fixture smoke (Success@k on hand-written queries). Published IR is `npm run eval:heldout` |
 
 ## Shared configuration
 
@@ -38,8 +38,11 @@ git diff HEAD | python agents/phi-guard/phi_guard.py
 git diff origin/master...HEAD > /tmp/pr.diff
 python agents/phi-guard/phi_guard.py --diff-file /tmp/pr.diff
 
-# Search quality benchmark
+# Fixture smoke (not the published IR eval)
 npm run benchmark
+
+# Held-out IR harness
+npm run eval:heldout
 ```
 
 ## GitHub Actions integration
@@ -50,7 +53,7 @@ npm run benchmark
 | Crosswalk validator | integrated into `.github/workflows/refresh-medical-db.yml` | Weekly + on-demand |
 | PHI guard | `.github/workflows/phi-guard.yml` | Every PR to `master`/`main` touching code |
 | Search quality | `.github/workflows/search-quality.yml` | PR/push touching datasets or search config |
-| Main CI | `.github/workflows/ci.yml` | Every PR — includes `validate:data` + `npm run benchmark` |
+| Main CI | `.github/workflows/ci.yml` | Every PR — includes `validate:data`, fixture smoke, and `npm run eval:heldout` |
 
 ## Dataset refresh triage
 
@@ -81,6 +84,6 @@ exit 1 and block the PR. Warnings are informational. Pattern definitions live in
 `agents/phi-guard/patterns.json` and can be maintained independently of the script.
 
 ### `search-quality-benchmarker`
-Runs a curated benchmark suite of clinically representative queries against each coding
-scheme using the same layered retrieval pipeline as the app. Measures precision@1 and
-precision@5. Exits 1 if any scheme falls below the configured threshold.
+Fixture smoke on hand-written `data/benchmarks/` queries. Measures Success@1 / Success@5
+(historically labeled precision@k) and exits 1 if a scheme falls below threshold. Do not
+quote these figures as the published IR result — that is `data/eval/heldout-report.json`.

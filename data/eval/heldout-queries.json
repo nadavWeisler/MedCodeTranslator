@@ -1,0 +1,2063 @@
+{
+  "protocol_version": 1,
+  "task": "known-item lexical retrieval",
+  "seed": 20260906,
+  "k": [
+    1,
+    5,
+    10
+  ],
+  "limit": 10,
+  "generated_from": {
+    "generated_at_utc": "2026-07-06T05:07:27+00:00",
+    "sources": [
+      {
+        "dataset": "atc5",
+        "dataset_version": "WHOCC cumulative alterations snapshot",
+        "source_revision": "ATC cumulative alterations CSV",
+        "record_count": 5579,
+        "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
+        "coverage": null
+      },
+      {
+        "dataset": "icd10",
+        "dataset_version": "FY2026 ICD-10-CM code descriptions (valid-for-coding only)",
+        "source_revision": "CMS ICD-10-CM tabular order file (valid-for-coding codes only)",
+        "record_count": 74260,
+        "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
+        "coverage": null
+      },
+      {
+        "dataset": "icd9",
+        "dataset_version": "ICD-9-CM historical snapshot",
+        "source_revision": "Existing repository ICD-9-CM snapshot",
+        "record_count": 14567,
+        "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
+        "coverage": null
+      },
+      {
+        "dataset": "loinc",
+        "dataset_version": "LOINC Top 2000+ common panel (US)",
+        "source_revision": "Regenstrief LOINC Top 2000+ via OHDSI StudyProtocolSandbox US CSV; imported top 600 ranked observations",
+        "record_count": 600,
+        "retrieved_at_utc": "2026-07-05T05:57:19+00:00",
+        "coverage": "partial"
+      },
+      {
+        "dataset": "hcpcs",
+        "dataset_version": "Alpha-Numeric HCPCS Level II quarterly file",
+        "source_revision": "CMS Alpha-Numeric HCPCS Level II quarterly ZIP",
+        "record_count": 8724,
+        "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
+        "coverage": null
+      },
+      {
+        "dataset": "cvx",
+        "dataset_version": "CDC CVX vaccine administered codes",
+        "source_revision": "CDC IIS Standards CVX TXT",
+        "record_count": 289,
+        "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
+        "coverage": null
+      }
+    ]
+  },
+  "excluded_sources": [
+    "data/benchmarks/*.json",
+    "app/constants/searchExamples.ts"
+  ],
+  "relevance": "Binary. Official-label and typo queries: all codes whose name_en equals the source label. Code queries: the source code and dotted/undotted variants present in the pinned vocab. Not clinician-judged.",
+  "notes": [
+    "Queries are generated from official labels/codes; they are not the marketing chips or fixture regression expected_codes.",
+    "ICD-11 is omitted because the bundled file is a 64-row demo subset."
+  ],
+  "query_count": 198,
+  "queries": [
+    {
+      "id": "icd10-001",
+      "scheme": "icd10",
+      "query": "Nondisp dome fx left talus, subs for fx w delay heal Nondisplaced dome fracture of left talus, subsequent encounter for fracture with delayed healing",
+      "query_type": "official_label",
+      "source_code": "S92.145G",
+      "relevant_codes": [
+        "S92.145G"
+      ]
+    },
+    {
+      "id": "icd10-002",
+      "scheme": "icd10",
+      "query": "Disp fx of head of right radius, subs for clos fx w malunion Displacd fracture of head of right radius, subsequent encounter for closed fracture with malunion",
+      "query_type": "label_typo",
+      "source_code": "S52.121P",
+      "relevant_codes": [
+        "S52.121P"
+      ]
+    },
+    {
+      "id": "icd10-003",
+      "scheme": "icd10",
+      "query": "S52.255N",
+      "query_type": "exact_code",
+      "source_code": "S52.255N",
+      "relevant_codes": [
+        "S52.255N"
+      ]
+    },
+    {
+      "id": "icd10-004",
+      "scheme": "icd10",
+      "query": "Minor laceration of left internal jugular vein, init encntr Minor laceration of left internal jugular vein, initial encounter",
+      "query_type": "official_label",
+      "source_code": "S15.312A",
+      "relevant_codes": [
+        "S15.312A"
+      ]
+    },
+    {
+      "id": "icd10-005",
+      "scheme": "icd10",
+      "query": "Traumatic ruture of right radiocarpal ligament, subs encntr Traumatic rupture of right radiocarpal ligament, subsequent encounter",
+      "query_type": "label_typo",
+      "source_code": "S63.321D",
+      "relevant_codes": [
+        "S63.321D"
+      ]
+    },
+    {
+      "id": "icd10-006",
+      "scheme": "icd10",
+      "query": "M1A.1510",
+      "query_type": "exact_code",
+      "source_code": "M1A.1510",
+      "relevant_codes": [
+        "M1A.1510"
+      ]
+    },
+    {
+      "id": "icd10-007",
+      "scheme": "icd10",
+      "query": "Other superficial bite of right thumb, subsequent encounter",
+      "query_type": "official_label",
+      "source_code": "S60.371D",
+      "relevant_codes": [
+        "S60.371D"
+      ]
+    },
+    {
+      "id": "icd10-008",
+      "scheme": "icd10",
+      "query": "Infect/inflm reaction due to int fix of right tibia, init Infection and inflammatory reaction due to internal fixation device of right ibia, initial encounter",
+      "query_type": "label_typo",
+      "source_code": "T84.622A",
+      "relevant_codes": [
+        "T84.622A"
+      ]
+    },
+    {
+      "id": "icd10-009",
+      "scheme": "icd10",
+      "query": "G40.A19",
+      "query_type": "exact_code",
+      "source_code": "G40.A19",
+      "relevant_codes": [
+        "G40.A19"
+      ]
+    },
+    {
+      "id": "icd10-010",
+      "scheme": "icd10",
+      "query": "Postimmunization arthropathy, vertebrae",
+      "query_type": "official_label",
+      "source_code": "M02.28",
+      "relevant_codes": [
+        "M02.28"
+      ]
+    },
+    {
+      "id": "icd10-011",
+      "scheme": "icd10",
+      "query": "Nondisp osteochon fx right patella, init for opn fx tye I/2 Nondisplaced osteochondral fracture of right patella, initial encounter for open fracture type I or II",
+      "query_type": "label_typo",
+      "source_code": "S82.014B",
+      "relevant_codes": [
+        "S82.014B"
+      ]
+    },
+    {
+      "id": "icd10-012",
+      "scheme": "icd10",
+      "query": "S59.032P",
+      "query_type": "exact_code",
+      "source_code": "S59.032P",
+      "relevant_codes": [
+        "S59.032P"
+      ]
+    },
+    {
+      "id": "icd10-013",
+      "scheme": "icd10",
+      "query": "Open bite of right great toe w/o damage to nail, init encntr Open bite of right great toe without damage to nail, initial encounter",
+      "query_type": "official_label",
+      "source_code": "S91.151A",
+      "relevant_codes": [
+        "S91.151A"
+      ]
+    },
+    {
+      "id": "icd10-014",
+      "scheme": "icd10",
+      "query": "Open bite, right anle, subsequent encounter",
+      "query_type": "label_typo",
+      "source_code": "S91.051D",
+      "relevant_codes": [
+        "S91.051D"
+      ]
+    },
+    {
+      "id": "icd10-015",
+      "scheme": "icd10",
+      "query": "V58.4XXS",
+      "query_type": "exact_code",
+      "source_code": "V58.4XXS",
+      "relevant_codes": [
+        "V58.4XXS"
+      ]
+    },
+    {
+      "id": "icd10-016",
+      "scheme": "icd10",
+      "query": "Binge eating disorder, mild",
+      "query_type": "official_label",
+      "source_code": "F50.810",
+      "relevant_codes": [
+        "F50.810"
+      ]
+    },
+    {
+      "id": "icd10-017",
+      "scheme": "icd10",
+      "query": "Inj flexor musc/fasc/tend r little finger at forarm lv, init Other injury of flexor muscle, fascia and tendon of right little finger at forearm levl, initial encounter",
+      "query_type": "label_typo",
+      "source_code": "S56.197A",
+      "relevant_codes": [
+        "S56.197A"
+      ]
+    },
+    {
+      "id": "icd10-018",
+      "scheme": "icd10",
+      "query": "T67.01XA",
+      "query_type": "exact_code",
+      "source_code": "T67.01XA",
+      "relevant_codes": [
+        "T67.01XA"
+      ]
+    },
+    {
+      "id": "icd10-019",
+      "scheme": "icd10",
+      "query": "LeFort II fracture, sequela",
+      "query_type": "official_label",
+      "source_code": "S02.412S",
+      "relevant_codes": [
+        "S02.412S"
+      ]
+    },
+    {
+      "id": "icd10-020",
+      "scheme": "icd10",
+      "query": "Nondisp fx of nk of 3rd MC bone, r hand, 7thP Nondisplaced fracture of neck of third metacarpal bone, right hand, subsequent enounter for fracture with malunion",
+      "query_type": "label_typo",
+      "source_code": "S62.362P",
+      "relevant_codes": [
+        "S62.362P"
+      ]
+    },
+    {
+      "id": "icd10-021",
+      "scheme": "icd10",
+      "query": "S32.474A",
+      "query_type": "exact_code",
+      "source_code": "S32.474A",
+      "relevant_codes": [
+        "S32.474A"
+      ]
+    },
+    {
+      "id": "icd10-022",
+      "scheme": "icd10",
+      "query": "Post-osseointegration biological failure of dental implant",
+      "query_type": "official_label",
+      "source_code": "M27.62",
+      "relevant_codes": [
+        "M27.62"
+      ]
+    },
+    {
+      "id": "icd10-023",
+      "scheme": "icd10",
+      "query": "Oth traum displ spondylolysis of sixth cervcal vert, 7thK Other tramatic displaced spondylolisthesis of sixth cervical vertebra, subsequent encounter for fracture with nonunion",
+      "query_type": "label_typo",
+      "source_code": "S12.550K",
+      "relevant_codes": [
+        "S12.550K"
+      ]
+    },
+    {
+      "id": "icd10-024",
+      "scheme": "icd10",
+      "query": "V96.12XD",
+      "query_type": "exact_code",
+      "source_code": "V96.12XD",
+      "relevant_codes": [
+        "V96.12XD"
+      ]
+    },
+    {
+      "id": "icd10-025",
+      "scheme": "icd10",
+      "query": "Pnctr w fb of l mid finger w/o damage to nail, sequela Puncture wound with foreign body of left middle finger without damage to nail, sequela",
+      "query_type": "official_label",
+      "source_code": "S61.243S",
+      "relevant_codes": [
+        "S61.243S"
+      ]
+    },
+    {
+      "id": "icd10-026",
+      "scheme": "icd10",
+      "query": "Prosth/oth implnt/mtrls gen/plast-urg devices assoc w incdt Prosthetic and other implants, materials and accessory general- and plastic-surgery devices associated with adverse incidents",
+      "query_type": "label_typo",
+      "source_code": "Y81.2",
+      "relevant_codes": [
+        "Y81.2"
+      ]
+    },
+    {
+      "id": "icd10-027",
+      "scheme": "icd10",
+      "query": "S52.282C",
+      "query_type": "exact_code",
+      "source_code": "S52.282C",
+      "relevant_codes": [
+        "S52.282C"
+      ]
+    },
+    {
+      "id": "icd10-028",
+      "scheme": "icd10",
+      "query": "Disp fx of trapezium, right wrist, init for opn fx Displaced fracture of trapezium [larger multangular], right wrist, initial encounter for open fracture",
+      "query_type": "official_label",
+      "source_code": "S62.171B",
+      "relevant_codes": [
+        "S62.171B"
+      ]
+    },
+    {
+      "id": "icd10-029",
+      "scheme": "icd10",
+      "query": "Adverse effect of benzodiazepines, subsequet encounter",
+      "query_type": "label_typo",
+      "source_code": "T42.4X5D",
+      "relevant_codes": [
+        "T42.4X5D"
+      ]
+    },
+    {
+      "id": "icd10-030",
+      "scheme": "icd10",
+      "query": "Y37.130A",
+      "query_type": "exact_code",
+      "source_code": "Y37.130A",
+      "relevant_codes": [
+        "Y37.130A"
+      ]
+    },
+    {
+      "id": "icd10-031",
+      "scheme": "icd10",
+      "query": "Subluxation of L2/L3 lumbar vertebra, sequela",
+      "query_type": "official_label",
+      "source_code": "S33.120S",
+      "relevant_codes": [
+        "S33.120S"
+      ]
+    },
+    {
+      "id": "icd10-032",
+      "scheme": "icd10",
+      "query": "Strain msl/tnd lng extn msl toe at ank/ft lev, l foot, subs Strain of muscle and tendon of long extensor muscle of te at ankle and foot level, left foot, subsequent encounter",
+      "query_type": "label_typo",
+      "source_code": "S96.112D",
+      "relevant_codes": [
+        "S96.112D"
+      ]
+    },
+    {
+      "id": "icd10-033",
+      "scheme": "icd10",
+      "query": "D44.2",
+      "query_type": "exact_code",
+      "source_code": "D44.2",
+      "relevant_codes": [
+        "D44.2"
+      ]
+    },
+    {
+      "id": "icd10-034",
+      "scheme": "icd10",
+      "query": "Puncture wound without foreign body of left forearm, sequela",
+      "query_type": "official_label",
+      "source_code": "S51.832S",
+      "relevant_codes": [
+        "S51.832S"
+      ]
+    },
+    {
+      "id": "icd10-035",
+      "scheme": "icd10",
+      "query": "Encounter for adjustment or removal of left breast imlant",
+      "query_type": "label_typo",
+      "source_code": "Z45.812",
+      "relevant_codes": [
+        "Z45.812"
+      ]
+    },
+    {
+      "id": "icd10-036",
+      "scheme": "icd10",
+      "query": "T38.2X3A",
+      "query_type": "exact_code",
+      "source_code": "T38.2X3A",
+      "relevant_codes": [
+        "T38.2X3A"
+      ]
+    },
+    {
+      "id": "icd10-037",
+      "scheme": "icd10",
+      "query": "Chagas' disease (chronic) with other organ involvement",
+      "query_type": "official_label",
+      "source_code": "B57.5",
+      "relevant_codes": [
+        "B57.5"
+      ]
+    },
+    {
+      "id": "icd10-038",
+      "scheme": "icd10",
+      "query": "Chronic postrheumatic arthropathy [Jaccoud], let hand",
+      "query_type": "label_typo",
+      "source_code": "M12.042",
+      "relevant_codes": [
+        "M12.042"
+      ]
+    },
+    {
+      "id": "icd10-039",
+      "scheme": "icd10",
+      "query": "L08.81",
+      "query_type": "exact_code",
+      "source_code": "L08.81",
+      "relevant_codes": [
+        "L08.81"
+      ]
+    },
+    {
+      "id": "icd10-040",
+      "scheme": "icd10",
+      "query": "Primary exertional headache",
+      "query_type": "official_label",
+      "source_code": "G44.84",
+      "relevant_codes": [
+        "G44.84"
+      ]
+    },
+    {
+      "id": "icd10-041",
+      "scheme": "icd10",
+      "query": "Type 3 fracture of sacrum, init encntr for closed fracture Type 3 fracture of sacrum, inital encounter for closed fracture",
+      "query_type": "label_typo",
+      "source_code": "S32.16XA",
+      "relevant_codes": [
+        "S32.16XA"
+      ]
+    },
+    {
+      "id": "icd10-042",
+      "scheme": "icd10",
+      "query": "M54.01",
+      "query_type": "exact_code",
+      "source_code": "M54.01",
+      "relevant_codes": [
+        "M54.01"
+      ]
+    },
+    {
+      "id": "icd10-043",
+      "scheme": "icd10",
+      "query": "Pathological fracture in oth disease, left femur, init Pathological fracture in other disease, left femur, initial encounter for fracture",
+      "query_type": "official_label",
+      "source_code": "M84.652A",
+      "relevant_codes": [
+        "M84.652A"
+      ]
+    },
+    {
+      "id": "icd10-044",
+      "scheme": "icd10",
+      "query": "Hydroxyapatite deposition diseas, right elbow",
+      "query_type": "label_typo",
+      "source_code": "M11.021",
+      "relevant_codes": [
+        "M11.021"
+      ]
+    },
+    {
+      "id": "icd10-045",
+      "scheme": "icd10",
+      "query": "T24.321A",
+      "query_type": "exact_code",
+      "source_code": "T24.321A",
+      "relevant_codes": [
+        "T24.321A"
+      ]
+    },
+    {
+      "id": "icd10-046",
+      "scheme": "icd10",
+      "query": "Contact with and (suspected) exposure to anthrax",
+      "query_type": "official_label",
+      "source_code": "Z20.810",
+      "relevant_codes": [
+        "Z20.810"
+      ]
+    },
+    {
+      "id": "icd10-047",
+      "scheme": "icd10",
+      "query": "Dislocation of T1/T2 thoracic vertebra, susequent encounter",
+      "query_type": "label_typo",
+      "source_code": "S23.111D",
+      "relevant_codes": [
+        "S23.111D"
+      ]
+    },
+    {
+      "id": "icd10-048",
+      "scheme": "icd10",
+      "query": "V22.09XA",
+      "query_type": "exact_code",
+      "source_code": "V22.09XA",
+      "relevant_codes": [
+        "V22.09XA"
+      ]
+    },
+    {
+      "id": "icd9-001",
+      "scheme": "icd9",
+      "query": "Chronic osteomyelitis, forearm",
+      "query_type": "official_label",
+      "source_code": "73013",
+      "relevant_codes": [
+        "73013"
+      ]
+    },
+    {
+      "id": "icd9-002",
+      "scheme": "icd9",
+      "query": "Acute myocardial infarction of inferolateral wall, nitial episode of care",
+      "query_type": "label_typo",
+      "source_code": "41021",
+      "relevant_codes": [
+        "41021"
+      ]
+    },
+    {
+      "id": "icd9-003",
+      "scheme": "icd9",
+      "query": "99672",
+      "query_type": "exact_code",
+      "source_code": "99672",
+      "relevant_codes": [
+        "99672"
+      ]
+    },
+    {
+      "id": "icd9-004",
+      "scheme": "icd9",
+      "query": "Chronic kidney disease, Stage V",
+      "query_type": "official_label",
+      "source_code": "5855",
+      "relevant_codes": [
+        "5855"
+      ]
+    },
+    {
+      "id": "icd9-005",
+      "scheme": "icd9",
+      "query": "Hallux varus (acuired)",
+      "query_type": "label_typo",
+      "source_code": "7351",
+      "relevant_codes": [
+        "7351"
+      ]
+    },
+    {
+      "id": "icd9-006",
+      "scheme": "icd9",
+      "query": "V255",
+      "query_type": "exact_code",
+      "source_code": "V255",
+      "relevant_codes": [
+        "V255"
+      ]
+    },
+    {
+      "id": "icd9-007",
+      "scheme": "icd9",
+      "query": "Malignant neoplasm of broad ligament of uterus",
+      "query_type": "official_label",
+      "source_code": "1833",
+      "relevant_codes": [
+        "1833"
+      ]
+    },
+    {
+      "id": "icd9-008",
+      "scheme": "icd9",
+      "query": "Other leion of femoral nerve",
+      "query_type": "label_typo",
+      "source_code": "3552",
+      "relevant_codes": [
+        "3552"
+      ]
+    },
+    {
+      "id": "icd9-009",
+      "scheme": "icd9",
+      "query": "048",
+      "query_type": "exact_code",
+      "source_code": "048",
+      "relevant_codes": [
+        "048"
+      ]
+    },
+    {
+      "id": "icd9-010",
+      "scheme": "icd9",
+      "query": "Blisters, epidermal loss [second degree] of thigh [any part]",
+      "query_type": "official_label",
+      "source_code": "94526",
+      "relevant_codes": [
+        "94526"
+      ]
+    },
+    {
+      "id": "icd9-011",
+      "scheme": "icd9",
+      "query": "Disorganized type schizophrena, in remission",
+      "query_type": "label_typo",
+      "source_code": "29515",
+      "relevant_codes": [
+        "29515"
+      ]
+    },
+    {
+      "id": "icd9-012",
+      "scheme": "icd9",
+      "query": "V260",
+      "query_type": "exact_code",
+      "source_code": "V260",
+      "relevant_codes": [
+        "V260"
+      ]
+    },
+    {
+      "id": "icd9-013",
+      "scheme": "icd9",
+      "query": "Closed fracture of sternal end of clavicle",
+      "query_type": "official_label",
+      "source_code": "81001",
+      "relevant_codes": [
+        "81001"
+      ]
+    },
+    {
+      "id": "icd9-014",
+      "scheme": "icd9",
+      "query": "General paress",
+      "query_type": "label_typo",
+      "source_code": "0941",
+      "relevant_codes": [
+        "0941"
+      ]
+    },
+    {
+      "id": "icd9-015",
+      "scheme": "icd9",
+      "query": "36515",
+      "query_type": "exact_code",
+      "source_code": "36515",
+      "relevant_codes": [
+        "36515"
+      ]
+    },
+    {
+      "id": "icd9-016",
+      "scheme": "icd9",
+      "query": "Chronic kidney disease, Stage I",
+      "query_type": "official_label",
+      "source_code": "5851",
+      "relevant_codes": [
+        "5851"
+      ]
+    },
+    {
+      "id": "icd9-017",
+      "scheme": "icd9",
+      "query": "Premature separation of placenta, elivered, with or without mention of antepartum condition",
+      "query_type": "label_typo",
+      "source_code": "64121",
+      "relevant_codes": [
+        "64121"
+      ]
+    },
+    {
+      "id": "icd9-018",
+      "scheme": "icd9",
+      "query": "V434",
+      "query_type": "exact_code",
+      "source_code": "V434",
+      "relevant_codes": [
+        "V434"
+      ]
+    },
+    {
+      "id": "icd9-019",
+      "scheme": "icd9",
+      "query": "Nontraumatic rupture of patellar tendon",
+      "query_type": "official_label",
+      "source_code": "72766",
+      "relevant_codes": [
+        "72766"
+      ]
+    },
+    {
+      "id": "icd9-020",
+      "scheme": "icd9",
+      "query": "Pemphioid",
+      "query_type": "label_typo",
+      "source_code": "6945",
+      "relevant_codes": [
+        "6945"
+      ]
+    },
+    {
+      "id": "icd9-021",
+      "scheme": "icd9",
+      "query": "E8177",
+      "query_type": "exact_code",
+      "source_code": "E8177",
+      "relevant_codes": [
+        "E8177"
+      ]
+    },
+    {
+      "id": "icd9-022",
+      "scheme": "icd9",
+      "query": "Migraine without aura, without mention of intractable migraine without mention of status migrainosus",
+      "query_type": "official_label",
+      "source_code": "34610",
+      "relevant_codes": [
+        "34610"
+      ]
+    },
+    {
+      "id": "icd9-023",
+      "scheme": "icd9",
+      "query": "Vaginal enterocele, conenital or acquired",
+      "query_type": "label_typo",
+      "source_code": "6186",
+      "relevant_codes": [
+        "6186"
+      ]
+    },
+    {
+      "id": "icd9-024",
+      "scheme": "icd9",
+      "query": "80324",
+      "query_type": "exact_code",
+      "source_code": "80324",
+      "relevant_codes": [
+        "80324"
+      ]
+    },
+    {
+      "id": "icd9-025",
+      "scheme": "icd9",
+      "query": "Hypertrophy of fat pad, knee",
+      "query_type": "official_label",
+      "source_code": "72931",
+      "relevant_codes": [
+        "72931"
+      ]
+    },
+    {
+      "id": "icd9-026",
+      "scheme": "icd9",
+      "query": "Injury due to other war operations but occurring after cessatio of hostilities",
+      "query_type": "label_typo",
+      "source_code": "E9988",
+      "relevant_codes": [
+        "E9988"
+      ]
+    },
+    {
+      "id": "icd9-027",
+      "scheme": "icd9",
+      "query": "9517",
+      "query_type": "exact_code",
+      "source_code": "9517",
+      "relevant_codes": [
+        "9517"
+      ]
+    },
+    {
+      "id": "icd9-028",
+      "scheme": "icd9",
+      "query": "Vascular anomalies of eyelid",
+      "query_type": "official_label",
+      "source_code": "37485",
+      "relevant_codes": [
+        "37485"
+      ]
+    },
+    {
+      "id": "icd9-029",
+      "scheme": "icd9",
+      "query": "Acute monocytic lukemia, without mention of having achieved remission",
+      "query_type": "label_typo",
+      "source_code": "20600",
+      "relevant_codes": [
+        "20600"
+      ]
+    },
+    {
+      "id": "icd9-030",
+      "scheme": "icd9",
+      "query": "V1007",
+      "query_type": "exact_code",
+      "source_code": "V1007",
+      "relevant_codes": [
+        "V1007"
+      ]
+    },
+    {
+      "id": "icd9-031",
+      "scheme": "icd9",
+      "query": "Low birth weight status, less than 500 grams",
+      "query_type": "official_label",
+      "source_code": "V2131",
+      "relevant_codes": [
+        "V2131"
+      ]
+    },
+    {
+      "id": "icd9-032",
+      "scheme": "icd9",
+      "query": "Accidental poisoning by carbo monoxide from other sources",
+      "query_type": "label_typo",
+      "source_code": "E8688",
+      "relevant_codes": [
+        "E8688"
+      ]
+    },
+    {
+      "id": "icd9-033",
+      "scheme": "icd9",
+      "query": "0623",
+      "query_type": "exact_code",
+      "source_code": "0623",
+      "relevant_codes": [
+        "0623"
+      ]
+    },
+    {
+      "id": "icd9-034",
+      "scheme": "icd9",
+      "query": "Congenital or acquired abnormality of vagina, delivered, with mention of postpartum complication",
+      "query_type": "official_label",
+      "source_code": "65472",
+      "relevant_codes": [
+        "65472"
+      ]
+    },
+    {
+      "id": "icd9-035",
+      "scheme": "icd9",
+      "query": "Ankyloing spondylitis",
+      "query_type": "label_typo",
+      "source_code": "7200",
+      "relevant_codes": [
+        "7200"
+      ]
+    },
+    {
+      "id": "icd9-036",
+      "scheme": "icd9",
+      "query": "09161",
+      "query_type": "exact_code",
+      "source_code": "09161",
+      "relevant_codes": [
+        "09161"
+      ]
+    },
+    {
+      "id": "atc5-001",
+      "scheme": "atc5",
+      "query": "Sodium levofolinate",
+      "query_type": "official_label",
+      "source_code": "V03AF10",
+      "relevant_codes": [
+        "V03AF10"
+      ]
+    },
+    {
+      "id": "atc5-002",
+      "scheme": "atc5",
+      "query": "Norelgestromin and ethiylestradiol",
+      "query_type": "label_typo",
+      "source_code": "G03AA13",
+      "relevant_codes": [
+        "G03AA13"
+      ]
+    },
+    {
+      "id": "atc5-003",
+      "scheme": "atc5",
+      "query": "B01AA02",
+      "query_type": "exact_code",
+      "source_code": "B01AA02",
+      "relevant_codes": [
+        "B01AA02"
+      ]
+    },
+    {
+      "id": "atc5-004",
+      "scheme": "atc5",
+      "query": "Pyrvinium",
+      "query_type": "official_label",
+      "source_code": "P02CX01",
+      "relevant_codes": [
+        "P02CX01"
+      ]
+    },
+    {
+      "id": "atc5-005",
+      "scheme": "atc5",
+      "query": "Iraconazole",
+      "query_type": "label_typo",
+      "source_code": "J02AC02",
+      "relevant_codes": [
+        "J02AC02"
+      ]
+    },
+    {
+      "id": "atc5-006",
+      "scheme": "atc5",
+      "query": "L04AE01",
+      "query_type": "exact_code",
+      "source_code": "L04AE01",
+      "relevant_codes": [
+        "L04AE01"
+      ]
+    },
+    {
+      "id": "atc5-007",
+      "scheme": "atc5",
+      "query": "Pabinafusp alfa",
+      "query_type": "official_label",
+      "source_code": "A16AB27",
+      "relevant_codes": [
+        "A16AB27"
+      ]
+    },
+    {
+      "id": "atc5-008",
+      "scheme": "atc5",
+      "query": "Eprisone",
+      "query_type": "label_typo",
+      "source_code": "M03BX09",
+      "relevant_codes": [
+        "M03BX09"
+      ]
+    },
+    {
+      "id": "atc5-009",
+      "scheme": "atc5",
+      "query": "A10BG04",
+      "query_type": "exact_code",
+      "source_code": "A10BG04",
+      "relevant_codes": [
+        "A10BG04"
+      ]
+    },
+    {
+      "id": "atc5-010",
+      "scheme": "atc5",
+      "query": "Bacitracin",
+      "query_type": "official_label",
+      "source_code": "J01XX10",
+      "relevant_codes": [
+        "D06AX05",
+        "J01XX10",
+        "R02AB04",
+        "S01AA32"
+      ]
+    },
+    {
+      "id": "atc5-011",
+      "scheme": "atc5",
+      "query": "Brexucabtagene autleucel",
+      "query_type": "label_typo",
+      "source_code": "L01XL06",
+      "relevant_codes": [
+        "L01XL06"
+      ]
+    },
+    {
+      "id": "atc5-012",
+      "scheme": "atc5",
+      "query": "P02CA01",
+      "query_type": "exact_code",
+      "source_code": "P02CA01",
+      "relevant_codes": [
+        "P02CA01"
+      ]
+    },
+    {
+      "id": "atc5-013",
+      "scheme": "atc5",
+      "query": "Sermorelin",
+      "query_type": "official_label",
+      "source_code": "V04CD03",
+      "relevant_codes": [
+        "H01AC04",
+        "V04CD03"
+      ]
+    },
+    {
+      "id": "atc5-014",
+      "scheme": "atc5",
+      "query": "Dapoxetie",
+      "query_type": "label_typo",
+      "source_code": "G04BX14",
+      "relevant_codes": [
+        "G04BX14"
+      ]
+    },
+    {
+      "id": "atc5-015",
+      "scheme": "atc5",
+      "query": "S01XA22",
+      "query_type": "exact_code",
+      "source_code": "S01XA22",
+      "relevant_codes": [
+        "S01XA22"
+      ]
+    },
+    {
+      "id": "atc5-016",
+      "scheme": "atc5",
+      "query": "Diazoxide",
+      "query_type": "official_label",
+      "source_code": "C02DA01",
+      "relevant_codes": [
+        "C02DA01",
+        "V03AH01"
+      ]
+    },
+    {
+      "id": "atc5-017",
+      "scheme": "atc5",
+      "query": "Rokitaycin",
+      "query_type": "label_typo",
+      "source_code": "J01FA12",
+      "relevant_codes": [
+        "J01FA12"
+      ]
+    },
+    {
+      "id": "atc5-018",
+      "scheme": "atc5",
+      "query": "D11AE01",
+      "query_type": "exact_code",
+      "source_code": "D11AE01",
+      "relevant_codes": [
+        "D11AE01"
+      ]
+    },
+    {
+      "id": "atc5-019",
+      "scheme": "atc5",
+      "query": "Sermorelin",
+      "query_type": "official_label",
+      "source_code": "H01AC04",
+      "relevant_codes": [
+        "H01AC04",
+        "V04CD03"
+      ]
+    },
+    {
+      "id": "atc5-020",
+      "scheme": "atc5",
+      "query": "Tretinon",
+      "query_type": "label_typo",
+      "source_code": "L01XF01",
+      "relevant_codes": [
+        "D10AD01",
+        "L01XF01"
+      ]
+    },
+    {
+      "id": "atc5-021",
+      "scheme": "atc5",
+      "query": "S02AA04",
+      "query_type": "exact_code",
+      "source_code": "S02AA04",
+      "relevant_codes": [
+        "S02AA04"
+      ]
+    },
+    {
+      "id": "atc5-022",
+      "scheme": "atc5",
+      "query": "Metildigoxin",
+      "query_type": "official_label",
+      "source_code": "C01AA08",
+      "relevant_codes": [
+        "C01AA08"
+      ]
+    },
+    {
+      "id": "atc5-023",
+      "scheme": "atc5",
+      "query": "Volanesoren",
+      "query_type": "label_typo",
+      "source_code": "C10AX18",
+      "relevant_codes": [
+        "C10AX18"
+      ]
+    },
+    {
+      "id": "atc5-024",
+      "scheme": "atc5",
+      "query": "L02BX53",
+      "query_type": "exact_code",
+      "source_code": "L02BX53",
+      "relevant_codes": [
+        "L02BX53"
+      ]
+    },
+    {
+      "id": "atc5-025",
+      "scheme": "atc5",
+      "query": "Galcanezumab",
+      "query_type": "official_label",
+      "source_code": "N02CD02",
+      "relevant_codes": [
+        "N02CD02"
+      ]
+    },
+    {
+      "id": "atc5-026",
+      "scheme": "atc5",
+      "query": "Diroximel fumrate",
+      "query_type": "label_typo",
+      "source_code": "L04AX09",
+      "relevant_codes": [
+        "L04AX09"
+      ]
+    },
+    {
+      "id": "atc5-027",
+      "scheme": "atc5",
+      "query": "C07AB03",
+      "query_type": "exact_code",
+      "source_code": "C07AB03",
+      "relevant_codes": [
+        "C07AB03"
+      ]
+    },
+    {
+      "id": "atc5-028",
+      "scheme": "atc5",
+      "query": "Quinethazone",
+      "query_type": "official_label",
+      "source_code": "C03BA02",
+      "relevant_codes": [
+        "C03BA02"
+      ]
+    },
+    {
+      "id": "atc5-029",
+      "scheme": "atc5",
+      "query": "Fosinopil",
+      "query_type": "label_typo",
+      "source_code": "C09AA09",
+      "relevant_codes": [
+        "C09AA09"
+      ]
+    },
+    {
+      "id": "atc5-030",
+      "scheme": "atc5",
+      "query": "C01AB01",
+      "query_type": "exact_code",
+      "source_code": "C01AB01",
+      "relevant_codes": [
+        "C01AB01"
+      ]
+    },
+    {
+      "id": "atc5-031",
+      "scheme": "atc5",
+      "query": "Dapivirine",
+      "query_type": "official_label",
+      "source_code": "G01AX17",
+      "relevant_codes": [
+        "G01AX17"
+      ]
+    },
+    {
+      "id": "atc5-032",
+      "scheme": "atc5",
+      "query": "Lisdexamfetaine",
+      "query_type": "label_typo",
+      "source_code": "N06BA12",
+      "relevant_codes": [
+        "N06BA12"
+      ]
+    },
+    {
+      "id": "atc5-033",
+      "scheme": "atc5",
+      "query": "N01AB07",
+      "query_type": "exact_code",
+      "source_code": "N01AB07",
+      "relevant_codes": [
+        "N01AB07"
+      ]
+    },
+    {
+      "id": "atc5-034",
+      "scheme": "atc5",
+      "query": "Rimiterol",
+      "query_type": "official_label",
+      "source_code": "R03AC05",
+      "relevant_codes": [
+        "R03AC05"
+      ]
+    },
+    {
+      "id": "atc5-035",
+      "scheme": "atc5",
+      "query": "Ciniofon",
+      "query_type": "label_typo",
+      "source_code": "P01AX01",
+      "relevant_codes": [
+        "P01AX01"
+      ]
+    },
+    {
+      "id": "atc5-036",
+      "scheme": "atc5",
+      "query": "N03AX15",
+      "query_type": "exact_code",
+      "source_code": "N03AX15",
+      "relevant_codes": [
+        "N03AX15"
+      ]
+    },
+    {
+      "id": "hcpcs-001",
+      "scheme": "hcpcs",
+      "query": "Replacement socket/interface, partial hand including fingers, molded to patient model, for use with or without external power",
+      "query_type": "official_label",
+      "source_code": "L6031",
+      "relevant_codes": [
+        "L6031"
+      ]
+    },
+    {
+      "id": "hcpcs-002",
+      "scheme": "hcpcs",
+      "query": "Patient had a hart transplant",
+      "query_type": "label_typo",
+      "source_code": "M1456",
+      "relevant_codes": [
+        "M1456"
+      ]
+    },
+    {
+      "id": "hcpcs-003",
+      "scheme": "hcpcs",
+      "query": "E0485",
+      "query_type": "exact_code",
+      "source_code": "E0485",
+      "relevant_codes": [
+        "E0485"
+      ]
+    },
+    {
+      "id": "hcpcs-004",
+      "scheme": "hcpcs",
+      "query": "Complete ophthalmologic care mips value pathway",
+      "query_type": "official_label",
+      "source_code": "M1420",
+      "relevant_codes": [
+        "M1420"
+      ]
+    },
+    {
+      "id": "hcpcs-005",
+      "scheme": "hcpcs",
+      "query": "Impression casting of a foot perfored by a practitioner other than the manufacturer of the orthotic",
+      "query_type": "label_typo",
+      "source_code": "S0395",
+      "relevant_codes": [
+        "S0395"
+      ]
+    },
+    {
+      "id": "hcpcs-006",
+      "scheme": "hcpcs",
+      "query": "G0182",
+      "query_type": "exact_code",
+      "source_code": "G0182",
+      "relevant_codes": [
+        "G0182"
+      ]
+    },
+    {
+      "id": "hcpcs-007",
+      "scheme": "hcpcs",
+      "query": "Spoken language comprehension functional limitation, discharge status, at discharge from therapy or to end reporting",
+      "query_type": "official_label",
+      "source_code": "G9161",
+      "relevant_codes": [
+        "G9161"
+      ]
+    },
+    {
+      "id": "hcpcs-008",
+      "scheme": "hcpcs",
+      "query": "Nerve cryoablation probe (e.g, cryoice, cryosphere, cryosphere max, cryoice cryosphere, cryoice cryo2), including probe and all disposable system components, non-opioid medical device (must be a qualifying medicare non-opioid medical device for post-surgical pain relief in accordance with section 4135 of the caa, 2023)",
+      "query_type": "label_typo",
+      "source_code": "C9808",
+      "relevant_codes": [
+        "C9808"
+      ]
+    },
+    {
+      "id": "hcpcs-009",
+      "scheme": "hcpcs",
+      "query": "Q9970",
+      "query_type": "exact_code",
+      "source_code": "Q9970",
+      "relevant_codes": [
+        "Q9970"
+      ]
+    },
+    {
+      "id": "hcpcs-010",
+      "scheme": "hcpcs",
+      "query": "Bcg live intravesical instillation, 1 mg",
+      "query_type": "official_label",
+      "source_code": "J9030",
+      "relevant_codes": [
+        "J9030"
+      ]
+    },
+    {
+      "id": "hcpcs-011",
+      "scheme": "hcpcs",
+      "query": "Screening, diagostic, film digital or digital breast tomosynthesis (3d) mammography results documented and reviewed",
+      "query_type": "label_typo",
+      "source_code": "M1302",
+      "relevant_codes": [
+        "M1302"
+      ]
+    },
+    {
+      "id": "hcpcs-012",
+      "scheme": "hcpcs",
+      "query": "A4216",
+      "query_type": "exact_code",
+      "source_code": "A4216",
+      "relevant_codes": [
+        "A4216"
+      ]
+    },
+    {
+      "id": "hcpcs-013",
+      "scheme": "hcpcs",
+      "query": "Orthopedic surgery mips specialty set",
+      "query_type": "official_label",
+      "source_code": "G4021",
+      "relevant_codes": [
+        "G4021"
+      ]
+    },
+    {
+      "id": "hcpcs-014",
+      "scheme": "hcpcs",
+      "query": "Blood glucose test or reagent strips for home blood glucose montor, per 50 strips",
+      "query_type": "label_typo",
+      "source_code": "A4253",
+      "relevant_codes": [
+        "A4253"
+      ]
+    },
+    {
+      "id": "hcpcs-015",
+      "scheme": "hcpcs",
+      "query": "V2208",
+      "query_type": "exact_code",
+      "source_code": "V2208",
+      "relevant_codes": [
+        "V2208"
+      ]
+    },
+    {
+      "id": "hcpcs-016",
+      "scheme": "hcpcs",
+      "query": "Chlamydia, gonorrhea, and syphilis screening results not documented (patient refusal is the only allowed exception)",
+      "query_type": "official_label",
+      "source_code": "G9229",
+      "relevant_codes": [
+        "G9229"
+      ]
+    },
+    {
+      "id": "hcpcs-017",
+      "scheme": "hcpcs",
+      "query": "Functional satus measurement with score was obtained utilizing the oswestry disability index (odi version 2.1a) patient reported outcome tool within three months preoperatively and at three months (6 to 20 weeks) postoperatively",
+      "query_type": "label_typo",
+      "source_code": "M1048",
+      "relevant_codes": [
+        "M1048"
+      ]
+    },
+    {
+      "id": "hcpcs-018",
+      "scheme": "hcpcs",
+      "query": "G9013",
+      "query_type": "exact_code",
+      "source_code": "G9013",
+      "relevant_codes": [
+        "G9013"
+      ]
+    },
+    {
+      "id": "hcpcs-019",
+      "scheme": "hcpcs",
+      "query": "Parenteral nutrition solution; amino acid, 5.5% through 7%, (500 ml = 1 unit) - home mix",
+      "query_type": "official_label",
+      "source_code": "B4172",
+      "relevant_codes": [
+        "B4172"
+      ]
+    },
+    {
+      "id": "hcpcs-020",
+      "scheme": "hcpcs",
+      "query": "Orthopedic footwear, additional charge fr split size",
+      "query_type": "label_typo",
+      "source_code": "L3257",
+      "relevant_codes": [
+        "L3257"
+      ]
+    },
+    {
+      "id": "hcpcs-021",
+      "scheme": "hcpcs",
+      "query": "J0692",
+      "query_type": "exact_code",
+      "source_code": "J0692",
+      "relevant_codes": [
+        "J0692"
+      ]
+    },
+    {
+      "id": "hcpcs-022",
+      "scheme": "hcpcs",
+      "query": "Shunt accessory, for hemodialysis, any type, each",
+      "query_type": "official_label",
+      "source_code": "A4740",
+      "relevant_codes": [
+        "A4740"
+      ]
+    },
+    {
+      "id": "hcpcs-023",
+      "scheme": "hcpcs",
+      "query": "Documentation of reason(s) for not performing minimally invasive biopsy to diagnose breast cancer preopeatively (e.g., lesion too close to skin, implant, chest wall, etc., lesion could not be adequately visualized for needle biopsy, patient condition prevents needle biopsy [weight, breast thickness, etc.], duct excision without imaging abnormality, prophylactic mastectomy, reduction mammoplasty, excisional biopsy performed by another physician)",
+      "query_type": "label_typo",
+      "source_code": "G8876",
+      "relevant_codes": [
+        "G8876"
+      ]
+    },
+    {
+      "id": "hcpcs-024",
+      "scheme": "hcpcs",
+      "query": "J3375",
+      "query_type": "exact_code",
+      "source_code": "J3375",
+      "relevant_codes": [
+        "J3375"
+      ]
+    },
+    {
+      "id": "hcpcs-025",
+      "scheme": "hcpcs",
+      "query": "Microporous collagen implantable slit tube (neurawrap nerve protector), per centimeter length",
+      "query_type": "official_label",
+      "source_code": "C9353",
+      "relevant_codes": [
+        "C9353"
+      ]
+    },
+    {
+      "id": "hcpcs-026",
+      "scheme": "hcpcs",
+      "query": "Injection, methotrexate (accord), not therapeuticall equivalent to j9260, 50 mg",
+      "query_type": "label_typo",
+      "source_code": "J9255",
+      "relevant_codes": [
+        "J9255"
+      ]
+    },
+    {
+      "id": "hcpcs-027",
+      "scheme": "hcpcs",
+      "query": "Q4050",
+      "query_type": "exact_code",
+      "source_code": "Q4050",
+      "relevant_codes": [
+        "Q4050"
+      ]
+    },
+    {
+      "id": "hcpcs-028",
+      "scheme": "hcpcs",
+      "query": "Parenteral nutrition solution compounded amino acid and carbohydrates with electrolytes, trace elements, and vitamins, including preparation, any strength, hepatic, hepatamine-premix",
+      "query_type": "official_label",
+      "source_code": "B5100",
+      "relevant_codes": [
+        "B5100"
+      ]
+    },
+    {
+      "id": "hcpcs-029",
+      "scheme": "hcpcs",
+      "query": "Walker, heavy duty, withou wheels, rigid or folding, any type, each",
+      "query_type": "label_typo",
+      "source_code": "E0148",
+      "relevant_codes": [
+        "E0148"
+      ]
+    },
+    {
+      "id": "hcpcs-030",
+      "scheme": "hcpcs",
+      "query": "C7552",
+      "query_type": "exact_code",
+      "source_code": "C7552",
+      "relevant_codes": [
+        "C7552"
+      ]
+    },
+    {
+      "id": "hcpcs-031",
+      "scheme": "hcpcs",
+      "query": "Tlso, triplanar control, rigid posterior frame and flexible soft anterior apron with straps, closures and padding, extends from sacrococcygeal junction to scapula, lateral strength provided by pelvic, thoracic, and lateral frame pieces, rotational strength provided by subclavicular extensions, restricts gross trunk motion in sagittal, coronal, and transverse planes, provides intracavitary pressure to reduce load on the intervertebral disks, includes fitting and shaping the frame, prefabricated, includes fitting and adjustment",
+      "query_type": "official_label",
+      "source_code": "L0470",
+      "relevant_codes": [
+        "L0470"
+      ]
+    },
+    {
+      "id": "hcpcs-032",
+      "scheme": "hcpcs",
+      "query": "Eligible clinician attests to documenting in the medical record they otained, updated, or reviewed the patient's current medications",
+      "query_type": "label_typo",
+      "source_code": "G8427",
+      "relevant_codes": [
+        "G8427"
+      ]
+    },
+    {
+      "id": "hcpcs-033",
+      "scheme": "hcpcs",
+      "query": "A4520",
+      "query_type": "exact_code",
+      "source_code": "A4520",
+      "relevant_codes": [
+        "A4520"
+      ]
+    },
+    {
+      "id": "hcpcs-034",
+      "scheme": "hcpcs",
+      "query": "Excised tissue evaluated by imaging intraoperatively to confirm successful inclusion of targeted lesion",
+      "query_type": "official_label",
+      "source_code": "G8872",
+      "relevant_codes": [
+        "G8872"
+      ]
+    },
+    {
+      "id": "hcpcs-035",
+      "scheme": "hcpcs",
+      "query": "Hme infusion therapy, all supplies (including catheter) necessary for a midline catheter insertion",
+      "query_type": "label_typo",
+      "source_code": "S5521",
+      "relevant_codes": [
+        "S5521"
+      ]
+    },
+    {
+      "id": "hcpcs-036",
+      "scheme": "hcpcs",
+      "query": "J9196",
+      "query_type": "exact_code",
+      "source_code": "J9196",
+      "relevant_codes": [
+        "J9196"
+      ]
+    },
+    {
+      "id": "loinc-001",
+      "scheme": "loinc",
+      "query": "Fetal Neck.soft tissue Translucency width US",
+      "query_type": "official_label",
+      "source_code": "33069-6",
+      "relevant_codes": [
+        "33069-6"
+      ]
+    },
+    {
+      "id": "loinc-002",
+      "scheme": "loinc",
+      "query": "Microscopic exam [interpreation] of Urine by Cytology",
+      "query_type": "label_typo",
+      "source_code": "27045-4",
+      "relevant_codes": [
+        "27045-4"
+      ]
+    },
+    {
+      "id": "loinc-003",
+      "scheme": "loinc",
+      "query": "3389-4",
+      "query_type": "exact_code",
+      "source_code": "3389-4",
+      "relevant_codes": [
+        "3389-4"
+      ]
+    },
+    {
+      "id": "loinc-004",
+      "scheme": "loinc",
+      "query": "Thyrotropin [Units/volume] in Serum or Plasma by Detection limit <= 0.005 mIU/L",
+      "query_type": "official_label",
+      "source_code": "11580-8",
+      "relevant_codes": [
+        "11580-8"
+      ]
+    },
+    {
+      "id": "loinc-005",
+      "scheme": "loinc",
+      "query": "Glucose [Mas/volume] in Blood",
+      "query_type": "label_typo",
+      "source_code": "2339-0",
+      "relevant_codes": [
+        "2339-0"
+      ]
+    },
+    {
+      "id": "loinc-006",
+      "scheme": "loinc",
+      "query": "13655-6",
+      "query_type": "exact_code",
+      "source_code": "13655-6",
+      "relevant_codes": [
+        "13655-6"
+      ]
+    },
+    {
+      "id": "loinc-007",
+      "scheme": "loinc",
+      "query": "Borrelia burgdorferi 28kD IgG Ab [Presence] in Serum by Immunoblot (IB)",
+      "query_type": "official_label",
+      "source_code": "9590-1",
+      "relevant_codes": [
+        "9590-1"
+      ]
+    },
+    {
+      "id": "loinc-008",
+      "scheme": "loinc",
+      "query": "Calcitiol [Mass/volume] in Serum or Plasma",
+      "query_type": "label_typo",
+      "source_code": "1649-3",
+      "relevant_codes": [
+        "1649-3"
+      ]
+    },
+    {
+      "id": "loinc-009",
+      "scheme": "loinc",
+      "query": "29265-6",
+      "query_type": "exact_code",
+      "source_code": "29265-6",
+      "relevant_codes": [
+        "29265-6"
+      ]
+    },
+    {
+      "id": "loinc-010",
+      "scheme": "loinc",
+      "query": "Cholesterol in VLDL [Mass/volume] in Serum or Plasma by calculation",
+      "query_type": "official_label",
+      "source_code": "13458-5",
+      "relevant_codes": [
+        "13458-5"
+      ]
+    },
+    {
+      "id": "loinc-011",
+      "scheme": "loinc",
+      "query": "Reticulocyts/100 erythrocytes in Blood",
+      "query_type": "label_typo",
+      "source_code": "4679-7",
+      "relevant_codes": [
+        "4679-7"
+      ]
+    },
+    {
+      "id": "loinc-012",
+      "scheme": "loinc",
+      "query": "20399-2",
+      "query_type": "exact_code",
+      "source_code": "20399-2",
+      "relevant_codes": [
+        "20399-2"
+      ]
+    },
+    {
+      "id": "loinc-013",
+      "scheme": "loinc",
+      "query": "Potassium [Moles/volume] in Blood",
+      "query_type": "official_label",
+      "source_code": "6298-4",
+      "relevant_codes": [
+        "6298-4"
+      ]
+    },
+    {
+      "id": "loinc-014",
+      "scheme": "loinc",
+      "query": "Sjogrens syndrome-A extractable nuclear Ab [Unis/volume] in Serum",
+      "query_type": "label_typo",
+      "source_code": "17792-3",
+      "relevant_codes": [
+        "17792-3"
+      ]
+    },
+    {
+      "id": "loinc-015",
+      "scheme": "loinc",
+      "query": "12841-3",
+      "query_type": "exact_code",
+      "source_code": "12841-3",
+      "relevant_codes": [
+        "12841-3"
+      ]
+    },
+    {
+      "id": "loinc-016",
+      "scheme": "loinc",
+      "query": "Triiodothyronine (T3) [Mass/volume] in Serum or Plasma",
+      "query_type": "official_label",
+      "source_code": "3053-6",
+      "relevant_codes": [
+        "3053-6"
+      ]
+    },
+    {
+      "id": "loinc-017",
+      "scheme": "loinc",
+      "query": "Natriuretic peptide B [Mass/volume] i Serum or Plasma",
+      "query_type": "label_typo",
+      "source_code": "30934-4",
+      "relevant_codes": [
+        "30934-4"
+      ]
+    },
+    {
+      "id": "loinc-018",
+      "scheme": "loinc",
+      "query": "38486-7",
+      "query_type": "exact_code",
+      "source_code": "38486-7",
+      "relevant_codes": [
+        "38486-7"
+      ]
+    },
+    {
+      "id": "loinc-019",
+      "scheme": "loinc",
+      "query": "Urate [Mass/volume] in Serum or Plasma",
+      "query_type": "official_label",
+      "source_code": "3084-1",
+      "relevant_codes": [
+        "3084-1"
+      ]
+    },
+    {
+      "id": "loinc-020",
+      "scheme": "loinc",
+      "query": "Magnesium [Mass/volume in Serum or Plasma",
+      "query_type": "label_typo",
+      "source_code": "19123-9",
+      "relevant_codes": [
+        "19123-9"
+      ]
+    },
+    {
+      "id": "loinc-021",
+      "scheme": "loinc",
+      "query": "44357-2",
+      "query_type": "exact_code",
+      "source_code": "44357-2",
+      "relevant_codes": [
+        "44357-2"
+      ]
+    },
+    {
+      "id": "loinc-022",
+      "scheme": "loinc",
+      "query": "Erythrocytes [#/area] in Urine sediment by Microscopy high power field",
+      "query_type": "official_label",
+      "source_code": "13945-1",
+      "relevant_codes": [
+        "13945-1"
+      ]
+    },
+    {
+      "id": "loinc-023",
+      "scheme": "loinc",
+      "query": "Chloride [Moles/volume in Blood",
+      "query_type": "label_typo",
+      "source_code": "2069-3",
+      "relevant_codes": [
+        "2069-3"
+      ]
+    },
+    {
+      "id": "loinc-024",
+      "scheme": "loinc",
+      "query": "1975-2",
+      "query_type": "exact_code",
+      "source_code": "1975-2",
+      "relevant_codes": [
+        "1975-2"
+      ]
+    },
+    {
+      "id": "cvx-001",
+      "scheme": "cvx",
+      "query": "Adenovirus types 4 and 7",
+      "query_type": "official_label",
+      "source_code": "143",
+      "relevant_codes": [
+        "143"
+      ]
+    },
+    {
+      "id": "cvx-002",
+      "scheme": "cvx",
+      "query": "meningococcal, unknown serogrous",
+      "query_type": "label_typo",
+      "source_code": "167",
+      "relevant_codes": [
+        "167"
+      ]
+    },
+    {
+      "id": "cvx-003",
+      "scheme": "cvx",
+      "query": "322",
+      "query_type": "exact_code",
+      "source_code": "322",
+      "relevant_codes": [
+        "322"
+      ]
+    },
+    {
+      "id": "cvx-004",
+      "scheme": "cvx",
+      "query": "DTaP,IPV,Hib,HepB",
+      "query_type": "official_label",
+      "source_code": "146",
+      "relevant_codes": [
+        "146"
+      ]
+    },
+    {
+      "id": "cvx-005",
+      "scheme": "cvx",
+      "query": "DTAP/PV/HIB - non-US",
+      "query_type": "label_typo",
+      "source_code": "170",
+      "relevant_codes": [
+        "170"
+      ]
+    },
+    {
+      "id": "cvx-006",
+      "scheme": "cvx",
+      "query": "511",
+      "query_type": "exact_code",
+      "source_code": "511",
+      "relevant_codes": [
+        "511"
+      ]
+    },
+    {
+      "id": "cvx-007",
+      "scheme": "cvx",
+      "query": "Influenza, adjuvanted, trivalent, PF",
+      "query_type": "official_label",
+      "source_code": "168",
+      "relevant_codes": [
+        "168"
+      ]
+    },
+    {
+      "id": "cvx-008",
+      "scheme": "cvx",
+      "query": "DTaP-IPV-HIB-HEP B, historcal",
+      "query_type": "label_typo",
+      "source_code": "132",
+      "relevant_codes": [
+        "132"
+      ]
+    },
+    {
+      "id": "cvx-009",
+      "scheme": "cvx",
+      "query": "198",
+      "query_type": "exact_code",
+      "source_code": "198",
+      "relevant_codes": [
+        "198"
+      ]
+    },
+    {
+      "id": "cvx-010",
+      "scheme": "cvx",
+      "query": "COVID-19, mRNA, LNP-S, PF, tris-sucrose, 3 mcg/0.3 mL",
+      "query_type": "official_label",
+      "source_code": "308",
+      "relevant_codes": [
+        "308"
+      ]
+    },
+    {
+      "id": "cvx-011",
+      "scheme": "cvx",
+      "query": "COVID-19, mRNA, LNP-S, PF, trissucrose, 10 mcg/0.3 mL",
+      "query_type": "label_typo",
+      "source_code": "310",
+      "relevant_codes": [
+        "310"
+      ]
+    },
+    {
+      "id": "cvx-012",
+      "scheme": "cvx",
+      "query": "48",
+      "query_type": "exact_code",
+      "source_code": "48",
+      "relevant_codes": [
+        "48"
+      ]
+    },
+    {
+      "id": "cvx-013",
+      "scheme": "cvx",
+      "query": "DTP-Hib-Hep B",
+      "query_type": "official_label",
+      "source_code": "102",
+      "relevant_codes": [
+        "102"
+      ]
+    },
+    {
+      "id": "cvx-014",
+      "scheme": "cvx",
+      "query": "pneumococcal cnjugate PCV 7",
+      "query_type": "label_typo",
+      "source_code": "100",
+      "relevant_codes": [
+        "100"
+      ]
+    },
+    {
+      "id": "cvx-015",
+      "scheme": "cvx",
+      "query": "160",
+      "query_type": "exact_code",
+      "source_code": "160",
+      "relevant_codes": [
+        "160"
+      ]
+    },
+    {
+      "id": "cvx-016",
+      "scheme": "cvx",
+      "query": "RSV-IGIV",
+      "query_type": "official_label",
+      "source_code": "71",
+      "relevant_codes": [
+        "71"
+      ]
+    },
+    {
+      "id": "cvx-017",
+      "scheme": "cvx",
+      "query": "COVID-19, mRNA, LNP-S, PF, pediatric 5 mcg/0.5 mL dose",
+      "query_type": "label_typo",
+      "source_code": "227",
+      "relevant_codes": [
+        "227"
+      ]
+    },
+    {
+      "id": "cvx-018",
+      "scheme": "cvx",
+      "query": "337",
+      "query_type": "exact_code",
+      "source_code": "337",
+      "relevant_codes": [
+        "337"
+      ]
+    }
+  ]
+}

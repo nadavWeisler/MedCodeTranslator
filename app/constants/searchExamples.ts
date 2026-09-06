@@ -12,7 +12,6 @@ export const SEARCH_EXAMPLES: Partial<Record<SchemeKey, string[]>> = {
   atc5: ['metformin', 'aspirin', 'amoxicillin'],
   cvx: ['influenza', 'COVID', 'MMR'],
   loinc: ['glucose', 'hemoglobin', 'potassium'],
-  cpt: ['appendectomy', 'colonoscopy', 'mammography'],
   hcpcs: ['wheelchair', 'ambulance', 'splint'],
 };
 

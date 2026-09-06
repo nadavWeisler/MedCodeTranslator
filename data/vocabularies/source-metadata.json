@@ -100,7 +100,8 @@
       "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
       "record_count": 64,
       "license_text": "WHO ICD-11 terms apply to official distributions.",
-      "attribution_text": "ICD-11 source context: WHO."
+      "attribution_text": "ICD-11 source context: WHO.",
+      "coverage": "demo"
     },
     {
       "dataset": "loinc",
@@ -114,18 +115,6 @@
       "license_text": "LOINC/Regenstrief license terms apply. Subset derived from the public Top 2000+ common lab observations list.",
       "attribution_text": "LOINC® (https://loinc.org) — Regenstrief Institute. Common panel subset per LOINC Top 2000+ US list.",
       "coverage": "partial"
-    },
-    {
-      "dataset": "cpt",
-      "provider": "Curated demo procedures list (not official CPT distribution)",
-      "url": "https://www.ama-assn.org/practice-management/cpt/cpt-overview-and-code-approval",
-      "dataset_version": "Demo subset",
-      "source_revision": "Curated repository sample",
-      "last_updated_utc": "2026-05-30T14:40:52+00:00",
-      "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
-      "record_count": 64,
-      "license_text": "Official CPT requires AMA license; repo data is curated demo subset only.",
-      "attribution_text": "Procedure sample references CPT-like codes; not an official CPT distribution."
     },
     {
       "dataset": "hcpcs",

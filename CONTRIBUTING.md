@@ -13,7 +13,7 @@ Before opening any issue:
 - Do **not** include patient-identifiable or protected health information (PHI).
 - Keep requests within the product's informational/reference scope.
 - If a proposal could influence diagnosis, treatment, or prescribing decisions, pause and route it for legal/regulatory review first.
-- Include the affected platform (`Web`, `iOS`, `Android`, or `Shared / all platforms`) and the coding scheme (`ATC-5`, `ICD-10`, `ICD-9-CM`, `ICD-11`, `LOINC`, `CPT-4`) when relevant.
+- Include the affected platform (`Web`, `iOS`, `Android`, or `Shared / all platforms`) and the coding scheme (`ATC-5`, `ICD-10`, `ICD-9-CM`, `ICD-11`, `LOINC`, `HCPCS`) when relevant.
 
 Every actionable issue should capture:
 

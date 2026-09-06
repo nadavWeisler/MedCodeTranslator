@@ -322,7 +322,7 @@ function runScheme(schemeName, options = {}) {
 
 // ── Main ──────────────────────────────────────────────────────────────────────
 
-const SCHEMES = ['atc5', 'icd10', 'icd9', 'icd11', 'loinc', 'cpt', 'hcpcs', 'cvx'];
+const SCHEMES = ['atc5', 'icd10', 'icd9', 'icd11', 'loinc', 'hcpcs', 'cvx'];
 const EXTRA_BENCHMARKS = [
   {
     scheme: 'icd10',

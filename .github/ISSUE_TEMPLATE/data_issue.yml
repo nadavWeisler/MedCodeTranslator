@@ -37,7 +37,6 @@ body:
         - ICD-9-CM
         - ICD-11
         - LOINC
-        - CPT-4
         - HCPCS
         - CVX
         - Crosswalk / shared data

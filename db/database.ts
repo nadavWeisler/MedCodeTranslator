@@ -10,7 +10,7 @@ export type { SchemeKey } from '@medcode/core';
 const DB_NAME = 'medcodes.db';
 // Bumped to 6: switches from eager seedAll() to per-scheme lazy seeding.
 // On upgrade the seeded_* flags are cleared so each scheme re-seeds on first access.
-const SCHEMA_VERSION = 8;
+const SCHEMA_VERSION = 9;
 
 // In-memory cache: avoids a meta-table query on every getAllEntries() call
 const seededSchemes = new Set<SchemeKey>();
@@ -33,7 +33,6 @@ const VOCABULARY_LOADERS: Record<SchemeKey, () => Promise<RawEntry[]>> = {
   icd9:  () => import('../data/vocabularies/icd9.json').then(m => m.default as unknown as RawEntry[]),
   icd11: () => import('../data/vocabularies/icd11.json').then(m => m.default as unknown as RawEntry[]),
   loinc: () => import('../data/vocabularies/loinc.json').then(m => m.default as unknown as RawEntry[]),
-  cpt:   () => import('../data/vocabularies/cpt.json').then(m => m.default as unknown as RawEntry[]),
   hcpcs: () => import('../data/vocabularies/hcpcs.json').then(m => m.default as unknown as RawEntry[]),
   cvx:   () => import('../data/vocabularies/cvx.json').then(m => m.default as unknown as RawEntry[]),
 };
@@ -92,11 +91,6 @@ export async function initDB(): Promise<void> {
       name_he TEXT
     );
     CREATE TABLE IF NOT EXISTS loinc (
-      code TEXT PRIMARY KEY,
-      name_en TEXT NOT NULL,
-      name_he TEXT
-    );
-    CREATE TABLE IF NOT EXISTS cpt (
       code TEXT PRIMARY KEY,
       name_en TEXT NOT NULL,
       name_he TEXT

@@ -30,7 +30,7 @@ for result in cross_results:
     print(result.scheme, result.code, result.name_en)
 ```
 
-Point `data_dir` at the monorepo `data/vocabularies` directory (or your own export) for full scheme coverage.
+Point `data_dir` at the monorepo `data/vocabularies` directory (or your own export). ICD-11 and LOINC in that bundle are subsets (64 and 600 rows).
 
 ## Publishing
 

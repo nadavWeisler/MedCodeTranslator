@@ -114,11 +114,11 @@ Close gaps between documentation and implementation. Low regulatory risk; high c
 | **Depends on** | — |
 | **Effort** | S (~1–2 days) |
 
-**Problem:** ICD-11, LOINC, and CPT are demo subsets (64–70 rows) but UI does not distinguish them from full refreshes like ICD-10 (~74k).
+**Problem:** ICD-11 (64 rows) and LOINC (600-row subset) must not be presented as full distributions next to ICD-10 (~74k).
 
 **Tasks:**
 1. Extend `source-metadata.json` schema with optional `coverage: 'full' | 'partial' | 'demo'`.
-2. Mark `icd11`, `loinc`, `cpt` as `demo`; mark refreshed schemes as `full`.
+2. Mark `icd11` as `demo` and `loinc` as `partial`; mark refreshed schemes as `full`.
 3. Show badge in `CodeCard` metadata / About screen / scheme tab tooltip.
 4. i18n strings for badge labels in all 9 locales.
 
@@ -192,8 +192,8 @@ Ship beyond GitHub Pages; make packages consumable externally.
 **Tasks:**
 1. Update `store-listing.md` and `docs/APP_STORE_DESCRIPTION.md`:
    - 9 UI languages (not just EN + Hebrew)
-   - 12 schemes including ATC hierarchy, HCPCS, CVX
-   - Demo-subset disclaimer for LOINC/CPT/ICD-11
+   - 11 schemes including ATC hierarchy, HCPCS, CVX
+   - Subset disclaimer for LOINC (600) and ICD-11 (64)
 2. Capture required screenshots (see store-listing.md).
 3. Align privacy policy URL with live GitHub Pages path.
 
@@ -518,7 +518,7 @@ Integrations and long-term maintainability.
 - [ ] Written go/no-go with license summary.
 - [ ] If go: follow “Adding a New Terminology Scheme” in architecture.md.
 
-**Explicitly deferred without license path:** SNOMED CT, full CPT, full LOINC.
+**Explicitly deferred without license path:** SNOMED CT, full LOINC.
 
 ---
 
@@ -569,7 +569,7 @@ Use these titles when opening the backlog (labels from `.github/settings.yml`):
 - Drug interaction, contraindication, or dosing features
 - LLM-generated clinical content
 - Patient-specific inputs or risk scoring
-- SNOMED CT or full CPT without explicit license
+- SNOMED CT without explicit license
 
 See [SAFE_SCOPE.md](./SAFE_SCOPE.md) and [CONTRIBUTING.md](../CONTRIBUTING.md).
 

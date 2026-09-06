@@ -13,7 +13,6 @@ import { useRouter, useLocalSearchParams } from 'expo-router';
 import { useTranslation } from 'react-i18next';
 import Head from 'expo-router/head';
 import SiteChrome from './components/SiteChrome';
-import BenchmarkChart from './components/BenchmarkChart';
 import TrustBar from './components/TrustBar';
 import { colors, radii, shadows, typography } from './constants/theme';
 
@@ -26,10 +25,9 @@ const FEATURES = [
 ] as const;
 
 const STATS = [
-  { value: '12', labelKey: 'site_stat_schemes' },
+  { value: '11', labelKey: 'site_stat_schemes' },
   { value: '105k+', labelKey: 'site_stat_entries' },
   { value: '9', labelKey: 'site_stat_languages' },
-  { value: '82', labelKey: 'site_stat_benchmarks' },
 ] as const;
 
 function firstParam(v: string | string[] | undefined): string | undefined {
@@ -82,7 +80,7 @@ export default function LandingPage() {
         <title>MedCode Clinical — Open-Source Clinical Terminology Lookup</title>
         <meta
           name="description"
-          content="MIT-licensed, offline-capable lookup across ICD-10, ATC, LOINC, HCPCS, and related coding systems — with explainable search and reproducible benchmarks."
+          content="MIT-licensed, offline multi-vocabulary search across ICD-10, ATC, LOINC (subset), HCPCS, and related coding systems — with a visible score and match method on every result."
         />
       </Head>
       <SiteChrome>
@@ -140,10 +138,6 @@ export default function LandingPage() {
                 </View>
               ))}
             </View>
-          </View>
-
-          <View style={styles.section}>
-            <BenchmarkChart />
           </View>
 
           <View style={styles.section}>

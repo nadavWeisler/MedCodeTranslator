@@ -1,6 +1,7 @@
 {
   "name": "med-code-translator",
   "version": "1.0.0",
+  "license": "MIT",
   "main": "expo-router/entry",
   "workspaces": [
     "packages/core",

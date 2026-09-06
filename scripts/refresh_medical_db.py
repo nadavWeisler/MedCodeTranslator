@@ -308,7 +308,7 @@ def parse_hcpcs_zip(raw: bytes) -> list[dict[str, str]]:
     The CMS alpha-numeric HCPCS file is a fixed-width text file.  The HCPCS
     Level II code appears at the very start of each line (5 characters: one
     letter followed by four digits).  Descriptions follow after whitespace.
-    Codes matching the CPT-like all-digit pattern are skipped.
+    All-digit codes that are not HCPCS Level II are skipped.
     """
     with zipfile.ZipFile(io.BytesIO(raw)) as zf:
         # Look for the main text file; prefer files with "hcpcs" or "anweb" in the name.

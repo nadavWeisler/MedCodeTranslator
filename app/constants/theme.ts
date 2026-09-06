@@ -95,6 +95,5 @@ export const schemeColors = {
   atc5: '#1E3A5F',
   cvx: '#5C4D8A',
   loinc: '#9A6B1A',
-  cpt: '#8B3A3A',
   hcpcs: '#0F5C5C',
 } as const;

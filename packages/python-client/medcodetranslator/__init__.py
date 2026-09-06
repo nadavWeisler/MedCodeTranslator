@@ -32,7 +32,6 @@ SCHEME_KEYS = [
     "icd9",
     "icd11",
     "loinc",
-    "cpt",
     "hcpcs",
     "cvx",
 ]

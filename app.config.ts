@@ -43,7 +43,7 @@ const config: ExpoConfig = {
     name: 'MedCode Clinical',
     shortName: 'MedCode',
     description:
-      'Authoritative clinical coding reference across ICD, ATC, LOINC, CPT, and related terminology systems.',
+      'Offline multi-vocabulary search across ICD, ATC, LOINC (subset), HCPCS, and related terminology systems.',
   },
   plugins: ['expo-sqlite', 'expo-router'],
   experiments: {

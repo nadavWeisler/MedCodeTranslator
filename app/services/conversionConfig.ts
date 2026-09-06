@@ -21,7 +21,6 @@ const SCHEME_LABELS: Record<SchemeKey, string> = {
   icd9: 'ICD-9-CM',
   icd11: 'ICD-11',
   loinc: 'LOINC',
-  cpt: 'CPT',
   hcpcs: 'HCPCS',
   cvx: 'CVX',
 };

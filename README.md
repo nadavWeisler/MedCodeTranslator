@@ -7,7 +7,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Live Demo](https://img.shields.io/badge/demo-production-brightgreen)](https://nadavweisler.github.io/MedCodeTranslator/)
 
-**Open-source biomedical terminology retrieval and semantic search infrastructure.**
+**Offline multi-vocabulary medical-code search with transparent ranking.**
+
+The useful part is packaging, on-device search, and a visible score — not a new mapping method, and not semantic retrieval.
 
 [Production Demo](https://nadavweisler.github.io/MedCodeTranslator/) · [API Docs](docs/API.md) · [Architecture](docs/architecture.md) · [Contributing](CONTRIBUTING.md)
 
@@ -15,9 +17,9 @@
 
 ## Problem Statement
 
-Biomedical terminology is fragmented across a dozen incompatible standards — ICD-10, ATC, LOINC, CPT, and more. Looking up a code across systems requires expensive licensed tools, proprietary APIs, or brittle scripts.
+Biomedical terminology is fragmented across incompatible standards — ICD-10, ATC, LOINC, and others. Looking up a code across systems often requires licensed tools, proprietary APIs, or one-off scripts.
 
-MedCodeTranslator is a **transparent, offline-capable, open-source retrieval engine** that works across all major coding schemes without sending data to a third party.
+MedCodeTranslator is an **offline-capable, open-source search app** over bundled vocabularies. It does not send queries to a third party. It is **not** a crosswalk engine: it searches stored entries and shows how each hit ranked.
 
 > **Medical disclaimer:** This is an informational reference tool only.
 > Not for diagnosis, treatment decisions, prescribing, or clinical recommendations.
@@ -32,15 +34,15 @@ MedCodeTranslator is a **transparent, offline-capable, open-source retrieval eng
 | Terminology lookup requires costly licensed APIs | Bundled offline-capable datasets |
 | Black-box matching — no explanation of why a result matched | Transparent scoring + `matchMethod` label per result |
 | Mobile/offline-unfriendly tools | React Native app, SQLite on-device |
-| Hard to reproduce or evaluate search quality | Benchmark suite with precision@1, precision@5, MRR |
+| Hard to inspect ranking | Layered lexical search (exact → prefix → substring → Fuse.js fuzzy) |
 | No programmatic access | Shared TypeScript + Python packages |
 
 ---
 
 ## Features
 
-- **Layered retrieval** — exact → prefix → substring → fuzzy, with per-result score and `matchMethod`
-- **12 medical code schemes** — ATC-1, ATC-2, ATC-3, ATC-4, ATC-5, ICD-10, ICD-9-CM, ICD-11, LOINC, CPT, HCPCS, CVX
+- **Layered lexical retrieval** — exact → prefix → substring → fuzzy (Fuse.js), with per-result score and `matchMethod`
+- **11 coding schemes** — ATC-1, ATC-2, ATC-3, ATC-4, ATC-5, ICD-10, ICD-9-CM, ICD-11 (subset), LOINC (subset), HCPCS, CVX
 - **Offline-first** — SQLite on-device via expo-sqlite; no network calls for search
 - **Transparent ranking** — every result exposes its score (0–1) and how it was matched
 - **Match highlighting** — character-level match spans returned for all result types
@@ -48,30 +50,31 @@ MedCodeTranslator is a **transparent, offline-capable, open-source retrieval eng
 - **Multilingual UI** — English, Hebrew (RTL), Spanish, French, Portuguese, Russian, Chinese, German, Arabic
 - **Cross-platform** — iOS, Android, Web (PWA via GitHub Pages)
 - **Reusable packages** — `packages/search/` (TypeScript) + `packages/python-client/` (Python)
-- **Benchmark suite** — reproducible evaluation with precision@1, precision@5, MRR per scheme
+- **Fixture regression gate** — `npm run benchmark` checks hand-written queries; it is not a held-out IR evaluation
 
 ---
 
 ## Supported Terminologies
 
-| Scheme | Authority | Coverage |
-|--------|-----------|----------|
-| **ATC-1** | WHO/WHOCC | Drug anatomical main groups |
-| **ATC-2** | WHO/WHOCC | Drug therapeutic subgroups |
-| **ATC-3** | WHO/WHOCC | Drug pharmacological subgroups |
-| **ATC-4** | WHO/WHOCC | Drug chemical subgroups |
-| **ATC-5** | WHO Collaborating Centre (WHOCC) | Drug classification (level 5) |
-| **ICD-10** | CMS / WHO | Diagnosis codes |
-| **ICD-9-CM** | NBER / CMS (historical) | Legacy diagnosis codes |
-| **ICD-11** | WHO | Latest international classification |
-| **LOINC** | Regenstrief Institute | Lab & clinical observations |
-| **CPT** | Curated demo subset | Procedure codes |
-| **HCPCS** | CMS | Supplies & non-physician services |
-| **CVX** | CDC | Vaccine codes |
+Counts are the bundled files in this repo (see [`data/vocabularies/source-metadata.json`](data/vocabularies/source-metadata.json)).
 
-Data files live in [`data/vocabularies/`](data/vocabularies/). See [`DATA_SOURCES.md`](DATA_SOURCES.md) and [`data/vocabularies/source-metadata.json`](data/vocabularies/source-metadata.json) for provenance.
+| Scheme | Authority | Coverage in this repo |
+|--------|-----------|------------------------|
+| **ATC-1** | WHO/WHOCC | 14 codes (full level-1 snapshot) |
+| **ATC-2** | WHO/WHOCC | 90 codes (full level-2 snapshot) |
+| **ATC-3** | WHO/WHOCC | 248 codes (full level-3 snapshot) |
+| **ATC-4** | WHO/WHOCC | 841 codes (full level-4 snapshot) |
+| **ATC-5** | WHOCC | 5,579 codes (refreshed snapshot) |
+| **ICD-10** | CMS / WHO | 74,260 ICD-10-CM codes (valid-for-coding snapshot) |
+| **ICD-9-CM** | NBER / CMS (historical) | 14,567 codes (historical snapshot) |
+| **ICD-11** | WHO | **64-code curated subset** — not full ICD-11 |
+| **LOINC** | Regenstrief Institute | **600-code common-panel subset** — not full LOINC |
+| **HCPCS** | CMS | 8,724 Level II codes (quarterly snapshot) |
+| **CVX** | CDC | 289 vaccine codes |
 
-> **Note:** Public vocabularies such as ATC, ICD-9-CM, ICD-10-CM, HCPCS, and CVX are bundled from source refreshes; ICD-11, LOINC, and CPT remain curated demo subsets. See [`data/vocabularies/source-metadata.json`](data/vocabularies/source-metadata.json) and [`scripts/fetch_public_vocabularies.py`](scripts/fetch_public_vocabularies.py).
+Data files live in [`data/vocabularies/`](data/vocabularies/). See [`DATA_SOURCES.md`](DATA_SOURCES.md) for provenance.
+
+> Public vocabularies such as ATC, ICD-9-CM, ICD-10-CM, HCPCS, and CVX are bundled from source refreshes. ICD-11 and LOINC are **explicit subsets** (64 and 600 rows). See [`scripts/fetch_public_vocabularies.py`](scripts/fetch_public_vocabularies.py).
 
 ---
 
@@ -106,6 +109,8 @@ User query
     ▼
 SQLite (expo-sqlite)  ←→  Fuse.js in-memory index
 ```
+
+This is lexical / string matching, not embedding-based semantic search.
 
 All retrieval logic lives in [`packages/search/src/`](packages/search/src/):
 
@@ -171,24 +176,9 @@ Results always include:
 
 ---
 
-## Benchmark Results
+## Fixture regression (not a published IR eval)
 
-Layered retrieval precision (see `npm run benchmark`). Last verified on dev branch.
-
-| Scheme | Precision@1 | Precision@5 |
-|--------|------------|------------|
-| ATC-5 | 83% | 100% |
-| ICD-10 | 100% | 100% |
-| ICD-9 | 100% | 100% |
-| ICD-11 | 89% | 89% |
-| LOINC | 100% | 100% |
-| CPT | 100% | 100% |
-| HCPCS | 100% | 100% |
-| CVX | 75% | 88% |
-
-Thresholds: P@1 ≥ 70%, P@5 ≥ 85%. CI fails if any scheme regresses below threshold.
-
-*See [`data/benchmarks/`](data/benchmarks/) for query sets and evaluation methodology.*
+`npm run benchmark` runs **hand-written** queries in [`data/benchmarks/`](data/benchmarks/) as a CI regression gate (default thresholds P@1 ≥ 70%, P@5 ≥ 85%). Those fixtures are not a held-out information-retrieval evaluation and should not be read as near-perfect retrieval quality.
 
 ---
 
@@ -201,7 +191,7 @@ packages/
   python-client/          Python client (medcodetranslator package)
 data/
   vocabularies/           JSON vocabulary files (one per scheme)
-  benchmarks/             Benchmark query sets per scheme
+  benchmarks/             Hand-written fixture query sets per scheme
   aliases/common.json     Abbreviation / brand-name alias table
 app/                      Expo Router screens + components
 db/                       expo-sqlite init + query layer
@@ -217,9 +207,9 @@ docs/                     Architecture, API, retrieval, and ops runbooks
 See [CONTRIBUTING.md](CONTRIBUTING.md). In brief:
 
 1. Fork and create a feature branch
-2. Run `npm test` and `npm run benchmark` — all tests and search quality gates must pass
+2. Run `npm test` and `npm run benchmark` — tests and fixture gates must pass
 3. For data changes, update `data/vocabularies/` and `data/vocabularies/source-metadata.json`
-4. For search logic changes, add benchmark queries to `data/benchmarks/`
+4. For search logic changes, add fixture queries to `data/benchmarks/`
 5. Open a PR against `dev`
 
 **Scope constraint:** This project is a retrieval and reference tool. PRs that add diagnosis generation, clinical recommendations, or LLM inference will not be merged. See [docs/SAFE_SCOPE.md](docs/SAFE_SCOPE.md).

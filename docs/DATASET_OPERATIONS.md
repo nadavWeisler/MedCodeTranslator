@@ -132,7 +132,8 @@ Also sync `assets/data/source-metadata.json` if the app reads from assets at run
 | Scheme | Coverage | Notes |
 |--------|----------|-------|
 | ICD-10, ICD-9, ATC, HCPCS, CVX | `full` | Automated refresh |
-| ICD-11, LOINC, CPT | `demo` | Curated subsets; license limits full import |
+| ICD-11 | `demo` | 64-code curated subset; not full ICD-11 |
+| LOINC | `partial` | 600-code common-panel subset; not full LOINC |
 
 Do not mark a scheme `full` until an automated or licensed import path exists.
 
@@ -158,7 +159,7 @@ Pause and route for review if a request involves:
 
 - Patient-specific data processing
 - Clinical decision support or inferred mappings
-- SNOMED CT, full CPT, or full LOINC without license
+- SNOMED CT or full LOINC without license
 
 See [SAFE_SCOPE.md](./SAFE_SCOPE.md).
 

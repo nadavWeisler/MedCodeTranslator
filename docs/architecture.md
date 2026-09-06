@@ -54,7 +54,8 @@ MedCodeTranslator is a cross-platform (iOS / Android / Web) biomedical terminolo
 | `packages/search/` | Platform-agnostic retrieval engine |
 | `packages/python-client/` | Python `medcodetranslator` package |
 | `data/vocabularies/` | Bundled JSON vocabulary files (one per scheme) |
-| `data/benchmarks/` | Benchmark query sets per scheme |
+| `data/eval/` | Held-out IR query set and committed harness report |
+| `data/benchmarks/` | Hand-written fixture query sets (CI smoke only) |
 | `data/aliases/` | Abbreviation/brand-name alias table |
 | `i18n/` | i18next locale files (9 languages) |
 | `scripts/` | Data refresh (`refresh_medical_db.py`) and fetch scripts |
@@ -198,5 +199,6 @@ Run: `npm test`
 2. Add the scheme key to `packages/core/src/types.ts` → `SchemeKey` union
 3. Add `CREATE TABLE` + seed call in `db/database.ts` (bump `SCHEMA_VERSION`)
 4. Add tab entry in `app/components/SchemeTabs.tsx` → `SCHEMES` array
-5. Add benchmark queries to `data/benchmarks/<scheme>.json`
+5. Add fixture-smoke queries to `data/benchmarks/<scheme>.json` only if you need a CI canary — published IR numbers come from `npm run eval:heldout`
 6. Update `data/vocabularies/source-metadata.json` with provenance info
+7. If the scheme is in the held-out harness quota, regenerate `data/eval/`

@@ -13,8 +13,10 @@ unexpected changes.
    ```bash
    npm run validate:data
    npm run benchmark
+   npm run eval:heldout:generate
+   npm run eval:heldout
    ```
-5. Merge only when validation and benchmarks pass.
+5. Merge only when validation, the fixture smoke, and the held-out harness pass.
 
 ## Workflow outputs
 
@@ -62,13 +64,13 @@ Canonical vocabulary path: **`data/vocabularies/`** (not `assets/data/`).
 3. If ICD-10 codes were removed upstream, rebuild crosswalk or filter orphaned mappings in the refresh script.
 4. Do **not** merge until referential integrity passes or an explicit exception is documented.
 
-### Search benchmark regression
+### Search quality regression
 
-**Symptoms:** `npm run benchmark` exits 1 after a data refresh PR.
+**Symptoms:** `npm run benchmark` or `npm run eval:heldout` exits 1 after a data refresh PR.
 
 **Actions:**
-1. Read `build/search-quality/benchmark-report.json` for per-scheme details.
-2. If labels changed but codes are correct, update fixtures in `data/benchmarks/`.
+1. Fixture smoke: read `build/search-quality/benchmark-report.json`. Prefer not to expand hand-picked `expected_codes` as the evaluation story.
+2. Held-out IR: regenerate with `npm run eval:heldout:generate` if codes/labels changed, then `npm run eval:heldout` and update `data/eval/heldout-report.json` plus the README tables from that file.
 3. If ranking genuinely degraded, fix data normalization or search layers before merging.
 
 ## When to re-run vs skip
@@ -94,6 +96,8 @@ python3 agents/crosswalk-validator/validate_crosswalk.py
 
 # Search quality
 npm run benchmark
+npm run eval:heldout:generate
+npm run eval:heldout
 ```
 
 ## Merge criteria for refresh PRs
@@ -102,6 +106,7 @@ npm run benchmark
 - [ ] `npm run validate:data` passes
 - [ ] Crosswalk validator passes
 - [ ] `npm run benchmark` passes
+- [ ] `npm run eval:heldout` passes and README tables match `data/eval/heldout-report.json`
 - [ ] `source-metadata.json` record counts updated
 - [ ] No PHI or patient-specific data introduced
 

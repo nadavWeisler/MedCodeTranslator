@@ -17,6 +17,8 @@
     "refresh:data": "python3 scripts/refresh_medical_db.py --assets-dir data/vocabularies --artifact-dir build/medical-db --report-file build/medical-db/update-report.md",
     "validate:data": "python3 scripts/refresh_medical_db.py --validate-only --allow-missing-crosswalk --allow-missing-icd10-parents --assets-dir data/vocabularies --artifact-dir build/medical-db --report-file build/medical-db/update-report.md",
     "benchmark": "node agents/search-benchmarker/run_benchmark.js",
+    "eval:heldout": "node scripts/heldout_ir_eval.js",
+    "eval:heldout:generate": "node scripts/heldout_ir_eval.js --generate",
     "build:packages": "npm run build --workspace @medcode/core && npm run build --workspace @medcode/search",
     "import:loinc": "python3 scripts/import_loinc_common_panel.py",
     "import:icd10-he": "python3 scripts/import_icd10_hebrew_labels.py"

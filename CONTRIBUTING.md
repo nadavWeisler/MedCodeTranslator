@@ -8,6 +8,10 @@ Use the GitHub issue forms to keep reports actionable and safe to review:
 - **Feature request** for product improvements that stay within the app's informational lookup scope.
 - **Data issue** for stale, incorrect, missing, or inconsistent terminology data and refresh workflow output.
 
+Search-quality PRs should re-run `npm run eval:heldout` and keep README tables
+identical to `data/eval/heldout-report.json`. The hand-written fixtures in
+`data/benchmarks/` are a CI smoke gate, not the published IR evaluation.
+
 Before opening any issue:
 
 - Do **not** include patient-identifiable or protected health information (PHI).

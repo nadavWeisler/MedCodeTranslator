@@ -1,0 +1,346 @@
+{
+  "generated_at": "2026-09-06T15:33:44.067Z",
+  "protocol": {
+    "version": 1,
+    "task": "known-item lexical retrieval",
+    "seed": 20260906,
+    "k": [
+      1,
+      5,
+      10
+    ],
+    "relevance": "Binary. Official-label and typo queries: all codes whose name_en equals the source label. Code queries: the source code and dotted/undotted variants present in the pinned vocab. Not clinician-judged."
+  },
+  "vocab_pin": {
+    "generated_at_utc": "2026-07-06T05:07:27+00:00",
+    "sources": [
+      {
+        "dataset": "atc5",
+        "dataset_version": "WHOCC cumulative alterations snapshot",
+        "source_revision": "ATC cumulative alterations CSV",
+        "record_count": 5579,
+        "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
+        "coverage": null
+      },
+      {
+        "dataset": "icd10",
+        "dataset_version": "FY2026 ICD-10-CM code descriptions (valid-for-coding only)",
+        "source_revision": "CMS ICD-10-CM tabular order file (valid-for-coding codes only)",
+        "record_count": 74260,
+        "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
+        "coverage": null
+      },
+      {
+        "dataset": "icd9",
+        "dataset_version": "ICD-9-CM historical snapshot",
+        "source_revision": "Existing repository ICD-9-CM snapshot",
+        "record_count": 14567,
+        "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
+        "coverage": null
+      },
+      {
+        "dataset": "loinc",
+        "dataset_version": "LOINC Top 2000+ common panel (US)",
+        "source_revision": "Regenstrief LOINC Top 2000+ via OHDSI StudyProtocolSandbox US CSV; imported top 600 ranked observations",
+        "record_count": 600,
+        "retrieved_at_utc": "2026-07-05T05:57:19+00:00",
+        "coverage": "partial"
+      },
+      {
+        "dataset": "hcpcs",
+        "dataset_version": "Alpha-Numeric HCPCS Level II quarterly file",
+        "source_revision": "CMS Alpha-Numeric HCPCS Level II quarterly ZIP",
+        "record_count": 8724,
+        "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
+        "coverage": null
+      },
+      {
+        "dataset": "cvx",
+        "dataset_version": "CDC CVX vaccine administered codes",
+        "source_revision": "CDC IIS Standards CVX TXT",
+        "record_count": 289,
+        "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
+        "coverage": null
+      }
+    ]
+  },
+  "query_count": 198,
+  "systems": {
+    "layered": {
+      "description": "In-repo layered lexical search (exact → prefix → substring → Fuse.js → alias). Same Node mirror as the fixture regression gate.",
+      "macro": {
+        "query_count": 198,
+        "mrr": 0.9975,
+        "p_at_1": 0.9949,
+        "success_at_1": 0.9949,
+        "ndcg_at_1": 0.9949,
+        "p_at_5": 0.2071,
+        "success_at_5": 1,
+        "ndcg_at_5": 0.9981,
+        "p_at_10": 0.1035,
+        "success_at_10": 1,
+        "ndcg_at_10": 0.9981
+      },
+      "by_scheme": {
+        "icd10": {
+          "query_count": 48,
+          "mrr": 1,
+          "p_at_1": 1,
+          "success_at_1": 1,
+          "ndcg_at_1": 1,
+          "p_at_5": 0.2,
+          "success_at_5": 1,
+          "ndcg_at_5": 1,
+          "p_at_10": 0.1,
+          "success_at_10": 1,
+          "ndcg_at_10": 1
+        },
+        "icd9": {
+          "query_count": 36,
+          "mrr": 1,
+          "p_at_1": 1,
+          "success_at_1": 1,
+          "ndcg_at_1": 1,
+          "p_at_5": 0.2,
+          "success_at_5": 1,
+          "ndcg_at_5": 1,
+          "p_at_10": 0.1,
+          "success_at_10": 1,
+          "ndcg_at_10": 1
+        },
+        "atc5": {
+          "query_count": 36,
+          "mrr": 1,
+          "p_at_1": 1,
+          "success_at_1": 1,
+          "ndcg_at_1": 1,
+          "p_at_5": 0.2389,
+          "success_at_5": 1,
+          "ndcg_at_5": 1,
+          "p_at_10": 0.1194,
+          "success_at_10": 1,
+          "ndcg_at_10": 1
+        },
+        "hcpcs": {
+          "query_count": 36,
+          "mrr": 1,
+          "p_at_1": 1,
+          "success_at_1": 1,
+          "ndcg_at_1": 1,
+          "p_at_5": 0.2,
+          "success_at_5": 1,
+          "ndcg_at_5": 1,
+          "p_at_10": 0.1,
+          "success_at_10": 1,
+          "ndcg_at_10": 1
+        },
+        "loinc": {
+          "query_count": 24,
+          "mrr": 0.9792,
+          "p_at_1": 0.9583,
+          "success_at_1": 0.9583,
+          "ndcg_at_1": 0.9583,
+          "p_at_5": 0.2,
+          "success_at_5": 1,
+          "ndcg_at_5": 0.9846,
+          "p_at_10": 0.1,
+          "success_at_10": 1,
+          "ndcg_at_10": 0.9846
+        },
+        "cvx": {
+          "query_count": 18,
+          "mrr": 1,
+          "p_at_1": 1,
+          "success_at_1": 1,
+          "ndcg_at_1": 1,
+          "p_at_5": 0.2,
+          "success_at_5": 1,
+          "ndcg_at_5": 1,
+          "p_at_10": 0.1,
+          "success_at_10": 1,
+          "ndcg_at_10": 1
+        }
+      },
+      "by_query_type": {
+        "official_label": {
+          "query_count": 66,
+          "mrr": 1,
+          "p_at_1": 1,
+          "success_at_1": 1,
+          "ndcg_at_1": 1,
+          "p_at_5": 0.2182,
+          "success_at_5": 1,
+          "ndcg_at_5": 1,
+          "p_at_10": 0.1091,
+          "success_at_10": 1,
+          "ndcg_at_10": 1
+        },
+        "label_typo": {
+          "query_count": 66,
+          "mrr": 0.9924,
+          "p_at_1": 0.9848,
+          "success_at_1": 0.9848,
+          "ndcg_at_1": 0.9848,
+          "p_at_5": 0.203,
+          "success_at_5": 1,
+          "ndcg_at_5": 0.9944,
+          "p_at_10": 0.1015,
+          "success_at_10": 1,
+          "ndcg_at_10": 0.9944
+        },
+        "exact_code": {
+          "query_count": 66,
+          "mrr": 1,
+          "p_at_1": 1,
+          "success_at_1": 1,
+          "ndcg_at_1": 1,
+          "p_at_5": 0.2,
+          "success_at_5": 1,
+          "ndcg_at_5": 1,
+          "p_at_10": 0.1,
+          "success_at_10": 1,
+          "ndcg_at_10": 1
+        }
+      }
+    },
+    "fts5": {
+      "description": "SQLite FTS5 BM25 over the same pinned JSON vocabs (unicode61, no extra licenses).",
+      "tokenizer": "unicode61 remove_diacritics 1",
+      "sqlite_version": "3.45.1",
+      "macro": {
+        "query_count": 198,
+        "mrr": 0.6869,
+        "p_at_1": 0.6869,
+        "success_at_1": 0.6869,
+        "ndcg_at_1": 0.6869,
+        "p_at_5": 0.1434,
+        "success_at_5": 0.6869,
+        "ndcg_at_5": 0.6869,
+        "p_at_10": 0.0717,
+        "success_at_10": 0.6869,
+        "ndcg_at_10": 0.6869
+      },
+      "by_scheme": {
+        "icd10": {
+          "query_count": 48,
+          "mrr": 0.6667,
+          "p_at_1": 0.6667,
+          "success_at_1": 0.6667,
+          "ndcg_at_1": 0.6667,
+          "p_at_5": 0.1333,
+          "success_at_5": 0.6667,
+          "ndcg_at_5": 0.6667,
+          "p_at_10": 0.0667,
+          "success_at_10": 0.6667,
+          "ndcg_at_10": 0.6667
+        },
+        "icd9": {
+          "query_count": 36,
+          "mrr": 0.6667,
+          "p_at_1": 0.6667,
+          "success_at_1": 0.6667,
+          "ndcg_at_1": 0.6667,
+          "p_at_5": 0.1333,
+          "success_at_5": 0.6667,
+          "ndcg_at_5": 0.6667,
+          "p_at_10": 0.0667,
+          "success_at_10": 0.6667,
+          "ndcg_at_10": 0.6667
+        },
+        "atc5": {
+          "query_count": 36,
+          "mrr": 0.6667,
+          "p_at_1": 0.6667,
+          "success_at_1": 0.6667,
+          "ndcg_at_1": 0.6667,
+          "p_at_5": 0.1667,
+          "success_at_5": 0.6667,
+          "ndcg_at_5": 0.6667,
+          "p_at_10": 0.0833,
+          "success_at_10": 0.6667,
+          "ndcg_at_10": 0.6667
+        },
+        "hcpcs": {
+          "query_count": 36,
+          "mrr": 0.6944,
+          "p_at_1": 0.6944,
+          "success_at_1": 0.6944,
+          "ndcg_at_1": 0.6944,
+          "p_at_5": 0.1389,
+          "success_at_5": 0.6944,
+          "ndcg_at_5": 0.6944,
+          "p_at_10": 0.0694,
+          "success_at_10": 0.6944,
+          "ndcg_at_10": 0.6944
+        },
+        "loinc": {
+          "query_count": 24,
+          "mrr": 0.75,
+          "p_at_1": 0.75,
+          "success_at_1": 0.75,
+          "ndcg_at_1": 0.75,
+          "p_at_5": 0.15,
+          "success_at_5": 0.75,
+          "ndcg_at_5": 0.75,
+          "p_at_10": 0.075,
+          "success_at_10": 0.75,
+          "ndcg_at_10": 0.75
+        },
+        "cvx": {
+          "query_count": 18,
+          "mrr": 0.7222,
+          "p_at_1": 0.7222,
+          "success_at_1": 0.7222,
+          "ndcg_at_1": 0.7222,
+          "p_at_5": 0.1444,
+          "success_at_5": 0.7222,
+          "ndcg_at_5": 0.7222,
+          "p_at_10": 0.0722,
+          "success_at_10": 0.7222,
+          "ndcg_at_10": 0.7222
+        }
+      },
+      "by_query_type": {
+        "official_label": {
+          "query_count": 66,
+          "mrr": 1,
+          "p_at_1": 1,
+          "success_at_1": 1,
+          "ndcg_at_1": 1,
+          "p_at_5": 0.2182,
+          "success_at_5": 1,
+          "ndcg_at_5": 1,
+          "p_at_10": 0.1091,
+          "success_at_10": 1,
+          "ndcg_at_10": 1
+        },
+        "label_typo": {
+          "query_count": 66,
+          "mrr": 0.0606,
+          "p_at_1": 0.0606,
+          "success_at_1": 0.0606,
+          "ndcg_at_1": 0.0606,
+          "p_at_5": 0.0121,
+          "success_at_5": 0.0606,
+          "ndcg_at_5": 0.0606,
+          "p_at_10": 0.0061,
+          "success_at_10": 0.0606,
+          "ndcg_at_10": 0.0606
+        },
+        "exact_code": {
+          "query_count": 66,
+          "mrr": 1,
+          "p_at_1": 1,
+          "success_at_1": 1,
+          "ndcg_at_1": 1,
+          "p_at_5": 0.2,
+          "success_at_5": 1,
+          "ndcg_at_5": 1,
+          "p_at_10": 0.1,
+          "success_at_10": 1,
+          "ndcg_at_10": 1
+        }
+      }
+    }
+  }
+}

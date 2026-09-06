@@ -1,18 +1,32 @@
-name: Search quality benchmark
+name: Search quality
 
 on:
   pull_request:
     branches: [master, dev]
     paths:
       - 'data/vocabularies/**'
+      - 'data/eval/**'
+      - 'data/benchmarks/**'
       - 'app/services/fuzzySearch.ts'
       - 'db/queries.ts'
+      - 'packages/search/**'
+      - 'scripts/heldout_ir_eval.js'
+      - 'scripts/fts5_baseline.py'
+      - 'scripts/lib/**'
+      - 'agents/search-benchmarker/**'
   push:
     branches: [master, dev]
     paths:
       - 'data/vocabularies/**'
+      - 'data/eval/**'
+      - 'data/benchmarks/**'
       - 'app/services/fuzzySearch.ts'
       - 'db/queries.ts'
+      - 'packages/search/**'
+      - 'scripts/heldout_ir_eval.js'
+      - 'scripts/fts5_baseline.py'
+      - 'scripts/lib/**'
+      - 'agents/search-benchmarker/**'
   workflow_dispatch:
 
 permissions:
@@ -24,7 +38,7 @@ concurrency:
 
 jobs:
   benchmark:
-    name: Run search precision benchmarks
+    name: Fixture smoke and held-out IR
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -39,13 +53,24 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Run search quality benchmark
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run fixture smoke
         run: node agents/search-benchmarker/run_benchmark.js
 
-      - name: Upload benchmark report
+      - name: Run held-out IR evaluation
+        run: npm run eval:heldout
+
+      - name: Upload search quality reports
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: search-quality-report
-          path: build/search-quality/
+          path: |
+            build/search-quality/
+            build/eval/heldout-report.json
+            data/eval/heldout-report.json
           if-no-files-found: warn

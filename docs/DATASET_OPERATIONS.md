@@ -12,7 +12,7 @@ This runbook describes how to triage, refresh, and validate bundled medical term
 |----------|----------|------|---------|
 | Refresh medical DB | Weekly + manual | `.github/workflows/refresh-medical-db.yml` | Rebuild vocabularies from upstream sources |
 | Upstream sentinel | Daily 06:00 UTC | `.github/workflows/upstream-sentinel.yml` | Probe upstream URLs before refresh breaks |
-| Search quality | PR / push (data changes) | `.github/workflows/search-quality.yml` | Benchmark precision@1 and precision@5 |
+| Search quality | PR / push (data changes) | `.github/workflows/search-quality.yml` | Fixture smoke + held-out IR harness |
 | Crosswalk validator | Inside refresh workflow | `agents/crosswalk-validator/` | ICD-9 ↔ ICD-10 GEM integrity |
 
 ---
@@ -26,8 +26,11 @@ npm run refresh:data
 # Validate existing assets without downloading
 npm run validate:data
 
-# Search benchmarks
+# Fixture regression smoke (not the published IR eval)
 npm run benchmark
+
+# Held-out IR harness (MRR / nDCG / P@k vs FTS5)
+npm run eval:heldout
 
 # Upstream URL probe
 python agents/upstream-sentinel/sentinel.py
@@ -93,22 +96,30 @@ The validator runs after ICD-9/ICD-10 datasets rebuild:
 
 ---
 
-## Search benchmark regressions
+## Published IR evaluation
 
-Thresholds (from `agents/agents-config.json`):
+Use `npm run eval:heldout`. Numbers in the README must match [`data/eval/heldout-report.json`](../data/eval/heldout-report.json). Protocol: [`data/eval/PROTOCOL.md`](../data/eval/PROTOCOL.md).
 
-- precision@1 ≥ **0.70**
-- precision@5 ≥ **0.85**
+After a vocabulary pin change:
 
-When CI fails:
+1. `npm run eval:heldout:generate`
+2. `npm run eval:heldout`
+3. Commit the updated `data/eval/heldout-queries.json` and `data/eval/heldout-report.json`
+4. Copy the harness macro / by-type tables into the README — do not invent numbers
+
+Athena and UTS/UMLS are intentionally not the CI baseline (hosted service / NLM license). The reproducible baseline is SQLite FTS5 on the same pinned JSON vocabs (`scripts/fts5_baseline.py`).
+
+## Fixture smoke regressions
+
+`npm run benchmark` is a hand-written CI gate, not the published IR eval. Thresholds (from `agents/agents-config.json`) are Success@1 ≥ **0.70** and Success@5 ≥ **0.85** (historically labeled precision@k).
+
+When that gate fails:
 
 1. Run `npm run benchmark` locally
 2. Inspect `build/search-quality/benchmark-report.json`
 3. Compare failing queries in `data/benchmarks/<scheme>.json`
-4. If regression is from intentional ranking change, update benchmarks with clinical justification
-5. If regression is accidental, fix search logic before merge
-
-Baseline reference: `data/benchmarks/baseline.json`
+4. If the product ranking changed, prefer updating the held-out harness report over expanding `expected_codes` theater
+5. If the failure is accidental, fix search logic before merge
 
 ---
 

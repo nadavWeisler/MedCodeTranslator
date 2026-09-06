@@ -1,8 +1,14 @@
-import { spawnSync } from 'child_process';
-import fs from 'fs';
-import path from 'path';
 import { SEARCH_EXAMPLES } from '../app/constants/searchExamples';
 import sourceMetadata from '../data/vocabularies/source-metadata.json';
+
+const fs = require('fs') as { readFileSync(path: string, encoding: string): string };
+const { spawnSync } = require('child_process') as {
+  spawnSync: (
+    cmd: string,
+    args: string[],
+    opts: { encoding: string }
+  ) => { status: number | null; stdout: string };
+};
 
 const {
   DEMO_QUERIES,
@@ -64,7 +70,7 @@ describe('held-out query set', () => {
 
 describe('held-out report snapshot', () => {
   it('README quotes the committed harness macro numbers', () => {
-    const readme = fs.readFileSync(path.join(__dirname, '..', 'README.md'), 'utf-8');
+    const readme = fs.readFileSync('README.md', 'utf-8');
     expect(readme).toContain('data/eval/heldout-report.json');
     expect(readme).toContain(String(report.systems.layered.macro.mrr));
     expect(readme).toContain(String(report.systems.fts5.macro.mrr));

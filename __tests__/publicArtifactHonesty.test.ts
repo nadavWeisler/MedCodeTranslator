@@ -1,9 +1,9 @@
-import fs from 'fs';
-import path from 'path';
 import { SCHEME_KEYS } from '@medcode/core';
 import { SCHEMES } from '../app/components/SchemeTabs';
 import sourceMetadata from '../data/vocabularies/source-metadata.json';
 import packageJson from '../package.json';
+
+const fs = require('fs') as { readFileSync(path: string, encoding: string): string };
 
 describe('public artifact honesty', () => {
   it('declares MIT in package metadata', () => {
@@ -17,7 +17,7 @@ describe('public artifact honesty', () => {
   });
 
   it('points published IR numbers at the held-out harness, not fixture expected_codes', () => {
-    const readme = fs.readFileSync(path.join(__dirname, '..', 'README.md'), 'utf-8');
+    const readme = fs.readFileSync('README.md', 'utf-8');
     expect(readme).toContain('data/eval/heldout-report.json');
     expect(readme).toMatch(/not the published (IR )?eval/i);
     expect(readme).toContain('SQLite FTS5');

@@ -12,7 +12,7 @@ Summary in this repository state:
 - Predominantly permissive licenses (MIT/ISC/BSD/Apache).
 - No direct dependency requiring AGPL.
 - One dual-license package (`node-forge`) reports `(BSD-3-Clause OR GPL-2.0)`; permissive BSD option should be used.
-- `UNLICENSED` entry corresponds to this repository package metadata (`med-code-translator`), not a third-party runtime dependency.
+- This repository is MIT-licensed (`LICENSE` and root `package.json`). Vocabulary data remains subject to upstream terms in `DATA_SOURCES.md`.
 
 Action items before public release:
 - Re-run license audit in CI on every dependency change.

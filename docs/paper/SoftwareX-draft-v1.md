@@ -2,7 +2,7 @@
 
 > **Internal author note — strip this blockquote before SoftwareX submission.**
 >
-> Honesty draft v1 for an Original Software Publication (OSP). Intended readers: Nadav Weisler (owner) and DH Skeptic. This file is manuscript text only; it does not change product behavior.
+> Honesty draft v1.1 for an Original Software Publication (OSP). Intended readers: Nadav Weisler (owner) and DH Skeptic. This file is manuscript text only; it does not change product behavior.
 >
 > Pin: git tip `e4b8468` on `dev`. Vocab pin `generated_at_utc`: `2026-07-06T05:07:27+00:00`. Held-out report `generated_at`: `2026-09-06T15:33:44.067Z`, seed `20260906`.
 >
@@ -18,7 +18,7 @@ Affiliation: TBD before submission.
 
 ## Abstract
 
-MedCodeTranslator is an offline-first lookup application for bundled medical coding vocabularies. Search runs on-device. A layered lexical pipeline—exact, prefix, substring, Fuse.js approximate match, then alias expansion—returns each hit with a numeric score and a `matchMethod` label. The software is not semantic search and is not a crosswalk or translation engine. A held-out known-item evaluation (198 queries; not clinician-judged) compares the pipeline to a SQLite FTS5 lexical baseline on the same vocabulary pin. The informative contrast is misspelled official labels (`label_typo`, *n*=66): layered mean reciprocal rank 0.9924 versus FTS5 0.0606. ICD-11 is a 64-code demo subset; LOINC is a 600-code partial subset; CPT is not shipped.
+MedCodeTranslator is an offline-first lookup application for bundled medical coding vocabularies. Search runs on-device. A layered lexical pipeline—exact, prefix, substring, Fuse.js approximate match, then alias expansion—returns each hit with a numeric score and a `matchMethod` label. The software is not semantic search and is not a crosswalk or translation engine. A held-out known-item evaluation (198 queries; not clinician-judged) compares the pipeline to a SQLite FTS5 lexical baseline on the same vocabulary pin. The informative contrast is `label_typo` (*n*=66)—synthetic single-character deletion of official labels (often concatenated CMS short and long descriptions), not observed user typos: layered mean reciprocal rank 0.9924 versus FTS5 0.0606. ICD-11 is a 64-code demo subset; LOINC is a 600-code partial subset; CPT is not shipped.
 
 **Keywords:** medical terminology lookup; lexical retrieval; offline search; ICD-10-CM; ATC; HCPCS; Fuse.js; SQLite FTS5; original software publication
 
@@ -40,11 +40,11 @@ MedCodeTranslator is an offline-first lookup application for bundled medical cod
 
 ## 1. Motivation and significance
 
-Looking up a medical code from a label, a fragment, or a mistyped string is a common administrative and educational task. Production lookup often sits behind licensed APIs, institutional vocabularies, or hosted browsers. Those tools are appropriate for many clinical-informatics settings. They are not always available offline, and they rarely expose *why* a particular row ranked above another.
+Looking up a medical code from a label, a fragment, or an approximate string is a common administrative and educational task. Production lookup often sits behind licensed APIs, institutional vocabularies, or hosted browsers. Those tools are appropriate for many clinical-informatics settings. They are not always available offline, and they rarely expose *why* a particular row ranked above another.
 
 MedCodeTranslator packages publicly redistributable snapshots (and two explicit subsets) into an Expo application that seeds an on-device SQLite store and runs search without sending the query to a third party. The engineering claim is packaging and inspectability: a documented lexical stack, a visible score, and a `matchMethod` on every result. The engineering claim is **not** a new ranking theory, **not** embedding-based semantic retrieval, and **not** automated mapping between coding systems.
 
-Hosted terminology services such as the UMLS Terminology Services, NCBO BioPortal, and OHDSI Athena are related prior art for browsing and, in some deployments, mapping biomedical vocabularies. This manuscript does **not** compare MedCodeTranslator to those systems. They are not CI-reproducible on the pinned JSON files in this repository: Athena is a hosted service; UTS access requires an NLM license. The only external retrieval arm reported here is SQLite FTS5 over the same pin (Section 3).
+Hosted terminology services such as the UMLS Terminology Services [6], NCBO BioPortal [7], and OHDSI Athena [8] are related prior art for browsing and, in some deployments, mapping biomedical vocabularies. This manuscript does **not** compare MedCodeTranslator to those systems. They are not CI-reproducible on the pinned JSON files in this repository: Athena is a hosted service; UTS access requires an NLM license. The only external retrieval arm reported here is SQLite FTS5 over the same pin (Section 3).
 
 Significance for a SoftwareX OSP is therefore reuse of a small, inspectable lookup stack: a TypeScript engine (`@medcode/search` 0.1.0), an optional Python client, a GitHub Pages demo, and a committed held-out harness. ICD-11 and LOINC coverage is incomplete by construction (Section 2.3). CPT is not a shipped scheme.
 
@@ -90,6 +90,8 @@ Software is MIT-licensed (Copyright 2026 Nadav Weisler). Vocabulary files are **
 
 ICD-11 in this repository is a **64-code demo subset**. LOINC in this repository is a **600-code partial subset** (ranked observations imported from a common-panel list, not the full Regenstrief distribution). Do not describe either file as complete.
 
+ATC levels 1–5 are WHOCC ATC/DDD snapshots: WHOCC terms require attribution and preservation of source context; do not redistribute beyond those terms without review, and verify the latest commercial/redistribution terms (`DATA_SOURCES.md`).
+
 **CPT is not shipped as a scheme.** Official AMA CPT descriptors are not redistributed. The HCPCS Level II snapshot still contains ten official CMS `name_en` strings that mention CPT codes. Those strings are **upstream CMS text**, not an AMA CPT vocabulary. They are not scrubbed. The ten HCPCS codes are:
 
 G0316, G0317, G0318, G2212, M1483, M1485, S1030, S1031, S8055, S9123.
@@ -121,7 +123,7 @@ Published retrieval numbers come from `npm run eval:heldout` and `data/eval/held
 
 The task is **known-item lexical lookup**: a query is derived from a vocabulary row; a hit is that row’s code (and any other row with the identical official English name). Queries are not clinician-authored. Relevance is not clinician-judged. Graded clinical relevance and user studies are out of scope.
 
-The generator loads the pinned vocabularies, **drops ICD-11** (the 64-row demo subset), excludes labels/codes that appear in UI demo chips or hand-written fixture files, drops generic labels, shuffles with Mulberry32 seed `20260906`, and assigns 198 queries in round-robin across three types (66 each): `official_label` (full `name_en`), `label_typo` (one deleted interior character), and `exact_code`. Regenerating with the same seed and the same pin must reproduce the committed query file.
+The generator loads the pinned vocabularies, **drops ICD-11** (the 64-row demo subset), excludes labels/codes that appear in UI demo chips or hand-written fixture files, drops generic labels, shuffles with Mulberry32 seed `20260906`, and assigns 198 queries in round-robin across three types (66 each): `official_label` (full `name_en`), `label_typo` (synthetic single-character deletion of official `name_en`, often concatenated CMS short+long descriptions; not an observed user typo), and `exact_code`. Regenerating with the same seed and the same pin must reproduce the committed query file.
 
 Two systems are scored on that file, both against the same JSON pin:
 
@@ -146,7 +148,7 @@ Exact official labels and exact codes are solved by both systems. Those two type
 | `official_label` | 66 | 1.0000 | 1.0000 |
 | `exact_code` | 66 | 1.0000 | 1.0000 |
 
-On misspelled official labels, layered MRR is 0.9924 and FTS5 MRR is 0.0606. On `official_label` and `exact_code`, both systems score 1.0000. That pattern matches the implementations: FTS5 as configured here has no fuzzy layer; exact strings are in both indexes.
+On `label_typo` queries, layered MRR is 0.9924 and FTS5 MRR is 0.0606. On `official_label` and `exact_code`, both systems score 1.0000. That pattern matches the implementations: FTS5 as configured here has no fuzzy layer; exact strings are in both indexes.
 
 This draft does not report a clinician preference study, a diagnostic accuracy study, or an inter-rater agreement statistic. Table 3 is known-item rank of a generator-defined target row.
 
@@ -188,8 +190,9 @@ TBD before submission. Thank reviewers of this internal draft (DH Skeptic) in th
 3. MedCodeTranslator contributors, 2026. Data sources and licensing notes. `DATA_SOURCES.md` in [1].
 4. Fuse.js (fuzzy-search library used for the approximate-match layer). https://www.fusejs.io/ ; source: https://github.com/krisk/fuse (accessed 2026-09-07).
 5. Hipp, D.R. SQLite FTS5 Extension. https://www.sqlite.org/fts5.html (accessed 2026-09-07). Baseline in this repo uses SQLite 3.45.1, tokenizer `unicode61` with `remove_diacritics 1`.
-
-> **Citation note (internal — expand before submit, do not imply a bake-off):** add standard citations for UMLS Terminology Services / UMLS [e.g. Bodenreider, O., 2004. The Unified Medical Language System (UMLS): integrating biomedical terminology. *Nucleic Acids Research* 32, D267–D270], NCBO BioPortal [e.g. Noy, N.F., et al., 2009. BioPortal: ontologies and integrated data resources at the click of a mouse. *Nucleic Acids Research* 37, W170–W173], and OHDSI Athena (https://athena.ohdsi.org/). Section 1 already states that those systems were **not** compared. Do not move them into Table 3 or Table 4. Do not write “versus Athena/UTS” or “state of the art.”
+6. Bodenreider, O., 2004. The Unified Medical Language System (UMLS): integrating biomedical terminology. *Nucleic Acids Research* 32, D267–D270.
+7. Noy, N.F., et al., 2009. BioPortal: ontologies and integrated data resources at the click of a mouse. *Nucleic Acids Research* 37, W170–W173.
+8. Observational Health Data Sciences and Informatics (OHDSI). Athena. https://athena.ohdsi.org/ (accessed 2026-09-07).
 
 ## Appendix A. Honesty checklist (internal — strip or move to a cover letter)
 
@@ -211,4 +214,6 @@ Use this list in review. If any box cannot be ticked, the manuscript is not read
 - [x] C3 Zenodo capsule and `CITATION.cff` marked TBD.
 - [x] Support email is weisler.nadav@gmail.com; license MIT, Copyright 2026 Nadav Weisler.
 - [x] Root package 1.0.0; `@medcode/search` 0.1.0.
-- [x] Related-work pointers to UMLS / BioPortal / Athena are citation notes only, not bake-off arms.
+- [x] Related-work citations for UMLS / BioPortal / Athena appear in References as prior art, not bake-off arms.
+- [x] `label_typo` is described as synthetic single-character deletion of official (often CMS short+long) strings, not as misspelling or observed user typos.
+- [x] ATC/WHOCC redistribution terms are stated next to the CPT/LOINC coverage honesty in §2.3.

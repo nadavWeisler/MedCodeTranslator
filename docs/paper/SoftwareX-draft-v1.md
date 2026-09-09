@@ -8,13 +8,16 @@
 >
 > **Do not invent metrics.** Every numeric claim below is copied from the verified set for this pin. Do not quote fixture-benchmark Success@k / P@k from `data/benchmarks/` as information-retrieval results.
 >
-> **Before submit (TBD):** mint a Zenodo reproducible capsule (Table C3) and add `CITATION.cff`. Affiliation / ORCID for Nadav Weisler is also TBD. Replace GitHub URLs in C2 with the Zenodo-archived snapshot of the submitted tag.
+> **Before submit (TBD):** mint a Zenodo reproducible capsule (Table C3) and add `CITATION.cff`. Replace GitHub URLs in C2 with the Zenodo-archived snapshot of the submitted tag.
 >
 > Product name vs. claim: “MedCodeTranslator” is the repository and package name. The software searches stored rows inside a selected coding scheme. It is **not** a crosswalk engine and **not** a translation engine. Do not let the name leak into the abstract or highlights as a mapping method.
 
 **Nadav Weisler**  
 Correspondence: [weisler.nadav@gmail.com](mailto:weisler.nadav@gmail.com)  
-Affiliation: TBD before submission.
+- Shalvata Mental Health Center, P.O.B. 94, 45100 Hod Hasharon, Israel
+- Data Research Center for Mental Health and Rehabilitation, Clalit Health Services, Petach Tikva, Israel
+- Psychology Department, The Hebrew University, Jerusalem, Israel
+- ORCID: https://orcid.org/0009-0001-2729-5422
 
 ## Abstract
 

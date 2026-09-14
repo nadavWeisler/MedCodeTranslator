@@ -24,6 +24,7 @@ import SchemeTabs, {
 } from '../components/SchemeTabs';
 import BrandMark from '../components/BrandMark';
 import TrustBar from '../components/TrustBar';
+import ComplianceFooter from '../components/ComplianceFooter';
 import { isRTL as checkRTL } from '../services/rtl';
 import type { SchemeKey } from '../../db/database';
 import { buildIndex, search as layeredSearch, getSuggestions, getDidYouMean, isIndexReady, crossSchemeSearch, buildCrossSchemeIndexes, isCrossSchemeReady } from '../services/fuzzySearch';
@@ -393,11 +394,9 @@ export default function HomeScreen() {
 
   const schemeColor = crossSchemeMode ? colors.teal : activeScheme.color;
   const searchSchemeLabel = crossSchemeMode ? t('schemes_search_all') : activeScheme.shortLabel;
-  const directionalText = isRTL ? styles.textRight : styles.textLeft;
   const schemeCoverage = getCoverageI18n(scheme);
   const schemeSourceMeta = getSchemeSourceMetadata(scheme);
   const isDemoScheme = isDemoCoverage(schemeSourceMeta);
-  const hasActiveSearch = query.trim().length > 0;
 
   const languagePicker = (
     <View style={[styles.langPickerWrap, isMobile && styles.langPickerWrapMobile]}>
@@ -623,51 +622,19 @@ export default function HomeScreen() {
           </View>
         </View>
 
-        {isMobile && !hasActiveSearch ? (
-          <View style={styles.complianceFooterCompact}>
-            <Text style={styles.complianceFooterCompactLabel} numberOfLines={1}>{t('footer_info_title')}</Text>
-            <View style={styles.complianceActionsCompact}>
-              <TouchableOpacity onPress={() => router.push('/about')}>
-                <Text style={styles.linkBtnTextCompact}>{t('footer_about')}</Text>
-              </TouchableOpacity>
-              <Text style={styles.complianceSep}>·</Text>
-              <TouchableOpacity onPress={() => router.push('/legal/terms')}>
-                <Text style={styles.linkBtnTextCompact}>{t('footer_terms')}</Text>
-              </TouchableOpacity>
-              <Text style={styles.complianceSep}>·</Text>
-              <TouchableOpacity onPress={() => router.push('/legal/privacy')}>
-                <Text style={styles.linkBtnTextCompact}>{t('footer_privacy')}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        ) : (
-          <View style={styles.complianceFooter}>
-            <Text style={[styles.complianceTitle, directionalText]}>{t('footer_info_title')}</Text>
-            <Text style={[styles.complianceBody, directionalText]}>
-              {t('footer_info_body')}
-            </Text>
-            <Text style={[styles.noPhiBody, directionalText]}>
-              {t('footer_phi_warning')}
-            </Text>
-            <Text style={[styles.complianceBody, directionalText]}>
-              {t('footer_updated', { date: formatDateLabel(DATASET_METADATA_GENERATED_AT) })}
-            </Text>
-            <View style={styles.complianceActions}>
-              <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/')}>
-                <Text style={styles.linkBtnText}>{t('site_nav_home')}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/about')}>
-                <Text style={styles.linkBtnText}>{t('footer_about')}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/legal/terms')}>
-                <Text style={styles.linkBtnText}>{t('footer_terms')}</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.linkBtn} onPress={() => router.push('/legal/privacy')}>
-                <Text style={styles.linkBtnText}>{t('footer_privacy')}</Text>
-              </TouchableOpacity>
-            </View>
-          </View>
-        )}
+        <ComplianceFooter
+          title={t('footer_info_title')}
+          body={t('footer_info_body')}
+          phiWarning={t('footer_phi_warning')}
+          updatedLabel={t('footer_updated', { date: formatDateLabel(DATASET_METADATA_GENERATED_AT) })}
+          isRTL={isRTL}
+          links={[
+            { key: 'home', label: t('site_nav_home'), onPress: () => router.push('/') },
+            { key: 'about', label: t('footer_about'), onPress: () => router.push('/about') },
+            { key: 'terms', label: t('footer_terms'), onPress: () => router.push('/legal/terms') },
+            { key: 'privacy', label: t('footer_privacy'), onPress: () => router.push('/legal/privacy') },
+          ]}
+        />
       </View>
 
       <Modal
@@ -912,88 +879,6 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '500',
     color: colors.textSecondary,
-  },
-  textLeft: {
-    textAlign: 'left',
-  },
-  textRight: {
-    textAlign: 'right',
-  },
-  complianceFooterCompact: {
-    backgroundColor: colors.surface,
-    borderColor: colors.borderLight,
-    borderWidth: 1,
-    borderRadius: radii.lg,
-    paddingHorizontal: spacing.md,
-    paddingVertical: spacing.sm,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    ...shadows.card,
-  },
-  complianceFooterCompactLabel: {
-    fontSize: 11,
-    color: colors.textMuted,
-    fontWeight: '600',
-    flexShrink: 1,
-  },
-  complianceActionsCompact: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-  },
-  complianceSep: {
-    fontSize: 11,
-    color: colors.textMuted,
-  },
-  linkBtnTextCompact: {
-    fontSize: 11,
-    color: colors.teal,
-    fontWeight: '700',
-  },
-  complianceFooter: {
-    backgroundColor: colors.surface,
-    borderColor: colors.borderLight,
-    borderWidth: 1,
-    borderRadius: radii.lg,
-    padding: spacing.lg,
-    gap: 8,
-    ...shadows.card,
-  },
-  complianceTitle: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: colors.textPrimary,
-  },
-  complianceBody: {
-    fontSize: 12,
-    lineHeight: 18,
-    color: colors.textSecondary,
-  },
-  noPhiBody: {
-    fontSize: 12,
-    lineHeight: 18,
-    color: colors.danger,
-    fontWeight: '600',
-  },
-  complianceActions: {
-    flexDirection: 'row',
-    gap: 8,
-    flexWrap: 'wrap',
-    marginTop: 4,
-  },
-  linkBtn: {
-    borderRadius: radii.md,
-    borderWidth: 1,
-    borderColor: colors.tealMuted,
-    backgroundColor: colors.tealLight,
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-  },
-  linkBtnText: {
-    fontSize: 12,
-    color: colors.tealDark,
-    fontWeight: '700',
   },
   modalBackdrop: {
     flex: 1,

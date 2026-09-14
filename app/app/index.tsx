@@ -624,6 +624,7 @@ export default function HomeScreen() {
 
         <ComplianceFooter
           title={t('footer_info_title')}
+          phiChip={t('footer_info_phi_chip')}
           body={t('footer_info_body')}
           phiWarning={t('footer_phi_warning')}
           updatedLabel={t('footer_updated', { date: formatDateLabel(DATASET_METADATA_GENERATED_AT) })}

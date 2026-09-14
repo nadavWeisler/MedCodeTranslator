@@ -18,6 +18,7 @@ function renderFooter() {
   return render(
     <ComplianceFooter
       title="For reference only"
+      phiChip="no PHI"
       body={BODY}
       phiWarning={PHI}
       updatedLabel={UPDATED}
@@ -27,11 +28,13 @@ function renderFooter() {
 }
 
 describe('ComplianceFooter', () => {
-  it('collapses to the title chip by default and hides disclaimer content', () => {
+  it('keeps a visible reference-only and no-PHI chip when collapsed', () => {
     const { getByText, getByLabelText, queryByText } = renderFooter();
+    const header = getByLabelText('For reference only · no PHI');
 
     expect(getByText('For reference only')).toBeTruthy();
-    expect(getByLabelText('For reference only').props.accessibilityState).toEqual(
+    expect(getByText('no PHI')).toBeTruthy();
+    expect(header.props.accessibilityState).toEqual(
       expect.objectContaining({ expanded: false })
     );
     expect(queryByText(BODY)).toBeNull();
@@ -46,9 +49,9 @@ describe('ComplianceFooter', () => {
   it('expands on tap to show disclaimer, PHI warning, dataset date, and nav links', () => {
     const { getByLabelText, getByText } = renderFooter();
 
-    fireEvent.press(getByLabelText('For reference only'));
+    fireEvent.press(getByLabelText('For reference only · no PHI'));
 
-    expect(getByLabelText('For reference only').props.accessibilityState).toEqual(
+    expect(getByLabelText('For reference only · no PHI').props.accessibilityState).toEqual(
       expect.objectContaining({ expanded: true })
     );
     expect(getByText(BODY)).toBeTruthy();
@@ -61,8 +64,8 @@ describe('ComplianceFooter', () => {
   });
 
   it('collapses again on a second header tap', () => {
-    const { getByLabelText, queryByText } = renderFooter();
-    const header = getByLabelText('For reference only');
+    const { getByLabelText, getByText, queryByText } = renderFooter();
+    const header = getByLabelText('For reference only · no PHI');
 
     fireEvent.press(header);
     fireEvent.press(header);
@@ -70,6 +73,8 @@ describe('ComplianceFooter', () => {
     expect(header.props.accessibilityState).toEqual(
       expect.objectContaining({ expanded: false })
     );
+    expect(getByText('For reference only')).toBeTruthy();
+    expect(getByText('no PHI')).toBeTruthy();
     expect(queryByText(BODY)).toBeNull();
     expect(queryByText('Home')).toBeNull();
   });
@@ -77,7 +82,7 @@ describe('ComplianceFooter', () => {
   it('invokes nav callbacks from the expanded links', () => {
     const { getByLabelText, getByText } = renderFooter();
 
-    fireEvent.press(getByLabelText('For reference only'));
+    fireEvent.press(getByLabelText('For reference only · no PHI'));
     fireEvent.press(getByText('About & sources'));
 
     expect(LINKS[1].onPress).toHaveBeenCalledTimes(1);

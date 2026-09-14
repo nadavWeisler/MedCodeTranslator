@@ -54,6 +54,7 @@
   "conversions_show_less": "Show less",
   "conversion_open_a11y": "Open code {{code}} in its coding system",
   "footer_info_title": "For reference only",
+  "footer_info_phi_chip": "no PHI",
   "footer_info_body": "MedCode Clinical is an informational reference tool. It is not intended for diagnosis, treatment decisions, prescribing, or medical advice.",
   "footer_phi_warning": "Do not enter patient-identifiable or protected health information (PHI).",
   "footer_updated": "Dataset last updated: {{date}}",

@@ -11,6 +11,7 @@ export type ComplianceFooterLink = {
 
 type Props = {
   title: string;
+  phiChip: string;
   body: string;
   phiWarning: string;
   updatedLabel: string;
@@ -20,6 +21,7 @@ type Props = {
 
 export default function ComplianceFooter({
   title,
+  phiChip,
   body,
   phiWarning,
   updatedLabel,
@@ -28,19 +30,28 @@ export default function ComplianceFooter({
 }: Props) {
   const [expanded, setExpanded] = useState(false);
   const directionalText = isRTL ? styles.textRight : styles.textLeft;
+  const headerLabel = `${title} · ${phiChip}`;
 
   return (
     <View style={[styles.card, expanded ? styles.cardExpanded : styles.cardCollapsed]}>
       <TouchableOpacity
         onPress={() => setExpanded(prev => !prev)}
         accessibilityRole="button"
-        accessibilityLabel={title}
+        accessibilityLabel={headerLabel}
         accessibilityState={{ expanded }}
         style={[styles.header, isRTL && styles.headerRtl]}
       >
-        <Text style={styles.title} numberOfLines={1}>
-          {title}
-        </Text>
+        <View style={[styles.headerLabel, isRTL && styles.headerLabelRtl]}>
+          <Text style={styles.title} numberOfLines={1}>
+            {title}
+          </Text>
+          <Text importantForAccessibility="no" style={styles.separator}>
+            ·
+          </Text>
+          <Text style={styles.phiChip} numberOfLines={1}>
+            {phiChip}
+          </Text>
+        </View>
         <Text importantForAccessibility="no" style={styles.chevron}>
           {expanded ? '▴' : '▾'}
         </Text>
@@ -93,11 +104,33 @@ const styles = StyleSheet.create({
   headerRtl: {
     flexDirection: 'row-reverse',
   },
-  title: {
+  headerLabel: {
     flex: 1,
+    minWidth: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  headerLabelRtl: {
+    flexDirection: 'row-reverse',
+  },
+  title: {
+    flexShrink: 1,
+    minWidth: 0,
     fontSize: 13,
     fontWeight: '700',
     color: colors.textPrimary,
+  },
+  separator: {
+    fontSize: 13,
+    color: colors.textMuted,
+    fontWeight: '700',
+  },
+  phiChip: {
+    flexShrink: 0,
+    fontSize: 13,
+    fontWeight: '700',
+    color: colors.danger,
   },
   chevron: {
     fontSize: 12,

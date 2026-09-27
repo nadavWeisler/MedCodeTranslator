@@ -8,7 +8,7 @@
 >
 > **Do not invent metrics.** Every numeric claim below is copied from the verified set for this pin. Do not quote fixture-benchmark Success@k / P@k from `data/benchmarks/` as information-retrieval results.
 >
-> **Before submit (TBD):** mint a Zenodo reproducible capsule (Table C3) and add `CITATION.cff`. Replace GitHub URLs in C2 with the Zenodo-archived snapshot of the submitted tag.
+> **Before submit (TBD):** Table C3 and root `CITATION.cff` use version DOI `10.5281/zenodo.22989572` (https://doi.org/10.5281/zenodo.22989572; GitHub release v0.1.1). Replace GitHub URLs in C2 with the Zenodo-archived snapshot of the submitted tag.
 >
 > Product name vs. claim: “MedCodeTranslator” is the repository and package name. The software searches stored rows inside a selected coding scheme. It is **not** a crosswalk engine and **not** a translation engine. Do not let the name leak into the abstract or highlights as a mapping method.
 
@@ -33,7 +33,7 @@ MedCodeTranslator is an offline-first lookup application for bundled medical cod
 | --- | --- | --- |
 | C1 | Current code version | Application root package `1.0.0`; reusable engine `@medcode/search` `0.1.0` |
 | C2 | Permanent link to code/repository used for this code version | https://github.com/nadavWeisler/MedCodeTranslator (replace with the archived tag URL at submission) |
-| C3 | Permanent link to Reproducible Capsule | **TBD** — Zenodo DOI not minted in this draft |
+| C3 | Permanent link to Reproducible Capsule | https://doi.org/10.5281/zenodo.22989572 (version DOI for GitHub release v0.1.1; not the concept DOI) |
 | C4 | Legal Code License | MIT License, Copyright 2026 Nadav Weisler. Bundled vocabularies remain under their upstream terms (see `DATA_SOURCES.md`) |
 | C5 | Code versioning system used | git |
 | C6 | Software code languages, tools, and services used | TypeScript, JavaScript, Python (data refresh and the FTS5 baseline only); Expo / React Native (iOS, Android, web); `expo-sqlite`; Fuse.js; Node.js (CI pins Node 20) |
@@ -180,7 +180,7 @@ Impact that would require evidence this draft does not have—deployment counts,
 
 ## 5. Conclusions
 
-MedCodeTranslator is an offline multi-vocabulary medical-code search application with transparent lexical ranking. The shipped pipeline is exact, prefix, substring, Fuse.js, then alias expansion, with score and `matchMethod` exposed on every hit. A held-out known-item harness (198 queries, seed `20260906`; ICD-11 dropped; not clinician-judged) shows that the fuzzy layer matters on `label_typo` (layered MRR 0.9924 vs FTS5 0.0606, *n*=66), while exact labels and exact codes are solved by both the layered engine and the SQLite FTS5 baseline. Macro Success@5 is 1.0000 (layered) versus 0.6869 (FTS5); those macro figures are secondary. Coverage honesty is part of the software description: ICD-11 is a 64-code demo subset, LOINC is a 600-code partial subset, and CPT is not a shipped scheme. Before journal submission, a Zenodo capsule and `CITATION.cff` remain to be added.
+MedCodeTranslator is an offline multi-vocabulary medical-code search application with transparent lexical ranking. The shipped pipeline is exact, prefix, substring, Fuse.js, then alias expansion, with score and `matchMethod` exposed on every hit. A held-out known-item harness (198 queries, seed `20260906`; ICD-11 dropped; not clinician-judged) shows that the fuzzy layer matters on `label_typo` (layered MRR 0.9924 vs FTS5 0.0606, *n*=66), while exact labels and exact codes are solved by both the layered engine and the SQLite FTS5 baseline. Macro Success@5 is 1.0000 (layered) versus 0.6869 (FTS5); those macro figures are secondary. Coverage honesty is part of the software description: ICD-11 is a 64-code demo subset, LOINC is a 600-code partial subset, and CPT is not a shipped scheme. The archived snapshot for this draft is GitHub release v0.1.1, version DOI https://doi.org/10.5281/zenodo.22989572; citation metadata is in root `CITATION.cff`.
 
 ## Acknowledgements
 
@@ -188,7 +188,7 @@ TBD before submission. Thank reviewers of this internal draft (DH Skeptic) in th
 
 ## References
 
-1. Weisler, N., 2026. *MedCodeTranslator* (version 1.0.0). GitHub. https://github.com/nadavWeisler/MedCodeTranslator (accessed 2026-09-07). Demo: https://nadavweisler.github.io/MedCodeTranslator/.
+1. Weisler, N., 2026. *MedCodeTranslator* (package 1.0.0; archived as GitHub release v0.1.1). https://doi.org/10.5281/zenodo.22989572. Demo: https://nadavweisler.github.io/MedCodeTranslator/.
 2. MedCodeTranslator contributors, 2026. Held-out IR evaluation protocol. `data/eval/PROTOCOL.md` in [1].
 3. MedCodeTranslator contributors, 2026. Data sources and licensing notes. `DATA_SOURCES.md` in [1].
 4. Fuse.js (fuzzy-search library used for the approximate-match layer). https://www.fusejs.io/ ; source: https://github.com/krisk/fuse (accessed 2026-09-07).
@@ -214,7 +214,7 @@ Use this list in review. If any box cannot be ticked, the manuscript is not read
 - [x] No clinician study, no diagnostic-accuracy claim, no user-study claim. Known-item protocol cited.
 - [x] Numeric claims limited to the verified set for pin `2026-07-06T05:07:27+00:00` and report `2026-09-06T15:33:44.067Z` (198 queries, seed `20260906`).
 - [x] Fixture `data/benchmarks/` numbers are not quoted as IR results.
-- [x] C3 Zenodo capsule and `CITATION.cff` marked TBD.
+- [x] C3 is version DOI https://doi.org/10.5281/zenodo.22989572 (GitHub release v0.1.1); root `CITATION.cff` cites that DOI.
 - [x] Support email is weisler.nadav@gmail.com; license MIT, Copyright 2026 Nadav Weisler.
 - [x] Root package 1.0.0; `@medcode/search` 0.1.0.
 - [x] Related-work citations for UMLS / BioPortal / Athena appear in References as prior art, not bake-off arms.

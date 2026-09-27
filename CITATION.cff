@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata from this file."
+title: MedCodeTranslator
+abstract: "Offline multi-vocabulary medical-code search with transparent lexical ranking."
+type: software
+version: "0.1.1"
+date-released: "2026-09-27"
+license: MIT
+doi: 10.5281/zenodo.22989572
+repository-code: https://github.com/nadavWeisler/MedCodeTranslator
+url: https://doi.org/10.5281/zenodo.22989572
+authors:
+  - family-names: Weisler
+    given-names: Nadav
+    email: weisler.nadav@gmail.com
+    orcid: https://orcid.org/0009-0001-2729-5422
+    affiliation: "Shalvata Mental Health Center, P.O.B. 94, 45100 Hod Hasharon, Israel; Data Research Center for Mental Health and Rehabilitation, Clalit Health Services, Petach Tikva, Israel; Psychology Department, The Hebrew University, Jerusalem, Israel"

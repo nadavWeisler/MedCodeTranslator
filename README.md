@@ -1,5 +1,6 @@
 # MedCodeTranslator
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22989571.svg)](https://doi.org/10.5281/zenodo.22989571)
 [![CI](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/ci.yml/badge.svg)](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/ci.yml)
 [![Tests](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/ci.yml/badge.svg?label=tests)](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/ci.yml)
 [![Accessibility review](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/accessibility-review.yml/badge.svg)](https://github.com/nadavWeisler/MedCodeTranslator/actions/workflows/accessibility-review.yml)

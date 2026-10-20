@@ -1,0 +1,29 @@
+{
+  "title": "MedCodeTranslator",
+  "upload_type": "software",
+  "description": "Offline multi-vocabulary medical-code search with transparent ranking. MedCodeTranslator is an offline-capable, open-source search app over bundled vocabularies. It does not send queries to a third party. It is not a crosswalk engine: it searches stored entries and shows how each hit ranked.",
+  "creators": [
+    {
+      "name": "Weisler, Nadav",
+      "orcid": "0009-0001-2729-5422",
+      "affiliation": "Shalvata Mental Health Center; The Hebrew University of Jerusalem"
+    }
+  ],
+  "license": "mit",
+  "keywords": [
+    "medical coding",
+    "clinical terminology",
+    "ICD-10",
+    "ATC",
+    "LOINC",
+    "offline search",
+    "biomedical informatics"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/nadavWeisler/MedCodeTranslator",
+      "relation": "isSupplementTo",
+      "scheme": "url"
+    }
+  ]
+}

@@ -6,9 +6,9 @@ type: software
 version: "0.1.1"
 date-released: "2026-09-27"
 license: MIT
-doi: 10.5281/zenodo.22989572
+doi: 10.5281/zenodo.22989571
 repository-code: https://github.com/nadavWeisler/MedCodeTranslator
-url: https://doi.org/10.5281/zenodo.22989572
+url: https://doi.org/10.5281/zenodo.22989571
 authors:
   - family-names: Weisler
     given-names: Nadav

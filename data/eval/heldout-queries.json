@@ -13,16 +13,16 @@
     "sources": [
       {
         "dataset": "atc5",
-        "dataset_version": "WHOCC cumulative alterations snapshot",
-        "source_revision": "ATC cumulative alterations CSV",
+        "dataset_version": "ChEMBL ATC classification level 5 (release unknown)",
+        "source_revision": "Derived from ChEMBL ATC classification API level 5 who_name. ChEMBL release unknown.",
         "record_count": 5579,
         "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
         "coverage": null
       },
       {
         "dataset": "icd10",
-        "dataset_version": "FY2026 ICD-10-CM code descriptions (valid-for-coding only)",
-        "source_revision": "CMS ICD-10-CM tabular order file (valid-for-coding codes only)",
+        "dataset_version": "FY2025 ICD-10-CM code descriptions (valid-for-coding only)",
+        "source_revision": "CMS FY2025 ICD-10-CM tabular order file icd10cm_order_2025.txt (valid-for-coding codes only)",
         "record_count": 74260,
         "retrieved_at_utc": "2026-05-30T14:40:52+00:00",
         "coverage": null

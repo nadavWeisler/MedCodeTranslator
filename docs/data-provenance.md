@@ -44,13 +44,13 @@ Upstream comparisons below were downloaded into a temp directory on 2026-10-29 a
 | ICD-10↔ICD-11 mappings | `data/vocabularies/common_scheme_mappings.json` | 30 | Static JSON | unknown | 2026-06-29 (`ccce1e4`) | Yes, 30 |
 | Search aliases | `data/aliases/common.json` | 35 | Static JSON | unknown | 2026-05-20 (`4875e23`) | Yes, 35 |
 
-`source-metadata.json` `record_count` matches the array lengths above. It does not match `hebrew_label_count` (metadata 2476, file 2489). Several `dataset_version` / `url` / `source_revision` strings are stale; see each section.
+`source-metadata.json` `record_count` matches the array lengths above. It does not match `hebrew_label_count` (metadata 2476, file 2489). ICD-10-CM and ATC `url` / `dataset_version` / `source_revision` strings now match the files below (FY2025 order file; ChEMBL ATC API, release unknown). Other provenance strings are still stale; see each section.
 
 ## ICD-10-CM (`icd10`)
 
 - **Code system:** U.S. ICD-10-CM. The app scheme id is `icd10`. This is not WHO ICD-10.
-- **Upstream URL:** `https://www.cms.gov/files/zip/2025-code-descriptions-tabular-order.zip`. That is the URL built by `cms_icd10_url()` in `scripts/refresh_medical_db.py`. The metadata URL `https://www.cms.gov/medicare/coding-billing/icd-10-codes` is the CMS landing page, not the file.
-- **Release / version:** FY2025 code descriptions in tabular order. The ZIP contains `icd10cm_order_2025.txt`. On 2026-10-29 the ZIP response `Last-Modified` was `Mon, 08 Jul 2024 18:10:21 GMT`. Parsing that order file with `parse_icd10_codes_zip` produced 74260 codes, and the code set was identical to `icd10.json`. The same parser on `https://www.cms.gov/files/zip/2026-code-descriptions-tabular-order.zip` produced 74719 codes and a different code set (487 codes only in that ZIP, 28 only in the bundle). The metadata string `FY2026 ICD-10-CM code descriptions (valid-for-coding only)` was already present when this file still had 113 demo rows (`source-metadata.json` as of the parent of `357250f`). It was not updated when the 74260-row file landed. Commit `357250f` (2026-05-20) says "CMS 2025" in its message.
+- **Upstream URL:** `https://www.cms.gov/files/zip/2025-code-descriptions-tabular-order.zip`. That is the URL built by `cms_icd10_url()` in `scripts/refresh_medical_db.py`. `source-metadata.json` `url` is that ZIP. Before the relabel it was the CMS landing page `https://www.cms.gov/medicare/coding-billing/icd-10-codes`, which is not the file.
+- **Release / version:** FY2025 code descriptions in tabular order. The ZIP contains `icd10cm_order_2025.txt`. On 2026-10-29 the ZIP response `Last-Modified` was `Mon, 08 Jul 2024 18:10:21 GMT`. Parsing that order file with `parse_icd10_codes_zip` produced 74260 codes, and the code set was identical to `icd10.json`. The same parser on `https://www.cms.gov/files/zip/2026-code-descriptions-tabular-order.zip` produced 74719 codes and a different code set (487 codes only in that ZIP, 28 only in the bundle). Metadata `dataset_version` is `FY2025 ICD-10-CM code descriptions (valid-for-coding only)` and `source_revision` names `icd10cm_order_2025.txt`. Before that relabel the version string was `FY2026 ICD-10-CM code descriptions (valid-for-coding only)`. That FY2026 string was already present when this file still had 113 demo rows (`source-metadata.json` as of the parent of `357250f`) and was left in place when the 74260-row file landed. Commit `357250f` (2026-05-20) says "CMS 2025" in its message. The vocabulary file was not replaced with the FY2026 ZIP.
 - **Retrieval date:** The 74260-row code set entered the repo in `357250f` (2026-05-20, `generated_at_utc` in that commit's metadata bump is `2026-05-20T18:21:10+00:00`). No ZIP SHA-256 was stored. `retrieved_at_utc` `2026-05-30T14:40:52+00:00` was written later by `scripts/fetch_public_vocabularies.py`, which does not download ICD-10. English labels were whitespace-deduped on 2026-06-29 (`4a5f809`) without a new code set.
 - **License / redistribution:** In-repo text is "CMS/U.S. government source terms for ICD-10-CM" (`source-metadata.json`) and "U.S. government/public CMS distribution" (`DATA_SOURCES.md`). No upstream license file is committed. This audit did not extract a license clause from the PDF inside the ZIP.
 - **Transform:** `parse_icd10_codes_zip` keeps rows whose valid-for-coding flag is `1`, inserts a dot after the third character, and stores the short description. Commit `357250f` left each short description duplicated (the order file repeats it after a wide space run). Commit `4a5f809` added `dedupe_padded_label` and rewrote names: 67080 names are exactly that dedupe of the previous string, 7180 names were unchanged, 0 codes were added or removed, and 0 names changed in any other way. One shipped name is not character-identical to a fresh parse of the current ZIP: `E74.01` is `Von Gierke disease` in the bundle and `von Gierke disease` in `icd10cm_order_2025.txt`. The pre-dedupe blob (`4a5f809^`) already had `Von` on the first copy. No step in the current parser capitalizes that word.
@@ -91,10 +91,10 @@ Upstream comparisons below were downloaded into a temp directory on 2026-10-29 a
 ## ATC-1, ATC-2, ATC-3, ATC-4
 
 - **Code system:** ATC anatomical/therapeutic levels 1–4.
-- **Upstream URL:** `https://www.ebi.ac.uk/chembl/api/data/atc_class?format=json&limit=1000&offset=0`, then each `page_meta.next` URL. Implemented by `fetch_atc_levels()` in `scripts/fetch_public_vocabularies.py`, which keeps distinct `levelN` / `levelN_description` pairs. The metadata URL `https://www.whocc.no/atc_ddd_index_and_guidelines/` is a WHOCC information page. Nothing in the repo shows a download from WHOCC.
-- **Release / version:** unknown. Metadata says `WHO ATC hierarchy level N snapshot`. The ChEMBL request has no release pin. `page_meta.total_count` on 2026-10-29 was 5579 (level-5 rows), which is not a ChEMBL database version.
+- **Upstream URL:** `https://www.ebi.ac.uk/chembl/api/data/atc_class?format=json&limit=1000&offset=0`, then each `page_meta.next` URL. Implemented by `fetch_atc_levels()` in `scripts/fetch_public_vocabularies.py`, which keeps distinct `levelN` / `levelN_description` pairs. Metadata `url` is `https://www.ebi.ac.uk/chembl/api/data/atc_class`. Before the relabel it was the WHOCC information page `https://www.whocc.no/atc_ddd_index_and_guidelines/`. Nothing in the repo shows a download from WHOCC.
+- **Release / version:** unknown. Metadata `dataset_version` is `ChEMBL ATC classification level N (release unknown)`. The ChEMBL request has no release pin. `page_meta.total_count` on 2026-10-29 was 5579 (level-5 rows), which is not a ChEMBL database version.
 - **Retrieval date:** `51f7694` (2026-05-30). Metadata `retrieved_at_utc` `2026-05-30T14:40:52+00:00` matches `generated_at_utc` from `scripts/fetch_public_vocabularies.py` in that commit. These four files have no later commit.
-- **License / redistribution:** In-repo text is "WHOCC public terms; verify latest redistribution/commercial terms." The bytes came from ChEMBL. No ChEMBL license file is committed. `https://www.whocc.no/copyright/` returned HTTP 404 on 2026-10-29, so this audit did not retrieve a WHOCC terms page at that path.
+- **License / redistribution:** In-repo text is "Derived from the ChEMBL ATC API. ChEMBL release was not recorded." The bytes came from ChEMBL. No ChEMBL license file is committed. `https://www.whocc.no/copyright/` returned HTTP 404 on 2026-10-29, so this audit did not retrieve a WHOCC terms page at that path.
 - **Transform:** One object per distinct level code, `name_he` set to JSON `null`, sorted by code. A full re-fetch of the ChEMBL API on 2026-10-29 matched all four files exactly (codes and `name_en`, including case): 14, 90, 248, and 841.
 - **Record count:** 14, 90, 248, 841.
 - **UNVERIFIED:** all of those rows. Third-party mirror (EMBL-EBI ChEMBL), not an official WHOCC release file. No WHOCC version or download date exists to attach.
@@ -102,13 +102,13 @@ Upstream comparisons below were downloaded into a temp directory on 2026-10-29 a
 ## ATC-5
 
 - **Code system:** ATC level 5 (7-character codes).
-- **Upstream URL:** same ChEMBL ATC API as above. `fetch_atc_chembl()` in `scripts/refresh_medical_db.py` keeps `level5` plus `who_name`. Commit `357250f` (2026-05-20) says this replaced a broken WHOCC CSV URL and wrote 5579 codes. `scripts/fetch_public_vocabularies.py` does not rewrite `atc5.json`; it only copies the old metadata text forward.
-- **Release / version:** unknown. Metadata still says `WHOCC cumulative alterations snapshot` and `source_revision` `ATC cumulative alterations CSV`. That text is leftover. The refresh script's own version string would have been `chembl-atc-{year}`, and that string is not what was committed. No ChEMBL release id was stored.
+- **Upstream URL:** same ChEMBL ATC API as above. `fetch_atc_chembl()` in `scripts/refresh_medical_db.py` keeps `level5` plus `who_name`. Commit `357250f` (2026-05-20) says this replaced a broken WHOCC CSV URL and wrote 5579 codes. `scripts/fetch_public_vocabularies.py` does not rewrite `atc5.json`. It writes the ChEMBL provenance strings (release unknown) onto the atc5 metadata entry.
+- **Release / version:** unknown. Metadata `dataset_version` is `ChEMBL ATC classification level 5 (release unknown)` and `source_revision` is `Derived from ChEMBL ATC classification API level 5 who_name. ChEMBL release unknown.` No ChEMBL release id was stored. Before the relabel those fields said `WHOCC cumulative alterations snapshot` and `ATC cumulative alterations CSV`. The refresh script's own version string would have been `chembl-atc-{year}`, and that string is not what was committed.
 - **Retrieval date:** `357250f` (2026-05-20). The file has no later content commit. Metadata `retrieved_at_utc` `2026-05-30T14:40:52+00:00` is the later `fetch_public_vocabularies.py` clock, which did not re-download ATC-5.
-- **License / redistribution:** same in-repo WHOCC boilerplate as ATC-1–4. The retrieval source is ChEMBL. No ChEMBL license file is committed.
+- **License / redistribution:** same in-repo ChEMBL sentence as ATC-1–4. The retrieval source is ChEMBL. No ChEMBL license file is committed.
 - **Transform:** Level-5 regex `[A-Z][0-9]{2}[A-Z]{2}[0-9]{2}`, whitespace-normalized `who_name`, no `name_he` key. The current script does not change letter case. A full re-fetch on 2026-10-29 had the same 5579 codes. Casefolded `who_name` matched all 5579 shipped names. Exact string match was 19. The other 5560 differ only by letter case (shipped `Sodium fluoride`, API that day `sodium fluoride`). Capitalizing each word of the current API string reproduces 3697 of 5579 shipped names, so the shipped case is not that transform either. Why the case differs is unknown.
 - **Record count:** 5579.
-- **UNVERIFIED:** 5579 rows. Third-party ChEMBL mirror, not a WHOCC cumulative-alterations file, despite the metadata sentence.
+- **UNVERIFIED:** 5579 rows. Third-party ChEMBL mirror (`who_name`). No ChEMBL release id is stored.
 
 `scripts/fetch-data.js` still documents a different ATC-5 URL (`https://raw.githubusercontent.com/fabkury/atcd/main/WHO%20ATC-DDD%202021-12-03.csv`) and a different ICD-10 URL (`https://raw.githubusercontent.com/nicktacular/icd10/master/data/icd10.json`). It is not wired in `package.json` `scripts`, and the commits above replaced those datasets. It is not the provenance of the current files. Running it would point at those third-party GitHub paths.
 
@@ -182,7 +182,7 @@ These do not seed the terminology tables. Counts use the same rules as above.
 
 | File | What it is | Rows | Provenance |
 |---|---|---:|---|
-| `data/vocabularies/source-metadata.json` | Claim log read by the app and the held-out harness | 11 `sources` entries | Written by import/fetch scripts and later edited by hand in `3ee1d5c` (2026-09-06). `generated_at_utc` is `2026-07-06T05:07:27+00:00`. `record_count` matches the JSON arrays. Version strings often do not; see the sections above. |
+| `data/vocabularies/source-metadata.json` | Claim log read by the app and the held-out harness | 11 `sources` entries | Written by import/fetch scripts and later edited by hand in `3ee1d5c` (2026-09-06). `generated_at_utc` is `2026-07-06T05:07:27+00:00`. `record_count` matches the JSON arrays. ICD-10-CM and ATC version strings match the files. Other version strings often do not; see the sections above. |
 | `data/vocabularies/sources/loinc_top2000_common_us.csv` | LOINC import input | 2181 data rows, 2177 distinct LOINC numbers | Byte-identical to the OHDSI US CSV on 2026-10-29. See LOINC. |
 | `data/vocabularies/sources/icd10_hebrew_stage_a.csv` | Hebrew prefix table | 81 data rows | Curated. See the Hebrew overlay. |
 | `data/vocabularies/sources/README.md` | Pointer for the two CSVs | n/a | Documents the OHDSI mirror and the curated Hebrew file. |
@@ -195,7 +195,7 @@ These do not seed the terminology tables. Counts use the same rules as above.
 | `data/benchmarks/icd9.json` | same | 8 | last content touch `4a5f809` |
 | `data/benchmarks/loinc.json` | same | 10 | `4875e23` |
 | `data/benchmarks/baseline.json` | Old fixture-score snapshot | not a query list | `generated_at` inside the file is `2026-06-27T16:19:46.826Z`. Its `fixture_count` for ICD-10 is 13; `icd10.json` currently has 12 queries. It has no `icd10_hebrew` row. Do not use it as a count of the current fixtures. |
-| `data/eval/heldout-queries.json` | Generated known-item queries | 198 | `scripts/heldout_ir_eval.js`, seed `20260906`, committed in `78dd1b0` (2026-09-06). Derived from bundled `name_en` / `code` values, not from a new upstream download. `generated_from` copies `source-metadata.json`, including the stale FY2026 and WHOCC-CSV strings. |
+| `data/eval/heldout-queries.json` | Generated known-item queries | 198 | `scripts/heldout_ir_eval.js`, seed `20260906`, committed in `78dd1b0` (2026-09-06). Derived from bundled `name_en` / `code` values, not from a new upstream download. `generated_from` copies the ICD-10-CM and ATC-5 provenance strings from `source-metadata.json` (FY2025 order file; ChEMBL ATC API, release unknown). |
 | `data/eval/heldout-report.json` | Scores for those 198 queries | 1 report | Same commit. Output of the harness, not a terminology source. |
 | `data/eval/PROTOCOL.md` | Protocol for the harness | n/a | Same commit. |
 
@@ -203,9 +203,6 @@ Benchmark queries are test fixtures. They are hand-entered, so they are **UNVERI
 
 ## Metadata strings that are not evidence
 
-- ICD-10 `dataset_version` says FY2026. The code set matches the FY2025 order file (74260), not the FY2026 ZIP (74719 under the same parser).
-- ATC-5 `source_revision` says `ATC cumulative alterations CSV` and the URL is a WHOCC page. The writer is `fetch_atc_chembl()`.
-- ATC-1–4 metadata URLs are the same WHOCC page. The writer is the ChEMBL API.
 - LOINC metadata URL is `https://loinc.org/`. The CSV matches the OHDSI GitHub file.
 - ICD-9 metadata URL is the NBER CSV, and `source_revision` says the existing repo snapshot was kept. The bytes match CMS `CMS32_DESC_LONG_DX.txt`.
 - HCPCS metadata names the July 2026 ZIP. The file at that URL on 2026-10-29 is the 2026-06-17 revision and is not the same row set.
@@ -220,7 +217,7 @@ Counts below are the affected rows in the shipped files. Hebrew and alias rows s
 - ATC-2: 90 rows. Third-party ChEMBL mirror, not a WHOCC download. No WHOCC release id.
 - ATC-3: 248 rows. Third-party ChEMBL mirror, not a WHOCC download. No WHOCC release id.
 - ATC-4: 841 rows. Third-party ChEMBL mirror, not a WHOCC download. No WHOCC release id.
-- ATC-5: 5579 rows. Third-party ChEMBL mirror (`who_name`), not a WHOCC download. No WHOCC release id. Metadata still calls this a WHOCC cumulative alterations CSV.
+- ATC-5: 5579 rows. Third-party ChEMBL mirror (`who_name`). No ChEMBL release id is stored.
 - ICD-11 demo: 64 rows. Hand-entered `name_en` and `name_he` (64 and 64). No WHO file, API response, or release id in the repo.
 - ICD-10-CM Hebrew labels: 2489 rows. Curated prefix translations, `source_note` `curated-stage-a-high-frequency`. Not an Israeli Ministry of Health file.
 - LOINC English subset: 600 rows. Third-party OHDSI GitHub mirror, not a Regenstrief download. LOINC release version unknown.

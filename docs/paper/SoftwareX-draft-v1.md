@@ -93,7 +93,7 @@ Software is MIT-licensed (Copyright 2026 Nadav Weisler). Vocabulary files are **
 
 ICD-11 in this repository is a **64-code demo subset**. LOINC in this repository is a **600-code partial subset** (ranked observations imported from a common-panel list, not the full Regenstrief distribution). Do not describe either file as complete.
 
-ATC levels 1–5 are WHOCC ATC/DDD snapshots: WHOCC terms require attribution and preservation of source context; do not redistribute beyond those terms without review, and verify the latest commercial/redistribution terms (`DATA_SOURCES.md`).
+ATC levels 1–5 are an EMBL-EBI ChEMBL extract, derived from the WHO ATC classification. The ChEMBL release is not yet pinned. Attribute ChEMBL and follow the redistribution note in `DATA_SOURCES.md`.
 
 **CPT is not shipped as a scheme.** Official AMA CPT descriptors are not redistributed. The HCPCS Level II snapshot still contains ten official CMS `name_en` strings that mention CPT codes. Those strings are **upstream CMS text**, not an AMA CPT vocabulary. They are not scrubbed. The ten HCPCS codes are:
 
@@ -219,4 +219,4 @@ Use this list in review. If any box cannot be ticked, the manuscript is not read
 - [x] Root package 1.0.0; `@medcode/search` 0.1.0.
 - [x] Related-work citations for UMLS / BioPortal / Athena appear in References as prior art, not bake-off arms.
 - [x] `label_typo` is described as synthetic single-character deletion of official (often CMS short+long) strings, not as misspelling or observed user typos.
-- [x] ATC/WHOCC redistribution terms are stated next to the CPT/LOINC coverage honesty in §2.3.
+- [x] ATC credit (EMBL-EBI ChEMBL, derived from the WHO ATC classification; ChEMBL release not yet pinned) is stated next to the CPT/LOINC coverage honesty in §2.3.

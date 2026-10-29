@@ -62,11 +62,11 @@ Counts are the bundled files in this repo (see [`data/vocabularies/source-metada
 
 | Scheme | Authority | Coverage in this repo |
 |--------|-----------|------------------------|
-| **ATC-1** | WHO/WHOCC | 14 codes (full level-1 snapshot) |
-| **ATC-2** | WHO/WHOCC | 90 codes (full level-2 snapshot) |
-| **ATC-3** | WHO/WHOCC | 248 codes (full level-3 snapshot) |
-| **ATC-4** | WHO/WHOCC | 841 codes (full level-4 snapshot) |
-| **ATC-5** | WHOCC | 5,579 codes (refreshed snapshot) |
+| **ATC-1** | EMBL-EBI ChEMBL, derived from the WHO ATC classification (release not yet pinned) | 14 codes (full level-1 snapshot) |
+| **ATC-2** | EMBL-EBI ChEMBL, derived from the WHO ATC classification (release not yet pinned) | 90 codes (full level-2 snapshot) |
+| **ATC-3** | EMBL-EBI ChEMBL, derived from the WHO ATC classification (release not yet pinned) | 248 codes (full level-3 snapshot) |
+| **ATC-4** | EMBL-EBI ChEMBL, derived from the WHO ATC classification (release not yet pinned) | 841 codes (full level-4 snapshot) |
+| **ATC-5** | EMBL-EBI ChEMBL, derived from the WHO ATC classification (release not yet pinned) | 5,579 codes (refreshed snapshot) |
 | **ICD-10** | CMS / WHO | 74,260 ICD-10-CM codes (valid-for-coding snapshot) |
 | **ICD-9-CM** | NBER / CMS (historical) | 14,567 codes (historical snapshot) |
 | **ICD-11** | WHO | **64-code curated subset** — not full ICD-11 |

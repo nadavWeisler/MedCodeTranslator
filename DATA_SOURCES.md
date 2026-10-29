@@ -4,7 +4,7 @@ _Last updated: 2026-09-06_
 
 | Dataset | Source | URL | License / Terms | Attribution Requirements | Commercial Use Status | Redistribution |
 |---|---|---|---|---|---|---|
-| ATC5 | WHOCC | https://www.whocc.no/atc_ddd_index_and_guidelines/ | WHOCC terms for ATC/DDD material | Attribute WHOCC and preserve source context | Verify terms before commercial release | Do not redistribute beyond terms without review |
+| ATC (levels 1–5) | EMBL-EBI ChEMBL, derived from the WHO ATC classification (ChEMBL release not yet pinned) | https://www.ebi.ac.uk/chembl/api/data/atc_class | ChEMBL terms; release not yet pinned | Attribute EMBL-EBI ChEMBL. Derived from the WHO ATC classification | Verify ChEMBL terms before commercial release | Do not redistribute beyond ChEMBL terms without review |
 | ICD-10-CM | CMS | https://www.cms.gov/medicare/coding-billing/icd-10-codes | U.S. government/public CMS distribution | Cite CMS as source | Generally acceptable for commercial use; verify latest terms | Allowed per source terms; optional Stage-A Hebrew labels (`npm run import:icd10-he`) are curated, not MOH-official |
 | ICD-9-CM (historical) | NBER/CMS public files | https://data.nber.org/data/icd9cm-2022.csv | Public historical distribution (verify at refresh time) | Cite NBER/CMS source URLs | Usually acceptable with attribution | Allowed per source terms |
 | ICD-11 (64-code subset) | WHO | https://icd.who.int/ | Official WHO ICD-11 terms apply to full dataset | Attribute WHO | Full licensing review required for full production distribution | This repo stores a 64-code curated subset, not full ICD-11 |

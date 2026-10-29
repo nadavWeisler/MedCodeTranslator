@@ -178,6 +178,7 @@ See [SAFE_SCOPE.md](./SAFE_SCOPE.md).
 
 ## Related docs
 
+- [Data provenance audit](./data-provenance.md)
 - [ROADMAP.md](./ROADMAP.md)
 - [Architecture](./architecture.md)
 - [Contributing](../CONTRIBUTING.md)

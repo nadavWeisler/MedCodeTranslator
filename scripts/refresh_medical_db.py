@@ -623,6 +623,53 @@ def parse_args() -> argparse.Namespace:
     return parser.parse_args()
 
 
+def build_refresh_metadata(
+    existing: dict | None,
+    fetched_sources: list[dict],
+    generated_at: str,
+) -> dict:
+    """Rebuild refresh metadata without dropping provenance from the committed file.
+
+    Fetched entries overwrite the fields they set (counts, URLs, timestamps).
+    Provenance keys and any other field the fetch does not set stay. Datasets
+    the refresh does not rewrite stay on the source list.
+    """
+    existing = existing or {}
+    existing_sources = [
+        entry
+        for entry in existing.get("sources", [])
+        if isinstance(entry, dict) and entry.get("dataset")
+    ]
+    fetched_by_dataset = {
+        entry.get("dataset"): entry
+        for entry in fetched_sources
+        if isinstance(entry, dict) and entry.get("dataset")
+    }
+    seen: set[str] = set()
+    merged_sources: list[dict] = []
+    for entry in existing_sources:
+        dataset = str(entry["dataset"])
+        seen.add(dataset)
+        fetched = fetched_by_dataset.get(dataset)
+        if not fetched:
+            merged_sources.append(entry)
+            continue
+        merged = dict(entry)
+        merged.update(fetched)
+        merged_sources.append(merged)
+    for dataset, fetched in fetched_by_dataset.items():
+        if dataset not in seen:
+            merged_sources.append(fetched)
+    metadata = {
+        "generated_at_utc": generated_at,
+        "imported_by": "github-actions",
+        "sources": merged_sources,
+    }
+    if "provenance_keys" in existing:
+        metadata["provenance_keys"] = existing["provenance_keys"]
+    return metadata
+
+
 def main() -> int:
     args = parse_args()
     assets_dir: pathlib.Path = args.assets_dir
@@ -759,11 +806,12 @@ def main() -> int:
             }
         )
     else:
-        metadata = {
-            "generated_at_utc": refresh_timestamp,
-            "imported_by": "github-actions",
-            "sources": fetched_meta,
-        }
+        existing_metadata = (
+            json.loads(metadata_path.read_text(encoding="utf-8"))
+            if metadata_path.exists()
+            else {}
+        )
+        metadata = build_refresh_metadata(existing_metadata, fetched_meta, refresh_timestamp)
 
     validation_errors: list[str] = []
     validation_errors.extend(validate_dataset("ATC5", atc5, min_size=50))

@@ -15,7 +15,7 @@
     "test": "jest",
     "build:web": "expo export -p web",
     "refresh:data": "python3 scripts/refresh_medical_db.py --assets-dir data/vocabularies --artifact-dir build/medical-db --report-file build/medical-db/update-report.md",
-    "validate:data": "python3 scripts/refresh_medical_db.py --validate-only --allow-missing-crosswalk --allow-missing-icd10-parents --assets-dir data/vocabularies --artifact-dir build/medical-db --report-file build/medical-db/update-report.md",
+    "validate:data": "python3 scripts/refresh_medical_db.py --validate-only --allow-missing-crosswalk --allow-missing-icd10-parents --assets-dir data/vocabularies --artifact-dir build/medical-db --report-file build/medical-db/update-report.md && node scripts/validate_provenance.js",
     "benchmark": "node agents/search-benchmarker/run_benchmark.js",
     "eval:heldout": "node scripts/heldout_ir_eval.js",
     "eval:heldout:generate": "node scripts/heldout_ir_eval.js --generate",

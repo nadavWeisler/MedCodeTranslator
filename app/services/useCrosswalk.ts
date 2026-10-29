@@ -13,7 +13,7 @@ export type CrosswalkDisplayRow = {
   cardinality: string;
   sourceLabel: string;
   targetLabel: string;
-  mappingSource: 'CMS GEM';
+  mappingSource: 'Agent-authored';
 };
 
 const SCHEME_VERSION_LABELS: Record<'icd9' | 'icd10', string> = {
@@ -33,7 +33,7 @@ function rowToDisplay(row: CrosswalkRow, sourceScheme: 'icd9' | 'icd10'): Crossw
     cardinality: row.cardinality,
     sourceLabel: SCHEME_VERSION_LABELS[sourceScheme],
     targetLabel: SCHEME_VERSION_LABELS[targetScheme],
-    mappingSource: 'CMS GEM',
+    mappingSource: 'Agent-authored',
   };
 }
 
@@ -43,8 +43,7 @@ function rowToDisplay(row: CrosswalkRow, sourceScheme: 'icd9' | 'icd10'): Crossw
  *
  * Returns an empty array for all other schemes.
  *
- * Source: CMS General Equivalence Mappings (GEM),
- * https://www.cms.gov/Medicare/Coding/ICD10/2018-ICD-10-CM-and-GEMs
+ * The bundled crosswalk is an agent-authored sample, not a verified full CMS GEM extract.
  */
 export function useCrosswalk(scheme: SchemeKey, selectedCode: string | null): CrosswalkDisplayRow[] {
   const [rows, setRows] = useState<CrosswalkDisplayRow[]>([]);

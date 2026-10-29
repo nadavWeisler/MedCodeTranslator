@@ -36,8 +36,25 @@ def load_hebrew_labels() -> dict[str, str]:
     return labels
 
 
+def load_translations() -> dict[str, dict]:
+    if not EXISTING_JSON.exists():
+        return {}
+    try:
+        rows = json.loads(EXISTING_JSON.read_text(encoding="utf-8"))
+    except json.JSONDecodeError:
+        return {}
+    translations: dict[str, dict] = {}
+    for row in rows:
+        code = str(row.get("code", "")).strip()
+        translation = row.get("translation")
+        if code and isinstance(translation, dict):
+            translations[code] = translation
+    return translations
+
+
 def import_panel(limit: int = DEFAULT_LIMIT) -> list[dict]:
     hebrew = load_hebrew_labels()
+    translations = load_translations()
     rows: list[dict] = []
     seen: set[str] = set()
 
@@ -49,13 +66,19 @@ def import_panel(limit: int = DEFAULT_LIMIT) -> list[dict]:
             if not code or not name_en or code in seen:
                 continue
             seen.add(code)
-            rows.append(
-                {
-                    "code": code,
-                    "name_en": name_en,
-                    "name_he": hebrew.get(code),
+            name_he = hebrew.get(code)
+            row = {
+                "code": code,
+                "name_en": name_en,
+                "name_he": name_he,
+            }
+            if isinstance(name_he, str) and name_he.strip():
+                row["translation"] = translations.get(code) or {
+                    "method": "Unofficial translation, not validated",
+                    "reviewed": False,
+                    "english_source": "ohdsi-loinc-subset",
                 }
-            )
+            rows.append(row)
             if len(rows) >= limit:
                 break
 
@@ -68,10 +91,10 @@ def update_source_metadata(record_count: int) -> None:
     for source in metadata.get("sources", []):
         if source.get("dataset") != "loinc":
             continue
-        source["dataset_version"] = "LOINC Top 2000+ common panel (US)"
+        source["dataset_version"] = "OHDSI LOINC Top 2000+ US subset (LOINC release unknown)"
         source["source_revision"] = (
-            "Regenstrief LOINC Top 2000+ via OHDSI StudyProtocolSandbox US CSV; "
-            f"imported top {record_count} ranked observations"
+            "OHDSI GitHub CSV LOINC_1.6_Top2000CommonLabResultsUS.csv; "
+            f"first {record_count} ranked observations. Not a Regenstrief download. LOINC release unknown."
         )
         source["record_count"] = record_count
         source["coverage"] = "partial"
@@ -82,8 +105,8 @@ def update_source_metadata(record_count: int) -> None:
             "Subset derived from the public Top 2000+ common lab observations list."
         )
         source["attribution_text"] = (
-            "LOINC® (https://loinc.org) — Regenstrief Institute. "
-            "Common panel subset per LOINC Top 2000+ US list."
+            "LOINC codes and long common names from the OHDSI StudyProtocolSandbox US Top 2000+ CSV. "
+            "LOINC release unknown."
         )
         break
     metadata["generated_at_utc"] = now

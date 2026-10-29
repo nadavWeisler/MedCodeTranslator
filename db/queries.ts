@@ -100,9 +100,8 @@ export async function getEntryByCode(
 }
 
 /**
- * Returns ICD-10 crosswalk rows for a given ICD-9 code.
- * Source: CMS General Equivalence Mappings (GEM),
- * https://www.cms.gov/Medicare/Coding/ICD10/2018-ICD-10-CM-and-GEMs
+ * Returns ICD-10 rows for a given ICD-9 code from the bundled sample crosswalk.
+ * That sample is agent-authored, not a verified full CMS GEM extract.
  */
 export async function getCrosswalkFromIcd9(icd9Code: string): Promise<CrosswalkRow[]> {
   const db = getDB();
@@ -120,9 +119,8 @@ export async function getCrosswalkFromIcd9(icd9Code: string): Promise<CrosswalkR
 }
 
 /**
- * Returns ICD-9 crosswalk rows for a given ICD-10 code.
- * Source: CMS General Equivalence Mappings (GEM),
- * https://www.cms.gov/Medicare/Coding/ICD10/2018-ICD-10-CM-and-GEMs
+ * Returns ICD-9 rows for a given ICD-10 code from the bundled sample crosswalk.
+ * That sample is agent-authored, not a verified full CMS GEM extract.
  */
 export async function getCrosswalkFromIcd10(icd10Code: string): Promise<CrosswalkRow[]> {
   const db = getDB();
@@ -190,7 +188,7 @@ async function crosswalkToConversions(
     targetName: row.target_name,
     isCommon: row.is_one_to_one === 1,
     cardinality: row.cardinality,
-    mappingSource: 'CMS GEM',
+    mappingSource: 'Agent-authored',
     relation: 'crosswalk' as const,
   }));
 }

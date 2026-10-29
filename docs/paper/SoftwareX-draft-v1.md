@@ -93,6 +93,8 @@ Software is MIT-licensed (Copyright 2026 Nadav Weisler). Vocabulary files are **
 
 ICD-11 in this repository is a **64-code demo subset**. LOINC in this repository is a **600-code partial subset** (ranked observations imported from a common-panel list, not the full Regenstrief distribution). Do not describe either file as complete.
 
+Hebrew display strings are not an official translation. 2,489 ICD-10-CM rows and 45 LOINC rows carry `name_he`. Each of those labels has `translation.method` "Unofficial translation, not validated" and `translation.reviewed` false, and links to the English source entry for the same code (the CMS ICD-10-CM page, or `https://loinc.org/<code>`). Git history describes the ICD-10-CM strings as a curated Stage A prefix table (`b1ab149`) and the LOINC strings as labels carried forward from an earlier curated demo (`ce13f8f`). Nothing in the repo shows they were machine-generated, so they are not marked AI-translated. The label text itself was not edited for this provenance pass.
+
 ATC levels 1–5 are an EMBL-EBI ChEMBL extract, derived from the WHO ATC classification. The ChEMBL release is not yet pinned. Attribute ChEMBL and follow the redistribution note in `DATA_SOURCES.md`.
 
 **CPT is not shipped as a scheme.** Official AMA CPT descriptors are not redistributed. The HCPCS Level II snapshot still contains ten official CMS `name_en` strings that mention CPT codes. Those strings are **upstream CMS text**, not an AMA CPT vocabulary. They are not scrubbed. The ten HCPCS codes are:

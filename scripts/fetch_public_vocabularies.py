@@ -406,10 +406,16 @@ def main() -> int:
         ),
     ]
 
+    rewritten = {entry['dataset'] for entry in ordered_sources}
+    preserved = [
+        entry for dataset, entry in existing_sources.items()
+        if dataset not in rewritten
+    ]
     metadata = {
         'generated_at_utc': now,
         'imported_by': 'scripts/fetch_public_vocabularies.py',
-        'sources': ordered_sources,
+        'provenance_keys': existing_metadata.get('provenance_keys', {}),
+        'sources': ordered_sources + preserved,
     }
     write_json(VOCAB_DIR / 'source-metadata.json', metadata)
 

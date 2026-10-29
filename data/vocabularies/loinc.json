@@ -7,12 +7,22 @@
   {
     "code": "718-7",
     "name_en": "Hemoglobin [Mass/volume] in Blood",
-    "name_he": "\u05d4\u05de\u05d5\u05d2\u05dc\u05d5\u05d1\u05d9\u05df \u05d1\u05d3\u05dd"
+    "name_he": "\u05d4\u05de\u05d5\u05d2\u05dc\u05d5\u05d1\u05d9\u05df \u05d1\u05d3\u05dd",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "2823-3",
     "name_en": "Potassium [Moles/volume] in Serum or Plasma",
-    "name_he": "\u05d0\u05e9\u05dc\u05d2\u05df (K) \u05d1\u05e1\u05e8\u05d5\u05dd"
+    "name_he": "\u05d0\u05e9\u05dc\u05d2\u05df (K) \u05d1\u05e1\u05e8\u05d5\u05dd",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "2345-7",
@@ -22,37 +32,72 @@
   {
     "code": "2951-2",
     "name_en": "Sodium [Moles/volume] in Serum or Plasma",
-    "name_he": "\u05e0\u05ea\u05e8\u05df (Na) \u05d1\u05e1\u05e8\u05d5\u05dd"
+    "name_he": "\u05e0\u05ea\u05e8\u05df (Na) \u05d1\u05e1\u05e8\u05d5\u05dd",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "3094-0",
     "name_en": "Urea nitrogen [Mass/volume] in Serum or Plasma",
-    "name_he": "\u05d0\u05d5\u05e8\u05d9\u05d0\u05d4 BUN"
+    "name_he": "\u05d0\u05d5\u05e8\u05d9\u05d0\u05d4 BUN",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "2028-9",
     "name_en": "Carbon dioxide, total [Moles/volume] in Serum or Plasma",
-    "name_he": "\u05d1\u05d9\u05e7\u05e8\u05d1\u05d5\u05e0\u05d8"
+    "name_he": "\u05d1\u05d9\u05e7\u05e8\u05d1\u05d5\u05e0\u05d8",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "2075-0",
     "name_en": "Chloride [Moles/volume] in Serum or Plasma",
-    "name_he": "\u05db\u05dc\u05d5\u05e8\u05d9\u05d3 (Cl)"
+    "name_he": "\u05db\u05dc\u05d5\u05e8\u05d9\u05d3 (Cl)",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "789-8",
     "name_en": "Erythrocytes [#/volume] in Blood by Automated count",
-    "name_he": "\u05e1\u05e4\u05d9\u05e8\u05ea \u05db\u05d3\u05d5\u05e8\u05d9\u05d5\u05ea \u05d3\u05dd \u05d0\u05d3\u05d5\u05de\u05d5\u05ea (RBC)"
+    "name_he": "\u05e1\u05e4\u05d9\u05e8\u05ea \u05db\u05d3\u05d5\u05e8\u05d9\u05d5\u05ea \u05d3\u05dd \u05d0\u05d3\u05d5\u05de\u05d5\u05ea (RBC)",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "786-4",
     "name_en": "Erythrocyte mean corpuscular hemoglobin concentration [Mass/volume] by Automated count",
-    "name_he": "MCHC"
+    "name_he": "MCHC",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "785-6",
     "name_en": "Erythrocyte mean corpuscular hemoglobin [Entitic mass] by Automated count",
-    "name_he": "MCH"
+    "name_he": "MCH",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "17861-6",
@@ -67,17 +112,32 @@
   {
     "code": "4544-3",
     "name_en": "Hematocrit [Volume Fraction] of Blood by Automated count",
-    "name_he": "\u05d4\u05de\u05d8\u05d5\u05e7\u05e8\u05d9\u05d8"
+    "name_he": "\u05d4\u05de\u05d8\u05d5\u05e7\u05e8\u05d9\u05d8",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "6690-2",
     "name_en": "Leukocytes[#/volume] in Blood by Automated count",
-    "name_he": "\u05e1\u05e4\u05d9\u05e8\u05ea \u05db\u05d3\u05d5\u05e8\u05d9\u05d5\u05ea \u05d3\u05dd \u05dc\u05d1\u05e0\u05d5\u05ea (WBC)"
+    "name_he": "\u05e1\u05e4\u05d9\u05e8\u05ea \u05db\u05d3\u05d5\u05e8\u05d9\u05d5\u05ea \u05d3\u05dd \u05dc\u05d1\u05e0\u05d5\u05ea (WBC)",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "1742-6",
     "name_en": "Alanine aminotransferase [Enzymatic activity/volume] in Serum or Plasma",
-    "name_he": "ALT / SGPT"
+    "name_he": "ALT / SGPT",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "787-2",
@@ -87,17 +147,32 @@
   {
     "code": "777-3",
     "name_en": "Platelets [#/volume] in Blood by Automated count",
-    "name_he": "\u05d8\u05e1\u05d9\u05d5\u05ea \u05d3\u05dd"
+    "name_he": "\u05d8\u05e1\u05d9\u05d5\u05ea \u05d3\u05dd",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "1920-8",
     "name_en": "Aspartate aminotransferase [Enzymatic activity/volume] in Serum or Plasma",
-    "name_he": "AST / SGOT"
+    "name_he": "AST / SGOT",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "1751-7",
     "name_en": "Albumin [Mass/volume] in Serum or Plasma",
-    "name_he": "\u05d0\u05dc\u05d1\u05d5\u05de\u05d9\u05df"
+    "name_he": "\u05d0\u05dc\u05d1\u05d5\u05de\u05d9\u05df",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "1975-2",
@@ -107,12 +182,22 @@
   {
     "code": "2885-2",
     "name_en": "Protein [Mass/volume] in Serum or Plasma",
-    "name_he": "\u05d7\u05dc\u05d1\u05d5\u05df \u05db\u05d5\u05dc\u05dc \u05d1\u05e1\u05e8\u05d5\u05dd"
+    "name_he": "\u05d7\u05dc\u05d1\u05d5\u05df \u05db\u05d5\u05dc\u05dc \u05d1\u05e1\u05e8\u05d5\u05dd",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "6768-6",
     "name_en": "Alkaline phosphatase [Enzymatic activity/volume] in Serum or Plasma",
-    "name_he": "\u05e4\u05d5\u05e1\u05e4\u05d8\u05d0\u05d6 \u05d0\u05dc\u05e7\u05dc\u05d9\u05d9\u05df (ALP)"
+    "name_he": "\u05e4\u05d5\u05e1\u05e4\u05d8\u05d0\u05d6 \u05d0\u05dc\u05e7\u05dc\u05d9\u05d9\u05df (ALP)",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "788-0",
@@ -127,7 +212,12 @@
   {
     "code": "33914-3",
     "name_en": "Glomerular filtration rate/1.73 sq M.predicted by Creatinine-based formula (MDRD)",
-    "name_he": "\u05e7\u05e6\u05d1 \u05e1\u05d9\u05e0\u05d5\u05df \u05d2\u05dc\u05d5\u05de\u05e8\u05d5\u05dc\u05e8\u05d9 (eGFR)"
+    "name_he": "\u05e7\u05e6\u05d1 \u05e1\u05d9\u05e0\u05d5\u05df \u05d2\u05dc\u05d5\u05de\u05e8\u05d5\u05dc\u05e8\u05d9 (eGFR)",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "704-7",
@@ -162,7 +252,12 @@
   {
     "code": "26464-8",
     "name_en": "Leukocytes [#/volume] in Blood",
-    "name_he": "\u05dc\u05d5\u05d9\u05e7\u05d5\u05e6\u05d9\u05d8\u05d9\u05dd \u05d1\u05d3\u05dd"
+    "name_he": "\u05dc\u05d5\u05d9\u05e7\u05d5\u05e6\u05d9\u05d8\u05d9\u05dd \u05d1\u05d3\u05dd",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "30428-7",
@@ -202,7 +297,12 @@
   {
     "code": "736-9",
     "name_en": "Lymphocytes/100 leukocytes in Blood by Automated count",
-    "name_he": "MCV - \u05e0\u05e4\u05d7 \u05de\u05de\u05d5\u05e6\u05e2 \u05db\u05d3\u05d5\u05e8\u05d9\u05ea"
+    "name_he": "MCV - \u05e0\u05e4\u05d7 \u05de\u05de\u05d5\u05e6\u05e2 \u05db\u05d3\u05d5\u05e8\u05d9\u05ea",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "706-2",
@@ -212,7 +312,12 @@
   {
     "code": "713-8",
     "name_en": "Eosinophils/100 leukocytes in Blood by Automated count",
-    "name_he": "\u05d0\u05e8\u05d9\u05ea\u05e8\u05d5\u05e6\u05d9\u05d8\u05d9\u05dd \u05e1\u05e4\u05d9\u05e8\u05d4 \u05d9\u05d3\u05e0\u05d9\u05ea"
+    "name_he": "\u05d0\u05e8\u05d9\u05ea\u05e8\u05d5\u05e6\u05d9\u05d8\u05d9\u05dd \u05e1\u05e4\u05d9\u05e8\u05d4 \u05d9\u05d3\u05e0\u05d9\u05ea",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "5905-5",
@@ -262,7 +367,12 @@
   {
     "code": "6301-6",
     "name_en": "INR in Platelet poor plasma by Coagulation assay",
-    "name_he": "INR"
+    "name_he": "INR",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "30180-4",
@@ -287,7 +397,12 @@
   {
     "code": "5778-6",
     "name_en": "Color of Urine",
-    "name_he": "pH \u05e9\u05ea\u05df"
+    "name_he": "pH \u05e9\u05ea\u05df",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "5803-2",
@@ -307,7 +422,12 @@
   {
     "code": "10834-0",
     "name_en": "Globulin [Mass/volume] in Serum by calculation",
-    "name_he": "eGFR (CKD-EPI)"
+    "name_he": "eGFR (CKD-EPI)",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "13457-7",
@@ -357,7 +477,12 @@
   {
     "code": "5794-3",
     "name_en": "Hemoglobin [Presence] in Urine by Test strip",
-    "name_he": "\u05d2\u05dc\u05d5\u05e7\u05d5\u05d6 \u05d1\u05e9\u05ea\u05df"
+    "name_he": "\u05d2\u05dc\u05d5\u05e7\u05d5\u05d6 \u05d1\u05e9\u05ea\u05df",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "5792-7",
@@ -367,7 +492,12 @@
   {
     "code": "5804-0",
     "name_en": "Protein [Mass/volume] in Urine by Test strip",
-    "name_he": "\u05d7\u05dc\u05d1\u05d5\u05df \u05d1\u05e9\u05ea\u05df"
+    "name_he": "\u05d7\u05dc\u05d1\u05d5\u05df \u05d1\u05e9\u05ea\u05df",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "11579-0",
@@ -387,7 +517,12 @@
   {
     "code": "2601-3",
     "name_en": "Magnesium [Moles/volume] in Serum or Plasma",
-    "name_he": "\u05de\u05d2\u05e0\u05d6\u05d9\u05d5\u05dd \u05d1\u05e1\u05e8\u05d5\u05dd"
+    "name_he": "\u05de\u05d2\u05e0\u05d6\u05d9\u05d5\u05dd \u05d1\u05e1\u05e8\u05d5\u05dd",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "5821-4",
@@ -442,12 +577,22 @@
   {
     "code": "5769-5",
     "name_en": "Bacteria [#/area] in Urine sediment by Microscopy high power field",
-    "name_he": "\u05d7\u05d9\u05d9\u05d3\u05e7\u05d9\u05dd \u05d1\u05e9\u05ea\u05df"
+    "name_he": "\u05d7\u05d9\u05d9\u05d3\u05e7\u05d9\u05dd \u05d1\u05e9\u05ea\u05df",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "2157-6",
     "name_en": "Creatine kinase [Enzymatic activity/volume] in Serum or Plasma",
-    "name_he": "\u05e7\u05e8\u05d0\u05d8\u05d9\u05df \u05e7\u05d9\u05e0\u05d0\u05d6 (CK/CPK)"
+    "name_he": "\u05e7\u05e8\u05d0\u05d8\u05d9\u05df \u05e7\u05d9\u05e0\u05d0\u05d6 (CK/CPK)",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "9830-1",
@@ -527,7 +672,12 @@
   {
     "code": "6298-4",
     "name_en": "Potassium [Moles/volume] in Blood",
-    "name_he": "\u05d0\u05e9\u05dc\u05d2\u05df \u05d1\u05d3\u05dd"
+    "name_he": "\u05d0\u05e9\u05dc\u05d2\u05df \u05d1\u05d3\u05dd",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "3107-0",
@@ -562,7 +712,12 @@
   {
     "code": "10839-9",
     "name_en": "Troponin I.cardiac [Mass/volume] in Serum or Plasma",
-    "name_he": "\u05d8\u05e8\u05d5\u05e4\u05d5\u05e0\u05d9\u05df I \u05dc\u05d1\u05d1\u05d9"
+    "name_he": "\u05d8\u05e8\u05d5\u05e4\u05d5\u05e0\u05d9\u05df I \u05dc\u05d1\u05d1\u05d9",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "19773-1",
@@ -617,7 +772,12 @@
   {
     "code": "2857-1",
     "name_en": "Prostate specific Ag [Mass/volume] in Serum or Plasma",
-    "name_he": "PSA (\u05d0\u05e0\u05d8\u05d9\u05d2\u05df \u05e1\u05e4\u05e6\u05d9\u05e4\u05d9 \u05dc\u05e2\u05e8\u05de\u05d5\u05e0\u05d9\u05ea)"
+    "name_he": "PSA (\u05d0\u05e0\u05d8\u05d9\u05d2\u05df \u05e1\u05e4\u05e6\u05d9\u05e4\u05d9 \u05dc\u05e2\u05e8\u05de\u05d5\u05e0\u05d9\u05ea)",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "1971-1",
@@ -642,7 +802,12 @@
   {
     "code": "2947-0",
     "name_en": "Sodium [Moles/volume] in Blood",
-    "name_he": "\u05e0\u05ea\u05e8\u05df \u05d1\u05d3\u05dd"
+    "name_he": "\u05e0\u05ea\u05e8\u05df \u05d1\u05d3\u05dd",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "1994-3",
@@ -682,7 +847,12 @@
   {
     "code": "4537-7",
     "name_en": "Erythrocyte sedimentation rate by Westergren method",
-    "name_he": "\u05e9\u05e7\u05d9\u05e2\u05ea \u05d3\u05dd (ESR)"
+    "name_he": "\u05e9\u05e7\u05d9\u05e2\u05ea \u05d3\u05dd (ESR)",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "8310-5",
@@ -732,7 +902,12 @@
   {
     "code": "14979-9",
     "name_en": "Activated partial thromboplastin time (aPTT) in Platelet poor plasma by Coagulation assay",
-    "name_he": "aPTT"
+    "name_he": "aPTT",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "11277-1",
@@ -767,7 +942,12 @@
   {
     "code": "1988-5",
     "name_en": "C reactive protein [Mass/volume] in Serum or Plasma",
-    "name_he": "CRP \u05e8\u05d2\u05d9\u05e9\u05d5\u05ea \u05d2\u05d1\u05d5\u05d4\u05d4"
+    "name_he": "CRP \u05e8\u05d2\u05d9\u05e9\u05d5\u05ea \u05d2\u05d1\u05d5\u05d4\u05d4",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "5808-1",
@@ -947,7 +1127,12 @@
   {
     "code": "2324-2",
     "name_en": "Gamma glutamyl transferase [Enzymatic activity/volume] in Serum or Plasma",
-    "name_he": "GGT (\u05d2\u05de\u05d0-GT)"
+    "name_he": "GGT (\u05d2\u05de\u05d0-GT)",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "25162-9",
@@ -1057,7 +1242,12 @@
   {
     "code": "14959-1",
     "name_en": "Microalbumin/Creatinine [Mass ratio] in Urine",
-    "name_he": "\u05de\u05d9\u05e7\u05e8\u05d5\u05d0\u05dc\u05d1\u05d5\u05de\u05d9\u05df \u05d1\u05e9\u05ea\u05df"
+    "name_he": "\u05de\u05d9\u05e7\u05e8\u05d5\u05d0\u05dc\u05d1\u05d5\u05de\u05d9\u05df \u05d1\u05e9\u05ea\u05df",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "48346-1",
@@ -1072,7 +1262,12 @@
   {
     "code": "17856-6",
     "name_en": "Hemoglobin A1c/Hemoglobin.total in Blood by HPLC",
-    "name_he": "\u05d4\u05de\u05d5\u05d2\u05dc\u05d5\u05d1\u05d9\u05df \u05de\u05e1\u05d5\u05db\u05e8 (HbA1c)"
+    "name_he": "\u05d4\u05de\u05d5\u05d2\u05dc\u05d5\u05d1\u05d9\u05df \u05de\u05e1\u05d5\u05db\u05e8 (HbA1c)",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "11253-2",
@@ -1352,7 +1547,12 @@
   {
     "code": "10501-5",
     "name_en": "Lutropin [Units/volume] in Serum or Plasma",
-    "name_he": "\u05d5\u05d9\u05d8\u05de\u05d9\u05df B12"
+    "name_he": "\u05d5\u05d9\u05d8\u05de\u05d9\u05df B12",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "19244-3",
@@ -1457,7 +1657,12 @@
   {
     "code": "2888-6",
     "name_en": "Protein [Mass/volume] in Urine",
-    "name_he": "\u05d7\u05dc\u05d1\u05d5\u05df \u05d1\u05e9\u05ea\u05df 24 \u05e9\u05e2\u05d5\u05ea"
+    "name_he": "\u05d7\u05dc\u05d1\u05d5\u05df \u05d1\u05e9\u05ea\u05df 24 \u05e9\u05e2\u05d5\u05ea",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "3393-6",
@@ -1927,7 +2132,12 @@
   {
     "code": "1834-1",
     "name_en": "Alpha-1-Fetoprotein [Mass/volume] in Serum or Plasma",
-    "name_he": "AFP (\u05d0\u05dc\u05e4\u05d0-\u05e4\u05d8\u05d5\u05e4\u05e8\u05d5\u05d8\u05d0\u05d9\u05df)"
+    "name_he": "AFP (\u05d0\u05dc\u05e4\u05d0-\u05e4\u05d8\u05d5\u05e4\u05e8\u05d5\u05d8\u05d0\u05d9\u05df)",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "3167-4",
@@ -2147,7 +2357,12 @@
   {
     "code": "10334-1",
     "name_en": "Cancer Ag 125 [Units/volume] in Serum or Plasma",
-    "name_he": "CEA"
+    "name_he": "CEA",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "34713-8",
@@ -2197,7 +2412,12 @@
   {
     "code": "16128-1",
     "name_en": "Hepatitis C virus Ab [Presence] in Serum",
-    "name_he": "Anti-HCV \u05e0\u05d5\u05d2\u05d3\u05df \u05db\u05e0\u05d3 C"
+    "name_he": "Anti-HCV \u05e0\u05d5\u05d2\u05d3\u05df \u05db\u05e0\u05d3 C",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "14135-8",
@@ -2577,7 +2797,12 @@
   {
     "code": "33762-6",
     "name_en": "Natriuretic peptide.B prohormone [Mass/volume] in Serum or Plasma",
-    "name_he": "NT-proBNP (BNP)"
+    "name_he": "NT-proBNP (BNP)",
+    "translation": {
+      "method": "Unofficial translation, not validated",
+      "reviewed": false,
+      "english_source": "ohdsi-loinc-subset"
+    }
   },
   {
     "code": "48066-5",

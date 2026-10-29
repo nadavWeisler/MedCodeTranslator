@@ -159,17 +159,23 @@ def unique_sorted(entries: list[dict[str, str]]) -> list[dict[str, str]]:
 
 def merge_name_he(current: list[dict[str, str]], previous: list[dict[str, str]]) -> None:
     prev_map: dict[str, str] = {}
+    prev_translation: dict[str, object] = {}
     for row in previous:
         code = normalize_label(row.get("code", "")).upper()
         name_he = row.get("name_he")
         if code and isinstance(name_he, str) and normalize_label(name_he):
             prev_map[code] = normalize_label(name_he)
+            translation = row.get("translation")
+            if isinstance(translation, dict):
+                prev_translation[code] = translation
     for row in current:
         if row.get("name_he"):
             continue
         code = row.get("code")
         if isinstance(code, str) and code in prev_map:
             row["name_he"] = prev_map[code]
+            if code in prev_translation:
+                row["translation"] = prev_translation[code]
 
 
 def parse_icd10_codes_zip(raw: bytes) -> list[dict[str, str]]:

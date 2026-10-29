@@ -53,6 +53,11 @@ def merge_labels(entries: list[dict], labels: list[tuple[str, str]]) -> tuple[in
                 matched_prefixes.add(prefix)
                 break
             row["name_he"] = name_he
+            row["translation"] = {
+                "method": "Unofficial translation, not validated",
+                "reviewed": False,
+                "english_source": "cms-icd10cm-fy2025",
+            }
             updated += 1
             matched_prefixes.add(prefix)
             break

@@ -1,5 +1,5 @@
 {
-  "title": "MedCodeTranslator",
+  "title": "MedCodeTranslator: An Open-Source Offline Medical Terminology Lookup Tool",
   "upload_type": "software",
   "description": "Offline multi-vocabulary medical-code search with transparent ranking. MedCodeTranslator is an offline-capable, open-source search app over bundled vocabularies. It does not send queries to a third party. It is not a crosswalk engine: it searches stored entries and shows how each hit ranked.",
   "creators": [

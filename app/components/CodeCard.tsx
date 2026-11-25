@@ -31,6 +31,7 @@ type Props = {
   onCopyLink?: () => void;
   onCopyCode?: () => void;
   shareNotice?: string | null;
+  onAddToList?: () => void;
 };
 
 export default function CodeCard({
@@ -44,6 +45,7 @@ export default function CodeCard({
   onCopyLink,
   onCopyCode,
   shareNotice = null,
+  onAddToList,
 }: Props) {
   const rtl = isRTL(lang);
   const textAlign = rtl ? 'right' : 'left';
@@ -60,6 +62,7 @@ export default function CodeCard({
     : null;
   const showMetadata = isSelected && metadataRows.length > 0;
   const showShareActions = isSelected && (onCopyLink || onCopyCode);
+  const showActions = showShareActions || !!onAddToList;
   const schemeLabel = entry.scheme
     ? SCHEMES.find(item => item.key === entry.scheme)?.shortLabel ?? entry.scheme.toUpperCase()
     : null;
@@ -142,8 +145,18 @@ export default function CodeCard({
           ))}
         </View>
       )}
-      {showShareActions && (
+      {showActions && (
         <View style={styles.shareRow}>
+          {onAddToList ? (
+            <TouchableOpacity
+              style={[styles.shareBtn, { borderColor: `${schemeColor}35`, backgroundColor: `${schemeColor}10` }]}
+              onPress={onAddToList}
+              accessibilityRole="button"
+              accessibilityLabel={t('code_lists_add_a11y', { code: entry.code })}
+            >
+              <Text style={[styles.shareBtnText, { color: schemeColor }]}>{t('code_lists_add')}</Text>
+            </TouchableOpacity>
+          ) : null}
           {onCopyLink ? (
             <TouchableOpacity
               style={[styles.shareBtn, { borderColor: `${schemeColor}35` }]}

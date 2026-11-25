@@ -39,6 +39,8 @@ type Props = {
   onCopyCode?: () => void;
   shareNotice?: string | null;
   crossSchemeMode?: boolean;
+  onAddEntry?: (entry: CrossSchemeScoredEntry) => void;
+  onAddConversion?: (targetScheme: SchemeKey, targetCode: string) => void;
 };
 
 function getSchemeColor(entry: CrossSchemeScoredEntry, fallback: string): string {
@@ -101,6 +103,8 @@ export default function CodeList({
   onCopyCode,
   shareNotice = null,
   crossSchemeMode = false,
+  onAddEntry,
+  onAddConversion,
 }: Props) {
   const isRTL = checkRTL(lang);
   const sections = groupEntries(entries, crossSchemeMode);
@@ -186,6 +190,13 @@ export default function CodeList({
 
   return (
     <View style={styles.resultsContainer}>
+      <ScrollView
+        style={styles.listView}
+        contentContainerStyle={styles.list}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={Platform.OS !== 'web'}
+        nestedScrollEnabled
+      >
       {selectedKey && !crossSchemeMode && (conversionGroups.length > 0 || conversionsLoading) && onOpenConversion ? (
         <View style={styles.conversionsWrap}>
           <CodeConversionsPanel
@@ -196,6 +207,7 @@ export default function CodeList({
             lang={lang}
             t={t}
             onOpenConversion={onOpenConversion}
+            onAddConversion={onAddConversion}
           />
         </View>
       ) : null}
@@ -204,13 +216,6 @@ export default function CodeList({
           {t('results_count', { count: resultCount === 100 ? '100+' : resultCount })}
         </Text>
       </View>
-      <ScrollView
-        style={styles.listView}
-        contentContainerStyle={styles.list}
-        keyboardShouldPersistTaps="handled"
-        showsVerticalScrollIndicator={Platform.OS !== 'web'}
-        nestedScrollEnabled
-      >
         {sections.map(section => (
           <View key={section.title ?? section.data[0]?.code ?? 'section'}>
             {section.title ? (
@@ -237,6 +242,7 @@ export default function CodeList({
                 onCopyLink={isSelected ? onCopyLink : undefined}
                 onCopyCode={isSelected ? onCopyCode : undefined}
                 shareNotice={isSelected ? shareNotice : null}
+                onAddToList={onAddEntry ? () => onAddEntry(item) : undefined}
               />
             );
             })}
@@ -251,6 +257,7 @@ const styles = StyleSheet.create({
   resultsContainer: {
     flex: 1,
     minHeight: 0,
+    overflow: 'hidden',
     gap: 12,
   },
   conversionsWrap: {

@@ -18,6 +18,7 @@ type Props = {
   lang: string;
   t: (key: string, options?: Record<string, unknown>) => string;
   onOpenConversion: (targetScheme: SchemeKey, targetCode: string) => void;
+  onAddConversion?: (targetScheme: SchemeKey, targetCode: string) => void;
 };
 
 function ConversionRow({
@@ -29,6 +30,7 @@ function ConversionRow({
   targetScheme,
   lang,
   onPress,
+  onAdd,
   t,
 }: {
   targetCode: string;
@@ -39,12 +41,15 @@ function ConversionRow({
   targetScheme: SchemeKey;
   lang: string;
   onPress: () => void;
+  onAdd?: () => void;
   t: Props['t'];
 }) {
   const chip = chipForConversion(relation, targetScheme, targetCode);
   return (
     <View style={styles.row}>
+      <View style={styles.rowTop}>
       <TouchableOpacity
+        style={styles.rowMain}
         onPress={onPress}
         accessibilityRole="button"
         accessibilityLabel={t('conversion_open_a11y', { code: targetCode })}
@@ -63,6 +68,17 @@ function ConversionRow({
           <Text style={styles.rowName} numberOfLines={2}>{targetName}</Text>
         ) : null}
       </TouchableOpacity>
+      {onAdd ? (
+        <TouchableOpacity
+          style={[styles.addBtn, { borderColor: `${targetColor}40` }]}
+          onPress={onAdd}
+          accessibilityRole="button"
+          accessibilityLabel={t('code_lists_add_a11y', { code: targetCode })}
+        >
+          <Text style={[styles.addBtnText, { color: targetColor }]}>{t('code_lists_add')}</Text>
+        </TouchableOpacity>
+      ) : null}
+      </View>
       {chip ? <SourceChip chip={chip} lang={lang} t={t} /> : null}
     </View>
   );
@@ -76,6 +92,7 @@ export default function CodeConversionsPanel({
   lang,
   t,
   onOpenConversion,
+  onAddConversion,
 }: Props) {
   const [expandedGroups, setExpandedGroups] = useState<Set<SchemeKey>>(new Set());
 
@@ -136,6 +153,7 @@ export default function CodeConversionsPanel({
                 targetScheme={row.targetScheme}
                 lang={lang}
                 onPress={() => onOpenConversion(row.targetScheme, row.targetCode)}
+                onAdd={onAddConversion ? () => onAddConversion(row.targetScheme, row.targetCode) : undefined}
                 t={t}
               />
             ))}
@@ -221,6 +239,26 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingVertical: 10,
     gap: 4,
+  },
+  rowTop: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 8,
+  },
+  rowMain: {
+    flex: 1,
+    gap: 4,
+  },
+  addBtn: {
+    borderWidth: 1,
+    borderRadius: radii.md,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    backgroundColor: colors.surfaceRaised,
+  },
+  addBtnText: {
+    fontSize: 11,
+    fontWeight: '700',
   },
   rowCodes: {
     flexDirection: 'row',

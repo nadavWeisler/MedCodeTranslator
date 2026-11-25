@@ -19,4 +19,17 @@ config.watchFolders = [
   path.resolve(__dirname, 'packages'),
 ];
 
+// SheetJS's Node entry pulls in fs/stream. The browser build is what the PWA bundles.
+const sheetBrowserBuild = path.resolve(__dirname, 'node_modules/xlsx/dist/xlsx.full.min.js');
+const upstreamResolveRequest = config.resolver.resolveRequest;
+config.resolver.resolveRequest = (context, moduleName, platform) => {
+  if (moduleName === 'xlsx' || moduleName === 'xlsx/dist/xlsx.full.min.js') {
+    return { filePath: sheetBrowserBuild, type: 'sourceFile' };
+  }
+  if (upstreamResolveRequest) {
+    return upstreamResolveRequest(context, moduleName, platform);
+  }
+  return context.resolveRequest(context, moduleName, platform);
+};
+
 module.exports = config;

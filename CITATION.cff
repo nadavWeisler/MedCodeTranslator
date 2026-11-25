@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it using the metadata from this file."
-title: MedCodeTranslator
+title: "MedCodeTranslator: An Open-Source Offline Medical Terminology Lookup Tool"
 abstract: "Offline multi-vocabulary medical-code search with transparent lexical ranking."
 type: software
 version: "0.1.1"

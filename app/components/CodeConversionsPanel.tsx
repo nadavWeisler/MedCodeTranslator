@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native';
-import type { SchemeKey } from '@medcode/core';
+import type { CodeConversion, SchemeKey } from '@medcode/core';
+import { chipForConversion } from '../../scripts/lib/provenance';
 import { SCHEMES } from './SchemeTabs';
+import SourceChip from './SourceChip';
 import type { ConversionGroup } from '../services/conversionConfig';
 import { spacing } from '../constants/spacing';
 import { colors, radii, typography } from '../constants/theme';
@@ -13,6 +15,7 @@ type Props = {
   loading?: boolean;
   schemeColor: string;
   sourceCode: string;
+  lang: string;
   t: (key: string, options?: Record<string, unknown>) => string;
   onOpenConversion: (targetScheme: SchemeKey, targetCode: string) => void;
 };
@@ -22,7 +25,9 @@ function ConversionRow({
   targetName,
   cardinality,
   targetColor,
-  mappingSource,
+  relation,
+  targetScheme,
+  lang,
   onPress,
   t,
 }: {
@@ -30,32 +35,36 @@ function ConversionRow({
   targetName: string | null;
   cardinality?: string;
   targetColor: string;
-  mappingSource: string;
+  relation: CodeConversion['relation'];
+  targetScheme: SchemeKey;
+  lang: string;
   onPress: () => void;
   t: Props['t'];
 }) {
+  const chip = chipForConversion(relation, targetScheme, targetCode);
   return (
-    <TouchableOpacity
-      style={styles.row}
-      onPress={onPress}
-      accessibilityRole="button"
-      accessibilityLabel={t('conversion_open_a11y', { code: targetCode })}
-    >
-      <View style={styles.rowCodes}>
-        <Text style={[styles.rowCode, { color: targetColor, fontFamily: MONO }]}>
-          {targetCode}
-        </Text>
-        {cardinality && cardinality !== '1:1' ? (
-          <Text style={[styles.cardinality, { borderColor: `${targetColor}40`, color: targetColor }]}>
-            {cardinality}
+    <View style={styles.row}>
+      <TouchableOpacity
+        onPress={onPress}
+        accessibilityRole="button"
+        accessibilityLabel={t('conversion_open_a11y', { code: targetCode })}
+      >
+        <View style={styles.rowCodes}>
+          <Text style={[styles.rowCode, { color: targetColor, fontFamily: MONO }]}>
+            {targetCode}
           </Text>
+          {cardinality && cardinality !== '1:1' ? (
+            <Text style={[styles.cardinality, { borderColor: `${targetColor}40`, color: targetColor }]}>
+              {cardinality}
+            </Text>
+          ) : null}
+        </View>
+        {targetName ? (
+          <Text style={styles.rowName} numberOfLines={2}>{targetName}</Text>
         ) : null}
-      </View>
-      {targetName ? (
-        <Text style={styles.rowName} numberOfLines={2}>{targetName}</Text>
-      ) : null}
-      <Text style={styles.rowSource}>{mappingSource}</Text>
-    </TouchableOpacity>
+      </TouchableOpacity>
+      {chip ? <SourceChip chip={chip} lang={lang} t={t} /> : null}
+    </View>
   );
 }
 
@@ -64,6 +73,7 @@ export default function CodeConversionsPanel({
   loading = false,
   schemeColor,
   sourceCode,
+  lang,
   t,
   onOpenConversion,
 }: Props) {
@@ -122,7 +132,9 @@ export default function CodeConversionsPanel({
                 targetName={row.targetName}
                 cardinality={row.cardinality}
                 targetColor={targetColor}
-                mappingSource={row.mappingSource}
+                relation={row.relation}
+                targetScheme={row.targetScheme}
+                lang={lang}
                 onPress={() => onOpenConversion(row.targetScheme, row.targetCode)}
                 t={t}
               />

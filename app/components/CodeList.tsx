@@ -193,6 +193,7 @@ export default function CodeList({
             loading={conversionsLoading}
             schemeColor={schemeColor}
             sourceCode={selectedKey.split(':').pop() ?? selectedKey}
+            lang={lang}
             t={t}
             onOpenConversion={onOpenConversion}
           />

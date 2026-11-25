@@ -1,7 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Platform, TouchableOpacity } from 'react-native';
-import type { CrossSchemeScoredEntry, SchemeKey } from '@medcode/core';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import type { CrossSchemeScoredEntry } from '@medcode/core';
+import { resolveChip, resolveTranslationChip } from '../../scripts/lib/provenance';
 import { SCHEMES } from './SchemeTabs';
+import SourceChip from './SourceChip';
 import type { MetadataRow } from '../services/useSelectedCodeResult';
 import { isRTL } from '../services/rtl';
 import { spacing } from '../constants/spacing';
@@ -48,8 +50,14 @@ export default function CodeCard({
   const showHebrewPrimary = lang === 'he' && !!entry.name_he;
   const primaryName = showHebrewPrimary ? entry.name_he! : entry.name_en;
   const primaryHighlights = !showHebrewPrimary ? entry.highlights : undefined;
-  const secondaryName = showHebrewPrimary ? entry.name_en : null;
+  const secondaryName = entry.name_he
+    ? (showHebrewPrimary ? entry.name_en : entry.name_he)
+    : null;
   const showEnglishOnlyChip = lang !== 'en' && !entry.name_he;
+  const sourceChip = entry.scheme ? resolveChip(entry.scheme, entry.code, 'record') : null;
+  const translationChip = entry.scheme && entry.name_he
+    ? resolveTranslationChip(entry.scheme, entry.code)
+    : null;
   const showMetadata = isSelected && metadataRows.length > 0;
   const showShareActions = isSelected && (onCopyLink || onCopyCode);
   const schemeLabel = entry.scheme
@@ -60,7 +68,7 @@ export default function CodeCard({
   const scorePercent = Math.round(entry.score * 100);
 
   return (
-    <TouchableOpacity
+    <View
       style={[
         styles.card,
         isSelected && {
@@ -69,13 +77,15 @@ export default function CodeCard({
           borderLeftColor: schemeColor,
         },
       ]}
-      onPress={onPress ? () => onPress(entry) : undefined}
-      activeOpacity={0.85}
-      disabled={!onPress}
-      accessibilityRole={onPress ? 'button' : undefined}
-      accessibilityLabel={onPress ? `Select code ${entry.code}` : undefined}
-      accessibilityState={onPress ? { selected: isSelected } : undefined}
     >
+      <TouchableOpacity
+        onPress={onPress ? () => onPress(entry) : undefined}
+        activeOpacity={0.85}
+        disabled={!onPress}
+        accessibilityRole={onPress ? 'button' : undefined}
+        accessibilityLabel={onPress ? `Select code ${entry.code}` : undefined}
+        accessibilityState={onPress ? { selected: isSelected } : undefined}
+      >
       <View style={styles.row}>
         <View style={[styles.codeBadge, { backgroundColor: `${schemeColor}14`, borderColor: `${schemeColor}28` }]}>
           <Text style={[styles.codeText, { color: schemeColor, fontFamily: MONO }]}>
@@ -109,11 +119,18 @@ export default function CodeCard({
       {secondaryName ? (
         <HighlightedText
           text={secondaryName}
-          highlights={entry.highlights}
+          highlights={showHebrewPrimary ? entry.highlights : undefined}
           style={[styles.altName, rtl ? styles.altNameRtl : styles.altNameLtr]}
           textAlign={textAlign}
-          numberOfLines={1}
+          numberOfLines={2}
         />
+      ) : null}
+      </TouchableOpacity>
+      {sourceChip || translationChip ? (
+        <View style={[styles.chipRow, rtl ? styles.chipRowRtl : null]}>
+          {sourceChip ? <SourceChip chip={sourceChip} lang={lang} t={t} /> : null}
+          {translationChip ? <SourceChip chip={translationChip} lang={lang} t={t} /> : null}
+        </View>
       ) : null}
       {showMetadata && (
         <View style={styles.metadata}>
@@ -150,7 +167,7 @@ export default function CodeCard({
           {shareNotice ? <Text style={styles.shareNotice}>{shareNotice}</Text> : null}
         </View>
       )}
-    </TouchableOpacity>
+    </View>
   );
 }
 
@@ -247,6 +264,16 @@ const styles = StyleSheet.create({
   },
   altNameRtl: {
     marginRight: 4,
+  },
+  chipRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+    marginTop: 10,
+  },
+  chipRowRtl: {
+    flexDirection: 'row-reverse',
+    justifyContent: 'flex-start',
   },
   metadata: {
     marginTop: 10,

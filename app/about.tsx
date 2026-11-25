@@ -53,7 +53,7 @@ export default function AboutScreen() {
               ) : null}
               <Text style={styles.sourceMeta}>Attribution: {source.attribution_text ?? 'See source terms'}</Text>
               <Text style={styles.sourceMeta}>License: {source.license_text ?? 'See source terms'}</Text>
-              <Text style={styles.sourceUrl}>{source.url}</Text>
+              {source.url ? <Text style={styles.sourceUrl}>{source.url}</Text> : null}
             </View>
           ))}
         </ScrollView>

@@ -226,3 +226,19 @@ Counts below are the affected rows in the shipped files. Hebrew and alias rows s
 - ICD-10 to ICD-11 common mappings: 30 rows. Hand-entered. The `mapping_source` string is not a WHO download.
 - Search aliases: 35 entries. Hand-entered abbreviations and brand names.
 - Benchmark query fixtures: 74 queries. Hand-authored expected-code lists under `data/benchmarks/` (not including `baseline.json`).
+
+## Machine-readable keys
+
+After this audit, `source-metadata.json` gained a `provenance_keys` map. Each shipped dataset's `provenance_key` is the source reference for every row in that file. Long citations stay on the key. Vocabulary `code`, `name_en`, and `name_he` strings were not edited.
+
+`hebrew_label_count` for ICD-10-CM is 2489, matching the non-empty `name_he` values. It was 2476 in the audit above.
+
+Hebrew labels on ICD-10-CM (2,489) and LOINC (45) now carry per-record `translation`:
+
+```json
+{ "method": "Unofficial translation, not validated", "reviewed": false, "english_source": "<dataset provenance_key>" }
+```
+
+`english_source` is the English record's provenance key, which links to the CMS ICD-10-CM page or `https://loinc.org/<code>`. A translated label with no such link fails `npm run validate:data`. ICD-11 Hebrew titles are part of the hand-entered demo, not this translation overlay.
+
+The method is not `AI-translated`. `b1ab149` added `data/vocabularies/sources/icd10_hebrew_stage_a.csv` with `source_note` `curated-stage-a-high-frequency`, and `scripts/import_icd10_hebrew_labels.py` calls the table curated. LOINC Hebrew was copied from the pre-`ce13f8f` curated demo. No commit, script, or source file records a model or machine translation.

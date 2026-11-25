@@ -133,6 +133,7 @@ After any vocabulary change, update `data/vocabularies/source-metadata.json`:
 | `dataset_version` | Upstream version changes |
 | `last_updated_utc` / `retrieved_at_utc` | Every refresh |
 | `coverage` | `full`, `partial`, or `demo` — must reflect actual bundle |
+| `provenance_key` | Every shipped dataset. Must exist in `provenance_keys` |
 
 Also sync `assets/data/source-metadata.json` if the app reads from assets at runtime.
 

@@ -32,7 +32,10 @@ function xlsx(): XlsxModule {
 export function parseImportText(text: string): ParsedCodeRow[] {
   const trimmed = text.replace(/^\uFEFF/, '').trim();
   if (!trimmed) return [];
-  if (looksLikeTable(trimmed)) return rowsToCodes(parseDelimited(trimmed));
+  if (trimmed.includes(',') || trimmed.includes('\t')) {
+    const rows = parseDelimited(trimmed);
+    if (isCodeTableHeader(rows[0])) return rowsToCodes(rows);
+  }
   return parseFreeCodes(trimmed);
 }
 
@@ -112,11 +115,9 @@ export function parseFreeCodes(text: string): ParsedCodeRow[] {
     .map(code => ({ code }));
 }
 
-function looksLikeTable(text: string): boolean {
-  const first = text.split(/\r?\n/, 1)[0] ?? '';
-  if (!first.includes(',') && !first.includes('\t')) return false;
-  const delimiter = first.includes('\t') && !first.includes(',') ? '\t' : ',';
-  const cells = splitPlain(first, delimiter).map(cell => cell.trim().toLowerCase().replace(/^\uFEFF/, ''));
+function isCodeTableHeader(row: string[] | undefined): boolean {
+  if (!row) return false;
+  const cells = row.map(cell => cell.trim().toLowerCase().replace(/^\uFEFF/, ''));
   return cells.includes('code') || cells.includes('codes') || cells.includes('scheme');
 }
 
@@ -166,10 +167,6 @@ function parseDelimited(text: string): string[][] {
   row.push(cell.trim());
   if (row.some(value => value !== '')) rows.push(row);
   return rows;
-}
-
-function splitPlain(line: string, delimiter: string): string[] {
-  return line.split(delimiter);
 }
 
 export function rowsToCodes(rows: readonly string[][]): ParsedCodeRow[] {

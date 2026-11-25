@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   View,
   Text,
@@ -254,7 +254,7 @@ function GroupCard({
   );
 }
 
-function NoteField({
+export function NoteField({
   value,
   placeholder,
   textAlign,
@@ -266,6 +266,9 @@ function NoteField({
   onCommit: (note: string) => void;
 }) {
   const [text, setText] = useState(value);
+  useEffect(() => {
+    setText(value);
+  }, [value]);
   return (
     <TextInput
       value={text}

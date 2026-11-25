@@ -27,6 +27,18 @@ describe('code import parsing', () => {
     expect(parseImportText('F32.0, E11.9\nA10BA02').map(row => row.code)).toEqual(['F32.0', 'E11.9', 'A10BA02']);
   });
 
+  it('parses quoted csv headers before treating the text as free codes', () => {
+    const rows = parseImportText('"Scheme","Code","Note"\n"atc5","A10BA02","primary"\n');
+    expect(rows).toEqual([
+      { code: 'A10BA02', scheme: 'atc5', note: 'primary' },
+    ]);
+    const review = resolveImportRows(rows, 'icd10', index);
+    expect(review.items).toEqual([
+      { scheme: 'atc5', code: 'A10BA02', description: 'metformin', note: 'primary' },
+    ]);
+    expect(review.unknown).toEqual([]);
+  });
+
   it('parses a csv header into code, scheme, and note', () => {
     const rows = parseImportText('Code,Scheme,Note\nF32.0,icd10,"primary, episode"\nE11.9,ICD-10-CM,\n');
     expect(rows).toEqual([

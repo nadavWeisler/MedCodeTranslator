@@ -2,6 +2,7 @@ import { Stack } from 'expo-router';
 import { useEffect, useState } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import { initDB } from '../db/database';
+import { CodeListsProvider } from './services/codeLists/CodeListsProvider';
 import '../i18n';
 
 SplashScreen.preventAutoHideAsync();
@@ -25,12 +26,14 @@ export default function RootLayout() {
   if (!ready) return null;
 
   return (
-    <Stack screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="index" />
-      <Stack.Screen name="app/index" />
-      <Stack.Screen name="about" />
-      <Stack.Screen name="legal/terms" />
-      <Stack.Screen name="legal/privacy" />
-    </Stack>
+    <CodeListsProvider>
+      <Stack screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="app/index" />
+        <Stack.Screen name="about" />
+        <Stack.Screen name="legal/terms" />
+        <Stack.Screen name="legal/privacy" />
+      </Stack>
+    </CodeListsProvider>
   );
 }

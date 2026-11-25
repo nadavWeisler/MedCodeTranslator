@@ -37,6 +37,8 @@ import { spacing } from '../constants/spacing';
 import { colors, radii, shadows, typography } from '../constants/theme';
 import { getSearchExamples } from '../constants/searchExamples';
 import { buildShareUrl, copyToClipboard, formatCodeDescription } from '../services/share';
+import CodeListsPanel from '../components/CodeListsPanel';
+import { useCodeLists } from '../services/codeLists/CodeListsProvider';
 
 type Language = 'en' | 'he' | 'es' | 'fr' | 'de' | 'ar' | 'pt' | 'zh' | 'ru';
 const LANGUAGES: { code: Language; label: string; name: string }[] = [
@@ -63,6 +65,7 @@ function firstParam(v: string | string[] | undefined): string | undefined {
 
 export default function HomeScreen() {
   const { t } = useTranslation();
+  const codeLists = useCodeLists();
   const router = useRouter();
   const params = useLocalSearchParams<{ q?: string | string[]; scheme?: string | string[]; lang?: string | string[]; code?: string | string[]; mode?: string | string[] }>();
 
@@ -578,6 +581,8 @@ export default function HomeScreen() {
             </View>
 
             <View style={[styles.resultsCol, isMobile && styles.resultsColMobile]}>
+              <CodeListsPanel defaultScheme={crossSchemeMode ? 'icd10' : scheme} />
+              <View style={styles.resultsPane}>
               {!isMobile ? (
                 <View style={styles.resultsTitleWrap}>
                   <Text style={styles.resultsTitleMinimal}>
@@ -616,8 +621,17 @@ export default function HomeScreen() {
                   onCopyLink={selectedEntry ? handleCopyLink : undefined}
                   onCopyCode={selectedEntry ? handleCopyCode : undefined}
                   shareNotice={shareNotice}
+                  onAddEntry={entry => codeLists.requestAdd({
+                    scheme: entry.scheme ?? scheme,
+                    code: entry.code,
+                  })}
+                  onAddConversion={(targetScheme, targetCode) => codeLists.requestAdd({
+                    scheme: targetScheme,
+                    code: targetCode,
+                  })}
                 />
               )}
+              </View>
             </View>
           </View>
         </View>
@@ -798,6 +812,7 @@ const styles = StyleSheet.create({
   shellInner: {
     flex: 1,
     minHeight: 0,
+    overflow: 'hidden',
     padding: spacing.lg,
     gap: 14,
   },
@@ -850,6 +865,14 @@ const styles = StyleSheet.create({
   resultsCol: {
     flex: 1,
     minHeight: 0,
+    overflow: 'hidden',
+    gap: 10,
+  },
+  resultsPane: {
+    flex: 1,
+    minHeight: 0,
+    minWidth: 0,
+    overflow: 'hidden',
     gap: 10,
   },
   resultsColMobile: {

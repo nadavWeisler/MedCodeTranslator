@@ -197,4 +197,56 @@ describe('CodeList', () => {
     fireEvent.press(getByText('E11.9'));
     expect(onOpenConversion).toHaveBeenCalledWith('icd10', 'E11.9');
   });
+
+  it('adds a search result or a related code to a code list', () => {
+    const onAddEntry = jest.fn();
+    const onAddConversion = jest.fn();
+    const { getAllByText, getByText } = render(
+      <CodeList
+        entries={[S('E11.9', 'Type 2 diabetes mellitus without complications')]}
+        query="E11.9"
+        lang="en"
+        t={t}
+        schemeColor="#7c3aed"
+        resultCount={1}
+        selectedKey="E11.9"
+        onAddEntry={onAddEntry}
+        onAddConversion={onAddConversion}
+        conversionGroups={[{
+          targetScheme: 'icd9',
+          targetLabel: 'ICD-9-CM',
+          conversions: [{
+            sourceScheme: 'icd10',
+            targetScheme: 'icd9',
+            sourceCode: 'E11.9',
+            targetCode: '25000',
+            targetName: 'Diabetes mellitus',
+            isCommon: true,
+            cardinality: '1:1',
+            mappingSource: 'CMS GEM',
+            relation: 'crosswalk',
+          }],
+          commonConversions: [{
+            sourceScheme: 'icd10',
+            targetScheme: 'icd9',
+            sourceCode: 'E11.9',
+            targetCode: '25000',
+            targetName: 'Diabetes mellitus',
+            isCommon: true,
+            cardinality: '1:1',
+            mappingSource: 'CMS GEM',
+            relation: 'crosswalk',
+          }],
+          hiddenCount: 0,
+        }]}
+        onOpenConversion={jest.fn()}
+      />
+    );
+
+    fireEvent.press(getAllByText('code_lists_add')[0]);
+    expect(onAddConversion).toHaveBeenCalledWith('icd9', '25000');
+    fireEvent.press(getAllByText('code_lists_add')[1]);
+    expect(onAddEntry).toHaveBeenCalledWith(expect.objectContaining({ code: 'E11.9' }));
+    expect(getByText('E11.9')).toBeTruthy();
+  });
 });
